@@ -38,19 +38,20 @@ interface UpdateAnswerUseCase {
             checkDetails.voices.forEach { voice ->
                 if (voice.local) {
                     if (mediaDataService.attachToEntity(
-                        accessToken = token,
-                        idEntity = check.id,
-                        typeContent = "voiceData",
-                        entityTypeName = "DrCheckListItem",
-                        alias = "",
-                        tag = 0,
-                        file = MultipartBody.Part.createFormData(
-                            name = "file",
-                            filename = fileExplorer.audioFile(voice.id).name,
-                            body = fileExplorer.audioFile(voice.id)
-                                .asRequestBody("audio/*".toMediaTypeOrNull())
-                        )
-                    ).result?.status != StatusResult.SUCCESS) {
+                            accessToken = token,
+                            idEntity = check.id,
+                            typeContent = "voiceData",
+                            entityTypeName = "DrCheckListItem",
+                            alias = "voice ${voice.id}",
+                            tag = 0,
+                            file = MultipartBody.Part.createFormData(
+                                name = "file",
+                                filename = fileExplorer.audioFile(voice.id).name,
+                                body = fileExplorer.audioFile(voice.id)
+                                    .asRequestBody("audio/*".toMediaTypeOrNull())
+                            )
+                        ).result?.status != StatusResult.SUCCESS
+                    ) {
                         throw ToastedException(R.string.failure)
                     }
                 } else {
@@ -70,7 +71,7 @@ interface UpdateAnswerUseCase {
                             idEntity = check.id,
                             typeContent = "image",
                             entityTypeName = "DrCheckListItem",
-                            alias = "",
+                            alias = "image ${picture.id}",
                             tag = 0,
                             file = MultipartBody.Part.createFormData(
                                 name = "file",

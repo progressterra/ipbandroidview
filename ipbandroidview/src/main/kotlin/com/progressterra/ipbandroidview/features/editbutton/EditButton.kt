@@ -26,7 +26,7 @@ fun EditButton(
             .fillMaxWidth()
             .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+            .padding(8.dp)
     ) {
         if (state.editing) {
             Button(

@@ -27,8 +27,7 @@ interface CheckMediaDetailsUseCase {
         makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources,
         private val fileExplorer: FileExplorer,
-        private val mediaDataService: IPBMediaDataService,
-        private val gson: Gson
+        private val mediaDataService: IPBMediaDataService
     ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         CheckMediaDetailsUseCase {
 
@@ -49,13 +48,12 @@ interface CheckMediaDetailsUseCase {
                 )
             ).dataList?.forEach { item ->
                 if (item.contentType == TypeContent.IMAGE) {
-                    val sizes = gson.fromJson(item.dataJSON, ImageData::class.java).list
                     pictures.add(
                         MultisizedImage(
                             id = item.idUnique!!,
                             local = false,
                             toRemove = false,
-                            url = sizes.first { it.sizeType == 1 }.url
+                            url = item.urlData!!
                         )
                     )
                 } else if (item.contentType == TypeContent.VOICE_DATA && voices.size == 0) {
@@ -77,16 +75,6 @@ interface CheckMediaDetailsUseCase {
             CurrentCheckMedia(
                 voices = voices,
                 pictures = pictures
-            )
-        }
-
-        data class ImageData(
-            @SerializedName("listInfoImage") val list: List<Item>
-        ) {
-
-            data class Item(
-                @SerializedName("URL") val url: String,
-                @SerializedName("SizeType") val sizeType: Int
             )
         }
 

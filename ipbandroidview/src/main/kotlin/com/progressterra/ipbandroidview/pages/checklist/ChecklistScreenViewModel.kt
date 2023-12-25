@@ -4,7 +4,6 @@ import android.Manifest
 import com.progressterra.ipbandroidview.entities.AuditDocument
 import com.progressterra.ipbandroidview.entities.Check
 import com.progressterra.ipbandroidview.entities.ChecklistStatus
-import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.voice.VoiceState
@@ -24,7 +23,6 @@ import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -64,12 +62,6 @@ class ChecklistScreenViewModel(
         }
     }
 
-    fun removePhoto(picture: MultisizedImage) {
-        onBackground {
-            emitState { it.removeImage(picture) }
-        }
-    }
-
     override fun handle(event: TopBarEvent) {
         postEffect(ChecklistScreenEffect.OnBack)
     }
@@ -80,7 +72,7 @@ class ChecklistScreenViewModel(
             checkMediaDetailsUseCase(currentState.currentCheckState.check).onSuccess { media ->
                 emitState {
                     it.updateMedia(media)
-                        .updateComment(currentState.currentCheckState.check.comment)
+                        .updateComment(it.currentCheckState.check.comment)
                         .updateCheckScreenState(ScreenState.SUCCESS)
                 }
                 if (media.voices.isNotEmpty()) {
@@ -96,7 +88,6 @@ class ChecklistScreenViewModel(
 
     private fun refreshChecklist() {
         onBackground {
-            log("CHECK", "state: $currentState")
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var newChecks: List<Check> = emptyList()
             var isSuccess = true
@@ -125,7 +116,6 @@ class ChecklistScreenViewModel(
 
     override fun handle(event: ChecklistScreenEvent) {
         onBackground {
-
             when (event) {
                 is ChecklistScreenEvent.OnCheck -> {
                     emitState { it.updateCurrentCheck(event.check) }
@@ -133,8 +123,7 @@ class ChecklistScreenViewModel(
                     onYesNoUpdate()
                 }
 
-                is ChecklistScreenEvent.OnImage -> ChecklistScreenEffect.OnImage(event.image)
-
+                is ChecklistScreenEvent.OnImage -> postEffect(ChecklistScreenEffect.OnImage(event.image.url))
 
                 is ChecklistScreenEvent.OpenCamera -> makePhotoUseCase().onSuccess { image ->
                     emitState { it.addImage(image) }
@@ -162,12 +151,7 @@ class ChecklistScreenViewModel(
                                 it.updateVoiceState(VoiceState.Player(false, 0f))
                             }
                             else emitState {
-                                it.updateVoiceState(
-                                    VoiceState.Player(
-                                        true,
-                                        progress
-                                    )
-                                )
+                                it.updateVoiceState(VoiceState.Player(true, progress))
                             }
                         }
                         if (result.isFailure) break
@@ -260,7 +244,7 @@ class ChecklistScreenViewModel(
 
     private fun onYesNoUpdate() {
         onBackground {
-            emitState { it.updateReadyAvailable(currentState.currentCheckState.check.yesNo != null) }
+            emitState { it.updateReadyAvailable(it.currentCheckState.check.yesNo != null) }
         }
     }
 }

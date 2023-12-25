@@ -14,6 +14,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,6 +63,11 @@ fun OverviewScreen(
             HorizontalPager(state = pagerState, pageSpacing = 16.dp) { pageNumber ->
                 val lazyItems =
                     (if (pageNumber == 0) state.ongoing else state.archived).collectAsLazyPagingItems()
+                if (pageNumber == 0) {
+                    LaunchedEffect(lazyItems.itemCount) {
+                        useComponent.handle(OverviewEvent.UpdateOngoingCounter(lazyItems.itemCount))
+                    }
+                }
                 val cardBackground =
                     if (pageNumber == 0) IpbTheme.colors.tertiary.asBrush() else IpbTheme.colors.surface.asBrush()
                 LazyColumn(
@@ -92,7 +98,11 @@ fun OverviewScreen(
                                         style = IpbTheme.typography.body,
                                         tint = IpbTheme.colors.textTertiary.asBrush()
                                     )
-                                    Stats(modifier = Modifier.width(200.dp), stats = it.stats, arrangement = Arrangement.SpaceBetween)
+                                    Stats(
+                                        modifier = Modifier.width(200.dp),
+                                        stats = it.stats,
+                                        arrangement = Arrangement.SpaceBetween
+                                    )
                                 }
                                 BrushedIcon(
                                     modifier = Modifier.size(width = 10.dp, height = 17.dp),

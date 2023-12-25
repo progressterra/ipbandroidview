@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.processes.checklist
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistService
 import com.progressterra.ipbandroidapi.api.checklist.models.FilterAndSort
+import com.progressterra.ipbandroidapi.api.checklist.models.SortData
+import com.progressterra.ipbandroidapi.api.checklist.models.TypeVariantSort
 import com.progressterra.ipbandroidview.entities.ChecklistDocument
 import com.progressterra.ipbandroidview.entities.toChecklistDocument
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
@@ -36,7 +38,10 @@ class ArchivedAuditsSource(
         val response = checklistService.allDocuments(
             token, FilterAndSort(
                 listFields = emptyList(),
-                sort = null,
+                sort = SortData(
+                    fieldName = "dateEnd",
+                    variantSort = TypeVariantSort.DESC
+                ),
                 searchData = "",
                 skip = skip,
                 take = take

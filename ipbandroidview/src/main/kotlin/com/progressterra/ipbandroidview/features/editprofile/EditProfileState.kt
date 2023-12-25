@@ -4,5 +4,6 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class EditProfileState(
-    val profileImage: String = ""
+    val profileImage: String = "",
+    val editing: Boolean = false
 )

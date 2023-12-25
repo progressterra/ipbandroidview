@@ -11,7 +11,8 @@ import org.koin.androidx.compose.koinViewModel
 @Suppress("unused")
 class OverviewNode(
     buildContext: BuildContext,
-    private val navigation: OverviewScreenNavigation
+    private val navigation: OverviewScreenNavigation,
+    private val updateOngoingCounter: (Int) -> Unit
 ) : Node(
     buildContext
 ) {
@@ -22,6 +23,7 @@ class OverviewNode(
         viewModel.collectEffects {
             when (it) {
                 is OverviewEffect.OnChecklist -> navigation.onChecklist(it.data)
+                is OverviewEffect.UpdateOngoingCounter -> updateOngoingCounter(it.counter)
             }
         }
         val state = viewModel.state.collectAsState().value

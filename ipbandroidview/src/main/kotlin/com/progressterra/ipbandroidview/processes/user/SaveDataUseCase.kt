@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import java.time.ZoneOffset
@@ -73,13 +74,14 @@ interface SaveDataUseCase {
                     }
                 }
             }
+            log("USER", "DATA: $UserData")
             scrmService.postClient(
                 token = token,
                 body = ClientsEntity(
                     name = UserData.userName.name,
                     soname = UserData.userName.soname,
                     patronymic = UserData.userName.patronymic,
-                    dateOfBirth = UserData.dateOfBirthday,
+                    dateOfBirth = UserData.dateOfBirthday.ifEmpty { "0001-01-01T00:00:00.000Z" },
                     sex = when (income.sex) {
                         Sex.FEMALE -> TypeSex.FEMALE
                         Sex.MALE -> TypeSex.MALE

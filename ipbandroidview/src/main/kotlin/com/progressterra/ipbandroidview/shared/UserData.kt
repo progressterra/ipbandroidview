@@ -2,11 +2,11 @@ package com.progressterra.ipbandroidview.shared
 
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonPref
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DEFAULT_ID
 import com.progressterra.ipbandroidview.entities.Address
 import com.progressterra.ipbandroidview.entities.Citizenship
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DEFAULT_ID
 
-object UserData : KotprefModel() {
+data object UserData : KotprefModel() {
 
     var idUnique by stringPref(DEFAULT_ID)
     var deviceId by stringPref(DEFAULT_ID)
@@ -20,6 +20,7 @@ object UserData : KotprefModel() {
     var fcmToken by stringPref()
     var fcmTokenSent by booleanPref()
     var sex by intPref()
+
     /**
      * ZDT ISO
      */

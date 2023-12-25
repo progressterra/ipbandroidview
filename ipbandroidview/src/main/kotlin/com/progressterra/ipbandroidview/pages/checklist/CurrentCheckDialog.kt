@@ -4,8 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -62,7 +62,7 @@ fun CurrentCheckDialog(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 56.dp)
+                    .height(48.dp)
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
@@ -79,7 +79,7 @@ fun CurrentCheckDialog(
                     onClick = { scope.launch { sheetState.hide() } }
                 ) {
                     BrushedIcon(
-                        modifier = modifier,
+                        modifier = Modifier,
                         tint = IpbTheme.colors.iconTertiary.asBrush(),
                         resId = R.drawable.ic_cancel
                     )
@@ -182,20 +182,18 @@ fun CurrentCheckDialog(
                         })
                 }
                 if (state.status.isOngoing()) {
-                    Row(Modifier.padding(horizontal = 8.dp)) {
-                        Button(
-                            modifier = Modifier.fillMaxWidth(),
-                            state = state.ready,
-                            title = stringResource(R.string.ready),
-                            useComponent = object : UseButton {
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.ready,
+                        title = stringResource(R.string.ready),
+                        useComponent = object : UseButton {
 
-                                override fun handle(event: ButtonEvent) {
-                                    scope.launch { sheetState.hide() }
-                                    useComponent.handle(event)
-                                }
+                            override fun handle(event: ButtonEvent) {
+                                scope.launch { sheetState.hide() }
+                                useComponent.handle(event)
                             }
-                        )
-                    }
+                        }
+                    )
                 }
             }
         },

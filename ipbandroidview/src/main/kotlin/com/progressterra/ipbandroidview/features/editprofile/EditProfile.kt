@@ -34,7 +34,7 @@ fun EditProfile(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(EditProfileEvent) }
+            .niceClickable(state.editing) { useComponent.handle(EditProfileEvent) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -45,16 +45,19 @@ fun EditProfile(
                 .size(80.dp),
             backgroundColor = IpbTheme.colors.surface.asColor()
         )
-        Spacer(modifier = Modifier.width(20.dp))
-        BrushedText(
-            text = stringResource(id = R.string.change_avatar),
-            style = IpbTheme.typography.subHeadlineBold,
-            tint = IpbTheme.colors.textTertiary.asBrush()
-        )
-        BrushedIcon(
-            resId = R.drawable.ic_edit,
-            tint = IpbTheme.colors.textTertiary.asBrush()
-        )
+        if (state.editing) {
+            Spacer(modifier = Modifier.width(20.dp))
+            BrushedText(
+                text = stringResource(id = R.string.change_avatar),
+                style = IpbTheme.typography.subHeadlineBold,
+                tint = IpbTheme.colors.textTertiary.asBrush()
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            BrushedIcon(
+                resId = R.drawable.ic_edit,
+                tint = IpbTheme.colors.textTertiary.asBrush()
+            )
+        }
     }
 }
 

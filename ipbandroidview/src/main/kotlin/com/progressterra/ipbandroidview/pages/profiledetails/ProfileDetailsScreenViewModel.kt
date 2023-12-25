@@ -60,7 +60,8 @@ class ProfileDetailsScreenViewModel(
                             soname = editUser.soname.copy(enabled = false),
                             patronymic = editUser.patronymic.copy(enabled = false),
                             sexEnabled = false
-                        ), screen = it.screen.copy(state = ScreenState.SUCCESS)
+                        ), screen = it.screen.copy(state = ScreenState.SUCCESS),
+                        editButton = it.editButton.copy(editing = false)
                     )
                 }
             }.onFailure { isSuccess = false }
@@ -97,7 +98,8 @@ class ProfileDetailsScreenViewModel(
                                 patronymic = it.editUser.patronymic.copy(enabled = false),
                                 sexEnabled = false
                             ),
-                            editButton = it.editButton.copy(editing = false)
+                            editButton = it.editButton.copy(editing = false),
+                            editProfile = it.editProfile.copy(editing = false)
                         )
                     }
                 }
@@ -112,7 +114,8 @@ class ProfileDetailsScreenViewModel(
                             patronymic = it.editUser.patronymic.copy(enabled = true),
                             sexEnabled = true
                         ),
-                        editButton = it.editButton.copy(editing = true)
+                        editButton = it.editButton.copy(editing = true),
+                        editProfile = it.editProfile.copy(editing = true)
                     )
                 }
 
