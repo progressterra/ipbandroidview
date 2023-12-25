@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes.checklist
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistService
+import com.progressterra.ipbandroidview.processes.SilentException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
@@ -22,7 +23,7 @@ interface FetchExistingAuditUseCase {
             idPlace: String,
             idChecklist: String
         ): Result<String> = withToken { token ->
-            checklistService.activeDoc(token, idPlace, idChecklist).data?.idUnique!!
+            checklistService.activeDoc(token, idPlace, idChecklist).data?.idUnique ?: throw SilentException()
         }
     }
 }

@@ -74,7 +74,6 @@ interface SaveDataUseCase {
                     }
                 }
             }
-            log("USER", "DATA: $UserData")
             scrmService.postClient(
                 token = token,
                 body = ClientsEntity(

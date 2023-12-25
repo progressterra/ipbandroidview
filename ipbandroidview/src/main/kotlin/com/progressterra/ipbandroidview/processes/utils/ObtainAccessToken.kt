@@ -19,10 +19,8 @@ interface ObtainAccessToken {
 
         override suspend fun invoke(): Result<String> = runCatching {
             if (!UserData.clientExist) {
-                log("AUTH", "Client not exist")
                 return@runCatching IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER
             }
-            log("AUTH", "Client exist")
             val locationResult = provideLocationUseCase()
             authService.accessToken(
                 IncomeDataCreateAccessToken(

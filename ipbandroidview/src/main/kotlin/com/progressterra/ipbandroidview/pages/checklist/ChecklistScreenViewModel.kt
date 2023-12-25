@@ -23,6 +23,7 @@ import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -55,11 +56,10 @@ class ChecklistScreenViewModel(
     private val micPermission = Manifest.permission.RECORD_AUDIO
 
     override fun setup(data: Pair<AuditDocument, ChecklistStatus>) {
-        onBackground {
-            emitState { it.updateAuditDocument(data.first) }
-            updateStatus(data.second)
-            refreshChecklist()
-        }
+        emitState { createInitialState() }
+        emitState { it.updateAuditDocument(data.first) }
+        updateStatus(data.second)
+        refreshChecklist()
     }
 
     override fun handle(event: TopBarEvent) {
@@ -88,7 +88,6 @@ class ChecklistScreenViewModel(
 
     private fun refreshChecklist() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var newChecks: List<Check> = emptyList()
             var isSuccess = true
             if (!currentState.status.isCanBeStarted()) {
@@ -105,12 +104,10 @@ class ChecklistScreenViewModel(
     }
 
     override fun handle(event: StateColumnEvent) {
-        onBackground {
-            if (event.id == "dialog") {
-                refreshCheck()
-            } else if (event.id == "main") {
-                refreshChecklist()
-            }
+        if (event.id == "dialog") {
+            refreshCheck()
+        } else if (event.id == "main") {
+            refreshChecklist()
         }
     }
 
@@ -148,18 +145,20 @@ class ChecklistScreenViewModel(
                     do {
                         val result = audioProgressUseCase().onSuccess { progress ->
                             if (progress >= 1f) emitState {
+                                log("AUDIO", "STOP")
                                 it.updateVoiceState(VoiceState.Player(false, 0f))
                             }
                             else emitState {
+                                log("AUDIO", "UPDATE with $progress")
                                 it.updateVoiceState(VoiceState.Player(true, progress))
                             }
                         }
-                        if (result.isFailure) break
-                        else delay(250)
+                        if (result.isFailure) break else delay(250)
                     } while (currentState.currentCheckState.voiceState.ongoing)
                 }
 
                 is ChecklistScreenEvent.StartStopRecording -> if (currentState.currentCheckState.voiceState.ongoing) {
+                    log("AUDIO", "START/STOP")
                     stopRecordingUseCase()
                     emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
                 } else {
@@ -236,15 +235,11 @@ class ChecklistScreenViewModel(
 
 
     private fun updateStatus(status: ChecklistStatus) {
-        onBackground {
-            emitState { it.updateStatus(status).updateCommentAvailability(status.isOngoing()) }
-        }
+        emitState { it.updateStatus(status).updateCommentAvailability(status.isOngoing()) }
     }
 
 
     private fun onYesNoUpdate() {
-        onBackground {
-            emitState { it.updateReadyAvailable(it.currentCheckState.check.yesNo != null) }
-        }
+        emitState { it.updateReadyAvailable(it.currentCheckState.check.yesNo != null) }
     }
 }

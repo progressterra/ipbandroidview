@@ -73,7 +73,6 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
                     makeDialog.setListener(object : MakeDialogContract.Listener {
 
                         override fun start(text: String, action: String, onAction: () -> Unit) {
-                            log("DIALOG", "start")
                             showDialog = true
                             dialogText = text
                             dialogAction = action
