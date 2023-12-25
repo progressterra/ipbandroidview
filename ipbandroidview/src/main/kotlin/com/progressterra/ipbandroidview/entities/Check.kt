@@ -18,8 +18,4 @@ data class Check(
     fun printCategory(): String = "$categoryNumber. $category"
 
     fun printTitle(): String = "$categoryNumber-$ordinal"
-
-    fun updateComment(comment: String) = copy(comment = comment)
-
-    fun updateYesNo(yesNo: Boolean) = copy(yesNo = yesNo)
 }

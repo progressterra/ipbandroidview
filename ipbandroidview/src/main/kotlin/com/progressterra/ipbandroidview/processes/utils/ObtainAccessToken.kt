@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataCreateAccessTok
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.UserData
-import com.progressterra.ipbandroidview.shared.log
 
 interface ObtainAccessToken {
 

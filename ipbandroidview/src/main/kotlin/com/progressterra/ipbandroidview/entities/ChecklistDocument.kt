@@ -13,7 +13,4 @@ data class ChecklistDocument(
     val checkCounter: Int,
     val finishDate: String?,
     val stats: ChecklistStats
-) : Parcelable {
-
-    fun isFinished(): Boolean = finishDate != null
-}
+) : Parcelable

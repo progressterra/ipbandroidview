@@ -1,8 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.MultisizedImage
-import com.progressterra.ipbandroidview.entities.Voice
 import com.progressterra.ipbandroidview.shared.formPatch
 import com.progressterra.ipbandroidview.shared.markLastToRemove
 import com.progressterra.ipbandroidview.shared.markToRemove

@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 
+@Suppress("unused")
 fun Modifier.stealthClickable(
     enabled: Boolean = true, onClick: () -> Unit
 ) = composed {

@@ -213,7 +213,6 @@
     <string name="not_ready_female">Не готова</string>
     <string name="ready_calm">Вы можете изменить этот статус в любой момент</string>
     <string name="auth_dialog_text"><![CDATA[Авторизуйтесь, чтобы добавить товар в корзину, оформить заказ, копить бонусы и пользоваться рассрочкой]]></string>
-    <string name="need_auth">Необходимо авторизоваться!</string>
     <string name="video_gallery">Видеогаллерея</string>
     <string name="organizations">Заведения</string>
     <string name="organization">Заведение</string>
@@ -223,13 +222,11 @@
     <string name="success_send_on_email">Успешно отправлено</string>
     <string name="yes">ДА</string>
     <string name="no">НЕТ</string>
-    <string name="send">Отправить</string>
     <string name="start_audit">НАЧАТЬ АУДИТ</string>
     <string name="end_audit">ЗАВЕРШИТЬ</string>
     <string name="questions">Вопросов</string>
     <string name="add_photo">Сделать фото</string>
     <string name="archived">Архив</string>
-    <string name="completed">Завершённые</string>
     <string name="ongoing">Текущие</string>
     <string name="audits">Аудиты</string>
     <string name="send_on_email">ОТПРАВИТЬ НА МОЙ E-MAIL</string>

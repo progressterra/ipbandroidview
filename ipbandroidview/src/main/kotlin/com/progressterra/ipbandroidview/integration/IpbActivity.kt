@@ -23,7 +23,6 @@ import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
 import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.SimpleDialog
 import kotlinx.coroutines.launch

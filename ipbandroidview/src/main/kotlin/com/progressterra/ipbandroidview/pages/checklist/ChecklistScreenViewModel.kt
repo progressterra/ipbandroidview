@@ -23,7 +23,6 @@ import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -222,9 +221,7 @@ class ChecklistScreenViewModel(
 
                 "ready" -> updateAnswerUseCase(
                     check = currentState.currentCheckState.check,
-                    checkDetails = currentState.currentCheckState.media.apply {
-                        log("UPDATE", "$this")
-                    }.createPatched(),
+                    checkDetails = currentState.currentCheckState.media.createPatched(),
                 ).onSuccess { id ->
                     emitState { it.updateCheck(id) }
                 }

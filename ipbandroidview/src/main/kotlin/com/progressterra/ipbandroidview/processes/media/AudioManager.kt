@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.processes.media
 
 import android.media.MediaPlayer
-import com.progressterra.ipbandroidview.shared.log
 
 interface AudioManager {
 
@@ -18,7 +17,6 @@ interface AudioManager {
         private var lastPreparedCheckPath: String? = null
 
         override fun play(path: String) {
-            log("AUDIO", "play $path")
             if (lastPreparedCheckPath != path) {
                 lastPreparedCheckPath = path
                 mediaPlayer.reset()
@@ -29,7 +27,6 @@ interface AudioManager {
         }
 
         override fun pause() {
-            log("AUDIO", "pause")
             mediaPlayer.pause()
         }
 

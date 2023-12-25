@@ -102,7 +102,7 @@ fun DocumentDetailsScreen(
 
 @Preview
 @Composable
-private fun DocumentDetailsScreen() {
+private fun DocumentDetailsScreenPreview() {
     IpbTheme {
         DocumentDetailsScreen(
             state = DocumentDetailsScreenState(),

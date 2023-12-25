@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.progressterra.ipbandroidview.entities.Fence
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.integration.WorkWatchWorker
 import com.progressterra.ipbandroidview.processes.location.SetupGeofencesUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase

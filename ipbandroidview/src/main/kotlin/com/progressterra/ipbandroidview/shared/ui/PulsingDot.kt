@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 @Composable
 fun PulsingDot(modifier: Modifier = Modifier) {
 
-    val infiniteTransition = rememberInfiniteTransition()
+    val infiniteTransition = rememberInfiniteTransition(label = "pulsing dot")
 
     @Composable
     fun Dot(

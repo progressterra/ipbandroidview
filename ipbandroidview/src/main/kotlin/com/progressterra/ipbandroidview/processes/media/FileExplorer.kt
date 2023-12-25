@@ -20,7 +20,7 @@ interface FileExplorer {
 
     fun inputStreamToVoices(inputStream: InputStream, id: String)
 
-
+    @Suppress("unused")
     class Haccp(
         private val context: Context,
         private val authority: String,
@@ -71,6 +71,7 @@ interface FileExplorer {
 
     }
 
+    @Suppress("unused")
     class Redi(
         private val context: Context,
         private val authority: String,

@@ -1,14 +1,12 @@
 package com.progressterra.ipbandroidview.processes.checklist
 
-import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataService
 import com.progressterra.ipbandroidapi.api.ipbmediadata.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.ipbmediadata.models.TypeContent
 import com.progressterra.ipbandroidview.entities.Check
+import com.progressterra.ipbandroidview.entities.CurrentCheckMedia
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.entities.Voice
-import com.progressterra.ipbandroidview.entities.CurrentCheckMedia
 import com.progressterra.ipbandroidview.processes.media.FileExplorer
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
