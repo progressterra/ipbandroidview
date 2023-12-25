@@ -19,7 +19,7 @@ fun ThemedLoadingIndicator(
         enter = fadeIn(),
         exit = fadeOut()
     ) {
-        CircularProgressIndicator(color = IpbTheme.colors.secondary.asColor())
+        CircularProgressIndicator(color = IpbTheme.colors.primary.asColor())
     }
 }
 
