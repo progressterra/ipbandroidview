@@ -2,14 +2,13 @@ package com.progressterra.ipbandroidview.processes.media
 
 interface AudioProgressUseCase {
 
-    suspend operator fun invoke(): Result<Float>
+    suspend operator fun invoke(): Float
 
     class Base(
         private val audioManager: AudioManager
     ) : AudioProgressUseCase {
 
-        override suspend fun invoke(): Result<Float> = runCatching {
-            audioManager.progress()
-        }
+        override suspend fun invoke() = audioManager.progress()
+
     }
 }

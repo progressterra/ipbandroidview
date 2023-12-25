@@ -175,6 +175,11 @@ fun CurrentCheckDialog(
                                 ChecklistScreenEvent.OnImage(it)
                             )
                         },
+                        onDelete = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.RemoveImage(it)
+                            )
+                        },
                         onCamera = {
                             useComponent.handle(
                                 ChecklistScreenEvent.OpenCamera

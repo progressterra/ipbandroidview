@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.processes.media.FileExplorer
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -35,6 +36,7 @@ interface UpdateAnswerUseCase {
             check: Check,
             checkDetails: CurrentCheckMedia
         ): Result<Check> = withToken { token ->
+            log("UPDATE", "$checkDetails")
             checkDetails.voices.forEach { voice ->
                 if (voice.local) {
                     if (mediaDataService.attachToEntity(

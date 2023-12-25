@@ -18,4 +18,6 @@ sealed class ChecklistScreenEvent {
     data object OpenCamera : ChecklistScreenEvent()
 
     data object RemoveVoice : ChecklistScreenEvent()
+
+    data class RemoveImage(val image: MultisizedImage) : ChecklistScreenEvent()
 }

@@ -48,7 +48,7 @@ data class CurrentCheckState(
 
     fun removeImage(image: MultisizedImage) = copy(media = media.removeImage(image))
 
-    fun removeRecord() = copy(voiceState = VoiceState.Recorder(false))
+    fun removeRecord() = copy(voiceState = VoiceState.Recorder(false), media =  media.removeRecord())
 
     fun addImage(image: MultisizedImage) = copy(media = media.addImage(image))
 }

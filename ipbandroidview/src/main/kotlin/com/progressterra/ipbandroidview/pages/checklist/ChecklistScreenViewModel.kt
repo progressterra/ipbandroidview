@@ -130,6 +130,10 @@ class ChecklistScreenViewModel(
                     emitState { it.removeRecord() }
                 }
 
+                is ChecklistScreenEvent.RemoveImage -> {
+                    emitState { it.removeImage(event.image) }
+                }
+
                 is ChecklistScreenEvent.StartPausePlay -> if (currentState.currentCheckState.voiceState.ongoing) {
                     pauseAudioUseCase()
                     emitState {
@@ -142,23 +146,27 @@ class ChecklistScreenViewModel(
                     }
                 } else {
                     startAudioUseCase(currentState.currentCheckState.media.voices.last().id)
-                    do {
-                        val result = audioProgressUseCase().onSuccess { progress ->
-                            if (progress >= 1f) emitState {
-                                log("AUDIO", "STOP")
+                    delay(500)
+                    val lastProgress = audioProgressUseCase()
+                    emitState {
+                        it.updateVoiceState(VoiceState.Player(true, lastProgress))
+                    }
+                    while (currentState.currentCheckState.voiceState.ongoing) {
+                        val progress = audioProgressUseCase()
+                        if (progress >= 1f) {
+                            emitState {
                                 it.updateVoiceState(VoiceState.Player(false, 0f))
                             }
-                            else emitState {
-                                log("AUDIO", "UPDATE with $progress")
+                        } else {
+                            emitState {
                                 it.updateVoiceState(VoiceState.Player(true, progress))
                             }
                         }
-                        if (result.isFailure) break else delay(250)
-                    } while (currentState.currentCheckState.voiceState.ongoing)
+                        delay(100)
+                    }
                 }
 
                 is ChecklistScreenEvent.StartStopRecording -> if (currentState.currentCheckState.voiceState.ongoing) {
-                    log("AUDIO", "START/STOP")
                     stopRecordingUseCase()
                     emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
                 } else {
@@ -214,7 +222,9 @@ class ChecklistScreenViewModel(
 
                 "ready" -> updateAnswerUseCase(
                     check = currentState.currentCheckState.check,
-                    checkDetails = currentState.currentCheckState.media.createPatched(),
+                    checkDetails = currentState.currentCheckState.media.apply {
+                        log("UPDATE", "$this")
+                    }.createPatched(),
                 ).onSuccess { id ->
                     emitState { it.updateCheck(id) }
                 }
