@@ -232,4 +232,5 @@
     <string name="send_on_email">ОТПРАВИТЬ НА МОЙ E-MAIL</string>
     <string name="error_email_not_found">Нет прикреплённой к аккаунту почты</string>
     <string name="commentary">Текстовый комментарий</string>
+    <string name="payment_youkassa">YouKassa</string>
 </resources>

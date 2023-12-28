@@ -1,12 +1,14 @@
 package com.progressterra.ipbandroidview.pages.payment
 
+import com.progressterra.ipbandroidview.entities.PaymentType
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusSwitchUseCase
+import com.progressterra.ipbandroidview.processes.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.processes.order.FetchReceiptUseCase
+import com.progressterra.ipbandroidview.processes.order.YouKassaPaymentUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
@@ -17,6 +19,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class PaymentScreenViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
+    private val youKassaPaymentUseCase: YouKassaPaymentUseCase,
     private val openUrlUseCase: OpenUrlUseCase,
     private val fetchReceiptUseCase: FetchReceiptUseCase,
     private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
@@ -64,8 +67,12 @@ class PaymentScreenViewModel(
             when (event.id) {
                 "pay" -> {
                     emitState { it.copy(receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = false))) }
-                    confirmOrderUseCase().onSuccess { orderId ->
-                        postEffect(PaymentScreenEffect.Next(orderId))
+                    val result = when (currentState.paymentMethod.selectedPaymentMethod) {
+                        PaymentType.InnerBalance -> confirmOrderUseCase()
+                        PaymentType.YouKassa -> youKassaPaymentUseCase()
+                    }
+                    result.onSuccess {
+                        postEffect(PaymentScreenEffect.Next(it))
                     }
                     emitState { it.copy(receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = true))) }
                 }

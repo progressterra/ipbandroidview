@@ -80,6 +80,9 @@ class IpbAndroidView private constructor(
             iconPressed = ColorUnit(config["iconPressed"]!!),
             iconDisabled = ColorUnit(config["iconDisabled"]!!)
         )
+        IpbAndroidViewSettings.YOU_KASSA_SHOP_ID = config["youKassaShopId"]!!.first()
+        IpbAndroidViewSettings.YOU_KASSA_CLIENT_APPLICATION_KEY =
+            config["youKassaClientApplicationKey"]!!.first()
         IpbAndroidViewSettings.WORK_WATCH_ENABLED = config["workWatchEnabled"]!!.first().toBoolean()
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!

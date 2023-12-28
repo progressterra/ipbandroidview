@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.processes.utils.MakeDialogContract
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
 import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
+import com.progressterra.ipbandroidview.processes.utils.StartActivityForResultContract
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.SimpleDialog
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.Listener,
-    StartActivityContract.Listener, MakePhotoContract.Listener, PickPhotoContract.Listener {
+    StartActivityContract.Listener, MakePhotoContract.Listener, PickPhotoContract.Listener, StartActivityForResultContract.Listener {
 
     @Composable
     abstract fun Content()
@@ -42,6 +43,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
     private val pickPhoto: PickPhotoContract.Activity by inject()
     private val makeDialog: MakeDialogContract.Activity by inject()
     private val makeToastUseCase: MakeToastUseCase by inject()
+    private val startActivityForResult: StartActivityForResultContract.Activity by inject()
 
     private val pictureResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -55,6 +57,14 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
 
     override fun pickPhoto() {
         pickPhotoLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    override fun startForResult(intent: Intent, code: Int) {
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            startActivityForResult.onActivityResult(code, it.resultCode, it.data)
+        }.launch(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
