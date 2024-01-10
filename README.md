@@ -1,24 +1,22 @@
 # ipbandroidview
-Библиотека компонентов для вашего приложения
+![Static Badge](https://img.shields.io/badge/License-MIT-blue)
+Библиотека компонентов с современным дизайном и интеграцией с [API](https://github.com/progressterra/ipbandroidapi) для вашего приложения
 
 # Содержание
-Раздел дополняется
+- [Кому пригодится ipbAndroidView?](#Кому-пригодится-ipbAndroidView?)
 
-![Static Badge](https://img.shields.io/badge/License-MIT-blue)
 # Кому пригодится ipbAndroidView?
-Компаниям, создающим приложения в сфере Ecommerce
-# Зачем вам ipbAndroidView?
-- Сократить Time To Market вашего приложения
-- Снизить косты на разработку
-- Обеспечить приложение надёжными UI компонентами и [стабильным API](https://github.com/progressterra/ipbandroidapi)
+- Компаниям, создающим приложения в сфере Ecommerce, HACCP, Dating
+- Компаниям, желающим как можно быстрее вывести MVP на рынок
+
 # Примеры использования
 ## Ecommerce
 Раздел дополняется
-## ХАССП
+## HACCP
 Раздел дополняется
 ## Я тут!
 Раздел дополняется
-# Использования
+# Использование
 ## Добавление зависимости
 Если используется Groovy
 ```groovy
