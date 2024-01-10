@@ -22,6 +22,8 @@
 ## Я тут!
 Раздел дополняется
 # Использование
+## Получение ключа доступа
+Для получения заполните [форму](https://progressterra.com/)
 ## Добавление зависимости
 Если используется Groovy
 ```groovy
@@ -36,7 +38,7 @@ dependencies {
 }
 ```
 ## Настройка
-### Кофигурационный файл `config.properties`, находящийся в корневой папке проекта
+### Кофигурационный файл `config.properties`, находящийся в корневой папке проекта (в одноименный файл скопировать содержимое ниже)
 ```
 # Индивидуальный ключ для доступа к платформе
 accessKey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
@@ -114,7 +116,7 @@ yandexMapApiKey=2681c223-82e2-4e4d-a4fe-48a67f3fb97b
 availableProfileFields=name,soname,dateOfBirth
 mandatoryProfileFields=name,soname,dateOfBirth
 ```
-### FCM
+### Интеграция с Firebase Cloud Messaging
 1. Подключите [Google Services Gradle Plugin](https://developers.google.com/android/guides/google-services-plugin?hl=ru)
 2. Наследуйте базовый класс из библиотеки и укажите его в манифесте приложения
 ```kotlin
@@ -135,5 +137,5 @@ class AppCloudMessagingService : CloudMessagingService() {
     </intent-filter>
 </service>
 ```
-### Подключите нужные компоненты к своии экранам или же воспользуйтесь готовыми
+### Подключите нужные компоненты к своии экранам или возьмите готовые
 Раздел дополняется
