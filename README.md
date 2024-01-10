@@ -1,9 +1,14 @@
 # ipbandroidview
 ![Static Badge](https://img.shields.io/badge/License-MIT-blue)
+
 Библиотека компонентов с современным дизайном и интеграцией с [API](https://github.com/progressterra/ipbandroidapi) для вашего приложения
 
 # Содержание
-- [Кому пригодится ipbAndroidView?](#Кому-пригодится-ipbAndroidView?)
+- [ipbandroidview](#ipbandroidview)
+- [Содержание](https://github.com/progressterra/ipbandroidview/edit/fsd_and_uikit/README.md#%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5)
+- [Кому пригодится ipbAndroidView?](https://github.com/progressterra/ipbandroidview/edit/fsd_and_uikit/README.md#%D0%9A%D0%BE%D0%BC%D1%83-%D0%BF%D1%80%D0%B8%D0%B3%D0%BE%D0%B4%D0%B8%D1%82%D1%81%D1%8F-ipbAndroidView?)
+- [Примеры использования](https://github.com/progressterra/ipbandroidview/edit/fsd_and_uikit/README.md#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)
+- [Использование](https://github.com/progressterra/ipbandroidview/edit/fsd_and_uikit/README.md#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)
 
 # Кому пригодится ipbAndroidView?
 - Компаниям, создающим приложения в сфере Ecommerce, HACCP, Dating
@@ -31,7 +36,7 @@ dependencies {
 }
 ```
 ## Настройка
-### Кофигурационный файл `config.properties", находящийся в корневой папке проекта
+### Кофигурационный файл `config.properties`, находящийся в корневой папке проекта
 ```
 # Индивидуальный ключ для доступа к платформе
 accessKey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
