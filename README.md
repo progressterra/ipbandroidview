@@ -1,24 +1,29 @@
 # ipbandroidview
-Библиотека компонентов для вашего приложения
+![Static Badge](https://img.shields.io/badge/License-MIT-blue)
+
+Библиотека компонентов с современным дизайном и интеграцией с [API](https://github.com/progressterra/ipbandroidapi) для вашего приложения
 
 # Содержание
-Раздел дополняется
+- [ipbandroidview](#ipbandroidview)
+- [Содержание](https://github.com/progressterra/ipbandroidview/blob/fsd_and_uikit/README.md#%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5)
+- [Кому пригодится ipbAndroidView?](https://github.com/progressterra/ipbandroidview/blob/fsd_and_uikit/README.md#%D0%9A%D0%BE%D0%BC%D1%83-%D0%BF%D1%80%D0%B8%D0%B3%D0%BE%D0%B4%D0%B8%D1%82%D1%81%D1%8F-ipbAndroidView?)
+- [Примеры использования](https://github.com/progressterra/ipbandroidview/blob/fsd_and_uikit/README.md#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)
+- [Использование](https://github.com/progressterra/ipbandroidview/blob/fsd_and_uikit/README.md#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)
 
-![Static Badge](https://img.shields.io/badge/License-MIT-blue)
 # Кому пригодится ipbAndroidView?
-Компаниям, создающим приложения в сфере Ecommerce
-# Зачем вам ipbAndroidView?
-- Сократить Time To Market вашего приложения
-- Снизить косты на разработку
-- Обеспечить приложение надёжными UI компонентами и [стабильным API](https://github.com/progressterra/ipbandroidapi)
+- Компаниям, создающим приложения в сфере Ecommerce, HACCP, Dating
+- Компаниям, желающим как можно быстрее вывести MVP на рынок
+
 # Примеры использования
 ## Ecommerce
 Раздел дополняется
-## ХАССП
+## HACCP
 Раздел дополняется
 ## Я тут!
 Раздел дополняется
-# Использования
+# Использование
+## Получение ключа доступа
+Для получения заполните [форму](https://progressterra.com/)
 ## Добавление зависимости
 Если используется Groovy
 ```groovy
@@ -33,7 +38,7 @@ dependencies {
 }
 ```
 ## Настройка
-### Кофигурационный файл `config.properties", находящийся в корневой папке проекта
+### Кофигурационный файл `config.properties`, находящийся в корневой папке проекта (в одноименный файл скопировать содержимое ниже)
 ```
 # Индивидуальный ключ для доступа к платформе
 accessKey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
@@ -111,7 +116,7 @@ yandexMapApiKey=2681c223-82e2-4e4d-a4fe-48a67f3fb97b
 availableProfileFields=name,soname,dateOfBirth
 mandatoryProfileFields=name,soname,dateOfBirth
 ```
-### FCM
+### Интеграция с Firebase Cloud Messaging
 1. Подключите [Google Services Gradle Plugin](https://developers.google.com/android/guides/google-services-plugin?hl=ru)
 2. Наследуйте базовый класс из библиотеки и укажите его в манифесте приложения
 ```kotlin
@@ -132,5 +137,5 @@ class AppCloudMessagingService : CloudMessagingService() {
     </intent-filter>
 </service>
 ```
-### Подключите нужные компоненты к своии экранам или же воспользуйтесь готовыми
+### Подключите нужные компоненты к своии экранам или возьмите готовые
 Раздел дополняется
