@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable for faster previewing of components
+ */
 @Composable
 fun Preview(content: @Composable ColumnScope.() -> Unit) {
     IpbTheme {

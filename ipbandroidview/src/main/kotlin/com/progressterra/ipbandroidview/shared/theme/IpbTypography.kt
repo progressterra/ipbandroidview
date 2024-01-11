@@ -6,7 +6,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
-
+/**
+ * Typography for the library
+ */
 data class IpbTypography(
     val largeTitle: TextStyle = TextStyle(
         fontSize = 33.sp, fontWeight = FontWeight.Bold, lineHeight = 39.6.sp

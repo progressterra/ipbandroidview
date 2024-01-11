@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.shared.theme
 
-
+/**
+ * Color palette for the library
+ */
 data class IpbColors(
     // Main
     val primary: ColorUnit = ColorUnit(listOf("#35C290", "#2E9399")),

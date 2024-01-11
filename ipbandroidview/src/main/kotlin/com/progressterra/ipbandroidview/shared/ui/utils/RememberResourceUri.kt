@@ -6,6 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 
+/**
+ * Remember a resource Uri
+ */
 @Composable
 fun rememberResourceUri(resourceId: Int): Uri {
     val context = LocalContext.current

@@ -6,6 +6,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+/**
+ * Setup the system UI to match the theme
+ */
 @Composable
 fun SystemUiSetup() {
     val systemUiController = rememberSystemUiController()

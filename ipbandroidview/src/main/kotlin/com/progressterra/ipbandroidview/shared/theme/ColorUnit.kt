@@ -3,6 +3,9 @@ package com.progressterra.ipbandroidview.shared.theme
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Class for color units. It can be a single color or a gradient (now only vertical)
+ */
 class ColorUnit(
     hexes: List<String>
 ) {
