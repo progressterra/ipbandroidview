@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared
+package com.progressterra.ipbandroidview.entities
 
 interface IsEmpty {
 

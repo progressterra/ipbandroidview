@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
 import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidview.shared.IsEmpty
 
 data class Citizenship(
     @SerializedName("name")

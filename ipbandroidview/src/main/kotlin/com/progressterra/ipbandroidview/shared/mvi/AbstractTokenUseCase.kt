@@ -4,6 +4,9 @@ import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
+/**
+ * Abstract class for use cases that need to obtain an access token
+ */
 abstract class AbstractTokenUseCase(
     private val obtainAccessToken: ObtainAccessToken,
     makeToastUseCase: MakeToastUseCase,

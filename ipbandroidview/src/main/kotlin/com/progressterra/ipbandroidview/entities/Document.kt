@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
-import com.progressterra.ipbandroidview.shared.IsEmpty
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import kotlinx.parcelize.Parcelize
 

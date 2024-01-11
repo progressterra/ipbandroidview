@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.features.storecard
 
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.shared.IsEmpty
+import com.progressterra.ipbandroidview.entities.IsEmpty
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
 

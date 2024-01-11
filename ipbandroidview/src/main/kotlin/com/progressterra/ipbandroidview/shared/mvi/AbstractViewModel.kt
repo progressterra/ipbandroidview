@@ -21,6 +21,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * Abstract class for viewmodels. Made on MVI pattern. There are state flow and effects flow (implemented used channels). Has a method to collect effects in composable functions.
+ */
 abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
 
     private val initialState: S by lazy { createInitialState() }

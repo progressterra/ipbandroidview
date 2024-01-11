@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.profile
 import com.progressterra.ipbandroidview.entities.IsFull
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
-import com.progressterra.ipbandroidview.shared.IsEmpty
+import com.progressterra.ipbandroidview.entities.IsEmpty
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 

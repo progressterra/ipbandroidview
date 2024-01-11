@@ -14,6 +14,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
+import timber.log.Timber
 
 @Suppress("unused")
 class IpbAndroidView private constructor(
@@ -108,6 +109,9 @@ class IpbAndroidView private constructor(
             if (debug) androidLogger()
             androidContext(context)
             modules(koinModules + ipbModule)
+        }
+        if (debug) {
+            Timber.plant(Timber.DebugTree())
         }
     }
 

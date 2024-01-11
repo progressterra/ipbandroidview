@@ -1,6 +1,4 @@
-package com.progressterra.ipbandroidview.shared
-
-import com.progressterra.ipbandroidview.entities.Id
+package com.progressterra.ipbandroidview.entities
 
 
 interface AttachedMedia<out T> : Id where T : AttachedMedia<T> {

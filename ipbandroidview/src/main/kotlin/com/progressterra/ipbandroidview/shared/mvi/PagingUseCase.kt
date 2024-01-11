@@ -5,6 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Interface and abstract class for paging use cases. They may have or not have a filter. You must to create a source based on [AbstractSource] class
+ */
 interface PagingUseCase<I, O : Any> {
 
     suspend operator fun invoke(filter: I): Result<Flow<PagingData<O>>>

@@ -10,6 +10,9 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
+/**
+ * Abstract class for use cases that need to log errors. Also parent of almost all use cases
+ */
 abstract class AbstractLoggingUseCase(
     private val makeToastUseCase: MakeToastUseCase,
     private val manageResources: ManageResources

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.features.supportchat
 
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.entities.Id
-import com.progressterra.ipbandroidview.shared.IsEmpty
+import com.progressterra.ipbandroidview.entities.IsEmpty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 
 /**
+ * Abstract class for paging sources, May have or not have a filter
  * @property pageSize - size of page to load
  * @property filter - filter to apply to the source
  * @property loadPage - function to load page, where first in result pair is count of raw source items and second is list of items

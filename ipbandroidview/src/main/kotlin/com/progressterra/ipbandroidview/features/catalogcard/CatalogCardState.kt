@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.catalogcard
 
-import com.progressterra.ipbandroidview.shared.IsEmpty
+import com.progressterra.ipbandroidview.entities.IsEmpty
 
 
 data class CatalogCardState(

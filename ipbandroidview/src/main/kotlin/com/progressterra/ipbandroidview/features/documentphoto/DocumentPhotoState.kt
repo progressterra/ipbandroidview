@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.features.documentphoto
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.entities.MultisizedImage
-import com.progressterra.ipbandroidview.shared.IsEmpty
+import com.progressterra.ipbandroidview.entities.IsEmpty
 import kotlinx.parcelize.Parcelize
 
 

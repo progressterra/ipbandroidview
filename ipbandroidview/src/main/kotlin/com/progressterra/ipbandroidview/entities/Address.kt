@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.entities
 
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.scrm.models.RGAddressEntity
-import com.progressterra.ipbandroidview.shared.IsEmpty
 
 data class Address(
     @SerializedName("idUnique")

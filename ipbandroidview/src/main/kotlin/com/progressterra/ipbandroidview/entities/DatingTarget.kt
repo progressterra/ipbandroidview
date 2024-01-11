@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
-import com.progressterra.ipbandroidview.shared.IsEmpty
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

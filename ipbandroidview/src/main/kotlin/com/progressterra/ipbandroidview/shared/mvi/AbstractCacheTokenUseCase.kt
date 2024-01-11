@@ -6,6 +6,9 @@ import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+/**
+ * Abstract class for use cases that need to obtain an access token and cache their results. So initial result is previous result (if any), and then if new result is different from previous, it is emitted and stored
+ */
 abstract class AbstractCacheTokenUseCase<T>(
     obtainAccessToken: ObtainAccessToken, makeToastUseCase: MakeToastUseCase,
     manageResources: ManageResources
