@@ -24,7 +24,30 @@
 # Использование
 ## Получение ключа доступа
 Для получения заполните [форму](https://progressterra.com/)
-## Добавление зависимости
+## Добавление репозитория библиотек
+Если используется Groovy
+```groovy
+maven {
+    name "GitHubPackages"
+    url "https://maven.pkg.github.com/progressterra/ipbandroidview"
+    credentials {
+        username project.findProperty("gpr.user")
+        password project.findProperty("gpr.key")
+    }
+}
+```
+Или же, если используется Kotlin Gradle DSL
+```kotlin
+maven {
+    name = "GitHubPackages"
+    url = uri("https://maven.pkg.github.com/progressterra/ipbandroidview")
+    credentials {
+        username = project.findProperty("gpr.user") as String
+        password = project.findProperty("gpr.key") as String
+    }
+}
+```
+## Добавление библиотеки
 Если используется Groovy
 ```groovy
 dependencies {
@@ -37,8 +60,7 @@ dependencies {
     implementation("com.github.skydoves:landscapist-coil:$version")
 }
 ```
-## Настройка
-### Кофигурационный файл `config.properties`, находящийся в корневой папке проекта (в одноименный файл скопировать содержимое ниже)
+## Кофигурационный файл `config.properties`, находящийся в корневой папке проекта (в одноименный файл скопировать содержимое ниже)
 ```
 # Индивидуальный ключ для доступа к платформе
 accessKey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
@@ -116,7 +138,65 @@ yandexMapApiKey=2681c223-82e2-4e4d-a4fe-48a67f3fb97b
 availableProfileFields=name,soname,dateOfBirth
 mandatoryProfileFields=name,soname,dateOfBirth
 ```
-### Интеграция с Firebase Cloud Messaging
+## Чтение конфигурационного файла
+Если используется Groovy
+```groovy
+String createConfigField() {
+    String path = new File("$rootDir/config.properties").absolutePath
+    Properties props = new Properties()
+    props.load(new FileInputStream(path))
+    StringBuilder sb = new StringBuilder()
+    sb.append("new java.util.HashMap<String, java.util.List<String>>() {{\n")
+    props.each { key, value ->
+        List<String> list = value.split(",")
+        String joinedList = list.join('", "')
+        sb.append("put(\"$key\", java.util.Arrays.asList(\"$joinedList\"));\n")
+    }
+    sb.append("}}")
+    return sb.toString()
+}
+```
+Или же, если используется Koltin Gradle DSL
+```kotlin
+fun createConfigField(): String {
+    val path = File("$rootDir/config.properties").absolutePath
+    val props = loadProperties(path).entries.associate {
+        it.key.toString() to it.value.toString().split(",")
+    }
+    return buildString {
+        appendLine("new java.util.HashMap<String, java.util.List<String>>() {{")
+        props.forEach { (key, value) ->
+            val list = value.joinToString(separator = "\", \"", prefix = "\"", postfix = "\"")
+            appendLine("put(\"$key\", java.util.List.of($list));")
+        }
+        append("")
+    }
+}
+```
+## Добавление полей конфигурации в `BuildConfig`
+1. Убедитесь, что `buildFeatures` включает наличие `BuildConfig`
+Если используется Groovy
+```groovy
+buildFeatures {
+    buildConfig true
+} 
+```
+Или же, если используется Kotlin Gradle DSL
+```kotlin
+buildFeatures {
+    buildConfig = true
+} 
+```
+2. Добавьте поле `config` в `BuildConfig`. Для этого в блоке `defaultConfig`
+Код идентичен для Groovy и Kotlin Gradle DSL
+```kotlin
+buildConfigField(
+    "java.util.Map<String, java.util.List<String>>",
+    "config",
+    createConfigField()
+)
+```
+## Интеграция с Firebase Cloud Messaging
 1. Подключите [Google Services Gradle Plugin](https://developers.google.com/android/guides/google-services-plugin?hl=ru)
 2. Наследуйте базовый класс из библиотеки и укажите его в манифесте приложения
 ```kotlin
@@ -137,5 +217,5 @@ class AppCloudMessagingService : CloudMessagingService() {
     </intent-filter>
 </service>
 ```
-### Подключите нужные компоненты к своии экранам или возьмите готовые
+## Подключите нужные компоненты к своии экранам или возьмите готовые
 Раздел дополняется
