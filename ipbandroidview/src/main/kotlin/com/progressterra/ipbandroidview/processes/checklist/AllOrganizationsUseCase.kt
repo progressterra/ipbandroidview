@@ -25,7 +25,7 @@ interface AllOrganizationsUseCase {
                     address = place.address ?: "",
                     id = place.idUnique!!,
                     name = place.name ?: "",
-                    imageUrl = place.listImages?.first()?.urlData ?: "",
+                    imageUrl = place.listImages?.firstOrNull()?.urlData ?: "",
                     audits = (place.countAvailableRFCheck ?: 0).toString(),
                     documents = (place.countDHCheckPerformedForExecution ?: 0).toString(),
                     latitude = place.latitude ?: 0.0,
