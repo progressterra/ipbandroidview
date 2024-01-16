@@ -36,7 +36,7 @@ interface UpdateAnswerUseCase {
             check: Check,
             checkDetails: CurrentCheckMedia
         ): Result<Check> = withToken { token ->
-            log("UPDATE", "$checkDetails")
+            log("$checkDetails")
             checkDetails.voices.forEach { voice ->
                 if (voice.local) {
                     if (mediaDataService.attachToEntity(

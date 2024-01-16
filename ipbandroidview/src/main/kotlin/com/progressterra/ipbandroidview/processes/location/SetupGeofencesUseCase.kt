@@ -67,7 +67,7 @@ interface SetupGeofencesUseCase {
                         makeNotificationUseCase("Geofencing", "Geofencing began")
                     }
                     addOnFailureListener {
-                        log("Geofencing", "failure with $it")
+                        log("failure with $it")
                     }
                 }
             }

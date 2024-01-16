@@ -326,7 +326,7 @@ fun String.parseToZDT(): ZonedDateTime? {
         val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         ZonedDateTime.of(localDateTime, ZoneOffset.UTC)
     } catch (e: DateTimeParseException) {
-        log("DATE", "Parse error $e when parse $this")
+        log("Parse error $e when parse $this")
         null
     }
 }

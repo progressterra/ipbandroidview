@@ -34,20 +34,20 @@ class WorkWatchWorker(
             val provideLocationUseCase = ProvideLocationUseCase.Base(fusedLocationProviderClient)
             val obtainAccessTokenUseCase =
                 ObtainAccessToken.Base(authService, provideLocationUseCase)
-            val token = obtainAccessTokenUseCase().getOrThrow().also { log("WorkWatch", "token: $it") }
-            val location = provideLocationUseCase().getOrThrow().also { log("WorkWatch", "location: $it") }
+            val token = obtainAccessTokenUseCase().getOrThrow().also { log("token: $it") }
+            val location = provideLocationUseCase().getOrThrow().also { log("location: $it") }
             workWatchService.clientAreaTracking(
                 token = token,
                 body = RGTrackingEntity(
                     latitude = location.latitude,
                     longitude = location.longitude
                 )
-            ).also { log("WorkWatch", "request: $it") }
+            ).also { log("request: $it") }
         }
         return if (result.isSuccess) {
             Result.success()
         } else {
-            log("WorkWatch", "error: ${result.exceptionOrNull()}")
+            log("error: ${result.exceptionOrNull()}")
             Result.retry()
         }
     }
