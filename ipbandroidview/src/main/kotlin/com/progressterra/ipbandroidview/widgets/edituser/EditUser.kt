@@ -16,10 +16,13 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Sex
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 
 @Composable
 fun EditUser(
@@ -35,6 +38,13 @@ fun EditUser(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            state = TextFieldState(text = UserData.phone, type = TextInputType.PHONE_NUMBER, enabled = false),
+            hint = stringResource(R.string.phone_number),
+            useComponent = useComponent,
+            backgroundColor = IpbTheme.colors.background.asColor()
+        )
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.forEach {
             when (it) {
                 "name" -> {
