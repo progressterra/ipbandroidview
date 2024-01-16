@@ -43,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 
     namespace = "com.progressterra.ipbandroidview"
@@ -98,8 +98,8 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
-    api("com.maxkeppeler.sheets-compose-dialogs:core:1.2.0")
-    api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0")
+    api("com.maxkeppeler.sheets-compose-dialogs:core:1.2.1")
+    api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.1")
 
     // Yandex
     api("com.yandex.android:maps.mobile:4.4.0-lite")
@@ -153,5 +153,5 @@ dependencies {
     api("androidx.media3:media3-ui:1.2.0")
 
     // Payments
-    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.9.2")
+    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.9.3")
 }

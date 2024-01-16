@@ -6,19 +6,19 @@ buildscript {
     }
     dependencies {
         classpath("com.google.gms:google-services:4.4.0")
-        classpath("com.android.tools.build:gradle:8.2.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21")
+        classpath("com.android.tools.build:gradle:8.2.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
     }
 }
 
 plugins {
-    id("com.android.library") version "8.2.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.21" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.9.21" apply false
+    id("com.android.library") version "8.2.1" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.22" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.9.22" apply false
 }
 
 allprojects {
-    version = "1.2.75"
+    version = "1.2.76"
     group = "com.progressterra.ipbandroidview"
     repositories {
         google()
