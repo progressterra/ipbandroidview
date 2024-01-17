@@ -1,7 +1,7 @@
 # ipbandroidview
 ![Static Badge](https://img.shields.io/badge/License-MIT-blue)
 
-Библиотека компонентов с современным дизайном и интеграцией с [API](https://github.com/progressterra/ipbandroidapi) для вашего приложения
+Библиотека компонентов и готовых экранов с современным дизайном и интеграцией с [iProBonus API](https://github.com/progressterra/ipbandroidapi) для вашего приложения!
 
 # Содержание
 - [ipbandroidview](#ipbandroidview)
@@ -11,16 +11,16 @@
 - [Использование](https://github.com/progressterra/ipbandroidview/blob/fsd_and_uikit/README.md#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)
 
 # Кому пригодится ipbAndroidView?
-- Компаниям, создающим приложения в сфере Ecommerce, HACCP, Dating
+- Компаниям, создающим приложения в сфере Ecommerce, Checklist, Dating
 - Компаниям, желающим как можно быстрее вывести MVP на рынок
 
 # Примеры использования
 ## Ecommerce
-Раздел дополняется
+![Main ecom](mainecom.png) ![Catalog](catalog.png) ![Cart](cart.png)
 ## HACCP
-Раздел дополняется
+![Checklist main](mainchecklist.png) ![Checklist](checklist.png) ![Check](check.png)
 ## Я тут!
-Раздел дополняется
+![Main dating](maindating.png) ![Chats](checklist.png) ![Profile](check.png)
 # Использование
 ## Получение ключа доступа
 Для получения заполните [форму](https://progressterra.com/)
@@ -36,7 +36,7 @@ maven {
     }
 }
 ```
-Или же, если используется Kotlin Gradle DSL
+Или же, если используется Kotlin Gradle DSL. [Видеоурок](https://youtu.be/o-G_xPw7W-Q)
 ```kotlin
 maven {
     name = "GitHubPackages"
