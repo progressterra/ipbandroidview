@@ -20,7 +20,6 @@ class PfpPickerScreenNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = koinViewModel<PfpPickerScreenViewModel>()
-        val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {
                 is PfpPickerScreenEffect.Back -> navigation.onBack()

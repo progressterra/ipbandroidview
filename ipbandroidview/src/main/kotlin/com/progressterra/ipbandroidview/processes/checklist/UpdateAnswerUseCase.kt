@@ -48,8 +48,8 @@ interface UpdateAnswerUseCase {
                             tag = 0,
                             file = MultipartBody.Part.createFormData(
                                 name = "file",
-                                filename = fileExplorer.audioFile(voice.id).name,
-                                body = fileExplorer.audioFile(voice.id)
+                                filename = "${voice.id}.mp4",
+                                body = fileExplorer.file("${voice.id}.mp4")
                                     .asRequestBody("audio/*".toMediaTypeOrNull())
                             )
                         ).result?.status != StatusResult.SUCCESS
@@ -77,8 +77,8 @@ interface UpdateAnswerUseCase {
                             tag = 0,
                             file = MultipartBody.Part.createFormData(
                                 name = "file",
-                                filename = fileExplorer.pictureFile(picture.id).name,
-                                body = fileExplorer.pictureFile(picture.id)
+                                filename = "${picture.id}.jpg",
+                                body = fileExplorer.file("${picture.id}.jpg")
                                     .asRequestBody("image/*".toMediaTypeOrNull())
                             )
                         ).result?.status != StatusResult.SUCCESS

@@ -37,7 +37,7 @@ interface SaveAvatarUseCase {
                 file = MultipartBody.Part.createFormData(
                     name = "profilePicture",
                     filename = "profilePicture",
-                    body = fileExplorer.fileForUri(uri).asRequestBody("image/*".toMediaType())
+                    body = fileExplorer.fileForUri(uri, "ProfilePicture.jpg").asRequestBody("image/*".toMediaType())
                 )
             )
             if (response.result?.status != StatusResult.SUCCESS) {

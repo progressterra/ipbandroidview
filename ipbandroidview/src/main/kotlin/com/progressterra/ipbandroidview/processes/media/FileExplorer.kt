@@ -2,93 +2,51 @@ package com.progressterra.ipbandroidview.processes.media
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.content.FileProvider.getUriForFile
-import com.progressterra.ipbandroidview.processes.utils.CreateId
+import com.progressterra.ipbandroidview.shared.log
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okio.buffer
+import okio.sink
 import java.io.File
-import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 
 interface FileExplorer {
 
-    fun pictureFile(id: String): File
-
-    fun audioFile(id: String): File
+    fun file(fileName: String): File
 
     fun uriForFile(file: File): Uri
 
-    fun fileForUri(uri: Uri): File
+    fun fileForUri(uri: Uri, fileName: String): File
 
-    fun inputStreamToVoices(inputStream: InputStream, id: String)
+    fun saveInputStream(inputStream: InputStream, fileName: String)
 
-    @Suppress("unused")
-    class Haccp(
-        private val context: Context,
-        private val authority: String,
-        private val createId: CreateId
-    ) : FileExplorer {
+    fun downloadFile(
+        url: String,
+        fileName: String,
+        progress: (Float) -> Unit,
+        handleException: (Exception) -> Unit
+    )
 
-        private val folder = context.getExternalFilesDir("HACCP")!!.path
-
-        override fun uriForFile(file: File): Uri = getUriForFile(
-            context,
-            authority,
-            file
-        )
-
-        override fun fileForUri(uri: Uri): File {
-            val inputStream = context.contentResolver.openInputStream(uri)
-            val file = pictureFile(createId())
-            inputStream.use { input ->
-                file.outputStream().use { output ->
-                    input?.copyTo(output)
-                }
-            }
-            return file
-        }
-
-        override fun inputStreamToVoices(inputStream: InputStream, id: String) {
-            if (!exist(id))
-                inputStream.use { input ->
-                    val fos = FileOutputStream(File("$folder/$id.m4a"))
-                    fos.use { output ->
-                        val buffer = ByteArray(4 * 1024)
-                        var read: Int
-                        while (input.read(buffer).also { read = it } != -1) {
-                            output.write(buffer, 0, read)
-                        }
-                        output.flush()
-                    }
-                }
-        }
-
-        override fun audioFile(id: String): File =
-            File("$folder/$id.m4a")
-
-        override fun pictureFile(id: String): File = File("$folder/$id.jpg")
-
-        private fun exist(id: String): Boolean =
-            File("$folder/$id.m4a").exists() || File("$folder/$id.jpg").exists()
-
-    }
-
-    @Suppress("unused")
-    class Redi(
-        private val context: Context,
-        private val authority: String,
-        private val createId: CreateId
+    class Base(
+        private val context: Context
     ) : FileExplorer {
 
         private val folder = context.cacheDir.absolutePath
 
-        override fun uriForFile(file: File): Uri = getUriForFile(
-            context, authority, file
-        )
+        override fun uriForFile(file: File): Uri = Uri.parse(file.absolutePath)
 
-        override fun inputStreamToVoices(inputStream: InputStream, id: String) = Unit
+        override fun saveInputStream(inputStream: InputStream, fileName: String) = Unit
 
-        override fun fileForUri(uri: Uri): File {
+        override fun file(fileName: String) = File("$folder/$fileName")
+
+
+        override fun fileForUri(uri: Uri, fileName: String): File {
             val inputStream = context.contentResolver.openInputStream(uri)
-            val file = pictureFile(createId())
+            val file = file(fileName)
             inputStream.use { input ->
                 file.outputStream().use { output ->
                     input?.copyTo(output)
@@ -97,8 +55,48 @@ interface FileExplorer {
             return file
         }
 
-        override fun audioFile(id: String): File = File("$folder/$id.m4a")
+        override fun downloadFile(
+            url: String,
+            fileName: String,
+            progress: (Float) -> Unit,
+            handleException: (Exception) -> Unit
+        ) {
+            val request = Request.Builder()
+                .url(url)
+                .build()
+            val client = OkHttpClient.Builder()
+                .build()
 
-        override fun pictureFile(id: String): File = File("$folder/$id.jpg")
+            client.newCall(request).enqueue(object : Callback {
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body
+                    if (responseBody != null) {
+                        try {
+                            context.openFileOutput(fileName, Context.MODE_PRIVATE).use { output ->
+                                val sink = output.sink().buffer()
+                                val source = responseBody.source()
+                                val total = responseBody.contentLength()
+                                var totalRead: Long = 0
+                                val buffer = ByteArray(8 * 1024)
+                                var read: Long
+                                while (source.read(buffer).also { read = it.toLong() } != -1) {
+                                    sink.write(buffer, 0, read.toInt())
+                                    totalRead += read
+                                    progress(totalRead / total.toFloat() * 100)
+                                }
+                                sink.flush()
+                            }
+                        } catch (e: IOException) {
+                            log(e.toString())
+                            handleException(e)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call, e: IOException) {
+                    log(e.toString())
+                }
+            })
+        }
     }
 }

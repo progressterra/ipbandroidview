@@ -89,12 +89,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.5.4")
-    api("androidx.compose.ui:ui-util:1.5.4")
-    api("androidx.compose.ui:ui-tooling:1.5.4")
-    api("androidx.compose.ui:ui-tooling-preview:1.5.4")
-    api("androidx.compose.foundation:foundation:1.5.4")
-    api("androidx.compose.material:material:1.5.4")
+    api("androidx.compose.ui:ui:1.6.0")
+    api("androidx.compose.ui:ui-util:1.6.0")
+    api("androidx.compose.ui:ui-tooling:1.6.0")
+    api("androidx.compose.ui:ui-tooling-preview:1.6.0")
+    api("androidx.compose.foundation:foundation:1.6.0")
+    api("androidx.compose.material:material:1.6.0")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
@@ -109,8 +109,8 @@ dependencies {
     api("io.insert-koin:koin-androidx-compose:3.5.3")
 
     // Accompanist, useful composables
-    api("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
-    api("com.google.accompanist:accompanist-pager-indicators:0.32.0")
+    api("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+    api("com.google.accompanist:accompanist-pager-indicators:0.34.0")
 
     // Testing
     testApi("junit:junit:4.13.2")
@@ -119,13 +119,13 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.7.0"))
+    api(platform("com.google.firebase:firebase-bom:32.7.1"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
 
     // Google services
-    api("com.google.android.gms:play-services-location:21.0.1")
+    api("com.google.android.gms:play-services-location:21.1.0")
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
@@ -148,10 +148,10 @@ dependencies {
     api("androidx.work:work-runtime-ktx:2.9.0")
 
     // Video
-    api("androidx.media3:media3-exoplayer:1.2.0")
-    api("androidx.media3:media3-datasource-okhttp:1.2.0")
-    api("androidx.media3:media3-ui:1.2.0")
+    api("androidx.media3:media3-exoplayer:1.2.1")
+    api("androidx.media3:media3-datasource-okhttp:1.2.1")
+    api("androidx.media3:media3-ui:1.2.1")
 
     // Payments
-    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.9.3")
+    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.9.4")
 }

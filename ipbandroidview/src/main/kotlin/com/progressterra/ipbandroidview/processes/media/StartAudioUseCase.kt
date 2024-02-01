@@ -10,7 +10,7 @@ interface StartAudioUseCase {
     ) : StartAudioUseCase {
 
         override suspend fun invoke(checkId: String) {
-            val path = fileExplorer.audioFile(checkId).path
+            val path = fileExplorer.file("$checkId.mp4").absolutePath
             audioManager.play(path)
         }
     }

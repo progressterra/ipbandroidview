@@ -15,7 +15,7 @@ interface StartRecordingUseCase {
 
         override suspend fun invoke(): Result<Voice> = runCatching {
             val id = createId()
-            val path = fileExplorer.audioFile(id).path
+            val path = fileExplorer.file("$id.mp4").absolutePath
             voiceManager.startRecording(path)
             Voice(id = id, local = true, toRemove = false)
         }

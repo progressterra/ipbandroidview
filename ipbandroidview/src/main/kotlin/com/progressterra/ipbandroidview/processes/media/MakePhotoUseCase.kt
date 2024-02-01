@@ -25,7 +25,7 @@ interface MakePhotoUseCase {
         override suspend fun invoke(id: String?): Result<MultisizedImage> = runCatching {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val newPhotoId = id ?: createId()
-            val uri = fileExplorer.uriForFile(fileExplorer.pictureFile(newPhotoId))
+            val uri = fileExplorer.uriForFile(fileExplorer.file("$newPhotoId.jpg"))
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             if (makePhotoContract.makePhoto(intent)) MultisizedImage(
                 id = newPhotoId,

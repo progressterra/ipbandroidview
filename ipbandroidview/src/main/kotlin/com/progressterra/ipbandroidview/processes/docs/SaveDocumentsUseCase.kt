@@ -41,8 +41,8 @@ interface SaveDocumentsUseCase {
                     repo.setImageForChar(
                         token, data.id, MultipartBody.Part.createFormData(
                             name = "file",
-                            filename = fileExplorer.pictureFile(img.id).name,
-                            body = fileExplorer.pictureFile(img.id)
+                            filename = "${img.id}.jpg",
+                            body = fileExplorer.file("${img.id}.jpg")
                                 .asRequestBody("image/*".toMediaTypeOrNull())
                         )
                     ).throwOnFailure()

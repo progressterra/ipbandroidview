@@ -77,7 +77,7 @@ interface CheckMediaDetailsUseCase {
         }
 
         private suspend fun saveAudio(inputStream: InputStream, id: String) {
-            withContext(Dispatchers.IO) { fileExplorer.inputStreamToVoices(inputStream, id) }
+            withContext(Dispatchers.IO) { fileExplorer.saveInputStream(inputStream, "$id.m4a") }
         }
     }
 }
