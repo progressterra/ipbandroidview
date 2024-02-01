@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import com.progressterra.ipbandroidview.processes.media.FileExplorer
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,7 @@ class VideoPieScreenViewModel(
                         if (progress == 1F) {
                             counter++
                             if (counter == currentState.toDownload.size) {
-                                val mediaItems = currentState.toDownload.mapIndexed { index, _ ->
+                                val mediaItems = List(currentState.toDownload.size) { index ->
                                     MediaItem.fromUri(fileExplorer.uriForFile(fileExplorer.file("Video$index.mp4")))
                                 }
                                 emitState {
@@ -45,7 +46,11 @@ class VideoPieScreenViewModel(
         }
     }
 
-    override fun handle(event: VideoPieScreenEvent) {
+    override fun handle(event: ButtonEvent) {
+        next()
+    }
+
+    private fun next() {
         emitState {
             it.copy(
                 current = it.next,
@@ -53,6 +58,8 @@ class VideoPieScreenViewModel(
             )
         }
     }
+
+    override fun handle(event: VideoPieScreenEvent) = Unit
 
     override fun handle(event: StateColumnEvent) {
         refresh()

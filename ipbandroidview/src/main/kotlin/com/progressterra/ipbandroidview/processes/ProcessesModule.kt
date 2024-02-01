@@ -84,6 +84,7 @@ import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
 import com.progressterra.ipbandroidview.processes.media.AudioManager
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
+import com.progressterra.ipbandroidview.processes.media.FileExplorer
 import com.progressterra.ipbandroidview.processes.media.MakePhotoContract
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
@@ -139,6 +140,8 @@ import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val processesModule = module {
+
+    single<FileExplorer> { FileExplorer.Base(androidContext()) }
 
     single<CopyTextUseCase> { CopyTextUseCase.Base(get()) }
 
