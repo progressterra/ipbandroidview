@@ -35,7 +35,7 @@ interface FileExplorer {
         private val context: Context
     ) : FileExplorer {
 
-        private val folder = context.cacheDir.absolutePath
+        private val folder = context.filesDir.absolutePath
 
         override fun uriForFile(file: File): Uri = Uri.parse(file.absolutePath)
 
