@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.pages.videopie
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import com.progressterra.ipbandroidview.processes.media.FileExplorer
-import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -32,13 +31,6 @@ class VideoPieScreenViewModel(
                                     val tempFileName = "Video$mapIndex.mp4"
                                     val file = fileExplorer.file(tempFileName)
                                     val uri = fileExplorer.uriForFile(file)
-                                    log("""
-                                        created MediaItem with:
-                                        fileName: $tempFileName
-                                        file path: ${file.absoluteFile}
-                                        uri: $uri
-                                        """.trimIndent()
-                                    )
                                     MediaItem.fromUri(uri)
                                 }
                                 emitState {
@@ -49,7 +41,6 @@ class VideoPieScreenViewModel(
                                         downloaded = mediaItems
                                     )
                                 }
-                                log("initial refreshed state $currentState")
                             }
                         }
                     },
@@ -62,18 +53,15 @@ class VideoPieScreenViewModel(
 
     override fun handle(event: ButtonEvent) {
         next()
-        log("next")
     }
 
     private fun next() {
-        log("old state: $currentState")
         emitState {
             it.copy(
                 current = it.next,
                 next = (it.downloaded - it.next).random()
             )
         }
-        log("new state: $currentState")
     }
 
     override fun handle(event: VideoPieScreenEvent) = Unit
