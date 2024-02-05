@@ -149,7 +149,6 @@ dependencies {
 
     // Video
     api("androidx.media3:media3-exoplayer:1.2.1")
-    api("androidx.media3:media3-datasource-okhttp:1.2.1")
     api("androidx.media3:media3-ui:1.2.1")
 
     // Payments
