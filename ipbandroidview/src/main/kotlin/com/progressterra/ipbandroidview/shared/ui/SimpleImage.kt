@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
@@ -27,9 +28,7 @@ fun SimpleImage(
         imageModel = { image },
         imageOptions = options,
         component = rememberImageComponent {
-            +ShimmerPlugin(
-                baseColor = backgroundColor, highlightColor = IpbTheme.colors.primary.asColor()
-            )
+            +ShimmerPlugin()
         },
         failure = {
             Box(
@@ -44,6 +43,6 @@ fun SimpleImage(
                 )
             }
         },
-        previewPlaceholder = R.drawable.dummy_200x400
+        previewPlaceholder = painterResource(id = R.drawable.dummy_200x400)
     )
 }

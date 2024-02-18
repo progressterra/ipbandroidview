@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.pages.delivery.DeliveryScreenViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documents.DocumentsScreenViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesScreenViewModel
+import com.progressterra.ipbandroidview.pages.fer.FERViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.info.InfoScreenViewModel
 import com.progressterra.ipbandroidview.pages.interests.InterestsScreenViewModel
@@ -215,4 +216,6 @@ val pagesModule = module {
     }
 
     viewModel { OverviewScreenViewModel(get(), get()) }
+
+    viewModel { FERViewModel() }
 }
