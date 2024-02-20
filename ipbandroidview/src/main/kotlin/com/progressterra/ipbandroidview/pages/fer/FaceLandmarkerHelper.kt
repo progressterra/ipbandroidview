@@ -16,6 +16,7 @@ import com.google.mediapipe.tasks.core.Delegate
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarker
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
+import com.progressterra.ipbandroidview.shared.log
 
 class FaceLandmarkerHelper(
     val minFaceDetectionConfidence: Float = DEFAULT_FACE_DETECTION_CONFIDENCE,
@@ -23,10 +24,12 @@ class FaceLandmarkerHelper(
     val minFacePresenceConfidence: Float = DEFAULT_FACE_PRESENCE_CONFIDENCE,
     val maxNumFaces: Int = DEFAULT_NUM_FACES,
     val currentDelegate: Int = DELEGATE_CPU,
-    val runningMode: RunningMode = RunningMode.IMAGE,
-    val context: Context,
-    val faceLandmarkerHelperListener: LandmarkerListener? = null
+    var runningMode: RunningMode,
+    val context: Context
 ) {
+
+    var faceLandmarkerHelperListener: LandmarkerListener? = null
+
 
     private var faceLandmarker: FaceLandmarker? = null
 
@@ -66,18 +69,18 @@ class FaceLandmarkerHelper(
         baseOptionBuilder.setModelAssetPath(MP_FACE_LANDMARKER_TASK)
 
         // Check if runningMode is consistent with faceLandmarkerHelperListener
-        when (runningMode) {
-            RunningMode.LIVE_STREAM -> {
-                if (faceLandmarkerHelperListener == null) {
-                    throw IllegalStateException(
-                        "faceLandmarkerHelperListener must be set when runningMode is LIVE_STREAM."
-                    )
-                }
-            }
-            else -> {
-                // no-op
-            }
-        }
+//        when (runningMode) {
+//            RunningMode.LIVE_STREAM -> {
+//                if (faceLandmarkerHelperListener == null) {
+//                    throw IllegalStateException(
+//                        "faceLandmarkerHelperListener must be set when runningMode is LIVE_STREAM."
+//                    )
+//                }
+//            }
+//            else -> {
+//                // no-op
+//            }
+//        }
 
         try {
             val baseOptions = baseOptionBuilder.build()
@@ -108,8 +111,8 @@ class FaceLandmarkerHelper(
                 "Face Landmarker failed to initialize. See error logs for " +
                         "details"
             )
-            Log.e(
-                TAG, "MediaPipe failed to load the task with error: " + e
+            log(
+                "MediaPipe failed to load the task with error: " + e
                     .message
             )
         } catch (e: RuntimeException) {
@@ -118,10 +121,7 @@ class FaceLandmarkerHelper(
                 "Face Landmarker failed to initialize. See error logs for " +
                         "details", GPU_ERROR
             )
-            Log.e(
-                TAG,
-                "Face Landmarker failed to load model with error: " + e.message
-            )
+            log("Face Landmarker failed to load model with error: " + e.message)
         }
     }
 
