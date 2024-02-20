@@ -1,8 +1,11 @@
+import de.undercouch.gradle.tasks.download.Download
+
 plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-parcelize")
     id("maven-publish")
+    id("de.undercouch.download")
 }
 
 android {
@@ -74,11 +77,22 @@ afterEvaluate {
     }
 }
 
+val downloadMPFL = tasks.register<Download>("downloadMPFL") {
+    src("https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task")
+    dest(file("$projectDir/src/main/assets/face_landmarker.task"))
+    overwrite(false)
+}
+
+tasks.named("preBuild") {
+    dependsOn(downloadMPFL)
+}
+
 dependencies {
     // Core
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
     api("com.google.android.material:material:1.11.0")
+    api("androidx.fragment:fragment-compose:1.7.0-alpha10")
 
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -89,17 +103,17 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.6.0")
-    api("androidx.compose.ui:ui-util:1.6.0")
-    api("androidx.compose.ui:ui-tooling:1.6.0")
-    api("androidx.compose.ui:ui-tooling-preview:1.6.0")
-    api("androidx.compose.foundation:foundation:1.6.0")
-    api("androidx.compose.material:material:1.6.0")
+    api("androidx.compose.ui:ui:1.6.1")
+    api("androidx.compose.ui:ui-util:1.6.1")
+    api("androidx.compose.ui:ui-tooling:1.6.1")
+    api("androidx.compose.ui:ui-tooling-preview:1.6.1")
+    api("androidx.compose.foundation:foundation:1.6.1")
+    api("androidx.compose.material:material:1.6.1")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
-    api("com.maxkeppeler.sheets-compose-dialogs:core:1.2.1")
-    api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.1")
+    api("com.maxkeppeler.sheets-compose-dialogs:core:1.3.0")
+    api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.3.0")
 
     // Yandex
     api("com.yandex.android:maps.mobile:4.4.0-lite")
@@ -111,6 +125,7 @@ dependencies {
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
     api("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+    api("com.google.accompanist:accompanist-permissions:0.34.0")
 
     // Testing
     testApi("junit:junit:4.13.2")
@@ -119,7 +134,7 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.7.1"))
+    api(platform("com.google.firebase:firebase-bom:32.7.2"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
@@ -130,6 +145,7 @@ dependencies {
 
     // iProBonusAndroidAPI
     api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.16")
+    api("com.progressterra:shared:1.0")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
@@ -138,8 +154,8 @@ dependencies {
     api("de.hdodenhof:circleimageview:3.1.0")
 
     // Landscapist
-    api("com.github.skydoves:landscapist-glide:2.2.13")
-    api("com.github.skydoves:landscapist-placeholder:2.2.13")
+    api("com.github.skydoves:landscapist-glide:2.3.1")
+    api("com.github.skydoves:landscapist-placeholder:2.3.1")
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
     api("androidx.paging:paging-compose:3.2.1")
@@ -152,5 +168,17 @@ dependencies {
     api("androidx.media3:media3-ui:1.2.1")
 
     // Payments
-    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.9.4")
+    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.0")
+
+    val cameraxVersion = "1.3.1"
+    api("androidx.camera:camera-core:$cameraxVersion")
+    api("androidx.camera:camera-camera2:$cameraxVersion")
+    api("androidx.camera:camera-lifecycle:$cameraxVersion")
+    api("androidx.camera:camera-view:$cameraxVersion")
+
+    api("com.google.mediapipe:tasks-vision:0.10.9")
+
+    api("com.jakewharton.timber:timber:5.0.1")
+
+    api("com.darkrockstudios:mpfilepicker:3.1.0")
 }
