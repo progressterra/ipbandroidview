@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.fer
+package com.progressterra.ipbandroidview.entities
 
 import java.util.Locale
 

@@ -1,9 +1,7 @@
 package com.progressterra.ipbandroidview.pages.fer
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.compose.content
-import com.google.mediapipe.tasks.vision.core.RunningMode
+import com.progressterra.ipbandroidview.processes.FaceLandmarkerHelper
 import com.progressterra.ipbshared.FERModule
-import com.progressterra.ipbshared.FaceLandmarks
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 class FERFragment : Fragment() {
 

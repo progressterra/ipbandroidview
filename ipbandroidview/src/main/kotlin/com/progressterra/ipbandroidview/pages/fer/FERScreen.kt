@@ -19,6 +19,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -184,6 +186,7 @@ fun FERScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
                         .padding(20.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
@@ -193,8 +196,8 @@ fun FERScreen(
                         path?.let { viewModel.handle(FEREvent.ChooseDataset(path)) }
                     }
                     BrushedText(
-                        text = "Dataset for tuning: ${state.datasetDirPath}",
-                        style = IpbTheme.typography.body,
+                        text = "Dataset: ${state.datasetDirPath}",
+                        style = IpbTheme.typography.caption2,
                         tint = IpbTheme.colors.textPrimary.asBrush()
                     )
                     Button(
@@ -207,11 +210,12 @@ fun FERScreen(
                             }
                         })
                     BrushedText(
-                        text = "Expression for tuning: ${state.tuningExpression.emoji}",
+                        text = "Expression: ${state.tuningExpression.emoji}",
                         style = IpbTheme.typography.body,
                         tint = IpbTheme.colors.textPrimary.asBrush()
                     )
                     Row(
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         TextButton(

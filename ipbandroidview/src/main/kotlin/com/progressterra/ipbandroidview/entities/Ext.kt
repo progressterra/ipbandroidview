@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.entities
 import androidx.compose.runtime.Composable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.mediapipe.tasks.components.containers.Category
 import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewModel
 import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
@@ -46,6 +47,7 @@ import com.progressterra.ipbandroidview.shared.tryOrNull
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
+import com.progressterra.ipbshared.FaceLandmarks
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -503,3 +505,58 @@ fun RGEnterpriseData.toPartner(shop: RFShop, offers: List<Offer>): Partner =
         headImageUrl = headImageURL ?: "",
         logoImageUrl = logoImageURL ?: ""
     )
+
+fun List<Category>.toFaceLandmarks(): FaceLandmarks {
+    val smileLeft = this[44]
+    val smileRight = this[45]
+    val browDownLeft = this[1]
+    val browDownRight = this[2]
+    val browInnerUp = this[3]
+    val jawOpen = this[25]
+    val eyeBlinkLeft = this[9]
+    val eyeBlinkRight = this[10]
+    val mouthClose = this[27]
+    val mouthDimpleLeft = this[28]
+    val mouthDimpleRight = this[29]
+    val browOuterLeft = this[4]
+    val browOuterRight = this[5]
+    val eyeWideLeft = this[21]
+    val eyeWideRight = this[22]
+    val eyeSquintLeft = this[19]
+    val eyeSquintRight = this[20]
+    val mouthStretchLeft = this[46]
+    val mouthStretchRight = this[47]
+    val mouthFrownLeft = this[30]
+    val mouthFrownRight = this[31]
+    val mouthLowerDownLeft = this[34]
+    val mouthLowerDownRight = this[35]
+    val mouthPressLeft = this[36]
+    val mouthPressRight = this[37]
+    return FaceLandmarks(
+        smileLeft = smileLeft.score(),
+        smileRight = smileRight.score(),
+        browDownLeft = browDownLeft.score(),
+        browDownRight = browDownRight.score(),
+        browInnerUp = browInnerUp.score(),
+        jawOpen = jawOpen.score(),
+        eyeBlinkLeft = eyeBlinkLeft.score(),
+        eyeBlinkRight = eyeBlinkRight.score(),
+        mouthClose = mouthClose.score(),
+        mouthDimpleLeft = mouthDimpleLeft.score(),
+        mouthDimpleRight = mouthDimpleRight.score(),
+        browOuterLeft = browOuterLeft.score(),
+        browOuterRight = browOuterRight.score(),
+        eyeWideLeft = eyeWideLeft.score(),
+        eyeWideRight = eyeWideRight.score(),
+        eyeSquintLeft = eyeSquintLeft.score(),
+        eyeSquintRight = eyeSquintRight.score(),
+        mouthStretchLeft = mouthStretchLeft.score(),
+        mouthStretchRight = mouthStretchRight.score(),
+        mouthFrownLeft = mouthFrownLeft.score(),
+        mouthFrownRight = mouthFrownRight.score(),
+        mouthLowerDownLeft = mouthLowerDownLeft.score(),
+        mouthLowerDownRight = mouthLowerDownRight.score(),
+        mouthPressLeft = mouthPressLeft.score(),
+        mouthPressRight = mouthPressRight.score()
+    )
+}

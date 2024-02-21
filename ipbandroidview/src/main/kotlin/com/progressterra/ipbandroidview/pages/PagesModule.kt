@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsVie
 import com.progressterra.ipbandroidview.pages.documents.DocumentsScreenViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesScreenViewModel
 import com.progressterra.ipbandroidview.pages.fer.FERViewModel
-import com.progressterra.ipbandroidview.pages.fer.FaceLandmarkerHelper
+import com.progressterra.ipbandroidview.processes.FaceLandmarkerHelper
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.info.InfoScreenViewModel
 import com.progressterra.ipbandroidview.pages.interests.InterestsScreenViewModel
@@ -221,13 +221,15 @@ val pagesModule = module {
 
     viewModel { OverviewScreenViewModel(get(), get()) }
 
-    viewModel { FERViewModel(
-        ferModule = FERModule(), liveFLHelper = FaceLandmarkerHelper(
-            context = androidContext(),
-            runningMode = RunningMode.LIVE_STREAM
-        ), imageFLHelper = FaceLandmarkerHelper(
-            context = androidContext(),
-            runningMode = RunningMode.IMAGE
+    viewModel {
+        FERViewModel(
+            ferModule = FERModule(), liveFLHelper = FaceLandmarkerHelper(
+                context = androidContext(),
+                runningMode = RunningMode.LIVE_STREAM
+            ), imageFLHelper = FaceLandmarkerHelper(
+                context = androidContext(),
+                runningMode = RunningMode.IMAGE
+            ), fileExplorer = get()
         )
-    ) }
+    }
 }
