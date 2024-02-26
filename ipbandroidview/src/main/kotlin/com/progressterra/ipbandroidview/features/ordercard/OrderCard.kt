@@ -37,8 +37,7 @@ fun OrderCard(
             modifier = Modifier
                 .size(157.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            image = state.image,
-            backgroundColor = IpbTheme.colors.background.asColor()
+            image = state.image
         )
         Column(
             modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)

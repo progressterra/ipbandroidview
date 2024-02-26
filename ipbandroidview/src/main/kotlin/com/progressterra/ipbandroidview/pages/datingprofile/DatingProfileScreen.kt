@@ -197,8 +197,7 @@ fun DatingProfileScreen(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
-                    image = state.user.avatar,
-                    backgroundColor = IpbTheme.colors.background.asColor()
+                    image = state.user.avatar
                 )
                 TextButton(
                     state = state.choosePhoto,
@@ -265,7 +264,7 @@ fun DatingProfileScreen(
                                 Sex.FEMALE -> R.drawable.avatar_female
                             }
                         ).toString()
-                    }, backgroundColor = IpbTheme.colors.background.asColor()
+                    }
                 )
                 if (state.user.name.isNotEmpty()) {
                     BrushedText(

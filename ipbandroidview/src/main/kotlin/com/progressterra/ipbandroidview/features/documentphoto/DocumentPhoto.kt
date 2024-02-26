@@ -41,8 +41,7 @@ fun DocumentPhoto(
                 .clip(RoundedCornerShape(8.dp))
                 .background(IpbTheme.colors.surface.asBrush())
                 .niceClickable { useComponent.handle(DocumentPhotoEvent.Select(picture)) },
-            image = picture.url,
-            backgroundColor = IpbTheme.colors.surface.asColor()
+            image = picture.url
         )
     }
 

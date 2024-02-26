@@ -70,8 +70,7 @@ fun OrganizationAuditsScreen(
                                 .height(188.dp)
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(8.dp)),
-                            image = state.imageUrl,
-                            backgroundColor = IpbTheme.colors.surface.asColor()
+                            image = state.imageUrl
                         )
                         Row(
                             modifier = Modifier.fillMaxWidth(),

@@ -62,8 +62,7 @@ fun OrganizationsScreen(
                             modifier = Modifier
                                 .size(width = 110.dp, height = 90.dp)
                                 .clip(RoundedCornerShape(8.dp)),
-                            image = it.imageUrl,
-                            backgroundColor = IpbTheme.colors.surface.asColor()
+                            image = it.imageUrl
                         )
                         Column(
                             modifier = Modifier.weight(1f),

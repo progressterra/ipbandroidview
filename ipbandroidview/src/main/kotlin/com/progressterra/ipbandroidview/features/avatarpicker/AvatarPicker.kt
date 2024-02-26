@@ -40,8 +40,7 @@ fun AvatarPicker(
                     .clip(CircleShape)
                     .size(80.dp)
                     .niceClickable { useComponent.handle(AvatarPickerEvent(itemState.id)) },
-                image = itemState.url,
-                backgroundColor = IpbTheme.colors.background.asColor()
+                image = itemState.url
             )
         }
     }

@@ -69,8 +69,7 @@ fun ChatsScreen(
                                 Sex.FEMALE -> R.drawable.avatar_female
                             }
                         ).toString()
-                    },
-                    backgroundColor = IpbTheme.colors.background.asColor()
+                    }
                 )
             }
             Column(

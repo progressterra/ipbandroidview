@@ -40,7 +40,6 @@ fun CatalogCard(
                 .size(98.dp)
                 .clip(RoundedCornerShape(8.dp)),
             image = state.image,
-            backgroundColor = IpbTheme.colors.background.asColor(),
             options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
         BrushedText(

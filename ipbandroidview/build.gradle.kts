@@ -77,16 +77,6 @@ afterEvaluate {
     }
 }
 
-val downloadMPFL = tasks.register<Download>("downloadMPFL") {
-    src("https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task")
-    dest(file("$projectDir/src/main/assets/face_landmarker.task"))
-    overwrite(false)
-}
-
-tasks.named("preBuild") {
-    dependsOn(downloadMPFL)
-}
-
 dependencies {
     // Core
     api("androidx.core:core-ktx:1.12.0")
@@ -103,12 +93,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.6.1")
-    api("androidx.compose.ui:ui-util:1.6.1")
-    api("androidx.compose.ui:ui-tooling:1.6.1")
-    api("androidx.compose.ui:ui-tooling-preview:1.6.1")
-    api("androidx.compose.foundation:foundation:1.6.1")
-    api("androidx.compose.material:material:1.6.1")
+    api("androidx.compose.ui:ui:1.6.2")
+    api("androidx.compose.ui:ui-util:1.6.2")
+    api("androidx.compose.ui:ui-tooling:1.6.2")
+    api("androidx.compose.ui:ui-tooling-preview:1.6.2")
+    api("androidx.compose.foundation:foundation:1.6.2")
+    api("androidx.compose.material:material:1.6.2")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
@@ -176,9 +166,5 @@ dependencies {
     api("androidx.camera:camera-lifecycle:$cameraxVersion")
     api("androidx.camera:camera-view:$cameraxVersion")
 
-    api("com.google.mediapipe:tasks-vision:0.10.9")
-
     api("com.jakewharton.timber:timber:5.0.1")
-
-    api("com.darkrockstudios:mpfilepicker:3.1.0")
 }

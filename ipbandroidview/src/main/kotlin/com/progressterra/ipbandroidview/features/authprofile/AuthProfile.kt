@@ -40,11 +40,10 @@ fun AuthProfile(
         verticalAlignment = Alignment.CenterVertically
     ) {
         SimpleImage(
-            image = state.profileImage,
             modifier = Modifier
                 .clip(CircleShape)
                 .size(80.dp),
-            backgroundColor = IpbTheme.colors.surface.asColor()
+            image = state.profileImage
         )
         Spacer(modifier = Modifier.width(20.dp))
         Column(

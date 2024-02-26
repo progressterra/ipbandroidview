@@ -44,8 +44,7 @@ fun MakePhoto(
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .niceClickable { useComponent.handle(MakePhotoEvent.Select(picture)) },
-                image = picture.url,
-                backgroundColor = IpbTheme.colors.surface.asColor()
+                image = picture.url
             )
             if (!photosFromRemote) {
                 IconButton(

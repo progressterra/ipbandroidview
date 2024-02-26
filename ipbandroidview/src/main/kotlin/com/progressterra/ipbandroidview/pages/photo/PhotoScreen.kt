@@ -27,8 +27,7 @@ fun PhotoScreen(
         SimpleImage(
             modifier = Modifier.fillMaxWidth(),
             image = state.picture,
-            options = ImageOptions(contentScale = ContentScale.FillWidth),
-            backgroundColor = IpbTheme.colors.background.asColor()
+            options = ImageOptions(contentScale = ContentScale.FillWidth)
         )
     }
 }

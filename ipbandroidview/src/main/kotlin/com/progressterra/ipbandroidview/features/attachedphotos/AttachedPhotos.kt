@@ -53,8 +53,7 @@ fun AttachedPhotos(
                     .size(48.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .niceClickable { onPhotoSelect(picture) },
-                image = picture.url,
-                backgroundColor = IpbTheme.colors.surface.asColor()
+                image = picture.url
             )
             if (enabled) {
                 IconButton(

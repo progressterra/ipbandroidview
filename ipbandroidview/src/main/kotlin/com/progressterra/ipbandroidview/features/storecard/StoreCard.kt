@@ -43,8 +43,7 @@ fun StoreCard(
             modifier = Modifier
                 .size(width = 157.dp, height = 157.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            image = state.image,
-            backgroundColor = IpbTheme.colors.background.asColor()
+            image = state.image
         )
         BrushedText(
             text = state.name,

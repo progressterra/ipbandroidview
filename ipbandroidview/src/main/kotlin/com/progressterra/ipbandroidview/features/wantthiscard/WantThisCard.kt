@@ -42,8 +42,7 @@ fun WantThisCard(
             modifier = Modifier
                 .size(157.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            image = state.image,
-            backgroundColor = IpbTheme.colors.background.asColor()
+            image = state.image
         )
         BrushedText(
             text = state.name,

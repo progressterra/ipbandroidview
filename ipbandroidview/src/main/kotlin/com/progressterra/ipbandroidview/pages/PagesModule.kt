@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages
 
-import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.progressterra.ipbandroidview.pages.avatarpicker.AvatarPickerScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcards.BankCardsScreenViewModel
@@ -18,8 +17,6 @@ import com.progressterra.ipbandroidview.pages.delivery.DeliveryScreenViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documents.DocumentsScreenViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesScreenViewModel
-import com.progressterra.ipbandroidview.pages.fer.FERViewModel
-import com.progressterra.ipbandroidview.processes.FaceLandmarkerHelper
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.info.InfoScreenViewModel
 import com.progressterra.ipbandroidview.pages.interests.InterestsScreenViewModel
@@ -52,8 +49,6 @@ import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsS
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeScreenViewModel
 import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.pages.workwatch.WorkWatchScreenViewModel
-import com.progressterra.ipbshared.FERModule
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -220,16 +215,4 @@ val pagesModule = module {
     }
 
     viewModel { OverviewScreenViewModel(get(), get()) }
-
-    viewModel {
-        FERViewModel(
-            ferModule = FERModule(), liveFLHelper = FaceLandmarkerHelper(
-                context = androidContext(),
-                runningMode = RunningMode.LIVE_STREAM
-            ), imageFLHelper = FaceLandmarkerHelper(
-                context = androidContext(),
-                runningMode = RunningMode.IMAGE
-            ), fileExplorer = get()
-        )
-    }
 }
