@@ -46,7 +46,6 @@ import com.progressterra.ipbandroidview.shared.tryOrNull
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
-import com.progressterra.ipbshared.FaceLandmarks
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset

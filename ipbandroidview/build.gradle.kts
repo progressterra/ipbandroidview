@@ -135,7 +135,6 @@ dependencies {
 
     // iProBonusAndroidAPI
     api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.16")
-    api("com.progressterra:shared:1.0")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
