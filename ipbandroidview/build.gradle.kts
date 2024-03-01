@@ -46,7 +46,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
 
     namespace = "com.progressterra.ipbandroidview"
@@ -85,8 +85,8 @@ dependencies {
     api("androidx.fragment:fragment-compose:1.7.0-alpha10")
 
     // Coroutines
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 
     // Activity
     api("androidx.activity:activity-ktx:1.8.2")
@@ -157,7 +157,7 @@ dependencies {
     api("androidx.media3:media3-ui:1.2.1")
 
     // Payments
-    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.0")
+    api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.1")
 
     val cameraxVersion = "1.3.1"
     api("androidx.camera:camera-core:$cameraxVersion")
