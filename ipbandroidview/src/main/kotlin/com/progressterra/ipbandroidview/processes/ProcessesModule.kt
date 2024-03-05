@@ -18,6 +18,7 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.chat.ChatsUseCase
+import com.progressterra.ipbandroidview.processes.chat.CreateChatCustomUseCase
 import com.progressterra.ipbandroidview.processes.chat.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.chat.DatingChatsPagingUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchChatsUseCase
@@ -68,7 +69,7 @@ import com.progressterra.ipbandroidview.processes.goods.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.goods.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
-import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
+import com.progressterra.ipbandroidview.processes.goods.FetchProductsUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
@@ -189,8 +190,8 @@ val processesModule = module {
         GoodsUseCase.Base(get(), get())
     }
 
-    single<FetchGoodsPage> {
-        FetchGoodsPage.Base(get(), get(), get(), get())
+    single<FetchProductsUseCase> {
+        FetchProductsUseCase.Base(get(), get(), get(), get())
     }
 
     single<AddToCartUseCase> {
@@ -374,6 +375,8 @@ val processesModule = module {
     single<ConnectUseCase> { ConnectUseCase.Base(get(), get(), get(), get()) }
 
     single<CreateChatWithUserUseCase> { CreateChatWithUserUseCase.Base(get(), get(), get(), get()) }
+
+    single<CreateChatCustomUseCase> { CreateChatCustomUseCase.Base(get(), get(), get(), get()) }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(

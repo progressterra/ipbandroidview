@@ -2,31 +2,28 @@ package com.progressterra.ipbandroidview.processes.goods
 
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
-import com.progressterra.ipbandroidview.entities.toGoodsItem
-import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
-interface FetchGoodsPage {
+interface FetchProductsUseCase {
 
     suspend operator fun invoke(
         filterAndSort: FilterAndSort
-    ): Result<List<StoreCardState>>
+    ): Result<List<ProductView>>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val productRepo: ProductRepository, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources,
-    ) : FetchGoodsPage, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
+    ) : FetchProductsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(
             filterAndSort: FilterAndSort
-        ): Result<List<StoreCardState>> = withToken { token ->
-            productRepo.productList(token, filterAndSort).getOrThrow()
-                ?.map { it.toGoodsItem().toStoreCardState() }
-                ?: emptyList()
+        ): Result<List<ProductView>> = withToken { token ->
+            productRepo.productList(token, filterAndSort).getOrThrow() ?: emptyList()
         }
     }
 }
