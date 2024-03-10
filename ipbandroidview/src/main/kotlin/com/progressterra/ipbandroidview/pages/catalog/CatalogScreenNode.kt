@@ -6,11 +6,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.features.storecard.UseStoreCard
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class CatalogScreenNode(
-    buildContext: BuildContext, private val navigation: CatalogScreenNavigation
+    buildContext: BuildContext,
+    private val navigation: CatalogScreenNavigation,
+    private val customStoreCard: (@Composable (StoreCardState, UseStoreCard) -> Unit)? = null
 ) : Node(
     buildContext
 ) {
@@ -28,6 +32,11 @@ class CatalogScreenNode(
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        CatalogScreen(modifier = modifier, state = state, useComponent = viewModel)
+        CatalogScreen(
+            modifier = modifier,
+            state = state,
+            useComponent = viewModel,
+            customStoreCard = customStoreCard
+        )
     }
 }

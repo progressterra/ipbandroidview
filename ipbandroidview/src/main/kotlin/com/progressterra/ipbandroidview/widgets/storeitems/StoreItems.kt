@@ -12,10 +12,15 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
+import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 
 @Composable
 fun StoreItems(
-    modifier: Modifier = Modifier, state: StoreItemsState, useComponent: UseStoreItems
+    modifier: Modifier = Modifier,
+    state: StoreItemsState,
+    useComponent: UseStoreItems,
+    customStoreCard: (@Composable (StoreCardState, UseStoreItems) -> Unit)? = null
 ) {
     val lazyItems = state.items.collectAsLazyPagingItems()
     if (lazyItems.itemCount > 0) {
@@ -23,7 +28,7 @@ fun StoreItems(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalArrangement = Arrangement.spacedBy(30.dp),
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Fixed(IpbAndroidViewSettings.CATALOG_STORE_COLUMNS),
             contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
         ) {
             items(
@@ -32,7 +37,7 @@ fun StoreItems(
             ) { index ->
                 lazyItems[index]?.let {
                     Box(contentAlignment = Alignment.Center) {
-                        StoreCard(
+                        customStoreCard?.invoke(it, useComponent) ?: StoreCard(
                             state = it, useComponent = useComponent
                         )
                     }

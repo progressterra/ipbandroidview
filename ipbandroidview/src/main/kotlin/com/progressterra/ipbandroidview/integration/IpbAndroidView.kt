@@ -87,6 +87,9 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.WORK_WATCH_ENABLED = config["workWatchEnabled"]!!.first().toBoolean()
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
+        IpbAndroidViewSettings.CATALOG_SEARCH = config["catalogSearch"]!!.first().toBoolean()
+        IpbAndroidViewSettings.CATALOG_COLUMNS = config["catalogColumns"]!!.first().toInt()
+        IpbAndroidViewSettings.CATALOG_STORE_COLUMNS = config["catalogStoreColumns"]!!.first().toInt()
         IpbAndroidApiSettings.CHECKLIST_URL = config["checklistUrl"]!!
         IpbAndroidApiSettings.SUGGESTION_URL = config["suggestionUrl"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!

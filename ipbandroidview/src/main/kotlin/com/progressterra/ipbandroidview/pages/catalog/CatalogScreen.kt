@@ -20,8 +20,10 @@ import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.search.Search
 import com.progressterra.ipbandroidview.features.search.SearchState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.features.storecard.UseStoreCard
 import com.progressterra.ipbandroidview.features.trace.Trace
 import com.progressterra.ipbandroidview.features.trace.TraceState
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -33,7 +35,10 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun CatalogScreen(
-    modifier: Modifier = Modifier, state: CatalogScreenState, useComponent: UseCatalog
+    modifier: Modifier = Modifier,
+    state: CatalogScreenState,
+    useComponent: UseCatalog,
+    customStoreCard: (@Composable (StoreCardState, UseStoreCard) -> Unit)? = null
 ) {
     ThemedLayout(
         modifier = modifier,
@@ -55,12 +60,15 @@ fun CatalogScreen(
         ) {
             Box {
                 StoreItems(
-                    modifier = Modifier.zIndex(1f), state = state.goods, useComponent = useComponent
+                    modifier = Modifier.zIndex(1f),
+                    state = state.goods,
+                    useComponent = useComponent,
+                    customStoreCard = customStoreCard
                 )
                 LazyVerticalGrid(
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp),
-                    columns = GridCells.Fixed(3),
+                    columns = GridCells.Fixed(IpbAndroidViewSettings.CATALOG_COLUMNS),
                     contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 20.dp)
                 ) {
                     items(state.current.children) {
