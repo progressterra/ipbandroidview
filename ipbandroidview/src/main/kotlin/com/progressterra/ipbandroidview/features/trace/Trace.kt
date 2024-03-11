@@ -26,7 +26,6 @@ fun Trace(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(IpbTheme.colors.surface.asColor())
             .padding(horizontal = 16.dp)
     ) {
         Row(

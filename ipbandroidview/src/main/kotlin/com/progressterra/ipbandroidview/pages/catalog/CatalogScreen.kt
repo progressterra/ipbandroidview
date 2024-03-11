@@ -47,7 +47,7 @@ fun CatalogScreen(
                 Trace(
                     state = state.trace, useComponent = useComponent
                 )
-            } else {
+            } else if (IpbAndroidViewSettings.CATALOG_SEARCH) {
                 Search(
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                     state = state.search,

@@ -33,7 +33,7 @@ internal object IpbAndroidViewSettings {
 
     var YOU_KASSA_CLIENT_APPLICATION_KEY = ""
 
-    var CATALOG_SEARCH = false
+    var CATALOG_SEARCH = true
 
     var CATALOG_COLUMNS = 2
 
