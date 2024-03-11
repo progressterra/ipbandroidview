@@ -13,7 +13,8 @@ data class StoreCardState(
     val price: SimplePrice = SimplePrice(),
     val image: String = "",
     val installment: Installment = Installment(),
-    val counter: CounterState = CounterState()
+    val counter: CounterState = CounterState(),
+    val properties: List<Pair<String, String>> = emptyList()
 ) : IsEmpty {
 
     override fun isEmpty(): Boolean = this == StoreCardState()

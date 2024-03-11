@@ -54,7 +54,8 @@ data class GoodsItem(
         installment = installment,
         counter = CounterState(
             id = id, count = count
-        )
+        ),
+        properties = properties
     )
 
     fun toCartCardState(): CartCardState = CartCardState(
