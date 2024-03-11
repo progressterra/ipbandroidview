@@ -39,6 +39,10 @@ internal object IpbAndroidViewSettings {
 
     var CATALOG_STORE_COLUMNS = 2
 
+    var PROFILE_BUTTONS: List<String> = emptyList()
+
+    var PROFILE_BUTTONS_BORDER: Boolean = false
+
     const val WANT_THIS_DOC_TYPE_ID = "08db716a-e5d2-422b-8b07-20068718307b"
 
     const val DEFAULT_ID = "00000000-0000-0000-0000-000000000000"

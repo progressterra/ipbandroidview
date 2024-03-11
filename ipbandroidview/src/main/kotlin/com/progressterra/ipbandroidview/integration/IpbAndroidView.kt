@@ -90,6 +90,9 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.CATALOG_SEARCH = config["catalogSearch"]!!.first().toBoolean()
         IpbAndroidViewSettings.CATALOG_COLUMNS = config["catalogColumns"]!!.first().toInt()
         IpbAndroidViewSettings.CATALOG_STORE_COLUMNS = config["catalogStoreColumns"]!!.first().toInt()
+        IpbAndroidViewSettings.PROFILE_BUTTONS = config["profileButtons"]!!
+        IpbAndroidViewSettings.PROFILE_BUTTONS_BORDER =
+            config["profileButtonsBorder"]!!.first().toBoolean()
         IpbAndroidApiSettings.CHECKLIST_URL = config["checklistUrl"]!!
         IpbAndroidApiSettings.SUGGESTION_URL = config["suggestionUrl"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!

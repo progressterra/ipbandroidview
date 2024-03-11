@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.features.authprofile.AuthProfile
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.unauthplaceholder.UnAuthPlaceholder
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
@@ -47,43 +48,55 @@ fun ProfileScreen(
                     useComponent = useComponent
                 )
             }
-            ProfileButton(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
-                state = state.orders,
-                useComponent = useComponent,
-                title = stringResource(R.string.my_orders)
-            )
-            ProfileButton(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
-                state = state.wantThis,
-                useComponent = useComponent,
-                title = stringResource(R.string.want_this)
-            )
-            ProfileButton(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
-                state = state.favorites,
-                useComponent = useComponent,
-                title = stringResource(R.string.favorites)
-            )
-            ProfileButton(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
-                state = state.documents,
-                useComponent = useComponent,
-                title = stringResource(R.string.documents),
-                notification = state.docNotification
-            )
-            ProfileButton(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
-                state = state.bankCards,
-                useComponent = useComponent,
-                title = stringResource(R.string.bank_cards)
-            )
-            ProfileButton(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
-                state = state.support,
-                useComponent = useComponent,
-                title = stringResource(R.string.support)
-            )
+            if (IpbAndroidViewSettings.PROFILE_BUTTONS.contains("orders")) {
+                ProfileButton(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    state = state.orders,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.my_orders)
+                )
+            }
+            if (IpbAndroidViewSettings.PROFILE_BUTTONS.contains("wantThis")) {
+                ProfileButton(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    state = state.wantThis,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.want_this)
+                )
+            }
+            if (IpbAndroidViewSettings.PROFILE_BUTTONS.contains("favorites")) {
+                ProfileButton(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    state = state.favorites,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.favorites)
+                )
+            }
+            if (IpbAndroidViewSettings.PROFILE_BUTTONS.contains("documents")) {
+                ProfileButton(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    state = state.documents,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.documents),
+                    notification = state.docNotification
+                )
+            }
+            if (IpbAndroidViewSettings.PROFILE_BUTTONS.contains("bankCards")) {
+                ProfileButton(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    state = state.bankCards,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.bank_cards)
+                )
+            }
+            if (IpbAndroidViewSettings.PROFILE_BUTTONS.contains("support")) {
+                ProfileButton(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    state = state.support,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.support)
+                )
+            }
             Spacer(Modifier.weight(1f))
             ProfileButton(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 36.dp),

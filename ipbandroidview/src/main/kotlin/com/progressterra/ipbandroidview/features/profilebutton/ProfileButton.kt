@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.features.profilebutton
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.pages.profile.ProfileScreenState
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -34,6 +36,17 @@ fun ProfileButton(
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .niceClickable(state.enabled) { useComponent.handle(ProfileButtonEvent(state.id)) }
+            .then(
+                if (IpbAndroidViewSettings.PROFILE_BUTTONS_BORDER) {
+                    Modifier.border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.onSurface2.asBrush(),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                } else {
+                    Modifier
+                }
+            )
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
