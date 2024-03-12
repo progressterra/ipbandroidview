@@ -67,6 +67,7 @@ data class GoodsItem(
         installment = installment,
         counter = CounterState(
             id = id, count = count
-        )
+        ),
+        desc = description
     )
 }

@@ -12,5 +12,6 @@ data class CartCardState(
     val image: String = "",
     val installment: Installment = Installment(),
     val oldPrice: SimplePrice = SimplePrice(),
-    val counter: CounterState = CounterState()
+    val counter: CounterState = CounterState(),
+    val desc: String = ""
 )
