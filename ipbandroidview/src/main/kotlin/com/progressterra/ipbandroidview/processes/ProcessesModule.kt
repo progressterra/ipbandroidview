@@ -131,6 +131,7 @@ import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.utils.ShareTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
+import com.progressterra.ipbandroidview.processes.utils.StartActivityForResultContract
 import com.progressterra.ipbandroidview.processes.utils.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.processes.wantthis.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.processes.withdrawal.CreateNewWithdrawalUseCase
@@ -240,6 +241,10 @@ val processesModule = module {
     single {
         StartActivityContract.Base()
     }.binds(arrayOf(StartActivityContract.Client::class, StartActivityContract.Activity::class))
+
+    single {
+        StartActivityForResultContract.Base()
+    }.binds(arrayOf(StartActivityForResultContract.Client::class, StartActivityForResultContract.Activity::class))
 
     single {
         MakePhotoContract.Base()
