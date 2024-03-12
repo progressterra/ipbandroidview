@@ -102,6 +102,7 @@ import com.progressterra.ipbandroidview.processes.order.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.processes.order.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.processes.order.OrderDetailsUseCase
 import com.progressterra.ipbandroidview.processes.order.OrdersUseCase
+import com.progressterra.ipbandroidview.processes.order.YouKassaPaymentUseCase
 import com.progressterra.ipbandroidview.processes.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
@@ -436,6 +437,10 @@ val processesModule = module {
         WantThisRequestsUseCase.Base(
             get(), get(), get(), get(), get()
         )
+    }
+
+    single<YouKassaPaymentUseCase> {
+        YouKassaPaymentUseCase.Base(androidContext(), get(), get(), get(), get(), get(), get())
     }
 
     single<SuggestionsUseCase> {
