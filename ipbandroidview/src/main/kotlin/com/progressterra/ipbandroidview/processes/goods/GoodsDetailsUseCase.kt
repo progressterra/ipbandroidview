@@ -9,9 +9,9 @@ import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonSt
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenState
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
-import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -62,7 +62,7 @@ interface GoodsDetailsUseCase {
                         title = manageResources.string(R.string.similar_goods),
                         id = goods.categoryId,
                         state = StateColumnState(state = ScreenState.SUCCESS)
-                    ),rating = goods.rating
+                    ), rating = goods.rating, quantity = goods.quantity
                 )
             }
     }

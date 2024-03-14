@@ -103,7 +103,7 @@ fun ProductView.toGoodsItem() = GoodsItem(id = nomenclature?.idUnique!!,
     properties = listProductCharacteristic?.map {
         (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
     } ?: emptyList(),
-    count = countInCart ?: 0, rating = nomenclature?.rating ?: 0.0)
+    count = countInCart ?: 0, rating = nomenclature?.rating ?: 0.0, quantity = inventoryData?.quantity ?: 0)
 
 fun List<Check>.createStats(): ChecklistStats {
     var successful = 0

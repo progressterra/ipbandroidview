@@ -20,7 +20,8 @@ data class GoodsItem(
     val count: Int = 0,
     val description: String = "",
     val installment: Installment = Installment(),
-    val rating: Double = 0.0
+    val rating: Double = 0.0,
+    val quantity: Int = 0
 ) : Id {
 
     fun toWantThisCardState() = WantThisCardState(
