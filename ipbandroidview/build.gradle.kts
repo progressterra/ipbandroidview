@@ -93,12 +93,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.6.2")
-    api("androidx.compose.ui:ui-util:1.6.2")
-    api("androidx.compose.ui:ui-tooling:1.6.2")
-    api("androidx.compose.ui:ui-tooling-preview:1.6.2")
-    api("androidx.compose.foundation:foundation:1.6.2")
-    api("androidx.compose.material:material:1.6.2")
+    api("androidx.compose.ui:ui:1.6.3")
+    api("androidx.compose.ui:ui-util:1.6.3")
+    api("androidx.compose.ui:ui-tooling:1.6.3")
+    api("androidx.compose.ui:ui-tooling-preview:1.6.3")
+    api("androidx.compose.foundation:foundation:1.6.3")
+    api("androidx.compose.material:material:1.6.3")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
@@ -124,17 +124,17 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.7.2"))
+    api(platform("com.google.firebase:firebase-bom:32.7.4"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
 
     // Google services
-    api("com.google.android.gms:play-services-location:21.1.0")
+    api("com.google.android.gms:play-services-location:21.2.0")
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.16")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.17")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
@@ -153,13 +153,13 @@ dependencies {
     api("androidx.work:work-runtime-ktx:2.9.0")
 
     // Video
-    api("androidx.media3:media3-exoplayer:1.2.1")
-    api("androidx.media3:media3-ui:1.2.1")
+    api("androidx.media3:media3-exoplayer:1.3.0")
+    api("androidx.media3:media3-ui:1.3.0")
 
     // Payments
     api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.1")
 
-    val cameraxVersion = "1.3.1"
+    val cameraxVersion = "1.3.2"
     api("androidx.camera:camera-core:$cameraxVersion")
     api("androidx.camera:camera-camera2:$cameraxVersion")
     api("androidx.camera:camera-lifecycle:$cameraxVersion")
