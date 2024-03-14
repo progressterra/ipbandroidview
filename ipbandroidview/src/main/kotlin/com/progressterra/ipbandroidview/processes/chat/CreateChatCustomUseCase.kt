@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 interface CreateChatCustomUseCase {
 
-    suspend operator fun invoke(id: String): Result<String>
+    suspend operator fun invoke(id: String, desc: String): Result<String>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -21,7 +21,7 @@ interface CreateChatCustomUseCase {
     ) : CreateChatCustomUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(id: String): Result<String> =
+        override suspend fun invoke(id: String, desc: String): Result<String> =
             withToken { token ->
                 messengerService.clientAreaDialog(
                     accessToken = token,
@@ -31,7 +31,7 @@ interface CreateChatCustomUseCase {
                                 dataSourceType = TypeDataSource.CUSTOM,
                                 dataSourceName = "",
                                 idClient = id,
-                                description = ""
+                                description = desc
                             )
                         ),
                         description = "",
