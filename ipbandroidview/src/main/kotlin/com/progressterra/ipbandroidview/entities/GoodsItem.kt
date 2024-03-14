@@ -19,7 +19,8 @@ data class GoodsItem(
     val properties: List<Pair<String, String>> = emptyList(),
     val count: Int = 0,
     val description: String = "",
-    val installment: Installment = Installment()
+    val installment: Installment = Installment(),
+    val rating: Double = 0.0
 ) : Id {
 
     fun toWantThisCardState() = WantThisCardState(

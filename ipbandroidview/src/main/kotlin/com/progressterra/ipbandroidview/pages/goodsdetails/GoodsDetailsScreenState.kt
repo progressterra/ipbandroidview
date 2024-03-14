@@ -15,7 +15,8 @@ data class GoodsDetailsScreenState(
     val similarGoods: GalleriesState = GalleriesState(),
     val buyGoods: BuyGoodsState = BuyGoodsState(),
     val name: String = "",
-    val screen: StateColumnState = StateColumnState()
+    val screen: StateColumnState = StateColumnState(),
+    val rating: Double = 0.0
 ) : Id {
     companion object
 }

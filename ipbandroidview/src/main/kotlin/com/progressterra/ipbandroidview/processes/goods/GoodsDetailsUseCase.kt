@@ -62,7 +62,7 @@ interface GoodsDetailsUseCase {
                         title = manageResources.string(R.string.similar_goods),
                         id = goods.categoryId,
                         state = StateColumnState(state = ScreenState.SUCCESS)
-                    )
+                    ),rating = goods.rating
                 )
             }
     }
