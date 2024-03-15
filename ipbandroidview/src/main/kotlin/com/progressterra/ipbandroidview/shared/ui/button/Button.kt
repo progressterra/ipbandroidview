@@ -25,6 +25,7 @@ fun Button(
     modifier: Modifier = Modifier,
     state: ButtonState,
     title: String,
+    richTitle: (@Composable () -> Unit)? = null,
     useComponent: UseButton
 ) {
     Row(modifier = modifier
@@ -34,7 +35,7 @@ fun Button(
         .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically) {
-        BrushedText(
+        richTitle?.invoke() ?: BrushedText(
             text = title,
             style = IpbTheme.typography.headline,
             textAlign = TextAlign.Center,
