@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
@@ -47,7 +48,7 @@ fun AuthProfile(
         )
         Spacer(modifier = Modifier.width(20.dp))
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             BrushedText(
                 text = state.name,
@@ -58,6 +59,41 @@ fun AuthProfile(
                 text = state.email,
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textTertiary.asBrush()
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                BrushedIcon(
+                    modifier = Modifier.size(20.dp),
+                    resId = R.drawable.ic_bonuses,
+                    tint = IpbTheme.colors.secondary.asBrush()
+                )
+                BrushedText(
+                    text = "${state.bonuses} ${
+                        pluralStringResource(
+                            id = R.plurals.bonuses,
+                            state.bonuses
+                        )
+                    }",
+                    style = IpbTheme.typography.caption,
+                    tint = IpbTheme.colors.textPrimary2.asBrush()
+                )
+            }
+            BrushedText(
+                text = "${state.expiringBonuses} ${
+                    pluralStringResource(
+                        id = R.plurals.bonuses,
+                        state.expiringBonuses
+                    )
+                } ${
+                    pluralStringResource(
+                        id = R.plurals.will_burn,
+                        state.expiringBonuses
+                    )
+                } ${state.expiringDate}",
+                style = IpbTheme.typography.caption,
+                tint = IpbTheme.colors.textSecondary.asBrush()
             )
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -75,7 +111,10 @@ private fun AuthProfilePreview() {
         AuthProfile(
             state = AuthProfileState(
                 name = "Volan de Mort",
-                email = "email@email.email"
+                email = "email@email.email",
+                bonuses = 250,
+                expiringBonuses = 140,
+                expiringDate = "12.12.2012"
             ),
             useComponent = UseAuthProfile.Empty()
         )

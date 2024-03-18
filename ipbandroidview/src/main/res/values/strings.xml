@@ -233,4 +233,13 @@
     <string name="error_email_not_found">Нет прикреплённой к аккаунту почты</string>
     <string name="commentary">Текстовый комментарий</string>
     <string name="payment_youkassa">YouKassa</string>
+    <string name="will_burn">сгорят</string>
+    <plurals name="bonuses">
+        <item quantity="one">бонус</item>
+        <item quantity="other">бонусов</item>
+    </plurals>
+    <plurals name="will_burn">
+        <item quantity="one">сгорит</item>
+        <item quantity="other">сгорят</item>
+    </plurals>
 </resources>
