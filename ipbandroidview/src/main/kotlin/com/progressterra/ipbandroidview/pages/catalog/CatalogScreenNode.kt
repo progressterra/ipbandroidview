@@ -3,11 +3,13 @@ package com.progressterra.ipbandroidview.pages.catalog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.storecard.UseStoreCard
+import com.progressterra.ipbandroidview.shared.log
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
@@ -30,7 +32,10 @@ class CatalogScreenNode(
         }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {
-            viewModel.refresh()
+            if (!state.fetched) {
+                log("CatalogScreenNode: Refreshing")
+                viewModel.refresh()
+            }
         }
         CatalogScreen(
             modifier = modifier,

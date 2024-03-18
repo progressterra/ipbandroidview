@@ -11,5 +11,6 @@ data class CatalogScreenState(
     val screen: StateColumnState = StateColumnState(),
     val search: SearchState = SearchState(),
     val current: CatalogCardState = CatalogCardState(),
-    val goods: StoreItemsState = StoreItemsState()
+    val goods: StoreItemsState = StoreItemsState(),
+    val fetched: Boolean = false
 )

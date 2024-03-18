@@ -5,9 +5,9 @@ import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.trace.TraceEvent
-import com.progressterra.ipbandroidview.processes.goods.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.goods.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
@@ -31,7 +31,8 @@ class CatalogScreenViewModel(
                         it.copy(
                             screen = it.screen.copy(state = ScreenState.SUCCESS),
                             current = catalog,
-                            trace = it.trace.copy(current = catalog)
+                            trace = it.trace.copy(current = catalog),
+                            fetched = true
                         )
                     }
                 }.onFailure {
@@ -86,7 +87,9 @@ class CatalogScreenViewModel(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(goodsId = event.id, onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(
+                    goodsId = event.id,
+                    onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
                     refresh()
                 }
 
@@ -98,7 +101,9 @@ class CatalogScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(goodsId = event.id, onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
+                is CounterEvent.Add -> addToCartUseCase(
+                    goodsId = event.id,
+                    onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
                     refresh()
                 }
 
