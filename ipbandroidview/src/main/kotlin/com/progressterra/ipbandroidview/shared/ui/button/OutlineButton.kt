@@ -22,7 +22,11 @@ import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
 fun OutlineButton(
-    modifier: Modifier = Modifier, state: ButtonState, title: String, useComponent: UseButton
+    modifier: Modifier = Modifier,
+    state: ButtonState,
+    title: String,
+    richTitle: (@Composable () -> Unit)? = null,
+    useComponent: UseButton
 ) {
     Row(modifier = modifier
         .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
@@ -35,12 +39,16 @@ fun OutlineButton(
         .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically) {
-        BrushedText(
-            text = title,
-            textAlign = TextAlign.Center,
-            style = IpbTheme.typography.headline,
-            tint = IpbTheme.colors.primary.asBrush()
-        )
+        if (richTitle != null) {
+            richTitle()
+        } else {
+            BrushedText(
+                text = title,
+                textAlign = TextAlign.Center,
+                style = IpbTheme.typography.headline,
+                tint = IpbTheme.colors.primary.asBrush()
+            )
+        }
     }
 }
 
