@@ -32,10 +32,7 @@ class CatalogScreenNode(
         }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {
-            if (!state.fetched) {
-                log("CatalogScreenNode: Refreshing")
-                viewModel.refresh()
-            }
+            viewModel.refresh()
         }
         CatalogScreen(
             modifier = modifier,

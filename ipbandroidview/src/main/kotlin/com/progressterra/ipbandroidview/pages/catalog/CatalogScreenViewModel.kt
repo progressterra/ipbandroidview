@@ -45,7 +45,9 @@ class CatalogScreenViewModel(
     override fun createInitialState() = CatalogScreenState()
 
     override fun refresh() {
-        onBackground { catalogUseCase() }
+        if (!currentState.fetched) {
+            onBackground { catalogUseCase() }
+        }
     }
 
     override fun handle(event: CatalogCardEvent) {
