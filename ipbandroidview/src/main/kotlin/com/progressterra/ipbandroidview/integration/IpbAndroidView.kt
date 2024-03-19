@@ -108,6 +108,7 @@ class IpbAndroidView private constructor(
         IpbAndroidApiSettings.MEDIA_DATA_URL = config["mediaDataUrl"]!!
         IpbAndroidApiSettings.IMH_URL = config["imhUrl"]!!
         IpbAndroidApiSettings.WORK_WATCH_URL = config["workWatchUrl"]!!
+        IpbAndroidApiSettings.APPLICATION_URL = config["applicationUrl"]!!
         MapKitFactory.setApiKey(config["yandexMapApiKey"]!!.first())
         MapKitFactory.initialize(context)
         FirebaseApp.initializeApp(context)
