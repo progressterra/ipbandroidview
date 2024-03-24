@@ -46,7 +46,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 
     namespace = "com.progressterra.ipbandroidview"
@@ -82,7 +82,7 @@ dependencies {
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
     api("com.google.android.material:material:1.11.0")
-    api("androidx.fragment:fragment-compose:1.7.0-alpha10")
+    api("androidx.fragment:fragment-compose:1.7.0-beta01")
 
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
@@ -93,12 +93,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.6.3")
-    api("androidx.compose.ui:ui-util:1.6.3")
-    api("androidx.compose.ui:ui-tooling:1.6.3")
-    api("androidx.compose.ui:ui-tooling-preview:1.6.3")
-    api("androidx.compose.foundation:foundation:1.6.3")
-    api("androidx.compose.material:material:1.6.3")
+    api("androidx.compose.ui:ui:1.6.4")
+    api("androidx.compose.ui:ui-util:1.6.4")
+    api("androidx.compose.ui:ui-tooling:1.6.4")
+    api("androidx.compose.ui:ui-tooling-preview:1.6.4")
+    api("androidx.compose.foundation:foundation:1.6.4")
+    api("androidx.compose.material:material:1.6.4")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
