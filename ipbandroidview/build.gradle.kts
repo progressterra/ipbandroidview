@@ -109,8 +109,8 @@ dependencies {
     api("com.yandex.android:maps.mobile:4.4.0-lite")
 
     // Koin, DI library
-    api("io.insert-koin:koin-android:3.5.3")
-    api("io.insert-koin:koin-androidx-compose:3.5.3")
+    api("io.insert-koin:koin-android:3.5.4")
+    api("io.insert-koin:koin-androidx-compose:3.5.4")
 
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
@@ -124,7 +124,7 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.7.4"))
+    api(platform("com.google.firebase:firebase-bom:32.8.0"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
@@ -143,8 +143,8 @@ dependencies {
     api("de.hdodenhof:circleimageview:3.1.0")
 
     // Landscapist
-    api("com.github.skydoves:landscapist-glide:2.3.1")
-    api("com.github.skydoves:landscapist-placeholder:2.3.1")
+    api("com.github.skydoves:landscapist-glide:2.3.2")
+    api("com.github.skydoves:landscapist-placeholder:2.3.2")
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
     api("androidx.paging:paging-compose:3.2.1")
