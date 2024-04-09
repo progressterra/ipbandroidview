@@ -54,11 +54,12 @@ fun WelcomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp, bottom = 80.dp)
+                .padding(20.dp),
+            contentAlignment = Alignment.Center
         ) {
             Image(
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth,
                 painter = painterResource(id = R.drawable.welcome),
                 contentDescription = null
             )
