@@ -62,23 +62,6 @@ fun WelcomeScreen(
                 painter = painterResource(id = R.drawable.welcome),
                 contentDescription = null
             )
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    modifier = Modifier.size(width = 111.dp, height = 46.dp),
-                    painter = painterResource(id = R.drawable.ic_redi),
-                    contentDescription = null
-                )
-                BrushedText(
-                    text = stringResource(id = R.string.welcome_message),
-                    style = IpbTheme.typography.title,
-                    tint = IpbTheme.colors.textButton.asBrush(),
-                    textAlign = TextAlign.Center
-                )
-            }
         }
     }
 }
