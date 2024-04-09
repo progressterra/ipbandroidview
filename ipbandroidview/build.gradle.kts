@@ -82,7 +82,7 @@ dependencies {
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
     api("com.google.android.material:material:1.11.0")
-    api("androidx.fragment:fragment-compose:1.7.0-beta01")
+    api("androidx.fragment:fragment-compose:1.7.0-rc01")
 
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
