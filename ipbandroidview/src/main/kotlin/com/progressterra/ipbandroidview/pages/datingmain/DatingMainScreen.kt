@@ -73,7 +73,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.utils.ComposableLifecycle
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.Switch
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchState
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -337,7 +337,7 @@ fun DatingMainScreen(
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
             )
-            BrushedSwitch(
+            Switch(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 state = state.readyToMeet,
                 useComponent = useComponent

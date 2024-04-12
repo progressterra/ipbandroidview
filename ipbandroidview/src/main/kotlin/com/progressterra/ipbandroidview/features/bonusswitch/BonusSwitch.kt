@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.Switch
 
 @Composable
 fun BonusSwitch(
@@ -46,7 +46,7 @@ fun BonusSwitch(
                 tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.body
             )
-            BrushedSwitch(
+            Switch(
                 state = state.useBonuses, useComponent = useComponent
             )
         }

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
-fun BrushedSwitch(
+fun Switch(
     modifier: Modifier = Modifier,
     state: BrushedSwitchState,
     useComponent: UseBrushedSwitch

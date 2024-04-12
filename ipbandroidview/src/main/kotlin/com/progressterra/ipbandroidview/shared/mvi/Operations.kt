@@ -5,7 +5,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Operations performed by viewmodels
+ * Operations performed by ViewModels
  */
 interface Operations {
 
