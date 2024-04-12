@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -35,7 +35,7 @@ fun DocumentPhoto(
 
     @Composable
     fun Item(picture: MultisizedImage) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .size(63.dp)
                 .clip(RoundedCornerShape(8.dp))
@@ -53,7 +53,7 @@ fun DocumentPhoto(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            BrushedText(
+            Text(
                 text = name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -67,7 +67,7 @@ fun DocumentPhoto(
                     .padding(12.dp),
                 contentAlignment = Alignment.Center
             ) {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_camera,
                     tint = if (state.enabled) IpbTheme.colors.iconPrimary.asBrush() else IpbTheme.colors.textDisabled.asBrush()
                 )

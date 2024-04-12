@@ -25,9 +25,9 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -58,7 +58,7 @@ fun ChatsScreen(
                     painter = painterResource(id = R.drawable.avatar_background),
                     contentDescription = null
                 )
-                SimpleImage(
+                Image(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape),
@@ -76,18 +76,18 @@ fun ChatsScreen(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                BrushedText(
+                Text(
                     text = itemState.name,
                     style = IpbTheme.typography.headline,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
-                BrushedText(
+                Text(
                     text = itemState.previewMessage,
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
             }
-            BrushedText(
+            Text(
                 text = itemState.lastTime,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -96,7 +96,7 @@ fun ChatsScreen(
     }
 
     val items = state.items.collectAsLazyPagingItems()
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(title = stringResource(id = R.string.chats), useComponent = useComponent)

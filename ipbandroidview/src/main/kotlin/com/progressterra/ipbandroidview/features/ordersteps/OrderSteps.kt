@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun OrderSteps(
@@ -34,7 +34,7 @@ fun OrderSteps(
                     .height(2.dp)
                     .background(IpbTheme.colors.primary.asBrush())
             )
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_tick,
                 tint = IpbTheme.colors.primary.asBrush(),
             )
@@ -45,12 +45,12 @@ fun OrderSteps(
                     .background(IpbTheme.colors.primary.asBrush())
             )
             if (state > OrderStepsState.DELIVERY) {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_tick,
                     tint = IpbTheme.colors.primary.asBrush(),
                 )
             } else {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_untick,
                     tint = IpbTheme.colors.iconPrimary.asBrush(),
                 )
@@ -71,17 +71,17 @@ fun OrderSteps(
                 )
             }
             when (state) {
-                OrderStepsState.DELIVERY -> BrushedIcon(
+                OrderStepsState.DELIVERY -> Icon(
                     resId = R.drawable.ic_untick,
                     tint = IpbTheme.colors.textDisabled.asBrush(),
                 )
 
-                OrderStepsState.PAYMENT -> BrushedIcon(
+                OrderStepsState.PAYMENT -> Icon(
                     resId = R.drawable.ic_untick,
                     tint = IpbTheme.colors.iconPrimary.asBrush(),
                 )
 
-                OrderStepsState.FINISHED -> BrushedIcon(
+                OrderStepsState.FINISHED -> Icon(
                     resId = R.drawable.ic_tick,
                     tint = IpbTheme.colors.primary.asBrush(),
                 )
@@ -106,38 +106,38 @@ fun OrderSteps(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.details),
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.primary.asBrush()
             )
             if (state > OrderStepsState.DELIVERY) {
-                BrushedText(
+                Text(
                     text = stringResource(R.string.delivery),
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.primary.asBrush()
                 )
             } else {
-                BrushedText(
+                Text(
                     text = stringResource(R.string.delivery),
                     style = IpbTheme.typography.headline,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
             }
             when (state) {
-                OrderStepsState.DELIVERY -> BrushedText(
+                OrderStepsState.DELIVERY -> Text(
                     text = stringResource(R.string.payment),
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.textDisabled.asBrush()
                 )
 
-                OrderStepsState.PAYMENT -> BrushedText(
+                OrderStepsState.PAYMENT -> Text(
                     text = stringResource(R.string.payment),
                     style = IpbTheme.typography.headline,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
 
-                OrderStepsState.FINISHED -> BrushedText(
+                OrderStepsState.FINISHED -> Text(
                     text = stringResource(R.string.payment),
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.primary.asBrush()

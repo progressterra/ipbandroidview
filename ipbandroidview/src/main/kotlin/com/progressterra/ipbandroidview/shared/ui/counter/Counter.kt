@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -39,7 +39,7 @@ fun Counter(
                     useComponent.handle(CounterEvent.Remove(state.id))
                 }, contentAlignment = Alignment.Center
         ) {
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_subtraction, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
@@ -50,7 +50,7 @@ fun Counter(
                 .background(IpbTheme.colors.onSurface.asBrush()),
             contentAlignment = Alignment.Center
         ) {
-            BrushedText(
+            Text(
                 text = state.count.toString(),
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -65,7 +65,7 @@ fun Counter(
                     useComponent.handle(CounterEvent.Add(state.id))
                 }, contentAlignment = Alignment.Center
         ) {
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }

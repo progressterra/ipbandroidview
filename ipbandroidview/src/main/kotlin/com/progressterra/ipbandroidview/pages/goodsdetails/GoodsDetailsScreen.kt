@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescripti
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -25,7 +25,7 @@ fun GoodsDetailsScreen(
     state: GoodsDetailsScreenState,
     useComponent: UseGoodsDetailsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

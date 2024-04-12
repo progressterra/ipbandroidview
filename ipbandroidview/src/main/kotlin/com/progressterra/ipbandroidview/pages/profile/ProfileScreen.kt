@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.unauthplaceholder.UnAuthPlaceholder
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
@@ -21,7 +21,7 @@ fun ProfileScreen(
     state: ProfileScreenState,
     useComponent: UseProfileScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

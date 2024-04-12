@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -38,7 +38,7 @@ fun ItemGallery(
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp
         ) {
-            SimpleImage(
+            Image(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(8.dp))

@@ -11,11 +11,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -30,7 +30,7 @@ import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 fun CartScreen(
     modifier: Modifier = Modifier, state: CartScreenState, useComponent: UseCartScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(
@@ -71,34 +71,34 @@ fun CartScreenPreview() {
                     CartCardState(
                         id = "1",
                         name = "Товар 1",
-                        price = SimplePrice(10000),
+                        price = Price(10000),
                         counter = CounterState(count = 1),
                         image = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
                         id = "2",
                         name = "Товар 2",
-                        price = SimplePrice(2000),
+                        price = Price(2000),
                         counter = CounterState(count = 1),
                         image = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
                         id = "3",
                         name = "Товар 3",
-                        price = SimplePrice(2000),
+                        price = Price(2000),
                         counter = CounterState(count = 1),
                         image = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
                         id = "4",
                         name = "Товар 4",
-                        price = SimplePrice(2000),
+                        price = Price(2000),
                         counter = CounterState(count = 1),
                         image = "https://picsum.photos/200/300"
                     ),
                 )
             ), summary = CartSummaryState(
-                total = SimplePrice(12000)
+                total = Price(12000)
             )
         ), useComponent = UseCartScreen.Empty()
     )
@@ -113,7 +113,7 @@ fun CartScreenPreviewEmpty() {
             items = CartItemsState(
                 items = emptyList(),
             ), summary = CartSummaryState(
-                total = SimplePrice(0),
+                total = Price(0),
                 proceed = ButtonState(enabled = false)
             )
         ), useComponent = UseCartScreen.Empty()

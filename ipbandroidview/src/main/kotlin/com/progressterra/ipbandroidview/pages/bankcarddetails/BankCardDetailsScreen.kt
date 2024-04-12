@@ -22,8 +22,8 @@ import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -38,7 +38,7 @@ fun BankCardDetailsScreen(
     state: BankCardDetailsScreenState,
     useComponent: UseBankCardDetailsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier, topBar = {
         TopBar(
             title = if (state.document.isTemplate()) stringResource(id = R.string.card_adding) else stringResource(
@@ -74,7 +74,7 @@ fun BankCardDetailsScreen(
             horizontalAlignment = Alignment.Start
         ) {
             if (!state.document.isTemplate()) {
-                BrushedText(
+                Text(
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                     text = state.document.status.toString {
                         stringResource(id = it)

@@ -4,10 +4,10 @@ import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataAddProductFullPrice
 import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
-import com.progressterra.ipbandroidview.entities.toSimplePrice
+import com.progressterra.ipbandroidview.entities.toPrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.SilentException
 import com.progressterra.ipbandroidview.processes.ToastedException
@@ -62,7 +62,7 @@ interface AddToCartUseCase {
                         productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
                             .getOrThrow()?.toGoodsItem()?.toCartCardState()
                     oneGoods?.copy(
-                        price = it.amountEndPrice?.toSimplePrice() ?: SimplePrice(),
+                        price = it.amountEndPrice?.toPrice() ?: Price(),
                         counter = oneGoods.counter.copy(count = it.quantity ?: 0)
                     )
                 } ?: emptyList()

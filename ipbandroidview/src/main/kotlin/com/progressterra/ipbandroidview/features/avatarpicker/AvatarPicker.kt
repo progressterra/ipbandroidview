@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -35,7 +35,7 @@ fun AvatarPicker(
         Box(
             modifier = borderModifier.padding(4.dp)
         ) {
-            SimpleImage(
+            Image(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(80.dp)

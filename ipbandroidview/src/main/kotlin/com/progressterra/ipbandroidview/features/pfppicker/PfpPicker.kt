@@ -16,9 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -36,17 +36,17 @@ fun PfpPicker(
             .niceClickable { useComponent.handle(PfpPickerEvent) }
             .background(IpbTheme.colors.surface.asBrush()), contentAlignment = Alignment.Center) {
             if (state.url == null) {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_add_avatar, tint = IpbTheme.colors.primary.asBrush()
                 )
             } else {
-                SimpleImage(
+                Image(
                     modifier = Modifier.size(263.dp),
                     image = state.url
                 )
             }
         }
-        BrushedText(
+        Text(
             text = stringResource(R.string.choose_photo_wisely),
             style = IpbTheme.typography.body,
             tint = IpbTheme.colors.textPrimary.asBrush(),

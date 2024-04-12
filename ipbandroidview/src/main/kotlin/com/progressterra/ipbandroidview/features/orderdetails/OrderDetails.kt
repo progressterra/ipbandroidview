@@ -19,13 +19,13 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Installment
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.canBeTracker
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItems
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
@@ -47,7 +47,7 @@ fun OrderDetails(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                BrushedText(
+                Text(
                     text = "${stringResource(R.string.order_from)} ${state.date}",
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
@@ -63,12 +63,12 @@ fun OrderDetails(
                                 modifier = Modifier.size(24.dp),
                                 onClick = { useComponent.handle(OrderDetailsEvent.Tracking) }
                             ) {
-                                BrushedIcon(
+                                Icon(
                                     resId = R.drawable.ic_map,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()
                                 )
                             }
-                            BrushedText(
+                            Text(
                                 text = stringResource(R.string.track),
                                 tint = IpbTheme.colors.textTertiary.asBrush(),
                                 style = IpbTheme.typography.footnoteRegular
@@ -83,12 +83,12 @@ fun OrderDetails(
                             modifier = Modifier.size(24.dp),
                             onClick = { useComponent.handle(OrderDetailsEvent.Chat) }
                         ) {
-                            BrushedIcon(
+                            Icon(
                                 resId = R.drawable.ic_chat,
                                 tint = IpbTheme.colors.iconTertiary.asBrush()
                             )
                         }
-                        BrushedText(
+                        Text(
                             text = stringResource(R.string.order_chat),
                             tint = IpbTheme.colors.textTertiary.asBrush(),
                             style = IpbTheme.typography.footnoteRegular
@@ -96,12 +96,12 @@ fun OrderDetails(
                     }
                 }
             }
-            BrushedText(
+            Text(
                 text = state.number,
                 tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.footnoteRegular
             )
-            BrushedText(
+            Text(
                 text = state.status.toString { stringResource(id = it) },
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineBold
@@ -109,12 +109,12 @@ fun OrderDetails(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                BrushedText(
+                Text(
                     text = "${state.count} ${stringResource(R.string.sum_of_goods)} ",
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
-                BrushedText(
+                Text(
                     text = state.totalPrice.toString(),
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
@@ -139,23 +139,23 @@ private fun OrderDetailsPreview() {
                         OrderCardState(
                             id = "mnesarchum",
                             name = "Kris Sheppard",
-                            price = SimplePrice(price = 4541),
+                            price = Price(price = 4541),
                             image = "https://duckduckgo.com/?q=sodales",
                             installment = Installment(
-                                months = 7486, perMonth = SimplePrice(price = 1309)
+                                months = 7486, perMonth = Price(price = 1309)
                             )
                         ), OrderCardState(
                             id = "mnesarchum",
                             name = "Kris Sheppard",
-                            price = SimplePrice(price = 4541),
+                            price = Price(price = 4541),
                             image = "https://duckduckgo.com/?q=sodales",
                             installment = Installment(
-                                months = 7486, perMonth = SimplePrice(price = 1309)
+                                months = 7486, perMonth = Price(price = 1309)
                             )
                         )
                     )
                 ),
-                date = "13.10", count = 5, totalPrice = SimplePrice(price = 0),
+                date = "13.10", count = 5, totalPrice = Price(price = 0),
             ), useComponent = UseOrderDetails.Empty()
         )
     }

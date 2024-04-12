@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -46,7 +46,7 @@ fun Interests(
             )
             .niceClickable { useComponent.handle(InterestsEvent(itemState.id)) }
             .padding(horizontal = 16.dp, vertical = 8.dp)) {
-            BrushedText(
+            Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -59,7 +59,7 @@ fun Interests(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        BrushedText(
+        Text(
             text = stringResource(R.string.interests),
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary.asBrush()

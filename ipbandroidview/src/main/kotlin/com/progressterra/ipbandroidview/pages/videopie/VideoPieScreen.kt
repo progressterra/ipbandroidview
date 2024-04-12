@@ -30,7 +30,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.delay
@@ -40,7 +40,7 @@ import kotlinx.coroutines.delay
 fun VideoPieScreen(
     modifier: Modifier, state: VideoPieScreenState, useComponent: UseVideoPieScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier
     ) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {

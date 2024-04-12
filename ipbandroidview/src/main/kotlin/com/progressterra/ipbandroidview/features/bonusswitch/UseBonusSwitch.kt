@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.features.bonusswitch
 
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchEvent
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.UseSwitch
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.switch.UseSwitch
 
 interface UseBonusSwitch : UseSwitch {
 

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
-fun ThemedRadioButton(
+fun RadioButton(
     modifier: Modifier = Modifier,
     checked: Boolean,
     enabled: Boolean = true,

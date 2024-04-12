@@ -25,8 +25,8 @@ import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -59,20 +59,20 @@ fun BankCard(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            BrushedText(
+            Text(
                 text = state.document.name,
                 style = IpbTheme.typography.subHeadlineRegular,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
             if (state.isMainCard) {
-                BrushedText(
+                Text(
                     text = stringResource(id = R.string.main_card),
                     style = IpbTheme.typography.footnoteRegular,
                     tint = IpbTheme.colors.textTertiary.asBrush()
                 )
             }
             if (state.document.status != TypeStatusDoc.CONFIRMED) {
-                BrushedText(
+                Text(
                     text = state.document.status.toString { stringResource(id = it) },
                     style = IpbTheme.typography.footnoteRegular,
                     tint = state.document.status.toColor()
@@ -83,7 +83,7 @@ fun BankCard(
             IconButton(
                 modifier = Modifier.size(24.dp),
                 onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }) {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
                 )
             }

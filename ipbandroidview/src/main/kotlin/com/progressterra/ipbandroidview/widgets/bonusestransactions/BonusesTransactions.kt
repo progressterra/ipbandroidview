@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransaction
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedDivider
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Divider
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun BonusesTransactions(
@@ -30,7 +30,7 @@ fun BonusesTransactions(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BrushedText(
+        Text(
             text = stringResource(R.string.transaction_history),
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary.asBrush()
@@ -47,7 +47,7 @@ fun BonusesTransactions(
                         state = item
                     )
                     if (index != state.transactions.lastIndex) {
-                        BrushedDivider(tint = IpbTheme.colors.background.asColor())
+                        Divider(tint = IpbTheme.colors.background.asColor())
                     }
                 }
             }

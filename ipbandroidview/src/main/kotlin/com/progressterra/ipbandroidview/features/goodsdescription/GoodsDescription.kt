@@ -29,8 +29,8 @@ import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -68,7 +68,7 @@ fun GoodsDescription(
                 when (it) {
                     0 -> {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            BrushedText(
+                            Text(
                                 modifier = Modifier.widthIn(max = 200.dp),
                                 text = state.name,
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -79,7 +79,7 @@ fun GoodsDescription(
                                 state = state.favoriteButton, useComponent = useComponent
                             )
                         }
-                        BrushedText(
+                        Text(
                             text = state.description,
                             tint = IpbTheme.colors.textSecondary.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
@@ -87,20 +87,20 @@ fun GoodsDescription(
                     }
 
                     1 -> {
-                        BrushedText(
+                        Text(
                             text = stringResource(R.string.parameters),
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.title
                         )
                         state.properties.forEach {
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                BrushedText(
+                                Text(
                                     modifier = Modifier.width(100.dp),
                                     text = it.first,
                                     tint = IpbTheme.colors.textSecondary.asBrush(),
                                     style = IpbTheme.typography.subHeadlineRegular
                                 )
-                                BrushedText(
+                                Text(
                                     text = it.second,
                                     tint = IpbTheme.colors.textPrimary.asBrush(),
                                     style = IpbTheme.typography.subHeadlineRegular
@@ -110,7 +110,7 @@ fun GoodsDescription(
                     }
 
                     2 -> {
-                        BrushedText(
+                        Text(
                             text = stringResource(R.string.delivery),
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.title
@@ -121,13 +121,13 @@ fun GoodsDescription(
                         ) {
                             IconButton(modifier = Modifier.size(45.dp),
                                 onClick = { useComponent.handle(GoodsDescriptionEvent) }) {
-                                BrushedIcon(
+                                Icon(
                                     modifier = Modifier.size(45.dp),
                                     resId = R.drawable.ic_courier,
                                     tint = IpbTheme.colors.iconPrimary.asBrush()
                                 )
                             }
-                            BrushedText(
+                            Text(
                                 text = stringResource(R.string.courier_delivery),
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
                                 style = IpbTheme.typography.body

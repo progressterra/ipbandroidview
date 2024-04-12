@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui.brushedswitch
+package com.progressterra.ipbandroidview.shared.ui.switch
 
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults

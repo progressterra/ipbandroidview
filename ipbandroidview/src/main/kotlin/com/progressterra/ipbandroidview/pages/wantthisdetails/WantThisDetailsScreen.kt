@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Installment
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.toCanBeEditted
 import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
@@ -31,9 +31,9 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCard
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -47,7 +47,7 @@ fun WantThisDetailsScreen(
     state: WantThisDetailsScreenState,
     useComponent: UseWantThisDetailsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier, topBar = {
         TopBar(
             title = state.document.name,
@@ -92,12 +92,12 @@ fun WantThisDetailsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    BrushedText(
+                    Text(
                         text = state.document.name,
                         style = IpbTheme.typography.title,
                         tint = IpbTheme.colors.textPrimary.asBrush()
                     )
-                    BrushedText(
+                    Text(
                         modifier = Modifier.widthIn(max = 220.dp),
                         text = state.document.status.toString { stringResource(id = it) },
                         style = IpbTheme.typography.subHeadlineBold,
@@ -112,12 +112,12 @@ fun WantThisDetailsScreen(
                         modifier = Modifier.size(24.dp),
                         onClick = { useComponent.handle(WantThisDetailsScreenEvent) }
                     ) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_chat,
                             tint = IpbTheme.colors.iconTertiary.asBrush()
                         )
                     }
-                    BrushedText(
+                    Text(
                         text = stringResource(R.string.want_this_chat),
                         maxLines = 1,
                         tint = IpbTheme.colors.textTertiary.asBrush(),
@@ -169,11 +169,11 @@ private fun WantThisDetailsScreenPreview() {
                 screen = StateColumnState(state = ScreenState.SUCCESS),
                 storeCard = StoreCardState(
                     name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                    price = SimplePrice(1000),
+                    price = Price(1000),
                     counter = CounterState("1", 5),
                     installment = Installment(
                         months = 4,
-                        perMonth = SimplePrice(500)
+                        perMonth = Price(500)
                     )
                 )
             ), useComponent = UseWantThisDetailsScreen.Empty()

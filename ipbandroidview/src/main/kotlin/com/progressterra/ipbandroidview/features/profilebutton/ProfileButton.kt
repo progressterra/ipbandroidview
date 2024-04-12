@@ -16,8 +16,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.pages.profile.ProfileScreenState
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 
@@ -60,7 +60,7 @@ fun ProfileButton(
         } else {
             IpbTheme.colors.textDisabled.asBrush()
         }
-        BrushedText(
+        Text(
             text = title,
             style = IpbTheme.typography.body,
             tint = color
@@ -70,13 +70,13 @@ fun ProfileButton(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             if (notification?.isEmpty() == false) {
-                BrushedText(
+                Text(
                     text = "${notification.count}/${notification.max}",
                     style = IpbTheme.typography.footnoteBold,
                     tint = if (notification.isFull()) IpbTheme.colors.onBackground.asBrush() else IpbTheme.colors.textPrimary2.asBrush()
                 )
             }
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_forw,
                 tint = color
             )

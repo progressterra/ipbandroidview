@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
@@ -20,7 +20,7 @@ fun WorkWatchScreen(
     state: WorkWatchScreenState,
     useComponent: UseWorkWatchScreen
 ) {
-    ThemedLayout(modifier = modifier) { _, _ ->
+    Layout(modifier = modifier) { _, _ ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

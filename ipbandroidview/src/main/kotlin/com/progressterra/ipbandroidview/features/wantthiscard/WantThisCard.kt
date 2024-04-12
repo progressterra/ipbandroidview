@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
@@ -38,18 +38,18 @@ fun WantThisCard(
             },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .size(157.dp)
                 .clip(RoundedCornerShape(8.dp)),
             image = state.image
         )
-        BrushedText(
+        Text(
             text = state.name,
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.textPrimary.asBrush(),
         )
-        BrushedText(
+        Text(
             text = when (state.status) {
                 TypeStatusDoc.NOT_FILL -> stringResource(R.string.request_not_fill)
                 TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.request_wait_image)
@@ -79,24 +79,24 @@ fun WantThisCard(
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        BrushedText(
+                        Text(
                             text = state.oldPrice.toString(),
                             style = IpbTheme.typography.body2,
                             tint = IpbTheme.colors.textTertiary.asBrush(),
                         )
-                        BrushedText(
+                        Text(
                             text = stringResource(id = R.string.price_for_you),
                             style = IpbTheme.typography.footnoteRegular,
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                         )
-                        BrushedText(
+                        Text(
                             text = state.price.toString(),
                             style = IpbTheme.typography.subHeadlineRegular,
                             tint = IpbTheme.colors.textPrimary2.asBrush(),
                         )
                     }
                     if (!state.installment.isEmpty()) {
-                        BrushedText(
+                        Text(
                             text = "(${stringResource(R.string.installment)}: ${
                                 state.installment.months
                             } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
@@ -111,7 +111,7 @@ fun WantThisCard(
                         onClick = {
                             useComponent.handle(WantThisCardEvent.Buy(state.id))
                         }) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }

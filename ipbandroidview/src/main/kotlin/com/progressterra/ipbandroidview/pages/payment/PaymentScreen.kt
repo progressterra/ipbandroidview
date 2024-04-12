@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitch
 import com.progressterra.ipbandroidview.features.ordersteps.OrderSteps
 import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodStat
 import com.progressterra.ipbandroidview.features.receipt.Receipt
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -27,7 +27,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 fun PaymentScreen(
     modifier: Modifier = Modifier, state: PaymentScreenState, useComponent: UsePaymentScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(
@@ -68,11 +68,11 @@ private fun PaymentScreenPreview() {
     PaymentScreen(
         state = PaymentScreenState(
             screen = StateColumnState(state = ScreenState.SUCCESS), receipt = ReceiptState(
-                total = SimplePrice(12500), items = listOf(
+                total = Price(12500), items = listOf(
                     ReceiptState.Item(
-                        name = "Кофе", price = SimplePrice(10000), quantity = 1
+                        name = "Кофе", price = Price(10000), quantity = 1
                     ), ReceiptState.Item(
-                        name = "Сахар", price = SimplePrice(2500), quantity = 2
+                        name = "Сахар", price = Price(2500), quantity = 2
                     )
                 )
             ), paymentMethod = PaymentMethodState()

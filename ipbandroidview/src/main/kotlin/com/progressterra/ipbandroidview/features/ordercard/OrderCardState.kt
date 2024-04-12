@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.features.ordercard
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.entities.Installment
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import kotlinx.parcelize.Parcelize
 
 
@@ -10,8 +10,8 @@ import kotlinx.parcelize.Parcelize
 data class OrderCardState(
     val id: String = "",
     val name: String = "",
-    val oldPrice: SimplePrice = SimplePrice(),
-    val price: SimplePrice = SimplePrice(),
+    val oldPrice: Price = Price(),
+    val price: Price = Price(),
     val image: String = "",
     val installment: Installment = Installment(),
     val count: Int = 0,

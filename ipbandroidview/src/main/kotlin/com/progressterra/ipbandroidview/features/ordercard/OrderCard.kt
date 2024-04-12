@@ -13,11 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -33,7 +33,7 @@ fun OrderCard(
                 )
             }, horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .size(157.dp)
                 .clip(RoundedCornerShape(8.dp)),
@@ -42,13 +42,13 @@ fun OrderCard(
         Column(
             modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            BrushedText(
+            Text(
                 text = state.name,
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
             )
             state.properties.forEach {
-                BrushedText(
+                Text(
                     text = "${it.first}: ${it.second}",
                     style = IpbTheme.typography.footnoteRegular,
                     tint = IpbTheme.colors.textSecondary.asBrush()
@@ -58,31 +58,31 @@ fun OrderCard(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    BrushedText(
+                    Text(
                         text = state.oldPrice.toString(),
                         style = IpbTheme.typography.body2,
                         tint = IpbTheme.colors.textTertiary.asBrush(),
                     )
-                    BrushedText(
+                    Text(
                         text = stringResource(id = R.string.price_for_you),
                         style = IpbTheme.typography.footnoteRegular,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
-                    BrushedText(
+                    Text(
                         text = state.price.toString(),
                         style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textPrimary2.asBrush(),
                     )
                 }
             } else {
-                BrushedText(
+                Text(
                     text = "${stringResource(R.string.po)} ${state.installment.perMonth} ${
                         state.installment.months
                     } ${stringResource(R.string.payments)}",
                     style = IpbTheme.typography.subHeadlineRegular,
                     tint = IpbTheme.colors.textPrimary2.asBrush(),
                 )
-                BrushedText(
+                Text(
                     text = "(${stringResource(R.string.installment)})",
                     style = IpbTheme.typography.subHeadlineRegular,
                     tint = IpbTheme.colors.textDisabled.asBrush(),
@@ -99,8 +99,8 @@ private fun CartCardPreview() {
         OrderCard(
             state = OrderCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                oldPrice = SimplePrice(10000),
-                price = SimplePrice(1000)
+                oldPrice = Price(10000),
+                price = Price(1000)
             ), useComponent = UseOrderCard.Empty()
         )
     }

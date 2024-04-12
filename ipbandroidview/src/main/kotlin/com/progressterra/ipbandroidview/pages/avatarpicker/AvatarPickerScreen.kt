@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.features.avatarpicker.AvatarPicker
 import com.progressterra.ipbandroidview.features.avatarpicker.AvatarPickerState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -29,7 +29,7 @@ fun AvatarPickerScreen(
     modifier: Modifier = Modifier,
     state: AvatarPickerScreenState, useComponent: UseAvatarPickerScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(
@@ -54,7 +54,7 @@ fun AvatarPickerScreen(
             state = state.screen, useComponent = useComponent
         ) {
             Spacer(modifier = Modifier.height(36.dp))
-            BrushedText(
+            Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 text = stringResource(R.string.avatar_picker_desc),
                 style = IpbTheme.typography.body,

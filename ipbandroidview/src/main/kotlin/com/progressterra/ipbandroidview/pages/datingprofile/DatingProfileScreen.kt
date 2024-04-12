@@ -31,10 +31,10 @@ import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
@@ -67,7 +67,7 @@ fun DatingProfileScreen(
             )
             .niceClickable { useComponent.handle(DatingProfileScreenEvent.PickInterest(itemState)) }
             .padding(horizontal = 16.dp, vertical = 8.dp)) {
-            BrushedText(
+            Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -90,14 +90,14 @@ fun DatingProfileScreen(
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            BrushedText(
+            Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
         }
     }
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             Box(
@@ -113,7 +113,7 @@ fun DatingProfileScreen(
                             .size(32.dp)
                             .align(Alignment.CenterStart),
                         onClick = { useComponent.handle(DatingProfileScreenEvent.Edit) }) {
-                        BrushedIcon(
+                        Icon(
                             modifier = Modifier.size(32.dp),
                             resId = R.drawable.ic_profile_edit,
                             tint = IpbTheme.colors.iconPrimary.asBrush()
@@ -125,13 +125,13 @@ fun DatingProfileScreen(
                         .size(30.dp)
                         .align(Alignment.CenterStart),
                         onClick = { useComponent.handle(TopBarEvent) }) {
-                        BrushedIcon(
+                        Icon(
                             modifier = Modifier.size(30.dp),
                             resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }
                 }
-                BrushedText(
+                Text(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .padding(horizontal = 40.dp),
@@ -146,7 +146,7 @@ fun DatingProfileScreen(
                             .size(32.dp)
                             .align(Alignment.CenterEnd),
                         onClick = { useComponent.handle(DatingProfileScreenEvent.OnSettings) }) {
-                        BrushedIcon(
+                        Icon(
                             modifier = Modifier.size(32.dp),
                             resId = R.drawable.ic_settings,
                             tint = IpbTheme.colors.iconPrimary.asBrush()
@@ -193,7 +193,7 @@ fun DatingProfileScreen(
             useComponent = useComponent
         ) {
             if (state.editMode) {
-                SimpleImage(
+                Image(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
@@ -225,7 +225,7 @@ fun DatingProfileScreen(
                     useComponent = useComponent,
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
-                BrushedText(
+                Text(
                     modifier = Modifier,
                     text = stringResource(id = R.string.about_me),
                     style = IpbTheme.typography.title2,
@@ -238,7 +238,7 @@ fun DatingProfileScreen(
                     hint = stringResource(R.string.about_you_hint),
                     singleLine = false
                 )
-                BrushedText(
+                Text(
                     modifier = Modifier,
                     text = stringResource(id = R.string.interests),
                     style = IpbTheme.typography.title2,
@@ -253,7 +253,7 @@ fun DatingProfileScreen(
                     }
                 }
             } else {
-                SimpleImage(
+                Image(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
@@ -267,7 +267,7 @@ fun DatingProfileScreen(
                     }
                 )
                 if (state.user.name.isNotEmpty()) {
-                    BrushedText(
+                    Text(
                         modifier = Modifier,
                         text = state.user.name,
                         style = IpbTheme.typography.headline,
@@ -279,11 +279,11 @@ fun DatingProfileScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_address,
                             tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
-                        BrushedText(
+                        Text(
                             modifier = Modifier,
                             text = state.user.locationPoint.address,
                             style = IpbTheme.typography.subHeadlineRegular,
@@ -296,11 +296,11 @@ fun DatingProfileScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_target,
                             tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
-                        BrushedText(
+                        Text(
                             modifier = Modifier,
                             text = state.user.target.name,
                             style = IpbTheme.typography.subHeadlineRegular,
@@ -309,14 +309,14 @@ fun DatingProfileScreen(
                     }
                 }
                 if (state.user.age.isNotEmpty() || !state.user.occupation.isEmpty() || state.user.description.isNotEmpty()) {
-                    BrushedText(
+                    Text(
                         modifier = Modifier,
                         text = stringResource(id = R.string.about_me),
                         style = IpbTheme.typography.title2,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
                     if (state.user.age.isNotEmpty()) {
-                        BrushedText(
+                        Text(
                             modifier = Modifier,
                             text = state.user.age,
                             style = IpbTheme.typography.subHeadlineRegular,
@@ -328,11 +328,11 @@ fun DatingProfileScreen(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            BrushedIcon(
+                            Icon(
                                 resId = R.drawable.ic_occupation,
                                 tint = IpbTheme.colors.iconPrimary.asBrush()
                             )
-                            BrushedText(
+                            Text(
                                 modifier = Modifier,
                                 text = state.user.occupation.name,
                                 style = IpbTheme.typography.subHeadlineRegular,
@@ -341,7 +341,7 @@ fun DatingProfileScreen(
                         }
                     }
                     if (state.user.description.isNotEmpty()) {
-                        BrushedText(
+                        Text(
                             modifier = Modifier,
                             text = state.user.description,
                             style = IpbTheme.typography.body,
@@ -350,7 +350,7 @@ fun DatingProfileScreen(
                     }
                 }
                 if (state.user.interests.isNotEmpty()) {
-                    BrushedText(
+                    Text(
                         modifier = Modifier,
                         text = stringResource(id = R.string.interests),
                         style = IpbTheme.typography.title2,

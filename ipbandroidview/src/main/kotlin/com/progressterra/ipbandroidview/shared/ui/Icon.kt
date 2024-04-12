@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 
 @Composable
-fun BrushedIcon(
+fun Icon(
     modifier: Modifier = Modifier,
     resId: Int,
     tint: Brush

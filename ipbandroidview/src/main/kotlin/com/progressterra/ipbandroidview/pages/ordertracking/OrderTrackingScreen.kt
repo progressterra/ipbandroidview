@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.features.ordertracking.OrderTracking
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 
 @Composable
 fun OrderTrackingScreen(
@@ -22,7 +22,7 @@ fun OrderTrackingScreen(
     state: OrderTrackingScreenState,
     useComponent: UseOrderTrackingScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

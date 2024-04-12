@@ -53,8 +53,8 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-fun List<SimplePrice>.sum(): SimplePrice {
-    var sum = SimplePrice()
+fun List<Price>.sum(): Price {
+    var sum = Price()
     forEach { sum += it }
     return sum
 }
@@ -76,13 +76,13 @@ fun DHCheckPerformedFullDataViewModel.toChecklistDocument() = ChecklistDocument(
     )
 )
 
-fun Double.toSimplePrice() = SimplePrice(toInt())
+fun Double.toPrice() = Price(toInt())
 
 fun Boolean.toScreenState() = if (this) ScreenState.SUCCESS else ScreenState.ERROR
 
 fun DHSaleHeadAsOrderViewModel.toOrder() =
     Order(itemsIds = listDRSale?.map { it.idrfNomenclature!! } ?: emptyList(),
-        price = (listDRSale?.map { it.amountEndPrice!!.toSimplePrice() } ?: emptyList()).sum(),
+        price = (listDRSale?.map { it.amountEndPrice!!.toPrice() } ?: emptyList()).sum(),
         id = idUnique!!,
         number = number ?: "",
         status = statusOrder ?: TypeStatusOrder.CANCELED,
@@ -94,11 +94,11 @@ fun ProductView.toGoodsItem() = GoodsItem(id = nomenclature?.idUnique!!,
     description = nomenclature?.commerseDescription ?: "",
     images = nomenclature?.listImages?.map { it.urlData!! } ?: emptyList(),
     image = nomenclature?.listImages?.firstOrNull()?.urlData ?: "",
-    oldPrice = inventoryData?.beginPrice?.toSimplePrice() ?: SimplePrice(),
-    price = inventoryData?.currentPrice?.toSimplePrice() ?: SimplePrice(),
+    oldPrice = inventoryData?.beginPrice?.toPrice() ?: Price(),
+    price = inventoryData?.currentPrice?.toPrice() ?: Price(),
     installment = Installment(
         months = installmentPlanValue?.countMonthPayment ?: 0,
-        perMonth = installmentPlanValue?.amountPaymentInMonth?.toSimplePrice() ?: SimplePrice()
+        perMonth = installmentPlanValue?.amountPaymentInMonth?.toPrice() ?: Price()
     ),
     properties = listProductCharacteristic?.map {
         (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
@@ -298,7 +298,7 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
 fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
     name = nameGoods ?: "",
     quantity = quantity ?: 0,
-    price = SimplePrice(amountEndPrice?.toInt() ?: 0)
+    price = Price(amountEndPrice?.toInt() ?: 0)
 )
 
 fun CatalogItem.toCatalogCardState(stringResource: (Int) -> String): CatalogCardState {
@@ -377,7 +377,7 @@ fun RFPaymentDataForClientViewModel.toBankCardState() = BankCardState(
 
 fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransactionState(
     id = idUnique!!,
-    sum = amount?.toSimplePrice() ?: SimplePrice(),
+    sum = amount?.toPrice() ?: Price(),
     date = dateAdded?.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: "",
     destination = previewPaymentMethod ?: "",
     status = status ?: TypeResultOperationBisinessArea.IN_PROGRESS

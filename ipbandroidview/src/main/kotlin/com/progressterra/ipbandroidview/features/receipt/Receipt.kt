@@ -15,8 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedDivider
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Divider
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkText
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextData
@@ -40,18 +40,18 @@ fun Receipt(
                 .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.total_to_pay),
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.title
             )
-            BrushedText(
+            Text(
                 text = state.total.toString(),
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.title
             )
         }
-        BrushedDivider(
+        Divider(
             tint = IpbTheme.colors.background.asColor(), thickness = 1.dp
         )
         state.items.forEach {
@@ -61,19 +61,19 @@ fun Receipt(
                     .padding(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                BrushedText(
+                Text(
                     text = "${it.name} x${it.quantity}",
                     tint = IpbTheme.colors.textTertiary.asBrush(),
                     style = IpbTheme.typography.caption
                 )
-                BrushedText(
+                Text(
                     text = it.price.toString(),
                     tint = if (it.price.isNegative()) IpbTheme.colors.error.asBrush() else IpbTheme.colors.textSecondary.asBrush(),
                     style = IpbTheme.typography.caption
                 )
             }
         }
-        BrushedDivider(
+        Divider(
             modifier = Modifier.padding(horizontal = 12.dp),
             tint = IpbTheme.colors.background.asColor(),
             thickness = 1.dp

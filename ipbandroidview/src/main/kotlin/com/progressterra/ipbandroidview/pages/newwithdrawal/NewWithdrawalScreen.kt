@@ -25,8 +25,8 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -39,7 +39,7 @@ fun NewWithdrawalScreen(
     state: NewWithdrawalScreenState,
     useComponent: UseNewWithdrawalScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(
@@ -78,12 +78,12 @@ fun NewWithdrawalScreen(
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(6.dp)
             ) {
-                BrushedText(
+                Text(
                     text = stringResource(id = R.string.can_be_out),
                     style = IpbTheme.typography.footnoteBold,
                     tint = IpbTheme.colors.textSecondary.asBrush()
                 )
-                BrushedText(
+                Text(
                     text = state.canBeWithdrawal.toString(),
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textPrimary.asBrush()

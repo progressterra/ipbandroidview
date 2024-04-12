@@ -18,8 +18,8 @@ import androidx.compose.ui.window.Dialog
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Citizenship
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.RadioButton
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
@@ -37,11 +37,11 @@ fun DialogPicker(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                ThemedRadioButton(
+                RadioButton(
                     checked = selected,
                     onClick = { useComponent.handle(DialogPickerEvent.Select(item)) }
                 )
-                BrushedText(
+                Text(
                     text = item.name,
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.textPrimary.asBrush()

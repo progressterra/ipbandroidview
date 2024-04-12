@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.features.editbutton.EditButton
 import com.progressterra.ipbandroidview.features.editprofile.EditProfile
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.edituser.EditUser
 
@@ -23,7 +23,7 @@ fun ProfileDetailsScreen(
     state: ProfileDetailsState,
     useComponent: UseProfileDetailsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

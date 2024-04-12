@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.widgets.messages.Messages
@@ -51,7 +51,7 @@ fun AttachableChat(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    BrushedText(
+                    Text(
                         text = title,
                         style = IpbTheme.typography.subHeadlineBold,
                         tint = IpbTheme.colors.textPrimary.asBrush()
@@ -64,12 +64,12 @@ fun AttachableChat(
                             horizontalArrangement = Arrangement.spacedBy(4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            BrushedText(
+                            Text(
                                 text = stringResource(id = R.string.close_chat),
                                 style = IpbTheme.typography.subHeadlineRegular,
                                 tint = IpbTheme.colors.textPrimary2.asBrush()
                             )
-                            BrushedIcon(
+                            Icon(
                                 modifier = Modifier.size(24.dp),
                                 resId = R.drawable.ic_close,
                                 tint = IpbTheme.colors.iconPrimary2.asBrush()

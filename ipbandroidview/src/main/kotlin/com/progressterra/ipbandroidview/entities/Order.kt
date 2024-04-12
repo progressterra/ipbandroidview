@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 data class Order(
     override val id: String,
     val itemsIds: List<String>,
-    val price: SimplePrice,
+    val price: Price,
     val number: String,
     val status: TypeStatusOrder,
     val date: String

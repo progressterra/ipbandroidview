@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
@@ -29,12 +29,12 @@ fun CartSummary(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.total_to_pay),
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
             )
-            BrushedText(
+            Text(
                 text = state.total.toString(),
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textPrimary.asBrush(),

@@ -26,10 +26,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.OrganizationAudit
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -40,7 +40,7 @@ fun OrganizationAuditsScreen(
     state: OrganizationAuditsScreenState,
     useComponent: UseOrganizationAuditsScreen
 ) {
-    ThemedLayout(topBar = {
+    Layout(topBar = {
         TopBar(
             title = stringResource(id = R.string.organization),
             showBackButton = true,
@@ -65,7 +65,7 @@ fun OrganizationAuditsScreen(
                             .padding(12.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        SimpleImage(
+                        Image(
                             modifier = Modifier
                                 .height(188.dp)
                                 .fillMaxWidth()
@@ -78,12 +78,12 @@ fun OrganizationAuditsScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                                BrushedText(
+                                Text(
                                     text = state.organizationName,
                                     tint = IpbTheme.colors.textPrimary.asBrush(),
                                     style = IpbTheme.typography.title
                                 )
-                                BrushedText(
+                                Text(
                                     text = state.organizationAddress,
                                     tint = IpbTheme.colors.textTertiary.asBrush(),
                                     style = IpbTheme.typography.footnoteRegular
@@ -96,11 +96,11 @@ fun OrganizationAuditsScreen(
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                     verticalArrangement = Arrangement.spacedBy(2.dp)
                                 ) {
-                                    BrushedIcon(
+                                    Icon(
                                         resId = R.drawable.ic_map,
                                         tint = IpbTheme.colors.primary.asBrush()
                                     )
-                                    BrushedText(
+                                    Text(
                                         text = stringResource(id = R.string.map),
                                         tint = IpbTheme.colors.primary.asBrush(),
                                         style = IpbTheme.typography.footnoteRegular
@@ -128,13 +128,13 @@ fun OrganizationAuditsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Column {
-                            BrushedText(
+                            Text(
                                 text = it.name,
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
                                 style = IpbTheme.typography.title2
                             )
                             Spacer(modifier = Modifier.size(6.dp))
-                            BrushedText(
+                            Text(
                                 text = it.lastTime,
                                 tint = IpbTheme.colors.textTertiary.asBrush(),
                                 style = IpbTheme.typography.footnoteRegular
@@ -142,7 +142,7 @@ fun OrganizationAuditsScreen(
                         }
                         Spacer(modifier = Modifier.size(16.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            BrushedIcon(
+                            Icon(
                                 modifier = Modifier.size(width = 10.dp, height = 17.dp),
                                 resId = R.drawable.ic_forward,
                                 tint = IpbTheme.colors.iconPrimary.asBrush()

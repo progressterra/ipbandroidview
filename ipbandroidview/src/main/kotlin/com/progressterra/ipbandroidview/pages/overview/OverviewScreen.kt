@@ -27,10 +27,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.stats.Stats
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Tabs
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.launch
@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 fun OverviewScreen(
     state: OverviewState, useComponent: UseOverviewScreen
 ) {
-    ThemedLayout(
+    Layout(
         topBar = {
             TopBar(title = stringResource(id = R.string.audits), useComponent = useComponent)
         }
@@ -88,12 +88,12 @@ fun OverviewScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    BrushedText(
+                                    Text(
                                         text = it.name,
                                         style = IpbTheme.typography.title2,
                                         tint = IpbTheme.colors.textPrimary.asBrush()
                                     )
-                                    BrushedText(
+                                    Text(
                                         text = it.address,
                                         style = IpbTheme.typography.body,
                                         tint = IpbTheme.colors.textTertiary.asBrush()
@@ -104,7 +104,7 @@ fun OverviewScreen(
                                         arrangement = Arrangement.SpaceBetween
                                     )
                                 }
-                                BrushedIcon(
+                                Icon(
                                     modifier = Modifier.size(width = 10.dp, height = 17.dp),
                                     resId = R.drawable.ic_forward,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()

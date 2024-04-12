@@ -15,7 +15,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 
 @Composable
-fun SimpleVideo(
+fun Video(
     modifier: Modifier = Modifier,
     url: String
 ) {
@@ -40,8 +40,8 @@ fun SimpleVideo(
 
 @Preview
 @Composable
-fun SimpleVideoPreview() {
-    SimpleVideo(
+fun VideoPreview() {
+    Video(
         modifier = Modifier,
         url = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4"
     )

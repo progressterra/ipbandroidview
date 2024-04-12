@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun Search(
@@ -23,7 +23,7 @@ fun Search(
         value = state.text,
         onValueChange = { useComponent.handle(SearchEvent(it)) },
         placeholder = {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.search),
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineRegular
@@ -55,7 +55,7 @@ fun Search(
         singleLine = true,
         textStyle = IpbTheme.typography.subHeadlineRegular,
         trailingIcon = {
-            BrushedIcon(
+            Icon(
                 tint = IpbTheme.colors.iconPrimary.asBrush(),
                 resId = R.drawable.ic_search
             )

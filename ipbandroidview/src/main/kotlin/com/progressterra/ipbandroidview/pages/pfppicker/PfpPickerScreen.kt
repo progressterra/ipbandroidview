@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.features.pfppicker.PfpPicker
 import com.progressterra.ipbandroidview.features.pfppicker.PfpPickerState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
@@ -24,7 +24,7 @@ fun PfpPickerScreen(
     state: PfpPickerScreenState,
     useComponent: UsePfpPickerScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

@@ -26,7 +26,7 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ fun BankCardsScreen(
     state: BankCardsScreenState,
     useComponent: UseBankCardsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import com.progressterra.ipbandroidview.features.phototopbar.PhotoTopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
@@ -24,7 +24,7 @@ fun PhotoScreen(
         contentAlignment = Alignment.Center
     ) {
         PhotoTopBar(modifier = Modifier.align(Alignment.TopCenter), useComponent = useComponent)
-        SimpleImage(
+        Image(
             modifier = Modifier.fillMaxWidth(),
             image = state.picture,
             options = ImageOptions(contentScale = ContentScale.FillWidth)

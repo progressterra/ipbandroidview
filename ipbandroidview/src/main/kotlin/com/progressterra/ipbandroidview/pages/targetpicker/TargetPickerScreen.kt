@@ -20,8 +20,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
@@ -50,7 +50,7 @@ fun TargetPickerScreen(
             )
             .niceClickable { useComponent.handle(TargetPickerScreenEvent(itemState)) }
             .padding(horizontal = 16.dp, vertical = 8.dp)) {
-            BrushedText(
+            Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -58,7 +58,7 @@ fun TargetPickerScreen(
         }
     }
 
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.dating_target),
             showBackButton = true,
@@ -87,7 +87,7 @@ fun TargetPickerScreen(
             state = state.screen, useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            BrushedText(
+            Text(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 36.dp),
                 text = stringResource(R.string.choose_occupation),
                 style = IpbTheme.typography.body,

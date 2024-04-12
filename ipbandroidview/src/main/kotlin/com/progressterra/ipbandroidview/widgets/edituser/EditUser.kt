@@ -18,8 +18,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.RadioButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
@@ -88,7 +88,7 @@ fun EditUser(
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        BrushedText(
+                        Text(
                             text = stringResource(id = R.string.your_sex),
                             style = IpbTheme.typography.headline,
                             tint = IpbTheme.colors.textPrimary.asBrush()
@@ -96,11 +96,11 @@ fun EditUser(
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            ThemedRadioButton(
+                            RadioButton(
                                 checked = state.sex == Sex.MALE,
                                 onClick = { useComponent.handle(EditUserEvent(Sex.MALE)) },
                                 enabled = state.sexEnabled)
-                            BrushedText(
+                            Text(
                                 text = stringResource(id = R.string.male),
                                 style = IpbTheme.typography.body,
                                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -109,11 +109,11 @@ fun EditUser(
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            ThemedRadioButton(
+                            RadioButton(
                                 checked = state.sex == Sex.FEMALE,
                                 onClick = { useComponent.handle(EditUserEvent(Sex.FEMALE)) },
                                 enabled = state.sexEnabled)
-                            BrushedText(
+                            Text(
                                 text = stringResource(id = R.string.female),
                                 style = IpbTheme.typography.body,
                                 tint = IpbTheme.colors.textPrimary.asBrush()

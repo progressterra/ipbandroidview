@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 
@@ -37,17 +37,17 @@ fun BuyGoods(
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                BrushedText(
+                Text(
                     text = state.oldPrice.toString(),
                     style = IpbTheme.typography.title2.copy(textDecoration = TextDecoration.LineThrough),
                     tint = IpbTheme.colors.textTertiary.asBrush(),
                 )
-                BrushedText(
+                Text(
                     text = stringResource(id = R.string.price_for_you),
                     style = IpbTheme.typography.footnoteRegular,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
-                BrushedText(
+                Text(
                     text = state.price.toString(),
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textPrimary2.asBrush(),
@@ -65,7 +65,7 @@ fun BuyGoods(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                BrushedText(
+                Text(
                     modifier = Modifier.widthIn(max = 100.dp),
                     text = "(${stringResource(R.string.installment)}: ${
                         state.installment.months

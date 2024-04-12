@@ -16,8 +16,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -36,7 +36,7 @@ fun SupportChat(
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BrushedIcon(
+            Icon(
                 resId = state.iconRes,
                 tint = IpbTheme.colors.primary.asBrush()
             )
@@ -44,13 +44,13 @@ fun SupportChat(
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                BrushedText(
+                Text(
                     text = state.title,
                     style = IpbTheme.typography.headline,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
                 if (state.lastMessage.isNotEmpty()) {
-                    BrushedText(
+                    Text(
                         text = state.lastMessage,
                         style = IpbTheme.typography.body,
                         tint = IpbTheme.colors.textPrimary.asBrush()
@@ -58,7 +58,7 @@ fun SupportChat(
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            BrushedText(
+            Text(
                 text = state.lastTime,
                 style = IpbTheme.typography.subHeadlineBold,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -75,12 +75,12 @@ fun SupportChat(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BrushedText(
+            Text(
                 text = state.title,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_forw,
                 tint = IpbTheme.colors.primary.asBrush()
             )

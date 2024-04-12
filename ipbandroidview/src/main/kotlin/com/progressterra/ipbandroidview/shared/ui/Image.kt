@@ -16,7 +16,7 @@ import com.skydoves.landscapist.glide.GlideImage
 import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 
 @Composable
-fun SimpleImage(
+fun Image(
     modifier: Modifier = Modifier,
     image: String,
     options: ImageOptions = ImageOptions()
@@ -33,7 +33,7 @@ fun SimpleImage(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                BrushedText(
+                Text(
                     text = stringResource(id = R.string.image_missing),
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body,

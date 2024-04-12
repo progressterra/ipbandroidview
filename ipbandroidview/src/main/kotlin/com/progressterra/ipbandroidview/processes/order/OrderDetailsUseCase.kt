@@ -3,10 +3,10 @@ package com.progressterra.ipbandroidview.processes.order
 import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toOrder
-import com.progressterra.ipbandroidview.entities.toSimplePrice
+import com.progressterra.ipbandroidview.entities.toPrice
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
@@ -41,11 +41,11 @@ interface OrderDetailsUseCase {
                     .getOrThrow()
                     ?.toGoodsItem()
                     ?.toOrderCardState()?.copy(
-                        oldPrice = (dr.amountBeginPrice?.toSimplePrice()
-                            ?: SimplePrice()) * (dr.quantity ?: 0),
+                        oldPrice = (dr.amountBeginPrice?.toPrice()
+                            ?: Price()) * (dr.quantity ?: 0),
                         count = dr.quantity ?: 0,
-                        price = (dr.amountEndPrice?.toSimplePrice()
-                            ?: SimplePrice()) * (dr.quantity ?: 0)
+                        price = (dr.amountEndPrice?.toPrice()
+                            ?: Price()) * (dr.quantity ?: 0)
                     )
             } ?: emptyList()
             order.toOrderDetailsState(goods)

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.features.orderdetails
 
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
@@ -12,7 +12,7 @@ data class OrderDetailsState(
     val status: TypeStatusOrder = TypeStatusOrder.CANCELED,
     val date: String = "",
     val count: Int = 0,
-    val totalPrice: SimplePrice = SimplePrice(),
+    val totalPrice: Price = Price(),
     val goods: OrderItemsState = OrderItemsState()
 ) {
 

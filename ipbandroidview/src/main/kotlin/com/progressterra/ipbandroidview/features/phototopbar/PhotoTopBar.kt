@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.Icon
 
 @Composable
 fun PhotoTopBar(
@@ -31,7 +31,7 @@ fun PhotoTopBar(
             .size(30.dp)
             .align(Alignment.CenterStart),
             onClick = { useComponent.handle(PhotoTopBarEvent) }) {
-            BrushedIcon(
+            Icon(
                 modifier = Modifier.size(30.dp),
                 resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
             )

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.PaymentType
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.RadioButton
 
 @Composable
 fun PaymentMethod(
@@ -36,11 +36,11 @@ fun PaymentMethod(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ThemedRadioButton(
+            RadioButton(
                 checked = type == state.selectedPaymentMethod,
                 onClick = { useComponent.handle(PaymentMethodEvent(type)) }
             )
-            BrushedText(
+            Text(
                 text = stringResource(type.paymentName),
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.body
@@ -57,7 +57,7 @@ fun PaymentMethod(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        BrushedText(
+        Text(
             text = stringResource(R.string.payment),
             tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title

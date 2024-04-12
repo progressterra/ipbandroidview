@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Citizenship
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPicker
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -33,18 +33,18 @@ fun CurrentCitizenship(
         .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp)) {
         if (state.citizenship == null) {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.citizenship),
                 tint = IpbTheme.colors.textDisabled.asBrush(),
                 style = IpbTheme.typography.body
             )
         } else {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.citizenship),
                 tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.caption
             )
-            BrushedText(
+            Text(
                 text = state.citizenship.name,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.body

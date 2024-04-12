@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestions
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -26,19 +26,19 @@ fun DeliveryPicker(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        BrushedText(
+        Text(
             text = stringResource(R.string.delivery),
             tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
-            BrushedText(
+            Text(
                 text = stringResource(R.string.courier_delivery),
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.body
             )
             Spacer(Modifier.weight(1f))
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_courier, tint = IpbTheme.colors.primary.asBrush()
             )
         }

@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -39,12 +39,12 @@ fun PseudoButton(
         .padding(horizontal = 8.dp, vertical = 13.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {
-        BrushedText(
+        Text(
             text = title,
             style = IpbTheme.typography.body,
             tint = if (state.enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textDisabled.asBrush()
         )
-        BrushedIcon(
+        Icon(
             resId = icId,
             tint = IpbTheme.colors.iconPrimary.asBrush()
         )

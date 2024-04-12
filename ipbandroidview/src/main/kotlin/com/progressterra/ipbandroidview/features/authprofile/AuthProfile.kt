@@ -20,9 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -40,7 +40,7 @@ fun AuthProfile(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(80.dp),
@@ -50,12 +50,12 @@ fun AuthProfile(
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            BrushedText(
+            Text(
                 text = state.name,
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
-            BrushedText(
+            Text(
                 text = state.email,
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textTertiary.asBrush()
@@ -64,12 +64,12 @@ fun AuthProfile(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier.size(20.dp),
                     resId = R.drawable.ic_bonuses,
                     tint = IpbTheme.colors.secondary.asBrush()
                 )
-                BrushedText(
+                Text(
                     text = "${state.bonuses} ${
                         pluralStringResource(
                             id = R.plurals.bonuses,
@@ -80,7 +80,7 @@ fun AuthProfile(
                     tint = IpbTheme.colors.textPrimary2.asBrush()
                 )
             }
-            BrushedText(
+            Text(
                 text = "${state.expiringBonuses} ${
                     pluralStringResource(
                         id = R.plurals.bonuses,
@@ -97,7 +97,7 @@ fun AuthProfile(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        BrushedIcon(
+        Icon(
             resId = R.drawable.ic_forw,
             tint = IpbTheme.colors.iconPrimary.asBrush()
         )

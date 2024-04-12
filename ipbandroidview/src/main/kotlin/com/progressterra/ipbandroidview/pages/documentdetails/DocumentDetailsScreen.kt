@@ -22,7 +22,7 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChat
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
@@ -33,7 +33,7 @@ fun DocumentDetailsScreen(
     state: DocumentDetailsScreenState,
     useComponent: UseDocumentDetailsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier, topBar = {
         TopBar(
             title = state.document.name,

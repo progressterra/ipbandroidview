@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.Switch
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.switch.Switch
 
 @Composable
 fun BonusSwitch(
@@ -31,7 +31,7 @@ fun BonusSwitch(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        BrushedText(
+        Text(
             text = stringResource(R.string.use_bonuses),
             tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title
@@ -41,7 +41,7 @@ fun BonusSwitch(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BrushedText(
+            Text(
                 text = "${state.availableBonuses} ${stringResource(R.string.bonuses_short)}",
                 tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.body

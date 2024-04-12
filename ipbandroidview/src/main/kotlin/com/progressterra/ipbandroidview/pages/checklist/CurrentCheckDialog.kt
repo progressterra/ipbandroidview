@@ -26,8 +26,8 @@ import com.progressterra.ipbandroidview.features.attachedphotos.AttachedPhotos
 import com.progressterra.ipbandroidview.features.voice.Voice
 import com.progressterra.ipbandroidview.features.yesno.YesNoButton
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
@@ -66,7 +66,7 @@ fun CurrentCheckDialog(
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
-                BrushedText(
+                Text(
                     modifier = Modifier.align(Alignment.Center),
                     text = state.check.printTitle(),
                     tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -78,7 +78,7 @@ fun CurrentCheckDialog(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     onClick = { scope.launch { sheetState.hide() } }
                 ) {
-                    BrushedIcon(
+                    Icon(
                         modifier = Modifier,
                         tint = IpbTheme.colors.iconTertiary.asBrush(),
                         resId = R.drawable.ic_cancel
@@ -108,7 +108,7 @@ fun CurrentCheckDialog(
                         .padding(12.dp)
                         .fillMaxWidth()
                 ) {
-                    BrushedText(
+                    Text(
                         text = currentCheck.description,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                         style = IpbTheme.typography.body

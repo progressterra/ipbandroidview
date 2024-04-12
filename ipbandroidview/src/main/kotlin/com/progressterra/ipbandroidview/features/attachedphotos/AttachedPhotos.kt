@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 
@@ -47,7 +47,7 @@ fun AttachedPhotos(
                 .clip(RoundedCornerShape(8.dp))
                 .background(IpbTheme.colors.onSurface.asBrush())
         ) {
-            SimpleImage(
+            Image(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .size(48.dp)
@@ -61,7 +61,7 @@ fun AttachedPhotos(
                         .align(Alignment.BottomCenter)
                         .size(width = 48.dp, height = 16.dp), onClick = { onDelete(picture) }
                 ) {
-                    BrushedIcon(
+                    Icon(
                         modifier = Modifier.size(16.dp),
                         resId = R.drawable.ic_trash,
                         tint = IpbTheme.colors.error.asBrush()
@@ -81,12 +81,12 @@ fun AttachedPhotos(
             .padding(horizontal = 12.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically) {
-            BrushedText(
+            Text(
                 text = stringResource(id = R.string.add_photo),
                 style = IpbTheme.typography.body,
                 tint = if (enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textTertiary.asBrush()
             )
-            BrushedIcon(
+            Icon(
                 modifier = Modifier,
                 resId = R.drawable.ic_camera,
                 tint = if (enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
@@ -103,7 +103,7 @@ fun AttachedPhotos(
                             .background(IpbTheme.colors.onSurface.asBrush())
                             .niceClickable { onCamera() }, contentAlignment = Alignment.Center
                     ) {
-                        BrushedIcon(
+                        Icon(
                             modifier = Modifier,
                             resId = R.drawable.ic_camera,
                             tint = IpbTheme.colors.primary.asBrush()

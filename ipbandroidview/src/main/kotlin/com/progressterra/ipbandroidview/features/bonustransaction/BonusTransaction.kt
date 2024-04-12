@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun BonusTransaction(
@@ -48,17 +48,17 @@ fun BonusTransaction(
                     BonusTransactionType.BURNING -> R.string.bonus_transaction_burning
                     BonusTransactionType.RECEIVING -> R.string.bonus_transaction_receiving
                 }
-                BrushedIcon(
+                Icon(
                     resId = icon,
                     tint = iconColor
                 )
-                BrushedText(
+                Text(
                     text = stringResource(text),
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
             }
-            BrushedText(
+            Text(
                 text = state.date,
                 tint = IpbTheme.colors.textSecondary.asBrush(),
                 style = IpbTheme.typography.subHeadlineRegular
@@ -69,7 +69,7 @@ fun BonusTransaction(
             BonusTransactionType.BURNING -> IpbTheme.colors.textTertiary4.asBrush()
             BonusTransactionType.RECEIVING -> IpbTheme.colors.textTertiary2.asBrush()
         }
-        BrushedText(
+        Text(
             text = state.amount,
             tint = color,
             style = IpbTheme.typography.title

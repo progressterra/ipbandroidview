@@ -15,7 +15,7 @@ import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCard
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
@@ -24,7 +24,7 @@ fun WantThisRequestsScreen(
     state: WantThisRequestsScreenState,
     useComponent: UseWantThisRequestsScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.want_this_requests),
             useComponent = useComponent,

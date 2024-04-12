@@ -21,7 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.entities.Message
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -54,12 +54,12 @@ fun Messages(
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = if (itemState.user) Alignment.End else Alignment.Start
             ) {
-                BrushedText(
+                Text(
                     text = itemState.content,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
-                BrushedText(
+                Text(
                     text = itemState.date,
                     tint = IpbTheme.colors.textTertiary.asBrush(),
                     style = IpbTheme.typography.footnoteRegular

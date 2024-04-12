@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 fun WantThisScreen(
     modifier: Modifier = Modifier, state: WantThisScreenState, useComponent: UseWantThisScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.want_this),
             useComponent = useComponent

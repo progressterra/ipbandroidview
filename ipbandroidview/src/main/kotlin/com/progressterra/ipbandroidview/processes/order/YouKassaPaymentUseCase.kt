@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.toArgb
 import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toReceiptItems
 import com.progressterra.ipbandroidview.features.ordernumber.OrderNumberState
@@ -26,7 +26,6 @@ import ru.yoomoney.sdk.kassa.payments.checkoutParameters.PaymentParameters
 import ru.yoomoney.sdk.kassa.payments.checkoutParameters.SavePaymentMethod
 import ru.yoomoney.sdk.kassa.payments.checkoutParameters.UiParameters
 import ru.yoomoney.sdk.kassa.payments.ui.color.ColorScheme
-import java.math.BigDecimal
 import java.util.Currency
 
 
@@ -51,7 +50,7 @@ interface YouKassaPaymentUseCase {
                     it.result?.message ?: ""
                 )
             }.data
-            var total = SimplePrice()
+            var total = Price()
             cartResult?.listDRSale?.map { it.toReceiptItems() }?.forEach { total += it.price }
             val images = cartResult?.listDRSale?.mapNotNull {
                 productRepository.productByNomenclatureId(

@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.ChecklistStats
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly) {
@@ -25,7 +25,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arr
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             icon()
-            BrushedText(
+            Text(
                 text = title,
                 style = IpbTheme.typography.title2,
                 tint = tint
@@ -40,7 +40,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arr
     ) {
         Item(
             icon = {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier,
                     resId = R.drawable.ic_sum,
                     tint = IpbTheme.colors.iconTertiary.asBrush()
@@ -51,7 +51,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arr
         )
         Item(
             icon = {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier,
                     resId = R.drawable.ic_plus,
                     tint = IpbTheme.colors.primary.asBrush()
@@ -62,7 +62,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arr
         )
         Item(
             icon = {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier,
                     resId = R.drawable.ic_minus,
                     tint = IpbTheme.colors.error.asBrush()
@@ -73,7 +73,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arr
         )
         Item(
             icon = {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier,
                     resId = R.drawable.ic_remaining,
                     tint = IpbTheme.colors.iconTertiary.asBrush()

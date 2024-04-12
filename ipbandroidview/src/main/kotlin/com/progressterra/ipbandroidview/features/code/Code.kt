@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.clearFocusOnKeyboardDismiss
 
 @Composable
@@ -58,13 +58,13 @@ private fun Digit(
             ), contentAlignment = Alignment.Center
     ) {
         if (!active && digit.isEmpty()) {
-            BrushedText(
+            Text(
                 text = "·",
                 style = IpbTheme.typography.largeTitle,
                 tint = IpbTheme.colors.textDisabled.asBrush()
             )
         }
-        BrushedText(
+        Text(
             text = digit,
             style = IpbTheme.typography.largeTitle,
             tint = IpbTheme.colors.textPrimary.asBrush()
@@ -85,7 +85,7 @@ fun Code(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BrushedText(
+        Text(
             modifier = Modifier.fillMaxWidth(),
             text = "${stringResource(id = R.string.verification_code_message)}\n${state.phone}",
             tint = IpbTheme.colors.textSecondary.asBrush(),

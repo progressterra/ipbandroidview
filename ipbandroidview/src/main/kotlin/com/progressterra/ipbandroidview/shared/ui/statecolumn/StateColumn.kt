@@ -13,8 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.LoadingIndicator
 
 @Composable
 fun StateColumn(
@@ -53,12 +53,12 @@ fun StateColumn(
                     useComponent.handle(StateColumnEvent(state.id))
                 }
             ) {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_refresh,
                     tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
-            ScreenState.LOADING -> ThemedLoadingIndicator()
+            ScreenState.LOADING -> LoadingIndicator()
             ScreenState.SUCCESS -> content()
         }
     }

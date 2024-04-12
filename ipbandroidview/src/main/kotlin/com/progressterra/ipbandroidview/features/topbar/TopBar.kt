@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun TopBar(
@@ -36,13 +36,13 @@ fun TopBar(
                 .size(30.dp)
                 .align(Alignment.CenterStart),
                 onClick = { useComponent.handle(TopBarEvent) }) {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier.size(30.dp),
                     resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
         }
-        BrushedText(
+        Text(
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(horizontal = 40.dp),

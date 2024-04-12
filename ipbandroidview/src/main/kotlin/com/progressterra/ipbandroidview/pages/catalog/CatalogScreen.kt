@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCard
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.search.Search
@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.features.trace.Trace
 import com.progressterra.ipbandroidview.features.trace.TraceState
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -40,7 +40,7 @@ fun CatalogScreen(
     useComponent: UseCatalog,
     customStoreCard: (@Composable (StoreCardState, UseStoreCard) -> Unit)? = null
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             if (state.trace.trace.isNotEmpty()) {
@@ -108,17 +108,17 @@ private fun CatalogScreenPreview() {
                                 StoreCardState(
                                     id = "Kotek",
                                     name = "Weston",
-                                    price = SimplePrice(1000),
+                                    price = Price(1000),
                                     image = "https://placekitten.com/200/300",
                                 ), StoreCardState(
                                     id = "Kotek 2",
                                     name = "Weston",
-                                    price = SimplePrice(2000),
+                                    price = Price(2000),
                                     image = "https://placekitten.com/200/300",
                                 ), StoreCardState(
                                     id = "Kotek 3",
                                     name = "Nombre",
-                                    price = SimplePrice(5000),
+                                    price = Price(5000),
                                     image = "https://placekitten.com/200/300",
                                 )
                             )

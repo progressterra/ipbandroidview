@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
@@ -28,7 +28,7 @@ fun LocationPermissionScreen(
     state: LocationPermissionScreenState,
     useComponent: UseLocationPermissionScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.location),
             showBackButton = true,
@@ -57,7 +57,7 @@ fun LocationPermissionScreen(
             modifier = Modifier.padding(top = 36.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            BrushedText(
+            Text(
                 modifier = Modifier.padding(start = 34.dp, end = 34.dp),
                 text = stringResource(R.string.location_welcome),
                 style = IpbTheme.typography.largeTitle,
@@ -65,12 +65,12 @@ fun LocationPermissionScreen(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(63.dp))
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_location,
                 tint = IpbTheme.colors.iconPrimary.asBrush()
             )
             Spacer(modifier = Modifier.height(12.dp))
-            BrushedText(
+            Text(
                 modifier = Modifier.padding(start = 53.dp, end = 53.dp),
                 text = stringResource(R.string.location_reasoning),
                 style = IpbTheme.typography.body,

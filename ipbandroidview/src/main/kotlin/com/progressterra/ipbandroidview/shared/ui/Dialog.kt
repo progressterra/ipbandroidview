@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 @Composable
-fun SimpleDialog(
+fun TextDialog(
     modifier: Modifier = Modifier,
     visible: Boolean,
     text: String,
@@ -40,7 +40,7 @@ fun SimpleDialog(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                BrushedText(
+                Text(
                     text = text,
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textPrimary.asBrush(),

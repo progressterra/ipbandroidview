@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.PulsingDot
 
 
@@ -50,13 +50,13 @@ fun Voice(
             ) {
                 if (state.ongoing) {
                     IconButton(onClick = onRemove, enabled = enabled) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_trash,
                             tint = if (enabled) IpbTheme.colors.error.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
                         )
                     }
                 } else {
-                    BrushedText(
+                    Text(
                         modifier = Modifier.padding(start = 12.dp),
                         text = stringResource(id = R.string.voice_message),
                         style = IpbTheme.typography.body,
@@ -67,7 +67,7 @@ fun Voice(
                     onClick = if (state.ongoing) onStopRecording else onStartRecording,
                     enabled = enabled
                 ) {
-                    BrushedIcon(
+                    Icon(
                         resId = R.drawable.ic_mic,
                         tint = if (enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
                     )
@@ -91,7 +91,7 @@ fun Voice(
                     onClick = onRemove,
                     enabled = enabled
                 ) {
-                    BrushedIcon(
+                    Icon(
                         resId = R.drawable.ic_trash,
                         tint = if (enabled) IpbTheme.colors.error.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
                     )
@@ -103,7 +103,7 @@ fun Voice(
                     progress = state.progress
                 )
                 IconButton(onClick = if (state.ongoing) onPausePlay else onStartPlay) {
-                    BrushedIcon(
+                    Icon(
                         resId = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play,
                         tint = IpbTheme.colors.primary.asBrush()
                     )

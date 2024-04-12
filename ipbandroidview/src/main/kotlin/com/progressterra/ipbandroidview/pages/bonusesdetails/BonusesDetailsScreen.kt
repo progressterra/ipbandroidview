@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesStyle
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -26,7 +26,7 @@ fun BonusesScreen(
     state: BonusesDetailsScreenState,
     useComponent: UseBonusesDetailsScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

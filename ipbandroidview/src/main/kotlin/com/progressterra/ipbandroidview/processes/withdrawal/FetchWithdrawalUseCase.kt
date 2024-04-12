@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.processes.withdrawal
 
 import com.progressterra.ipbandroidapi.api.balance.BalanceRepository
-import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.entities.toSimplePrice
+import com.progressterra.ipbandroidview.entities.Price
+import com.progressterra.ipbandroidview.entities.toPrice
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
 interface FetchWithdrawalUseCase {
 
-    suspend operator fun invoke(): Result<SimplePrice>
+    suspend operator fun invoke(): Result<Price>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -21,8 +21,8 @@ interface FetchWithdrawalUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(): Result<SimplePrice> = withToken { token ->
-            balanceRepository.client(token).getOrThrow()?.amount?.toSimplePrice()!!
+        override suspend fun invoke(): Result<Price> = withToken { token ->
+            balanceRepository.client(token).getOrThrow()?.amount?.toPrice()!!
         }
     }
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.Icon
 
 @Composable
 fun FavoriteButton(
@@ -22,14 +22,14 @@ fun FavoriteButton(
         onClick = { useComponent.handle(FavoriteButtonEvent(state.id)) },
         enabled = state.enabled
     ) {
-        BrushedIcon(
+        Icon(
             resId = R.drawable.ic_favorite_off, tint = IpbTheme.colors.iconTertiary.asBrush()
         )
         Column {
             AnimatedVisibility(
                 visible = state.favorite, enter = scaleIn(), exit = scaleOut()
             ) {
-                BrushedIcon(
+                Icon(
                     resId = R.drawable.ic_favorite_on, tint = IpbTheme.colors.iconPressed.asBrush()
                 )
             }

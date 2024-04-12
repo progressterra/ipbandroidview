@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchEvent
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.UseSwitch
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.switch.UseSwitch
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 

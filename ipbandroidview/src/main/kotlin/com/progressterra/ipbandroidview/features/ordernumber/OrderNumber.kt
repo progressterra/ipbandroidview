@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 
 @Composable
@@ -30,32 +30,32 @@ fun OrderNumber(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
     ) {
-        BrushedText(
+        Text(
             modifier = Modifier,
             text = if (state.success) stringResource(R.string.success_payment) else stringResource(R.string.payment_error),
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.onBackground.asBrush()
         )
-        BrushedText(
+        Text(
             modifier = Modifier,
             text = "${stringResource(R.string.order_id)} ${state.number}",
             style = IpbTheme.typography.subHeadlineRegular,
             tint = IpbTheme.colors.textTertiary.asBrush()
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            BrushedText(
+            Text(
                 modifier = Modifier,
                 text = "${stringResource(R.string.goods_quantity)} ${state.quantity}",
                 style = IpbTheme.typography.subHeadlineBold,
                 tint = IpbTheme.colors.onBackground.asBrush()
             )
-            BrushedText(
+            Text(
                 modifier = Modifier,
                 text = stringResource(R.string.delivery_address),
                 style = IpbTheme.typography.footnoteBold,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
-            BrushedText(
+            Text(
                 modifier = Modifier,
                 text = state.address,
                 style = IpbTheme.typography.footnoteRegular,

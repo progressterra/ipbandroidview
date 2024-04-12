@@ -45,7 +45,7 @@ fun Tabs(
                     if (selected) IpbTheme.colors.textPressed else IpbTheme.colors.textSecondary
                 val style =
                     if (selected) IpbTheme.typography.subHeadlineBold else IpbTheme.typography.subHeadlineRegular
-                BrushedText(
+                Text(
                     text = text,
                     tint = textColor.asBrush(),
                     style = style,

@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChat
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
@@ -20,7 +20,7 @@ fun OrderDetailsScreen(
     state: OrderDetailsScreenState,
     useComponent: UseOrderDetailsScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.order),
             showBackButton = true,

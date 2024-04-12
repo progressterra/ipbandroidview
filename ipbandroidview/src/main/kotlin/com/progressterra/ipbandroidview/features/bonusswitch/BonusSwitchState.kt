@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.bonusswitch
 
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchState
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchState
 
 
 data class BonusSwitchState(

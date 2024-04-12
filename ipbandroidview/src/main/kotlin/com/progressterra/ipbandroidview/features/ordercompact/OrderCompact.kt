@@ -16,10 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -41,18 +41,18 @@ fun OrderCompact(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                BrushedText(
+                Text(
                     text = "${stringResource(R.string.order_from)} ${state.date}",
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )
             }
-            BrushedText(
+            Text(
                 text = state.number,
                 tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.footnoteRegular
             )
-            BrushedText(
+            Text(
                 text = state.status.toString { stringResource(id = it) },
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineBold
@@ -60,12 +60,12 @@ fun OrderCompact(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                BrushedText(
+                Text(
                     text = "${state.count} ${stringResource(R.string.sum_of_goods)} ",
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
-                BrushedText(
+                Text(
                     text = state.totalPrice.toString(),
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
@@ -82,7 +82,7 @@ private fun OrderDetailsPreview() {
         OrderCompact(
             state = OrderCompactState(
                 id = "dicam", number = "alienum", status = TypeStatusOrder.SENT_TO_WAREHOUSE,
-                date = "13.10", count = 5, totalPrice = SimplePrice(price = 0),
+                date = "13.10", count = 5, totalPrice = Price(price = 0),
             ), useComponent = UseOrderCompact.Empty()
         )
     }

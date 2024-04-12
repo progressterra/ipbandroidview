@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.features.ordersteps.OrderSteps
 import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
@@ -30,7 +30,7 @@ fun OrderStatusScreen(
     state: OrderStatusScreenState,
     useComponent: UseOrderStatusScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

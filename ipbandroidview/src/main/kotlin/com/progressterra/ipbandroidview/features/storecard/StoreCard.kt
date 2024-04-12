@@ -17,12 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Installment
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
@@ -39,13 +39,13 @@ fun StoreCard(
                 useComponent.handle(StoreCardEvent.Open(state.id))
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .size(width = 157.dp, height = 157.dp)
                 .clip(RoundedCornerShape(8.dp)),
             image = state.image
         )
-        BrushedText(
+        Text(
             text = state.name,
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -62,24 +62,24 @@ fun StoreCard(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    BrushedText(
+                    Text(
                         text = state.oldPrice.toString(),
                         style = IpbTheme.typography.body2,
                         tint = IpbTheme.colors.textTertiary.asBrush(),
                     )
-                    BrushedText(
+                    Text(
                         text = stringResource(id = R.string.price_for_you),
                         style = IpbTheme.typography.footnoteRegular,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
-                    BrushedText(
+                    Text(
                         text = state.price.toString(),
                         style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textPrimary2.asBrush(),
                     )
                 }
                 if (!state.installment.isEmpty()) {
-                    BrushedText(
+                    Text(
                         text = "(${stringResource(R.string.installment)}: ${
                             state.installment.months
                         } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
@@ -94,7 +94,7 @@ fun StoreCard(
                     onClick = {
                         useComponent.handle(StoreCardEvent.AddToCart(state.id))
                     }) {
-                    BrushedIcon(
+                    Icon(
                         modifier = Modifier.size(32.dp),
                         resId = R.drawable.ic_cart,
                         tint = IpbTheme.colors.iconPrimary.asBrush()
@@ -116,17 +116,17 @@ private fun StoreCardPreview() {
         StoreCard(
             state = StoreCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = SimplePrice(1000)
+                price = Price(1000)
             ), useComponent = UseStoreCard.Empty()
         )
         StoreCard(
             state = StoreCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = SimplePrice(1000),
+                price = Price(1000),
                 counter = CounterState("1", 5),
                 installment = Installment(
                     months = 4,
-                    perMonth = SimplePrice(500)
+                    perMonth = Price(500)
                 )
             ), useComponent = UseStoreCard.Empty()
         )

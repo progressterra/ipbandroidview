@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.skydoves.landscapist.ImageOptions
 
@@ -35,14 +35,14 @@ fun CatalogCard(
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .size(98.dp)
                 .clip(RoundedCornerShape(8.dp)),
             image = state.image,
             options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
-        BrushedText(
+        Text(
             text = state.name,
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.surface2.asBrush(),

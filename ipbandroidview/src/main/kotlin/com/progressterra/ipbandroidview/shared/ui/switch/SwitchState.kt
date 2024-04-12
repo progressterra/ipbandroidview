@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui.brushedswitch
+package com.progressterra.ipbandroidview.shared.ui.switch
 
 
 data class SwitchState(

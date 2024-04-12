@@ -15,7 +15,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
@@ -35,7 +35,7 @@ fun Galleries(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        BrushedText(
+        Text(
             modifier = Modifier.padding(start = 20.dp),
             text = state.title,
             style = IpbTheme.typography.title,

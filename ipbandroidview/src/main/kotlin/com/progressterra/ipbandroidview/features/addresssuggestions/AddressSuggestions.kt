@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -52,7 +52,7 @@ fun AddressSuggestions(
                                 vertical = 6.dp
                             )
                     ) {
-                        BrushedText(
+                        Text(
                             text = it.previewOfSuggestion,
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular

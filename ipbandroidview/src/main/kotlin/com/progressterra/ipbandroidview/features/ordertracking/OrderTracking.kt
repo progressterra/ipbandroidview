@@ -21,8 +21,8 @@ import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun OrderTracking(
@@ -53,7 +53,7 @@ fun OrderTracking(
         ) {
             if (steps[state.status]!! >= steps[itemState]!!) {
                 Box(modifier = Modifier.size(20.dp), contentAlignment = Alignment.Center) {
-                    BrushedIcon(
+                    Icon(
                         modifier = Modifier.size(if (state.status == itemState) 16.dp else 12.dp),
                         resId = R.drawable.ic_dot,
                         tint = IpbTheme.colors.primary.asBrush()
@@ -62,7 +62,7 @@ fun OrderTracking(
             } else {
                 Spacer(modifier = Modifier.width(20.dp))
             }
-            BrushedText(
+            Text(
                 text = itemState.toString { stringResource(id = it) },
                 tint = brush,
                 style = style
@@ -82,12 +82,12 @@ fun OrderTracking(
             Column(
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                BrushedText(
+                Text(
                     text = state.status.toString { stringResource(id = it) },
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )
-                BrushedText(
+                Text(
                     text = state.number,
                     tint = IpbTheme.colors.textTertiary.asBrush(),
                     style = IpbTheme.typography.footnoteRegular

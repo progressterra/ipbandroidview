@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.datingmain
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.DatingTarget
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchState
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Immutable

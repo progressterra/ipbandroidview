@@ -13,14 +13,14 @@ import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompact
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun OrdersScreen(
     modifier: Modifier = Modifier, state: OrdersScreenState, useComponent: UseOrdersScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.features.supportchat.SupportChat
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.flowOf
 fun SupportScreen(
     modifier: Modifier = Modifier, state: SupportScreenState, useComponent: UseSupportScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = state.current.title, showBackButton = true, useComponent = useComponent
         )

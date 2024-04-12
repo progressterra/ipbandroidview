@@ -22,8 +22,8 @@ import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -48,18 +48,18 @@ fun Documents(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                BrushedText(
+                Text(
                     text = itemState.name,
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
-                BrushedText(
+                Text(
                     text = itemState.status.toString { stringResource(id = it) },
                     style = IpbTheme.typography.footnoteRegular,
                     tint = itemState.status.toColor()
                 )
             }
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_forw,
                 tint = IpbTheme.colors.iconPrimary.asBrush()
             )

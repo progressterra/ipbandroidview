@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -38,7 +38,7 @@ fun EditProfile(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        SimpleImage(
+        Image(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(80.dp),
@@ -46,13 +46,13 @@ fun EditProfile(
         )
         if (state.editing) {
             Spacer(modifier = Modifier.width(20.dp))
-            BrushedText(
+            Text(
                 text = stringResource(id = R.string.change_avatar),
                 style = IpbTheme.typography.subHeadlineBold,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
             Spacer(modifier = Modifier.width(4.dp))
-            BrushedIcon(
+            Icon(
                 resId = R.drawable.ic_edit,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )

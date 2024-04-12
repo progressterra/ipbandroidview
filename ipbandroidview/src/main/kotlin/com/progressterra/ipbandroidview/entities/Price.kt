@@ -6,7 +6,7 @@ import java.text.NumberFormat
 import java.util.Locale
 
 @Parcelize
-data class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable {
+data class Price(private val price: Int = 0) : IsEmpty, Parcelable {
 
     override fun toString(): String {
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("ru", "RU"))
@@ -22,7 +22,7 @@ data class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable {
 
     override fun isEmpty(): Boolean = price == 0
 
-    operator fun times(other: Int): SimplePrice = SimplePrice(price * other)
+    operator fun times(other: Int): Price = Price(price * other)
 
-    operator fun plus(other: SimplePrice) = SimplePrice(price + other.price)
+    operator fun plus(other: Price) = Price(price + other.price)
 }

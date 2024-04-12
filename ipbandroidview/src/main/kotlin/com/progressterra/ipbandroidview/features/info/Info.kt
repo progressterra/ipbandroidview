@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -23,7 +23,7 @@ fun Info(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(28.dp)
     ) {
-        BrushedText(
+        Text(
             text = stringResource(R.string.about_you),
             style = IpbTheme.typography.body,
             tint = IpbTheme.colors.textPrimary.asBrush(),

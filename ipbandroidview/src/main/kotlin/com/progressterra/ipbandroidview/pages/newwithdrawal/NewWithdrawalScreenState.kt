@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.newwithdrawal
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.emptyFlow
 data class NewWithdrawalScreenState(
     val add: ButtonState = ButtonState(id = "add", enabled = false),
     val all: ButtonState = ButtonState(id = "all"),
-    val canBeWithdrawal: SimplePrice = SimplePrice(),
+    val canBeWithdrawal: Price = Price(),
     val cardsFlow: Flow<PagingData<BankCardState>> = emptyFlow(),
     val cards: List<BankCardState> = emptyList(),
     val input: TextFieldState = TextFieldState(id = "input", type = TextInputType.NUMBER),

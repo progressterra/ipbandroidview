@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -59,7 +59,7 @@ fun Bonuses(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    BrushedText(
+                    Text(
                         text = "${stringResource(R.string.you_have)} ${state.roubles} ${
                             stringResource(
                                 R.string.roubles
@@ -72,7 +72,7 @@ fun Bonuses(
                         IconButton(
                             modifier = Modifier.size(45.dp),
                             onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
-                            BrushedIcon(
+                            Icon(
                                 modifier = Modifier.size(45.dp),
                                 resId = R.drawable.ic_arrow,
                                 tint = IpbTheme.colors.primary.asBrush(),
@@ -81,7 +81,7 @@ fun Bonuses(
                     }
                 }
                 if (style == BonusesStyle.MAIN && !state.hasCards) {
-                    BrushedText(
+                    Text(
                         modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
                         text = stringResource(R.string.add_card),
                         style = IpbTheme.typography.subHeadlineBold,
@@ -97,7 +97,7 @@ fun Bonuses(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    BrushedText(
+                    Text(
                         text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${
                             stringResource(
                                 R.string.roubles
@@ -110,7 +110,7 @@ fun Bonuses(
                         IconButton(
                             modifier = Modifier.size(45.dp),
                             onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
-                            BrushedIcon(
+                            Icon(
                                 modifier = Modifier.size(45.dp),
                                 resId = R.drawable.ic_withdrawal,
                                 tint = IpbTheme.colors.primary.asBrush(),
@@ -121,25 +121,25 @@ fun Bonuses(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    BrushedText(
+                    Text(
                         text = stringResource(R.string.available_installment),
                         style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textSecondary.asBrush()
                     )
-                    BrushedText(
+                    Text(
                         text = stringResource(R.string.available_installment_2),
                         style = IpbTheme.typography.subHeadlineBold,
                         tint = IpbTheme.colors.textButton.asBrush()
                     )
                 }
             } else {
-                BrushedText(
+                Text(
                     text = "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textButton.asBrush()
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-                BrushedText(
+                Text(
                     text = stringResource(R.string.please_auth),
                     style = IpbTheme.typography.subHeadlineBold,
                     tint = IpbTheme.colors.textButton.asBrush()

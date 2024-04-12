@@ -35,10 +35,10 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -62,7 +62,7 @@ fun PeopleNearbyScreen(
                 .background(backgroundBrush)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            BrushedText(
+            Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
@@ -89,7 +89,7 @@ fun PeopleNearbyScreen(
                         painter = painterResource(id = R.drawable.avatar_background),
                         contentDescription = null
                     )
-                    SimpleImage(
+                    Image(
                         modifier = Modifier
                             .size(64.dp)
                             .clip(CircleShape)
@@ -105,7 +105,7 @@ fun PeopleNearbyScreen(
                     )
                 }
                 Column {
-                    BrushedText(
+                    Text(
                         text = itemState.name,
                         style = IpbTheme.typography.headline,
                         tint = IpbTheme.colors.textPrimary.asBrush()
@@ -115,11 +115,11 @@ fun PeopleNearbyScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_distance_small,
                             tint = IpbTheme.colors.primary.asBrush()
                         )
-                        BrushedText(
+                        Text(
                             text = "${itemState.distance} м",
                             style = IpbTheme.typography.footnoteRegular,
                             tint = IpbTheme.colors.textPrimary.asBrush()
@@ -130,7 +130,7 @@ fun PeopleNearbyScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_interests_small,
                             tint = IpbTheme.colors.primary.asBrush()
                         )
@@ -141,7 +141,7 @@ fun PeopleNearbyScreen(
                                 )
                             } / state.currentUser.interests.size * 100 else 0
                         }
-                        BrushedText(
+                        Text(
                             text = "${matchPercent}% ${stringResource(id = R.string.of_interests_match)}",
                             style = IpbTheme.typography.footnoteRegular,
                             tint = IpbTheme.colors.textPrimary.asBrush()
@@ -160,7 +160,7 @@ fun PeopleNearbyScreen(
         }
     }
 
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(title = stringResource(id = R.string.interests), useComponent = useComponent)

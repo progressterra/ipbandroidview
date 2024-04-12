@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun WithdrawalTransaction(
@@ -34,23 +34,23 @@ fun WithdrawalTransaction(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BrushedText(
+            Text(
                 text = state.sum.toString(),
                 style = IpbTheme.typography.headline,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
-            BrushedText(
+            Text(
                 text = state.date,
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
         }
-        BrushedText(
+        Text(
             text = state.destination,
             style = IpbTheme.typography.subHeadlineRegular,
             tint = IpbTheme.colors.textPrimary.asBrush()
         )
-        BrushedText(
+        Text(
             text = state.status.toString { stringResource(id = it) },
             style = IpbTheme.typography.footnoteRegular,
             tint = state.status.toColor()

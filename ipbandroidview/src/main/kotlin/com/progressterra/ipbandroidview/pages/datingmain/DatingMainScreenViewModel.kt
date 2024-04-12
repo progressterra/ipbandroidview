@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCas
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.flow.collectLatest

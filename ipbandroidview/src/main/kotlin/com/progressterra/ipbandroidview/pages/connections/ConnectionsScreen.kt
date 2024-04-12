@@ -25,9 +25,9 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
@@ -55,7 +55,7 @@ fun ConnectionsScreen(
                     painter = painterResource(id = R.drawable.avatar_background),
                     contentDescription = null
                 )
-                SimpleImage(
+                Image(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape)
@@ -70,7 +70,7 @@ fun ConnectionsScreen(
                     }
                 )
             }
-            BrushedText(
+            Text(
                 text = itemState.name,
                 style = IpbTheme.typography.caption,
                 tint = IpbTheme.colors.textSecondary.asBrush()
@@ -83,7 +83,7 @@ fun ConnectionsScreen(
         name: String,
         items: LazyPagingItems<DatingUser>
     ) {
-        BrushedText(
+        Text(
             text = name,
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary.asBrush()
@@ -103,7 +103,7 @@ fun ConnectionsScreen(
         }
     }
 
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(
@@ -133,7 +133,7 @@ fun ConnectionsScreen(
                 )
                 val successInItems = state.successIn.collectAsLazyPagingItems()
                 val successOutItems = state.successOut.collectAsLazyPagingItems()
-                BrushedText(
+                Text(
                     text = stringResource(R.string.accepted_connections),
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textPrimary.asBrush()

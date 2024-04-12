@@ -40,9 +40,9 @@ import com.progressterra.ipbandroidview.features.divider.Divider
 import com.progressterra.ipbandroidview.features.stats.Stats
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -63,7 +63,7 @@ fun ChecklistScreen(
         useComponent = useComponent,
         sheetState = internalSheetState
     ) {
-        ThemedLayout(topBar = {
+        Layout(topBar = {
             TopBar(
                 title = stringResource(id = R.string.audit),
                 showBackButton = true,
@@ -142,12 +142,12 @@ fun ChecklistScreen(
                                 .padding(12.dp),
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            BrushedText(
+                            Text(
                                 text = state.auditDocument.name,
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
                                 style = IpbTheme.typography.title2
                             )
-                            BrushedText(
+                            Text(
                                 text = "${stringResource(id = R.string.questions)}: ${state.checks.size}",
                                 tint = IpbTheme.colors.textTertiary.asBrush(),
                                 style = IpbTheme.typography.footnoteRegular
@@ -176,7 +176,7 @@ fun ChecklistScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                BrushedText(
+                                Text(
                                     modifier = Modifier.weight(1f, false),
                                     text = it.name,
                                     maxLines = 2,
@@ -184,7 +184,7 @@ fun ChecklistScreen(
                                     style = IpbTheme.typography.body
                                 )
                                 Spacer(modifier = Modifier.size(20.dp))
-                                BrushedIcon(
+                                Icon(
                                     resId = R.drawable.ic_forward,
                                     tint = IpbTheme.colors.iconPrimary.asBrush()
                                 )

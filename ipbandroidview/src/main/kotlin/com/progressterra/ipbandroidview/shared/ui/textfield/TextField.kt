@@ -33,8 +33,8 @@ import com.maxkeppeler.sheets.calendar.models.CalendarStyle
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.clearFocusOnKeyboardDismiss
 
 @Composable
@@ -49,7 +49,7 @@ fun TextField(
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
-            BrushedText(
+            Text(
                 text = state.label ?: hint,
                 style = IpbTheme.typography.caption,
                 tint = IpbTheme.colors.textTertiary.asBrush()
@@ -58,7 +58,7 @@ fun TextField(
     } else null
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
-            BrushedText(
+            Text(
                 text = state.placeholder ?: hint,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textSecondary.asBrush()
@@ -148,7 +148,7 @@ fun TextField(
                     else -> useComponent.handle(TextFieldEvent.TextChanged(state.id, ""))
                 }
             }) {
-                BrushedIcon(
+                Icon(
                     resId =
                     when (state.type) {
                         TextInputType.DATE -> R.drawable.ic_cal

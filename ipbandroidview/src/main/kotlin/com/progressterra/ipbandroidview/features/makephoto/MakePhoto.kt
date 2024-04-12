@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.button.PseudoButton
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
@@ -38,7 +38,7 @@ fun MakePhoto(
     @Composable
     fun Item(picture: MultisizedImage) {
         Box {
-            SimpleImage(
+            Image(
                 modifier = Modifier
                     .size(63.dp)
                     .clip(RoundedCornerShape(8.dp))
@@ -55,7 +55,7 @@ fun MakePhoto(
                     onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) },
                     enabled = state.enabled
                 ) {
-                    BrushedIcon(
+                    Icon(
                         resId = R.drawable.ic_cancel_small,
                         tint = IpbTheme.colors.iconTertiary.asBrush()
                     )

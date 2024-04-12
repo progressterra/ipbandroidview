@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
-fun ThemedLoadingIndicator(
+fun LoadingIndicator(
     modifier: Modifier = Modifier, visible: Boolean = true
 ) {
     AnimatedVisibility(
@@ -25,8 +25,8 @@ fun ThemedLoadingIndicator(
 
 @Preview
 @Composable
-private fun ThemedLoadingIndicatorPreview() {
+private fun LoadingIndicatorPreview() {
     IpbTheme {
-        ThemedLoadingIndicator()
+        LoadingIndicator()
     }
 }

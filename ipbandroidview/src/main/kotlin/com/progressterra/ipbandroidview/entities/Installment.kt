@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 data class Installment(
     val months: Int = 0,
-    val perMonth: SimplePrice = SimplePrice()
+    val perMonth: Price = Price()
 ) : IsEmpty, Parcelable {
 
-    override fun isEmpty(): Boolean = months == 0 && perMonth == SimplePrice()
+    override fun isEmpty(): Boolean = months == 0 && perMonth == Price()
 }

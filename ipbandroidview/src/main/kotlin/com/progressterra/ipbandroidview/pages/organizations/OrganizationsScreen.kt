@@ -25,10 +25,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Organization
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -38,7 +38,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 fun OrganizationsScreen(
     state: OrganizationsScreenState, useComponent: UseOrganizationsScreen
 ) {
-    ThemedLayout(topBar = {
+    Layout(topBar = {
         TopBar(title = stringResource(id = R.string.organizations), useComponent = useComponent)
     }) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {
@@ -58,7 +58,7 @@ fun OrganizationsScreen(
                         .padding(12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        SimpleImage(
+                        Image(
                             modifier = Modifier
                                 .size(width = 110.dp, height = 90.dp)
                                 .clip(RoundedCornerShape(8.dp)),
@@ -68,13 +68,13 @@ fun OrganizationsScreen(
                             modifier = Modifier.weight(1f),
                             verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
-                            BrushedText(
+                            Text(
                                 text = it.name,
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
                                 style = IpbTheme.typography.title2,
                                 maxLines = 1
                             )
-                            BrushedText(
+                            Text(
                                 text = it.address,
                                 tint = IpbTheme.colors.textTertiary.asBrush(),
                                 style = IpbTheme.typography.footnoteRegular,
@@ -83,30 +83,30 @@ fun OrganizationsScreen(
                             Row(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                BrushedIcon(
+                                Icon(
                                     resId = R.drawable.ic_audits,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
-                                BrushedText(
+                                Text(
                                     text = it.audits,
                                     tint = IpbTheme.colors.textTertiary.asBrush(),
                                     style = IpbTheme.typography.subHeadlineRegular
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
-                                BrushedIcon(
+                                Icon(
                                     resId = R.drawable.ic_docs,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
-                                BrushedText(
+                                Text(
                                     text = it.documents,
                                     tint = IpbTheme.colors.textTertiary.asBrush(),
                                     style = IpbTheme.typography.subHeadlineRegular
                                 )
                             }
                         }
-                        BrushedIcon(
+                        Icon(
                             resId = R.drawable.ic_forward,
                             tint = IpbTheme.colors.iconSecondary.asBrush()
                         )

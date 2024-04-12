@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkText
@@ -30,7 +30,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 fun SignInScreen(
     modifier: Modifier = Modifier, state: SignInScreenState, useComponent: UseSignInScreen
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(

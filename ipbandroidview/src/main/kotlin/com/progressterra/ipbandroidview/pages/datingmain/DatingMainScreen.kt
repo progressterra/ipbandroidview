@@ -68,13 +68,13 @@ import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.utils.ComposableLifecycle
-import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.Switch
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchState
+import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.switch.Switch
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchState
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.yandex.mapkit.MapKitFactory
@@ -111,7 +111,7 @@ fun DatingMainScreen(
                 painter = painterResource(id = R.drawable.avatar_background),
                 contentDescription = null
             )
-            SimpleImage(
+            Image(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
@@ -135,12 +135,12 @@ fun DatingMainScreen(
                 .size(78.dp)
                 .clip(CircleShape), contentAlignment = Alignment.Center
         ) {
-            BrushedIcon(
+            Icon(
                 modifier = Modifier.size(78.dp),
                 resId = R.drawable.circle,
                 tint = IpbTheme.colors.primary.asBrush()
             )
-            SimpleImage(
+            Image(
                 modifier = Modifier
                     .size(66.dp)
                     .clip(CircleShape)
@@ -310,7 +310,7 @@ fun DatingMainScreen(
                     selected = selected == index,
                     onClick = { onSelect(index) },
                     text = {
-                        BrushedText(
+                        Text(
                             text = text,
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.footnoteRegular
@@ -320,7 +320,7 @@ fun DatingMainScreen(
         }
     }
 
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -328,7 +328,7 @@ fun DatingMainScreen(
                 .background(IpbTheme.colors.background.asBrush())
                 .padding(horizontal = 16.dp)
         ) {
-            BrushedText(
+            Text(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(horizontal = 40.dp),
@@ -359,7 +359,7 @@ fun DatingMainScreen(
             ) {
                 if (selectedIndex == 0) {
                     val (call, picker, exposedPicker, filter, circle) = createRefs()
-                    BrushedText(
+                    Text(
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .constrainAs(call) {
@@ -399,13 +399,13 @@ fun DatingMainScreen(
                         .padding(horizontal = 16.dp, vertical = 10.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
-                        BrushedText(
+                        Text(
                             text = if (state.currentUser.target.isEmpty())
                                 stringResource(id = R.string.choose_dating_target) else state.currentUser.target.name,
                             tint = IpbTheme.colors.textButton.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
-                        BrushedIcon(
+                        Icon(
                             modifier = Modifier.rotate(rotation.value),
                             resId = R.drawable.ic_imh_exposable,
                             tint = IpbTheme.colors.iconSecondary2.asBrush()
@@ -444,7 +444,7 @@ fun DatingMainScreen(
                                         }
                                         .padding(vertical = 10.dp),
                                         horizontalArrangement = Arrangement.Center) {
-                                        BrushedText(
+                                        Text(
                                             text = it.name,
                                             tint = IpbTheme.colors.primary.asBrush(),
                                             style = IpbTheme.typography.subHeadlineRegular
@@ -461,7 +461,7 @@ fun DatingMainScreen(
                         top.linkTo(picker.top)
                         bottom.linkTo(picker.bottom)
                     }, onClick = { }) {
-                        BrushedIcon(
+                        Icon(
                             modifier = Modifier.size(24.dp),
                             resId = R.drawable.ic_filter_empty,
                             tint = IpbTheme.colors.iconPrimary.asBrush()

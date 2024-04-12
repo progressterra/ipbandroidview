@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoStat
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.documents.Documents
@@ -27,7 +27,7 @@ import com.progressterra.ipbandroidview.widgets.documents.DocumentsState
 fun DocumentsScreen(
     modifier: Modifier = Modifier, state: DocumentsScreenState, useComponent: UseDocumentsScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    Layout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.documents),
             showBackButton = true,

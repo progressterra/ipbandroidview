@@ -9,7 +9,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
-fun BrushedText(
+fun Text(
     modifier: Modifier = Modifier,
     text: String,
     style: TextStyle,

@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
 import com.progressterra.ipbandroidview.processes.utils.StartActivityForResultContract
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.SimpleDialog
+import com.progressterra.ipbandroidview.shared.ui.TextDialog
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -89,7 +89,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
                         }
                     })
                 }
-                SimpleDialog(
+                TextDialog(
                     text = dialogText,
                     visible = showDialog,
                     onDismiss = { showDialog = false },

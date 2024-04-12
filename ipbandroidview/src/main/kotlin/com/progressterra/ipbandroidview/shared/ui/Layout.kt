@@ -21,7 +21,7 @@ import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
-fun ThemedLayout(
+fun Layout(
     modifier: Modifier = Modifier,
     backgroundColor: Brush = IpbTheme.colors.background.asBrush(),
     topBar: @Composable () -> Unit = {},

@@ -7,7 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 
@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 fun FavoritesScreen(
     modifier: Modifier = Modifier, state: FavoritesScreenState, useComponent: UseFavorites
 ) {
-    ThemedLayout(
+    Layout(
         modifier = modifier,
         topBar = {
             TopBar(
