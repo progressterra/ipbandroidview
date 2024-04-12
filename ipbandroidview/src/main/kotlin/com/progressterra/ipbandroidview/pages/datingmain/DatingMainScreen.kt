@@ -74,7 +74,7 @@ import com.progressterra.ipbandroidview.shared.ui.utils.ComposableLifecycle
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.Switch
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchState
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchState
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.yandex.mapkit.MapKitFactory
@@ -541,7 +541,7 @@ fun DatingMainScreen(
 private fun DatingMainScreenPreview() {
     DatingMainScreen(
         state = DatingMainScreenState(
-            readyToMeet = BrushedSwitchState(
+            readyToMeet = SwitchState(
                 id = "magnis", enabled = false, turned = false
             ), users = listOf(
                 DatingUser(), DatingUser(), DatingUser(), DatingUser(), DatingUser()

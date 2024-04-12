@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.processes.order.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.processes.order.YouKassaPaymentUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -80,7 +80,7 @@ class PaymentScreenViewModel(
         }
     }
 
-    override fun handle(event: BrushedSwitchEvent) {
+    override fun handle(event: SwitchEvent) {
         when (event.id) {
             "useBonuses" -> emitState {
                 it.copy(

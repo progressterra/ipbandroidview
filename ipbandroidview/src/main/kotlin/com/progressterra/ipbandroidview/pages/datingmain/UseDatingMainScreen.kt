@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.UseBrushedSwitch
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.UseSwitch
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UseDatingMainScreen : UseBrushedSwitch, UseStateColumn {
+interface UseDatingMainScreen : UseSwitch, UseStateColumn {
 
     fun handle(event: DatingMainScreenEvent)
 
@@ -15,6 +15,6 @@ interface UseDatingMainScreen : UseBrushedSwitch, UseStateColumn {
 
         override fun handle(event: DatingMainScreenEvent) = Unit
 
-        override fun handle(event: BrushedSwitchEvent) = Unit
+        override fun handle(event: SwitchEvent) = Unit
     }
 }

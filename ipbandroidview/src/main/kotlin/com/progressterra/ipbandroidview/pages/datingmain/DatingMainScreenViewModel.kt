@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCas
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.SwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.flow.collectLatest
@@ -115,7 +115,7 @@ class DatingMainScreenViewModel(
     }
 
 
-    override fun handle(event: BrushedSwitchEvent) {
+    override fun handle(event: SwitchEvent) {
         onBackground {
             if (!currentState.readyToMeet.turned) {
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {

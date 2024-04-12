@@ -9,14 +9,14 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 @Composable
 fun Switch(
     modifier: Modifier = Modifier,
-    state: BrushedSwitchState,
-    useComponent: UseBrushedSwitch
+    state: SwitchState,
+    useComponent: UseSwitch
 ) {
     Switch(
         modifier = modifier,
         checked = state.turned,
         enabled = state.enabled,
-        onCheckedChange = { useComponent.handle(BrushedSwitchEvent(state.id)) },
+        onCheckedChange = { useComponent.handle(SwitchEvent(state.id)) },
         colors = SwitchDefaults.colors(
             checkedThumbColor = IpbTheme.colors.primary.asColor(),
             checkedTrackColor = IpbTheme.colors.secondary.asColor(),
