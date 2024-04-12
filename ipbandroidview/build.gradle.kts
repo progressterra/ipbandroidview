@@ -93,12 +93,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.6.4")
-    api("androidx.compose.ui:ui-util:1.6.4")
-    api("androidx.compose.ui:ui-tooling:1.6.4")
-    api("androidx.compose.ui:ui-tooling-preview:1.6.4")
-    api("androidx.compose.foundation:foundation:1.6.4")
-    api("androidx.compose.material:material:1.6.4")
+    api("androidx.compose.ui:ui:1.6.5")
+    api("androidx.compose.ui:ui-util:1.6.5")
+    api("androidx.compose.ui:ui-tooling:1.6.5")
+    api("androidx.compose.ui:ui-tooling-preview:1.6.5")
+    api("androidx.compose.foundation:foundation:1.6.5")
+    api("androidx.compose.material:material:1.6.5")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
