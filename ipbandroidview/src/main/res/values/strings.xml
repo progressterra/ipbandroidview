@@ -153,7 +153,6 @@
     <string name="withdraw">Вывести</string>
     <string name="withdraw_all">Вывести всё</string>
     <string name="input_amount">Введите сумму</string>
-    <string name="welcome_message">Легко накопить\n—\nвыгодно потратить</string>
     <string name="docs_chat">Чат по документу</string>
     <string name="docs_chats">Чаты по документам</string>
     <string name="goods_quantity">Товаров:</string>
@@ -233,7 +232,6 @@
     <string name="error_email_not_found">Нет прикреплённой к аккаунту почты</string>
     <string name="commentary">Текстовый комментарий</string>
     <string name="payment_youkassa">YouKassa</string>
-    <string name="will_burn">сгорят</string>
     <plurals name="bonuses">
         <item quantity="one">бонус</item>
         <item quantity="other">бонусов</item>

@@ -1,5 +1,3 @@
-import de.undercouch.gradle.tasks.download.Download
-
 plugins {
     id("com.android.library")
     id("kotlin-android")
