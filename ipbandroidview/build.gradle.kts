@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("maven-publish")
     id("de.undercouch.download")
+    id("com.ncorti.ktfmt.gradle") version "0.18.0"
 }
 
 android {
@@ -154,8 +155,8 @@ dependencies {
     api("androidx.work:work-runtime-ktx:2.9.0")
 
     // Video
-    api("androidx.media3:media3-exoplayer:1.3.0")
-    api("androidx.media3:media3-ui:1.3.0")
+    api("androidx.media3:media3-exoplayer:1.3.1")
+    api("androidx.media3:media3-ui:1.3.1")
 
     // Payments
     api("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.1")
@@ -167,4 +168,8 @@ dependencies {
     api("androidx.camera:camera-view:$cameraxVersion")
 
     api("com.jakewharton.timber:timber:5.0.1")
+}
+
+ktfmt {
+    kotlinLangStyle()
 }
