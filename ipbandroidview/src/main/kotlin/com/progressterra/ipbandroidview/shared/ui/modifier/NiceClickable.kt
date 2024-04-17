@@ -9,9 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
-fun Modifier.niceClickable(
-    enabled: Boolean = true, onClick: () -> Unit
-) = composed {
+fun Modifier.niceClickable(enabled: Boolean = true, onClick: () -> Unit) = composed {
     clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple(),

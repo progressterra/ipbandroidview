@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
-import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatEvent
 import com.progressterra.ipbandroidview.features.attachablechat.UseAttachableChat
+import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.orderdetails.UseOrderDetails
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent

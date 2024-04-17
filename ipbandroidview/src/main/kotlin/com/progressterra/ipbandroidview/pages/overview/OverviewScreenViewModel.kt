@@ -16,7 +16,6 @@ class OverviewScreenViewModel(
 
     override fun createInitialState() = OverviewState()
 
-
     override fun handle(event: TopBarEvent) = Unit
 
     override fun handle(event: OverviewEvent) {
@@ -29,14 +28,14 @@ class OverviewScreenViewModel(
                             placeId = event.data.placeId,
                             documentId = event.data.documentId,
                             name = event.data.name
-                        ) to if (event.data.finishDate != null) ChecklistStatus.READ_ONLY else ChecklistStatus.ONGOING
+                        ) to
+                            if (event.data.finishDate != null) ChecklistStatus.READ_ONLY
+                            else ChecklistStatus.ONGOING
                     )
                 )
             }
-
-            is OverviewEvent.UpdateOngoingCounter -> postEffect(
-                OverviewEffect.UpdateOngoingCounter(event.counter)
-            )
+            is OverviewEvent.UpdateOngoingCounter ->
+                postEffect(OverviewEffect.UpdateOngoingCounter(event.counter))
         }
     }
 
@@ -44,20 +43,15 @@ class OverviewScreenViewModel(
         refresh()
     }
 
-
     override fun refresh() {
         onBackground {
             var isSuccess = true
-            fetchArchivedAuditsUseCase().onSuccess { flow ->
-                emitState { it.copy(archived = cachePaging(flow)) }
-            }.onFailure {
-                isSuccess = false
-            }
-            fetchOngoingAuditsUseCase().onSuccess { flow ->
-                emitState { it.copy(ongoing = cachePaging(flow)) }
-            }.onFailure {
-                isSuccess = false
-            }
+            fetchArchivedAuditsUseCase()
+                .onSuccess { flow -> emitState { it.copy(archived = cachePaging(flow)) } }
+                .onFailure { isSuccess = false }
+            fetchOngoingAuditsUseCase()
+                .onSuccess { flow -> emitState { it.copy(ongoing = cachePaging(flow)) } }
+                .onFailure { isSuccess = false }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }

@@ -16,24 +16,23 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
 
 @Composable
-fun PhotoTopBar(
-    modifier: Modifier = Modifier,
-    useComponent: UsePhotoTopBar
-) {
+fun PhotoTopBar(modifier: Modifier = Modifier, useComponent: UsePhotoTopBar) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(44.dp)
-            .background(IpbTheme.colors.background.asBrush())
-            .padding(horizontal = 16.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(44.dp)
+                .background(IpbTheme.colors.background.asBrush())
+                .padding(horizontal = 16.dp)
     ) {
-        IconButton(modifier = Modifier
-            .size(30.dp)
-            .align(Alignment.CenterStart),
-            onClick = { useComponent.handle(PhotoTopBarEvent) }) {
+        IconButton(
+            modifier = Modifier.size(30.dp).align(Alignment.CenterStart),
+            onClick = { useComponent.handle(PhotoTopBarEvent) }
+        ) {
             Icon(
                 modifier = Modifier.size(30.dp),
-                resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
+                resId = R.drawable.ic_back,
+                tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
     }

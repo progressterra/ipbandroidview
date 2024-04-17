@@ -37,16 +37,18 @@ class TargetPickerScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            availableTargetsUseCase().onSuccess { targets ->
-                emitState {
-                    it.copy(
-                        screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        targets = targets
-                    )
+            availableTargetsUseCase()
+                .onSuccess { targets ->
+                    emitState {
+                        it.copy(
+                            screen = it.screen.copy(state = ScreenState.SUCCESS),
+                            targets = targets
+                        )
+                    }
                 }
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+                .onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
             fetchDatingUserUseCase()
         }
     }

@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class LocationPermissionScreenNode(
     buildContext: BuildContext,
     private val navigation: LocationPermissionNavigation
-) : Node(
-    buildContext = buildContext
-) {
+) : Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -27,9 +25,7 @@ class LocationPermissionScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         LocationPermissionScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

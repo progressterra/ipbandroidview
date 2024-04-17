@@ -40,11 +40,11 @@ fun ConfirmationCodeScreen(
         },
         bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(8.dp),
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 CountDown(
@@ -61,9 +61,7 @@ fun ConfirmationCodeScreen(
             }
         }
     ) { _, _ ->
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             Code(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                 state = state.code,
@@ -78,13 +76,12 @@ fun ConfirmationCodeScreen(
 private fun ConfirmationCodeScreenPreview() {
     IpbTheme {
         ConfirmationCodeScreen(
-            state = ConfirmationCodeScreenState(
-                code = CodeState(code = "123", phone = "123456789"),
-                repeat = CountDownState(
-                    count = "00:10",
-                    enabled = false
-                )
-            ), useComponent = UseConfirmationCodeScreen.Empty()
+            state =
+                ConfirmationCodeScreenState(
+                    code = CodeState(code = "123", phone = "123456789"),
+                    repeat = CountDownState(count = "00:10", enabled = false)
+                ),
+            useComponent = UseConfirmationCodeScreen.Empty()
         )
     }
 }

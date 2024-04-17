@@ -29,17 +29,19 @@ interface MakeNotificationUseCase {
             val notificationManager: NotificationManager =
                 getSystemService(context, NotificationManager::class.java)!!
             notificationManager.createNotificationChannel(channel)
-            val intent = Intent(context, activity).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
+            val intent =
+                Intent(context, activity).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
             val pendingIntent =
                 PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-            val builder = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(iconId)
-                .setContentTitle(title)
-                .setContentText(msg)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
+            val builder =
+                NotificationCompat.Builder(context, channelId)
+                    .setSmallIcon(iconId)
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
             val notificationId = System.currentTimeMillis().toInt()
             with(NotificationManagerCompat.from(context)) {
                 notify(notificationId, builder.build())

@@ -19,16 +19,13 @@ class SignInScreenViewModel(
         onBackground {
             when (event.id) {
                 "auth" -> onNext()
-
                 "skip" -> postEffect(SignInScreenEffect.Skip)
             }
         }
     }
 
     override fun handle(event: LinkTextEvent) {
-        onBackground {
-            openUrlUseCase(event.url)
-        }
+        onBackground { openUrlUseCase(event.url) }
     }
 
     override fun handle(event: TopBarEvent) = Unit
@@ -40,7 +37,6 @@ class SignInScreenViewModel(
                 emitState { it.copy(auth = it.auth.copy(enabled = it.phone.valid())) }
                 if (currentState.phone.valid()) onNext()
             }
-
             is TextFieldEvent.Action -> onNext()
             is TextFieldEvent.AdditionalAction -> Unit
         }

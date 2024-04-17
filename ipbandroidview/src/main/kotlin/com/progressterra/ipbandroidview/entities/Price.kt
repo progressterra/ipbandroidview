@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.text.NumberFormat
 import java.util.Locale
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Price(private val price: Int = 0) : IsEmpty, Parcelable {

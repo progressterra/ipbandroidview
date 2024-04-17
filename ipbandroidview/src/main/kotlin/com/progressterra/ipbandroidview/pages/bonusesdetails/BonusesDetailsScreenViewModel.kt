@@ -5,17 +5,18 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
-import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesTransactionsUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class BonusesDetailsScreenViewModel(
     fetchBonusesUseCase: FetchBonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
-) : AbstractNonInputViewModel<BonusesDetailsScreenState, BonusesDetailsScreenEffect>(),
+) :
+    AbstractNonInputViewModel<BonusesDetailsScreenState, BonusesDetailsScreenEffect>(),
     UseBonusesDetailsScreen {
 
     override fun createInitialState() = BonusesDetailsScreenState()
@@ -25,40 +26,36 @@ class BonusesDetailsScreenViewModel(
             emitState { createInitialState() }
             var isSuccess = true
             bonusesModule.refresh()
-            fetchBonusesTransactionsUseCase().onSuccess { transactions ->
-                emitState {
-                    it.copy(transactions = transactions)
-                }
-            }.onFailure {
-                isSuccess = false
-            }
-            emitState {
-                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
-            }
+            fetchBonusesTransactionsUseCase()
+                .onSuccess { transactions -> emitState { it.copy(transactions = transactions) } }
+                .onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
-    private val bonusesModule = BonusesModule(
-        fetchBonusesUseCase = fetchBonusesUseCase,
-        operations = this,
-        user = object : BonusesModuleUser {
+    private val bonusesModule =
+        BonusesModule(
+            fetchBonusesUseCase = fetchBonusesUseCase,
+            operations = this,
+            user =
+                object : BonusesModuleUser {
 
-            override fun onBonusesTransactions() = Unit
+                    override fun onBonusesTransactions() = Unit
 
-            override fun onWithdrawal() = Unit
+                    override fun onWithdrawal() = Unit
 
-            override fun onAddCard() = Unit
+                    override fun onAddCard() = Unit
 
-            override fun onAuth() = Unit
+                    override fun onAuth() = Unit
 
-            override fun emitModuleState(reducer: (BonusesState) -> BonusesState) {
-                emitState { it.copy(bonuses = reducer(currentState.bonuses)) }
-            }
+                    override fun emitModuleState(reducer: (BonusesState) -> BonusesState) {
+                        emitState { it.copy(bonuses = reducer(currentState.bonuses)) }
+                    }
 
-            override val moduleState: BonusesState
-                get() = currentState.bonuses
-        }
-    )
+                    override val moduleState: BonusesState
+                        get() = currentState.bonuses
+                }
+        )
 
     override fun handle(event: ButtonEvent) {
         bonusesModule.handle(event)

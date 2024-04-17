@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodStat
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-
 data class PaymentScreenState(
     val screen: StateColumnState = StateColumnState(),
     val paymentMethod: PaymentMethodState = PaymentMethodState(),

@@ -16,7 +16,11 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly) {
+fun Stats(
+    modifier: Modifier = Modifier,
+    stats: ChecklistStats,
+    arrangement: Arrangement.Horizontal = Arrangement.SpaceEvenly
+) {
 
     @Composable
     fun Item(icon: @Composable () -> Unit, title: String, tint: Brush) {
@@ -25,11 +29,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats, arrangement: Arr
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             icon()
-            Text(
-                text = title,
-                style = IpbTheme.typography.title2,
-                tint = tint
-            )
+            Text(text = title, style = IpbTheme.typography.title2, tint = tint)
         }
     }
 

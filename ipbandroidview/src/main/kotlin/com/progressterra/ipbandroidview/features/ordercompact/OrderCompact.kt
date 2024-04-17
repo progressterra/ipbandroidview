@@ -24,15 +24,18 @@ import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
 fun OrderCompact(
-    modifier: Modifier = Modifier, state: OrderCompactState, useComponent: UseOrderCompact
+    modifier: Modifier = Modifier,
+    state: OrderCompactState,
+    useComponent: UseOrderCompact
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(OrderCompactEvent(state)) }
-            .padding(8.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .niceClickable { useComponent.handle(OrderCompactEvent(state)) }
+                .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -57,9 +60,7 @@ fun OrderCompact(
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineBold
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "${state.count} ${stringResource(R.string.sum_of_goods)} ",
                     tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -80,10 +81,16 @@ fun OrderCompact(
 private fun OrderDetailsPreview() {
     IpbTheme {
         OrderCompact(
-            state = OrderCompactState(
-                id = "dicam", number = "alienum", status = TypeStatusOrder.SENT_TO_WAREHOUSE,
-                date = "13.10", count = 5, totalPrice = Price(price = 0),
-            ), useComponent = UseOrderCompact.Empty()
+            state =
+                OrderCompactState(
+                    id = "dicam",
+                    number = "alienum",
+                    status = TypeStatusOrder.SENT_TO_WAREHOUSE,
+                    date = "13.10",
+                    count = 5,
+                    totalPrice = Price(price = 0),
+                ),
+            useComponent = UseOrderCompact.Empty()
         )
     }
 }

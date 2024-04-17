@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class PaymentScreenNode(
     buildContext: BuildContext,
     private val navigation: PaymentScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,9 +24,7 @@ class PaymentScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         PaymentScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

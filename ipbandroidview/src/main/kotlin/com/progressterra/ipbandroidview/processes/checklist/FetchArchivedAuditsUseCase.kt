@@ -17,10 +17,11 @@ interface FetchArchivedAuditsUseCase : PagingUseCase<Nothing, ChecklistDocument>
         private val checklistService: ChecklistService
     ) : FetchArchivedAuditsUseCase, PagingUseCase.Abstract<Nothing, ChecklistDocument>() {
 
-        override fun createSource() = ArchivedAuditsSource(
-            obtainAccessToken = obtainAccessToken,
-            checklistService = checklistService
-        )
+        override fun createSource() =
+            ArchivedAuditsSource(
+                obtainAccessToken = obtainAccessToken,
+                checklistService = checklistService
+            )
     }
 }
 
@@ -30,24 +31,25 @@ class ArchivedAuditsSource(
 ) : AbstractSource<Nothing, ChecklistDocument>() {
 
     override val pageSize = 6
+
     override suspend fun loadPage(
         skip: Int,
         take: Int
     ): Result<Pair<Int, List<ChecklistDocument>>> = runCatching {
         val token = obtainAccessToken().getOrThrow()
-        val response = checklistService.allDocuments(
-            token, FilterAndSort(
-                listFields = emptyList(),
-                sort = SortData(
-                    fieldName = "dateEnd",
-                    variantSort = TypeVariantSort.DESC
-                ),
-                searchData = "",
-                skip = skip,
-                take = take
-            )
-        ).dataList!!
-        response.size to response.map { it.toChecklistDocument() }
-            .filter { it.finishDate != null }
+        val response =
+            checklistService
+                .allDocuments(
+                    token,
+                    FilterAndSort(
+                        listFields = emptyList(),
+                        sort = SortData(fieldName = "dateEnd", variantSort = TypeVariantSort.DESC),
+                        searchData = "",
+                        skip = skip,
+                        take = take
+                    )
+                )
+                .dataList!!
+        response.size to response.map { it.toChecklistDocument() }.filter { it.finishDate != null }
     }
 }

@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
 
-
 data class DeliveryScreenState(
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
     val commentary: TextFieldState = TextFieldState(id = "commentary"),

@@ -21,8 +21,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -32,25 +32,31 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun OccupationScreen(
-    modifier: Modifier = Modifier, state: OccupationScreenState, useComponent: UseOccupationScreen
+    modifier: Modifier = Modifier,
+    state: OccupationScreenState,
+    useComponent: UseOccupationScreen
 ) {
     @Composable
-    fun Item(
-        itemState: Interest
-    ) {
+    fun Item(itemState: Interest) {
         val picked =
-            itemState.id == state.pickedOccupation.id || (itemState.id == state.userOccupation.id && state.pickedOccupation.isEmpty())
+            itemState.id == state.pickedOccupation.id ||
+                (itemState.id == state.userOccupation.id && state.pickedOccupation.isEmpty())
         val backgroundBrush =
-            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
-        Box(modifier = Modifier
-            .padding(vertical = 4.dp)
-            .clip(CircleShape)
-            .background(backgroundBrush)
-            .border(
-                width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-            )
-            .niceClickable { useComponent.handle(OccupationScreenEvent(itemState)) }
-            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+            if (picked) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.background.asBrush()
+        Box(
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.secondary.asBrush(),
+                        shape = CircleShape
+                    )
+                    .niceClickable { useComponent.handle(OccupationScreenEvent(itemState)) }
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
             Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
@@ -59,27 +65,32 @@ fun OccupationScreen(
         }
     }
 
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.occupation),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.save,
-                useComponent = useComponent,
-                title = stringResource(R.string.save)
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.occupation),
+                showBackButton = true,
+                useComponent = useComponent
             )
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.save,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.save)
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
+            state = state.screen,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
@@ -90,14 +101,10 @@ fun OccupationScreen(
                 textAlign = TextAlign.Center
             )
             FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp),
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                state.allOccupations.forEach {
-                    Item(it)
-                }
+                state.allOccupations.forEach { Item(it) }
             }
         }
     }
@@ -108,38 +115,25 @@ fun OccupationScreen(
 private fun InterestsScreenPreview() {
     IpbTheme {
         OccupationScreen(
-            state = OccupationScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                allOccupations =
-                listOf(
-                    Interest(
-                        id = "0",
-                        name = "coffee"
-                    ), Interest(
-                        id = "1",
-                        name = "sport"
-                    ), Interest(
-                        id = "2",
-                        name = "tea"
-                    ), Interest(
-                        id = "3",
-                        name = "lalala"
-                    ), Interest(
-                        id = "4",
-                        name = "some very long interest like a small dog psychology"
-                    ), Interest(
-                        id = "5",
-                        name = "armenian coffee"
-                    ), Interest(
-                        id = "6",
-                        name = "argentinian coffee"
-                    ), Interest(
-                        id = "7",
-                        name = "colombian coffee"
-                    )
-                )
-            ), useComponent = UseOccupationScreen.Empty()
+            state =
+                OccupationScreenState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    allOccupations =
+                        listOf(
+                            Interest(id = "0", name = "coffee"),
+                            Interest(id = "1", name = "sport"),
+                            Interest(id = "2", name = "tea"),
+                            Interest(id = "3", name = "lalala"),
+                            Interest(
+                                id = "4",
+                                name = "some very long interest like a small dog psychology"
+                            ),
+                            Interest(id = "5", name = "armenian coffee"),
+                            Interest(id = "6", name = "argentinian coffee"),
+                            Interest(id = "7", name = "colombian coffee")
+                        )
+                ),
+            useComponent = UseOccupationScreen.Empty()
         )
     }
 }
-

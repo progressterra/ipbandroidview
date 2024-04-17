@@ -29,40 +29,49 @@ interface GoodsDetailsUseCase {
         private val goodsUseCase: GoodsUseCase,
         private val manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase
-    ) : GoodsDetailsUseCase,
+    ) :
+        GoodsDetailsUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsScreenState> =
             withToken { token ->
                 val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
                 val goods =
-                    productRepository.productByNomenclatureId(token, id).getOrThrow()!!
+                    productRepository
+                        .productByNomenclatureId(token, id)
+                        .getOrThrow()!!
                         .toGoodsItem()
                 val recommended =
-                    if (goods.categoryId.isNotEmpty()) goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow() else emptyFlow()
+                    if (goods.categoryId.isNotEmpty())
+                        goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow()
+                    else emptyFlow()
                 GoodsDetailsScreenState(
                     id = goods.id,
-                    description = GoodsDescriptionState(
-                        name = goods.name,
-                        description = goods.description,
-                        favoriteButton = FavoriteButtonState(
-                            id = goods.id, favorite = isFavorite
+                    description =
+                        GoodsDescriptionState(
+                            name = goods.name,
+                            description = goods.description,
+                            favoriteButton =
+                                FavoriteButtonState(id = goods.id, favorite = isFavorite),
+                            properties = goods.properties
                         ),
-                        properties = goods.properties
-                    ),
                     gallery = ItemGalleryState(images = goods.images),
                     name = goods.name,
-                    buyGoods = BuyGoodsState(
-                        oldPrice = goods.oldPrice,
-                        price = goods.price,
-                        installment = goods.installment
-                    ),
-                    similarGoods = GalleriesState(
-                        items = recommended,
-                        title = manageResources.string(R.string.similar_goods),
-                        id = goods.categoryId,
-                        state = StateColumnState(state = ScreenState.SUCCESS)
-                    ), rating = goods.rating, quantity = goods.quantity
+                    buyGoods =
+                        BuyGoodsState(
+                            oldPrice = goods.oldPrice,
+                            price = goods.price,
+                            installment = goods.installment
+                        ),
+                    similarGoods =
+                        GalleriesState(
+                            items = recommended,
+                            title = manageResources.string(R.string.similar_goods),
+                            id = goods.categoryId,
+                            state = StateColumnState(state = ScreenState.SUCCESS)
+                        ),
+                    rating = goods.rating,
+                    quantity = goods.quantity
                 )
             }
     }

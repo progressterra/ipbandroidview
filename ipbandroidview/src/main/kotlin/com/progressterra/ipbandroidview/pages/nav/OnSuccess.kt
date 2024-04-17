@@ -4,4 +4,3 @@ interface OnSuccess {
 
     fun onSuccess()
 }
-

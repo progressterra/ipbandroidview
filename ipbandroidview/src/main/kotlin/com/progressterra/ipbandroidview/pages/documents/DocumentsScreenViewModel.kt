@@ -24,29 +24,21 @@ class DocumentsScreenViewModel(
         onBackground {
             emitState { createInitialState() }
             var isSuccess = true
-            documentsUseCase().onSuccess { docs ->
-                emitState {
-                    it.copy(documents = docs)
-                }
-            }.onFailure {
-                isSuccess = false
-            }
-            citizenshipsUseCase().onSuccess { citizenship ->
-                emitState {
-                    it.copy(citizenship = citizenship)
-                }
-            }.onFailure {
-                isSuccess = false
-            }
-            emitState {
-                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
-            }
+            documentsUseCase()
+                .onSuccess { docs -> emitState { it.copy(documents = docs) } }
+                .onFailure { isSuccess = false }
+            citizenshipsUseCase()
+                .onSuccess { citizenship -> emitState { it.copy(citizenship = citizenship) } }
+                .onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
     override fun handle(event: CurrentCitizenshipEvent) {
         emitState {
-            it.copy(citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = true)))
+            it.copy(
+                citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = true))
+            )
         }
     }
 
@@ -60,38 +52,41 @@ class DocumentsScreenViewModel(
 
     override fun handle(event: DialogPickerEvent) {
         when (event) {
-            is DialogPickerEvent.Close -> emitState {
-                it.copy(citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = false)))
-            }
-
-            is DialogPickerEvent.Select -> emitState {
-                it.copy(
-                    citizenship = it.citizenship.copy(
-                        dialog = it.citizenship.dialog.copy(
-                            selected = event.item
-                        )
+            is DialogPickerEvent.Close ->
+                emitState {
+                    it.copy(
+                        citizenship =
+                            it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = false))
                     )
-                )
-            }
+                }
+            is DialogPickerEvent.Select ->
+                emitState {
+                    it.copy(
+                        citizenship =
+                            it.citizenship.copy(
+                                dialog = it.citizenship.dialog.copy(selected = event.item)
+                            )
+                    )
+                }
         }
     }
 
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> currentState.citizenship.dialog.selected?.let { newCitizenship ->
-                    saveCitizenshipUseCase(newCitizenship)
-                    emitState {
-                        it.copy(
-                            citizenship = it.citizenship.copy(
-                                dialog = it.citizenship.dialog.copy(
-                                    open = false
-                                )
+                "apply" ->
+                    currentState.citizenship.dialog.selected?.let { newCitizenship ->
+                        saveCitizenshipUseCase(newCitizenship)
+                        emitState {
+                            it.copy(
+                                citizenship =
+                                    it.citizenship.copy(
+                                        dialog = it.citizenship.dialog.copy(open = false)
+                                    )
                             )
-                        )
+                        }
+                        refresh()
                     }
-                    refresh()
-                }
             }
         }
     }

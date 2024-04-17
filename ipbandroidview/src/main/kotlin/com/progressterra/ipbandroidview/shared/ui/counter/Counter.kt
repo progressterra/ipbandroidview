@@ -30,24 +30,20 @@ fun Counter(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
-            modifier = Modifier
-                .size(24.dp)
-                .clip(CircleShape)
-                .background(IpbTheme.colors.onSurface.asBrush())
-
-                .niceClickable {
-                    useComponent.handle(CounterEvent.Remove(state.id))
-                }, contentAlignment = Alignment.Center
+            modifier =
+                Modifier.size(24.dp)
+                    .clip(CircleShape)
+                    .background(IpbTheme.colors.onSurface.asBrush())
+                    .niceClickable { useComponent.handle(CounterEvent.Remove(state.id)) },
+            contentAlignment = Alignment.Center
         ) {
-            Icon(
-                resId = R.drawable.ic_subtraction, tint = IpbTheme.colors.iconPrimary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_subtraction, tint = IpbTheme.colors.iconPrimary.asBrush())
         }
         Box(
-            modifier = Modifier
-                .size(28.dp)
-                .clip(CircleShape)
-                .background(IpbTheme.colors.onSurface.asBrush()),
+            modifier =
+                Modifier.size(28.dp)
+                    .clip(CircleShape)
+                    .background(IpbTheme.colors.onSurface.asBrush()),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -57,17 +53,14 @@ fun Counter(
             )
         }
         Box(
-            modifier = Modifier
-                .size(24.dp)
-                .clip(CircleShape)
-                .background(IpbTheme.colors.onSurface.asBrush())
-                .niceClickable {
-                    useComponent.handle(CounterEvent.Add(state.id))
-                }, contentAlignment = Alignment.Center
+            modifier =
+                Modifier.size(24.dp)
+                    .clip(CircleShape)
+                    .background(IpbTheme.colors.onSurface.asBrush())
+                    .niceClickable { useComponent.handle(CounterEvent.Add(state.id)) },
+            contentAlignment = Alignment.Center
         ) {
-            Icon(
-                resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary.asBrush())
         }
     }
 }
@@ -75,11 +68,5 @@ fun Counter(
 @Preview
 @Composable
 private fun CounterPreview() {
-    IpbTheme {
-        Counter(
-            state = CounterState(
-                id = "a", count = 1
-            )
-        )
-    }
+    IpbTheme { Counter(state = CounterState(id = "a", count = 1)) }
 }

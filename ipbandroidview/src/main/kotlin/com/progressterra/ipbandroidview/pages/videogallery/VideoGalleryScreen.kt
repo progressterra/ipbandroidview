@@ -15,21 +15,21 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
-import com.progressterra.ipbandroidview.shared.ui.Video
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Video
 
 @Composable
-fun VideoGalleryScreen(
-    modifier: Modifier = Modifier,
-    state: VideoGalleryState
-) {
+fun VideoGalleryScreen(modifier: Modifier = Modifier, state: VideoGalleryState) {
     Layout(
         modifier = modifier,
         topBar = {
-            TopBar(title = stringResource(id = R.string.video_gallery), useComponent = object :
-                UseTopBar {
-                override fun handle(event: TopBarEvent) = Unit
-            })
+            TopBar(
+                title = stringResource(id = R.string.video_gallery),
+                useComponent =
+                    object : UseTopBar {
+                        override fun handle(event: TopBarEvent) = Unit
+                    }
+            )
         }
     ) { _, _ ->
         LazyRow(
@@ -39,12 +39,8 @@ fun VideoGalleryScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(state.videos) { video ->
-                Video(
-                    modifier = Modifier.size(384.dp, 216.dp),
-                    url = video
-                )
+                Video(modifier = Modifier.size(384.dp, 216.dp), url = video)
             }
-
         }
     }
 }

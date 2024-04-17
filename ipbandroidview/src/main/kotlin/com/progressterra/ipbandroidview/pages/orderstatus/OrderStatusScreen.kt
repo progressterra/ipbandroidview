@@ -41,11 +41,11 @@ fun OrderStatusScreen(
         },
         bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp),
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Button(
@@ -57,9 +57,7 @@ fun OrderStatusScreen(
             }
         }
     ) { _, _ ->
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-        ) {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             OrderSteps(modifier = Modifier.padding(top = 40.dp), state = OrderStepsState.FINISHED)
             OrderNumber(
                 modifier = Modifier.padding(top = 40.dp, start = 20.dp, end = 20.dp),
@@ -74,13 +72,10 @@ fun OrderStatusScreen(
 @Composable
 private fun OrderStatusScreenPreview() {
     OrderStatusScreen(
-        state = OrderStatusScreenState(
-            number = OrderNumberState(
-                quantity = 1,
-                address = "lalalala",
-                number = "1234"
-            )
-        ),
+        state =
+            OrderStatusScreenState(
+                number = OrderNumberState(quantity = 1, address = "lalalala", number = "1234")
+            ),
         useComponent = UseOrderStatusScreen.Empty()
     )
 }

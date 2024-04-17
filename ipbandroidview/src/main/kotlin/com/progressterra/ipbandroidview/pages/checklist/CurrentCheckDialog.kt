@@ -35,10 +35,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import kotlinx.coroutines.launch
 
-/**
- * ready - button
- * commentary - text field
- */
+/** ready - button commentary - text field */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CurrentCheckDialog(
@@ -52,19 +49,20 @@ fun CurrentCheckDialog(
     ModalBottomSheetLayout(
         modifier = modifier,
         sheetState = sheetState,
-        sheetShape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp,
-            bottomStart = 0.dp,
-            bottomEnd = 0.dp
-        ),
+        sheetShape =
+            RoundedCornerShape(
+                topStart = 16.dp,
+                topEnd = 16.dp,
+                bottomStart = 0.dp,
+                bottomEnd = 0.dp
+            ),
         sheetContent = {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp)
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .height(48.dp)
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
@@ -86,14 +84,11 @@ fun CurrentCheckDialog(
                 }
             }
             StateColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 300.dp)
-                    .background(IpbTheme.colors.background.asBrush())
-                    .padding(
-                        horizontal = 16.dp,
-                        vertical = 8.dp
-                    ),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .heightIn(min = 300.dp)
+                        .background(IpbTheme.colors.background.asBrush())
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
                 maxSize = false,
                 state = state.screen,
                 useComponent = useComponent,
@@ -102,11 +97,11 @@ fun CurrentCheckDialog(
                 val currentCheck = state.check
                 val currentCheckMedia = state.media
                 Column(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(12.dp)
-                        .fillMaxWidth()
+                    modifier =
+                        Modifier.clip(RoundedCornerShape(12.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(12.dp)
+                            .fillMaxWidth()
                 ) {
                     Text(
                         text = currentCheck.description,
@@ -115,20 +110,16 @@ fun CurrentCheckDialog(
                     )
                 }
                 Column(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(12.dp),
+                    modifier =
+                        Modifier.clip(RoundedCornerShape(12.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     YesNoButton(
                         modifier = Modifier.fillMaxWidth(),
                         state = currentCheck.yesNo,
-                        onClick = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.YesNo(it)
-                            )
-                        },
+                        onClick = { useComponent.handle(ChecklistScreenEvent.YesNo(it)) },
                         enabled = state.status.isOngoing()
                     )
                     TextField(
@@ -143,61 +134,38 @@ fun CurrentCheckDialog(
                         modifier = Modifier.fillMaxWidth(),
                         state = state.voiceState,
                         onStartRecording = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.StartStopRecording
-                            )
+                            useComponent.handle(ChecklistScreenEvent.StartStopRecording)
                         },
                         onStopRecording = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.StartStopRecording
-                            )
+                            useComponent.handle(ChecklistScreenEvent.StartStopRecording)
                         },
-                        onStartPlay = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.StartPausePlay
-                            )
-                        },
-                        onPausePlay = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.StartPausePlay
-                            )
-                        },
-                        onRemove = {
-                            useComponent.handle(ChecklistScreenEvent.RemoveVoice)
-                        },
+                        onStartPlay = { useComponent.handle(ChecklistScreenEvent.StartPausePlay) },
+                        onPausePlay = { useComponent.handle(ChecklistScreenEvent.StartPausePlay) },
+                        onRemove = { useComponent.handle(ChecklistScreenEvent.RemoveVoice) },
                         enabled = state.status.isOngoing()
                     )
-                    AttachedPhotos(modifier = Modifier.fillMaxWidth(),
+                    AttachedPhotos(
+                        modifier = Modifier.fillMaxWidth(),
                         enabled = state.status.isOngoing(),
                         pictures = currentCheckMedia.pictures.filter { !it.toRemove },
-                        onPhotoSelect = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.OnImage(it)
-                            )
-                        },
-                        onDelete = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.RemoveImage(it)
-                            )
-                        },
-                        onCamera = {
-                            useComponent.handle(
-                                ChecklistScreenEvent.OpenCamera
-                            )
-                        })
+                        onPhotoSelect = { useComponent.handle(ChecklistScreenEvent.OnImage(it)) },
+                        onDelete = { useComponent.handle(ChecklistScreenEvent.RemoveImage(it)) },
+                        onCamera = { useComponent.handle(ChecklistScreenEvent.OpenCamera) }
+                    )
                 }
                 if (state.status.isOngoing()) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         state = state.ready,
                         title = stringResource(R.string.ready),
-                        useComponent = object : UseButton {
+                        useComponent =
+                            object : UseButton {
 
-                            override fun handle(event: ButtonEvent) {
-                                scope.launch { sheetState.hide() }
-                                useComponent.handle(event)
+                                override fun handle(event: ButtonEvent) {
+                                    scope.launch { sheetState.hide() }
+                                    useComponent.handle(event)
+                                }
                             }
-                        }
                     )
                 }
             }

@@ -19,15 +19,14 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun WithdrawalTransaction(
-    modifier: Modifier = Modifier, state: WithdrawalTransactionState
-) {
+fun WithdrawalTransaction(modifier: Modifier = Modifier, state: WithdrawalTransactionState) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(16.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

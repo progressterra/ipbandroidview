@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.features.catalogcard
 
 import com.progressterra.ipbandroidview.entities.IsEmpty
 
-
 data class CatalogCardState(
     val id: String = "",
     val name: String = "",

@@ -11,8 +11,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
-interface UseBankCardDetailsScreen : UseTopBar, UseTextField, UseDocumentPhoto, UseButton,
-    UseStateColumn {
+interface UseBankCardDetailsScreen :
+    UseTopBar, UseTextField, UseDocumentPhoto, UseButton, UseStateColumn {
 
     class Empty : UseBankCardDetailsScreen {
 

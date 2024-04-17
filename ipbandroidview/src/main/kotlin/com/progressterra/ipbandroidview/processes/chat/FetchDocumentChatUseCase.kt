@@ -4,11 +4,11 @@ import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
 import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DOCS_CHAT_ID
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
-import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DOCS_CHAT_ID
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 interface FetchDocumentChatUseCase {
@@ -18,33 +18,41 @@ interface FetchDocumentChatUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
-        private val messengerRepository: MessengerService, makeToastUseCase: MakeToastUseCase
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+        private val messengerRepository: MessengerService,
+        makeToastUseCase: MakeToastUseCase
+    ) :
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         FetchDocumentChatUseCase {
 
         override suspend fun invoke(docId: String, docName: String): Result<String> =
             withToken { token ->
-                messengerRepository.clientAreaDialog(
-                    accessToken = token,
-                    body = IncomeDataForCreateDialog(
-                        listClients = listOf(
-                            MetaDataClientWithID(
-                                dataSourceType = TypeDataSource.ENTERPRISE,
-                                dataSourceName = "",
-                                idClient = DOCS_CHAT_ID,
-                                description = ""
-                            ),
-                            MetaDataClientWithID(
-                                dataSourceType = TypeDataSource.DOCSET,
-                                dataSourceName = "",
-                                idClient = docId,
-                                description = ""
-                            ),
-                        ),
-                        description = "${manageResources.string(R.string.docs_chat)} $docName",
-                        additionalDataJSON = ""
+                messengerRepository
+                    .clientAreaDialog(
+                        accessToken = token,
+                        body =
+                            IncomeDataForCreateDialog(
+                                listClients =
+                                    listOf(
+                                        MetaDataClientWithID(
+                                            dataSourceType = TypeDataSource.ENTERPRISE,
+                                            dataSourceName = "",
+                                            idClient = DOCS_CHAT_ID,
+                                            description = ""
+                                        ),
+                                        MetaDataClientWithID(
+                                            dataSourceType = TypeDataSource.DOCSET,
+                                            dataSourceName = "",
+                                            idClient = docId,
+                                            description = ""
+                                        ),
+                                    ),
+                                description =
+                                    "${manageResources.string(R.string.docs_chat)} $docName",
+                                additionalDataJSON = ""
+                            )
                     )
-                ).data?.idUnique!!
+                    .data
+                    ?.idUnique!!
             }
     }
 }

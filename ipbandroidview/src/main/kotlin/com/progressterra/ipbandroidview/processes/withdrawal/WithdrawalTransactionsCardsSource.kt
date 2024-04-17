@@ -19,24 +19,26 @@ class WithdrawalTransactionsCardsSource(
     override suspend fun loadPage(
         skip: Int,
         take: Int
-    ): Result<Pair<Int, List<WithdrawalTransactionState>>> =
-        runCatching {
-            val token = obtainAccessToken().getOrThrow()
-            val response = paymentRepository.clientAreaPaymentList(
-                accessToken = token,
-                body = FilterAndSort(
-                    listFields = emptyList(),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = skip,
-                    take = take
+    ): Result<Pair<Int, List<WithdrawalTransactionState>>> = runCatching {
+        val token = obtainAccessToken().getOrThrow()
+        val response =
+            paymentRepository
+                .clientAreaPaymentList(
+                    accessToken = token,
+                    body =
+                        FilterAndSort(
+                            listFields = emptyList(),
+                            sort =
+                                SortData(
+                                    fieldName = "dateAdded",
+                                    variantSort = TypeVariantSort.DESC
+                                ),
+                            searchData = "",
+                            skip = skip,
+                            take = take
+                        )
                 )
-            ).getOrThrow() ?: emptyList()
-            response.size to response.map {
-                it.toWithdrawalTransactionState()
-            }
-        }
+                .getOrThrow() ?: emptyList()
+        response.size to response.map { it.toWithdrawalTransactionState() }
+    }
 }

@@ -11,13 +11,13 @@ import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toPrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.SilentException
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeDialogUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
@@ -37,49 +37,53 @@ interface AddToCartInstallmentUseCase {
         private val makeDialogUseCase: MakeDialogUseCase,
         makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(
-        obtainAccessToken, makeToastUseCase,
-        manageResources
-    ) {
+    ) :
+        AddToCartInstallmentUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(
             goodsId: String,
             installment: Installment,
             count: Int,
             onAuth: () -> Unit
-        ): Result<CartScreenState> =
-            withToken { token ->
-                if (!UserData.clientExist) {
-                    makeDialogUseCase.auth(onAuth)
-                    throw SilentException()
-                }
-                val goods = cartRepo.addToCartInstallment(
-                    token,
-                    IncomeDataAddProductAsInstallmentPlan(
-                        idrfNomenclature = goodsId,
-                        countMonthPayment = installment.months,
-                        amountPaymentInMonth = installment.perMonth.toDouble(),
-                        count = 1
-                    )
-                ).also {
-                    if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
-                        it.result?.message ?: ""
-                    )
-                }.data?.listDRSale?.mapNotNull {
-                    val oneGoods =
-                        productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
-                            .getOrThrow()?.toGoodsItem()?.toCartCardState()
-                    oneGoods?.copy(
-                        price = it.amountEndPrice?.toPrice() ?: Price(),
-                        counter = oneGoods.counter.copy(count = it.quantity ?: 0)
-                    )
-                } ?: emptyList()
-                CartScreenState(
-                    items = CartItemsState(goods),
-                    summary = CartSummaryState(
-                        total = goods.map { it.price }.sum()
-                    )
-                )
+        ): Result<CartScreenState> = withToken { token ->
+            if (!UserData.clientExist) {
+                makeDialogUseCase.auth(onAuth)
+                throw SilentException()
             }
+            val goods =
+                cartRepo
+                    .addToCartInstallment(
+                        token,
+                        IncomeDataAddProductAsInstallmentPlan(
+                            idrfNomenclature = goodsId,
+                            countMonthPayment = installment.months,
+                            amountPaymentInMonth = installment.perMonth.toDouble(),
+                            count = 1
+                        )
+                    )
+                    .also {
+                        if (it.result?.status != StatusResult.SUCCESS)
+                            throw ToastedException(it.result?.message ?: "")
+                    }
+                    .data
+                    ?.listDRSale
+                    ?.mapNotNull {
+                        val oneGoods =
+                            productRepository
+                                .productByNomenclatureId(token, it.idrfNomenclature!!)
+                                .getOrThrow()
+                                ?.toGoodsItem()
+                                ?.toCartCardState()
+                        oneGoods?.copy(
+                            price = it.amountEndPrice?.toPrice() ?: Price(),
+                            counter = oneGoods.counter.copy(count = it.quantity ?: 0)
+                        )
+                    } ?: emptyList()
+            CartScreenState(
+                items = CartItemsState(goods),
+                summary = CartSummaryState(total = goods.map { it.price }.sum())
+            )
+        }
     }
 }

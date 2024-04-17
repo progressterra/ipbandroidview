@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.processes.connection
 
 import com.progressterra.ipbandroidview.pages.connections.ConnectionsScreenState
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.mvi.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.mvi.CacheUseCase
-import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
@@ -19,10 +19,13 @@ interface ConnectionsUseCase : CacheUseCase<ConnectionsScreenState> {
         private val pendingConnectionsUseCase: PendingConnectionsUseCase,
         private val successInConnectionsUseCase: SuccessInConnectionsUseCase,
         private val successOutConnectionsUseCase: SuccessOutConnectionsUseCase,
-        makeToastUseCase: MakeToastUseCase, manageResources: ManageResources
-    ) : ConnectionsUseCase,
+        makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) :
+        ConnectionsUseCase,
         AbstractCacheTokenUseCase<ConnectionsScreenState>(
-            obtainAccessToken, makeToastUseCase,
+            obtainAccessToken,
+            makeToastUseCase,
             manageResources
         ) {
 
@@ -37,10 +40,7 @@ interface ConnectionsUseCase : CacheUseCase<ConnectionsScreenState> {
                     successIn = successIn,
                     successOut = successOut,
                     pending = pending,
-                    screen = StateColumnState(
-                        id = "",
-                        state = ScreenState.SUCCESS
-                    )
+                    screen = StateColumnState(id = "", state = ScreenState.SUCCESS)
                 )
             }
         }

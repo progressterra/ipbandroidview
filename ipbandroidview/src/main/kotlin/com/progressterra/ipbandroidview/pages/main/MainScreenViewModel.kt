@@ -1,20 +1,20 @@
 package com.progressterra.ipbandroidview.pages.main
 
 import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
-import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
@@ -39,40 +39,44 @@ class MainScreenViewModel(
     override fun createInitialState() =
         MainScreenState(recommended = MAIN_SCREEN_CATEGORIES.map { GalleriesState(id = it) })
 
-    private val galleriesModules: List<GalleriesModule> = MAIN_SCREEN_CATEGORIES.map { galleryId ->
-        GalleriesModule(
-            addToCartUseCase = addToCartUseCase,
-            removeFromCartUseCase = removeFromCartUseCase,
-            fetchGalleriesUseCase = FetchGalleriesUseCase.Base(
-                obtainAccessToken = obtainAccessToken,
-                goodsUseCase = goodsUseCase,
-                productRepository = catalogRepository,
-                makeToastUseCase = makeToastUseCase,
-                manageResources = manageResources
-            ),
-            operations = this,
-            user = object : GalleriesModuleUser {
+    private val galleriesModules: List<GalleriesModule> =
+        MAIN_SCREEN_CATEGORIES.map { galleryId ->
+            GalleriesModule(
+                addToCartUseCase = addToCartUseCase,
+                removeFromCartUseCase = removeFromCartUseCase,
+                fetchGalleriesUseCase =
+                    FetchGalleriesUseCase.Base(
+                        obtainAccessToken = obtainAccessToken,
+                        goodsUseCase = goodsUseCase,
+                        productRepository = catalogRepository,
+                        makeToastUseCase = makeToastUseCase,
+                        manageResources = manageResources
+                    ),
+                operations = this,
+                user =
+                    object : GalleriesModuleUser {
 
-                override fun emitModuleState(reducer: (GalleriesState) -> GalleriesState) {
-                    emitState {
-                        it.copy(recommended = it.recommended.replaceById(reducer(moduleState)))
+                        override fun emitModuleState(reducer: (GalleriesState) -> GalleriesState) {
+                            emitState {
+                                it.copy(
+                                    recommended = it.recommended.replaceById(reducer(moduleState))
+                                )
+                            }
+                        }
+
+                        override val moduleState: GalleriesState
+                            get() = currentState.recommended.first { it.id == galleryId }
+
+                        override fun onGoods(data: String) {
+                            postEffect(MainScreenEffect.OnItem(data))
+                        }
+
+                        override fun onAuth() {
+                            postEffect(MainScreenEffect.OnAuth)
+                        }
                     }
-                }
-
-                override val moduleState: GalleriesState
-                    get() = currentState.recommended.first { it.id == galleryId }
-
-
-                override fun onGoods(data: String) {
-                    postEffect(MainScreenEffect.OnItem(data))
-                }
-
-                override fun onAuth() {
-                    postEffect(MainScreenEffect.OnAuth)
-                }
-            }
-        )
-    }
+            )
+        }
 
     override fun refresh() {
         onBackground {
@@ -83,35 +87,37 @@ class MainScreenViewModel(
         }
     }
 
-    private val bonusesModule = BonusesModule(
-        fetchBonusesUseCase = fetchBonusesUseCase,
-        operations = this,
-        user = object : BonusesModuleUser {
+    private val bonusesModule =
+        BonusesModule(
+            fetchBonusesUseCase = fetchBonusesUseCase,
+            operations = this,
+            user =
+                object : BonusesModuleUser {
 
-            override fun onAuth() {
-                postEffect(MainScreenEffect.OnAuth)
-            }
+                    override fun onAuth() {
+                        postEffect(MainScreenEffect.OnAuth)
+                    }
 
-            override fun onBonusesTransactions() {
-                postEffect(MainScreenEffect.OnBonuses)
-            }
+                    override fun onBonusesTransactions() {
+                        postEffect(MainScreenEffect.OnBonuses)
+                    }
 
-            override fun onWithdrawal() {
-                postEffect(MainScreenEffect.OnWithdrawal)
-            }
+                    override fun onWithdrawal() {
+                        postEffect(MainScreenEffect.OnWithdrawal)
+                    }
 
-            override fun onAddCard() {
-                postEffect(MainScreenEffect.OnAddCard)
-            }
+                    override fun onAddCard() {
+                        postEffect(MainScreenEffect.OnAddCard)
+                    }
 
-            override fun emitModuleState(reducer: (BonusesState) -> BonusesState) {
-                emitState { it.copy(bonuses = reducer(currentState.bonuses)) }
-            }
+                    override fun emitModuleState(reducer: (BonusesState) -> BonusesState) {
+                        emitState { it.copy(bonuses = reducer(currentState.bonuses)) }
+                    }
 
-            override val moduleState: BonusesState
-                get() = currentState.bonuses
-        }
-    )
+                    override val moduleState: BonusesState
+                        get() = currentState.bonuses
+                }
+        )
 
     override fun handle(event: BonusesEvent) {
         bonusesModule.handle(event)

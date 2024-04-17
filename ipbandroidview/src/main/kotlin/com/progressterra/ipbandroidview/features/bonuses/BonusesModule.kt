@@ -16,11 +16,13 @@ class BonusesModule(
     init {
         onBackground {
             fetchBonusesUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { bonuses ->
-                    emitModuleState { bonuses }
-                }.onFailure {
-                    emitModuleState { it.copy(state = it.state.copy(state = ScreenState.ERROR)) }
-                }
+                result
+                    .onSuccess { bonuses -> emitModuleState { bonuses } }
+                    .onFailure {
+                        emitModuleState {
+                            it.copy(state = it.state.copy(state = ScreenState.ERROR))
+                        }
+                    }
             }
         }
     }
@@ -50,4 +52,3 @@ class BonusesModule(
         }
     }
 }
-

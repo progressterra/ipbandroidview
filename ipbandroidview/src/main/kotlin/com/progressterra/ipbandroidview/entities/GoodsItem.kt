@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
-
 data class GoodsItem(
     override val id: String = "",
     val categoryId: String = "",
@@ -24,52 +23,50 @@ data class GoodsItem(
     val quantity: Int = 0
 ) : Id {
 
-    fun toWantThisCardState() = WantThisCardState(
-        id = id,
-        image = image,
-        price = price,
-        oldPrice = oldPrice,
-        installment = installment,
-        counter = CounterState(
-            id = id, count = count
-        ),
-        status = TypeStatusDoc.CONFIRMED,
-        name = name
-    )
+    fun toWantThisCardState() =
+        WantThisCardState(
+            id = id,
+            image = image,
+            price = price,
+            oldPrice = oldPrice,
+            installment = installment,
+            counter = CounterState(id = id, count = count),
+            status = TypeStatusDoc.CONFIRMED,
+            name = name
+        )
 
-    fun toOrderCardState(): OrderCardState = OrderCardState(
-        id = id,
-        name = name,
-        oldPrice = oldPrice * count,
-        price = price * count,
-        image = image,
-        installment = installment,
-        properties = properties
-    )
+    fun toOrderCardState(): OrderCardState =
+        OrderCardState(
+            id = id,
+            name = name,
+            oldPrice = oldPrice * count,
+            price = price * count,
+            image = image,
+            installment = installment,
+            properties = properties
+        )
 
-    fun toStoreCardState(): StoreCardState = StoreCardState(
-        id = id,
-        name = name,
-        oldPrice = oldPrice,
-        price = price,
-        image = image,
-        installment = installment,
-        counter = CounterState(
-            id = id, count = count
-        ),
-        properties = properties
-    )
+    fun toStoreCardState(): StoreCardState =
+        StoreCardState(
+            id = id,
+            name = name,
+            oldPrice = oldPrice,
+            price = price,
+            image = image,
+            installment = installment,
+            counter = CounterState(id = id, count = count),
+            properties = properties
+        )
 
-    fun toCartCardState(): CartCardState = CartCardState(
-        id = id,
-        name = name,
-        oldPrice = oldPrice,
-        price = price,
-        image = image,
-        installment = installment,
-        counter = CounterState(
-            id = id, count = count
-        ),
-        desc = description
-    )
+    fun toCartCardState(): CartCardState =
+        CartCardState(
+            id = id,
+            name = name,
+            oldPrice = oldPrice,
+            price = price,
+            image = image,
+            installment = installment,
+            counter = CounterState(id = id, count = count),
+            desc = description
+        )
 }

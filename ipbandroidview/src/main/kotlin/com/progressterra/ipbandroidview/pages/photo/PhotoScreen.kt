@@ -15,12 +15,12 @@ import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun PhotoScreen(
-    modifier: Modifier = Modifier, state: PhotoScreenState, useComponent: UsePhotoScreen
+    modifier: Modifier = Modifier,
+    state: PhotoScreenState,
+    useComponent: UsePhotoScreen
 ) {
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(IpbTheme.colors.background.asBrush()),
+        modifier = modifier.fillMaxSize().background(IpbTheme.colors.background.asBrush()),
         contentAlignment = Alignment.Center
     ) {
         PhotoTopBar(modifier = Modifier.align(Alignment.TopCenter), useComponent = useComponent)

@@ -16,13 +16,16 @@ interface CurrentLocationSuggestionsUseCase {
 
         override suspend fun invoke(): Result<List<SuggestionUI>> = runCatching {
             val locationResult = provideLocationUseCase().getOrThrow()
-            repo.getSuggestionsAddressFromLocation(
-                DadataSuggestionsFromLocationRequest(
-                    latitude = locationResult.latitude.toFloat(),
-                    longitude = locationResult.longitude.toFloat(),
-                    count = 3
+            repo
+                .getSuggestionsAddressFromLocation(
+                    DadataSuggestionsFromLocationRequest(
+                        latitude = locationResult.latitude.toFloat(),
+                        longitude = locationResult.longitude.toFloat(),
+                        count = 3
+                    )
                 )
-            ).getOrThrow()?.map { it.convertSuggestionsDtoToUIModels() } ?: emptyList()
+                .getOrThrow()
+                ?.map { it.convertSuggestionsDtoToUIModels() } ?: emptyList()
         }
     }
 }

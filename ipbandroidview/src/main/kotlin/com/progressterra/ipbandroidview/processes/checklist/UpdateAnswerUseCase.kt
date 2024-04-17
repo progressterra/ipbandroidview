@@ -29,92 +29,107 @@ interface UpdateAnswerUseCase {
         private val fileExplorer: FileExplorer,
         private val checklistService: ChecklistService,
         private val mediaDataService: IPBMediaDataService,
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+    ) :
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         UpdateAnswerUseCase {
 
-        override suspend fun invoke(
-            check: Check,
-            checkDetails: CurrentCheckMedia
-        ): Result<Check> = withToken { token ->
-            log("$checkDetails")
-            checkDetails.voices.forEach { voice ->
-                if (voice.local) {
-                    if (mediaDataService.attachToEntity(
-                            accessToken = token,
-                            idEntity = check.id,
-                            typeContent = "voiceData",
-                            entityTypeName = "DrCheckListItem",
-                            alias = "voice ${voice.id}",
-                            tag = 0,
-                            file = MultipartBody.Part.createFormData(
-                                name = "file",
-                                filename = "${voice.id}.mp4",
-                                body = fileExplorer.file("${voice.id}.mp4")
-                                    .asRequestBody("audio/*".toMediaTypeOrNull())
-                            )
-                        ).result?.status != StatusResult.SUCCESS
-                    ) {
-                        throw ToastedException(R.string.failure)
-                    }
-                } else {
-                    if (mediaDataService.deleteMediaData(
-                            token,
-                            voice.id
-                        ).result?.status != StatusResult.SUCCESS
-                    ) {
-                        throw ToastedException(R.string.failure)
-                    }
-                }
-            }
-            checkDetails.pictures.forEach { picture ->
-                if (picture.local) {
-                    if (mediaDataService.attachToEntity(
-                            accessToken = token,
-                            idEntity = check.id,
-                            typeContent = "image",
-                            entityTypeName = "DrCheckListItem",
-                            alias = "image ${picture.id}",
-                            tag = 0,
-                            file = MultipartBody.Part.createFormData(
-                                name = "file",
-                                filename = "${picture.id}.jpg",
-                                body = fileExplorer.file("${picture.id}.jpg")
-                                    .asRequestBody("image/*".toMediaTypeOrNull())
-                            )
-                        ).result?.status != StatusResult.SUCCESS
-                    ) {
-                        throw ToastedException(R.string.failure)
-                    }
-                } else {
-                    if (mediaDataService.deleteMediaData(
-                            token,
-                            picture.id
-                        ).result?.status != StatusResult.SUCCESS
-                    ) {
-                        throw ToastedException(R.string.failure)
+        override suspend fun invoke(check: Check, checkDetails: CurrentCheckMedia): Result<Check> =
+            withToken { token ->
+                log("$checkDetails")
+                checkDetails.voices.forEach { voice ->
+                    if (voice.local) {
+                        if (
+                            mediaDataService
+                                .attachToEntity(
+                                    accessToken = token,
+                                    idEntity = check.id,
+                                    typeContent = "voiceData",
+                                    entityTypeName = "DrCheckListItem",
+                                    alias = "voice ${voice.id}",
+                                    tag = 0,
+                                    file =
+                                        MultipartBody.Part.createFormData(
+                                            name = "file",
+                                            filename = "${voice.id}.mp4",
+                                            body =
+                                                fileExplorer
+                                                    .file("${voice.id}.mp4")
+                                                    .asRequestBody("audio/*".toMediaTypeOrNull())
+                                        )
+                                )
+                                .result
+                                ?.status != StatusResult.SUCCESS
+                        ) {
+                            throw ToastedException(R.string.failure)
+                        }
+                    } else {
+                        if (
+                            mediaDataService.deleteMediaData(token, voice.id).result?.status !=
+                                StatusResult.SUCCESS
+                        ) {
+                            throw ToastedException(R.string.failure)
+                        }
                     }
                 }
-            }
-            val result = checklistService.createOrUpdateAnswer(
-                token, DRAnswerChekListItemEntity(
-                    yesNo = check.yesNo,
-                    comments = check.comment,
-                    rangeValue = 0,
-                    specificMeaning = 0.0,
-                    specificFreeMeaning = "",
-                    iddrCheckListItem = check.id
+                checkDetails.pictures.forEach { picture ->
+                    if (picture.local) {
+                        if (
+                            mediaDataService
+                                .attachToEntity(
+                                    accessToken = token,
+                                    idEntity = check.id,
+                                    typeContent = "image",
+                                    entityTypeName = "DrCheckListItem",
+                                    alias = "image ${picture.id}",
+                                    tag = 0,
+                                    file =
+                                        MultipartBody.Part.createFormData(
+                                            name = "file",
+                                            filename = "${picture.id}.jpg",
+                                            body =
+                                                fileExplorer
+                                                    .file("${picture.id}.jpg")
+                                                    .asRequestBody("image/*".toMediaTypeOrNull())
+                                        )
+                                )
+                                .result
+                                ?.status != StatusResult.SUCCESS
+                        ) {
+                            throw ToastedException(R.string.failure)
+                        }
+                    } else {
+                        if (
+                            mediaDataService.deleteMediaData(token, picture.id).result?.status !=
+                                StatusResult.SUCCESS
+                        ) {
+                            throw ToastedException(R.string.failure)
+                        }
+                    }
+                }
+                val result =
+                    checklistService
+                        .createOrUpdateAnswer(
+                            token,
+                            DRAnswerChekListItemEntity(
+                                yesNo = check.yesNo,
+                                comments = check.comment,
+                                rangeValue = 0,
+                                specificMeaning = 0.0,
+                                specificFreeMeaning = "",
+                                iddrCheckListItem = check.id
+                            )
+                        )
+                        .data!!
+                Check(
+                    id = result.idUnique!!,
+                    name = result.shortDescription ?: "",
+                    description = result.description ?: "",
+                    category = check.category,
+                    categoryNumber = check.categoryNumber,
+                    ordinal = check.ordinal,
+                    yesNo = result.answerCheckList?.yesNo,
+                    comment = result.answerCheckList?.comments ?: "",
                 )
-            ).data!!
-            Check(
-                id = result.idUnique!!,
-                name = result.shortDescription ?: "",
-                description = result.description ?: "",
-                category = check.category,
-                categoryNumber = check.categoryNumber,
-                ordinal = check.ordinal,
-                yesNo = result.answerCheckList?.yesNo,
-                comment = result.answerCheckList?.comments ?: "",
-            )
-        }
+            }
     }
 }

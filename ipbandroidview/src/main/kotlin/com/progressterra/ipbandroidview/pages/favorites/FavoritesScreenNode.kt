@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class FavoritesScreenNode(
     buildContext: BuildContext,
     private val navigation: FavoritesScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,13 +24,7 @@ class FavoritesScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        FavoritesScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        FavoritesScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

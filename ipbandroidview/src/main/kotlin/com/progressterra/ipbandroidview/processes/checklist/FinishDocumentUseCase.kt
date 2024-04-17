@@ -19,15 +19,16 @@ interface FinishDocumentUseCase {
         makeToastUseCase: MakeToastUseCase,
         obtainAccessToken: ObtainAccessToken,
         manageResources: ManageResources
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+    ) :
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         FinishDocumentUseCase {
 
-        override suspend fun invoke(
-            idChecklist: String
-        ): Result<Unit> = withToken { token ->
-            if (checklistService.finishCheck(
-                    token, idChecklist, FinalCommentsInput("")
-                ).result?.status != StatusResult.SUCCESS
+        override suspend fun invoke(idChecklist: String): Result<Unit> = withToken { token ->
+            if (
+                checklistService
+                    .finishCheck(token, idChecklist, FinalCommentsInput(""))
+                    .result
+                    ?.status != StatusResult.SUCCESS
             ) {
                 throw ToastedException(R.string.order_id)
             }

@@ -1,20 +1,20 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DocsVerificationPolicy
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.docs.FetchWantThisTemplateUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule
 import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchWantThisTemplateUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -32,40 +32,43 @@ class WantThisScreenViewModel(
 
     override fun createInitialState() = WantThisScreenState()
 
-    private val docsModule = DocsModule(
-        docsValidationUseCase,
-        DocsVerificationPolicy.PHOTO_OR_TEXT,
-        checkPermissionUseCase,
-        askPermissionUseCase,
-        makePhotoUseCase,
-        this,
-        object : DocsModuleUser {
-            override fun isValid(isValid: Boolean) {
-                emitState { it.copy(send = it.send.copy(enabled = isValid)) }
-            }
+    private val docsModule =
+        DocsModule(
+            docsValidationUseCase,
+            DocsVerificationPolicy.PHOTO_OR_TEXT,
+            checkPermissionUseCase,
+            askPermissionUseCase,
+            makePhotoUseCase,
+            this,
+            object : DocsModuleUser {
+                override fun isValid(isValid: Boolean) {
+                    emitState { it.copy(send = it.send.copy(enabled = isValid)) }
+                }
 
-            override fun openPhoto(url: String) {
-                postEffect(WantThisScreenEffect.OpenPhoto(url))
-            }
+                override fun openPhoto(url: String) {
+                    postEffect(WantThisScreenEffect.OpenPhoto(url))
+                }
 
-            override fun emitModuleState(reducer: (Document) -> Document) {
-                emitState { it.copy(document = reducer(currentState.document)) }
-            }
+                override fun emitModuleState(reducer: (Document) -> Document) {
+                    emitState { it.copy(document = reducer(currentState.document)) }
+                }
 
-            override val moduleState: Document
-                get() = currentState.document
-        }
-    )
+                override val moduleState: Document
+                    get() = currentState.document
+            }
+        )
 
     override fun refresh() {
         onBackground {
             emitState { createInitialState() }
-            fetchWantThisTemplateUseCase().onSuccess { newDocument ->
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
-                docsModule.setup(newDocument)
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+            fetchWantThisTemplateUseCase()
+                .onSuccess { newDocument ->
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+                    docsModule.setup(newDocument)
+                }
+                .onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
@@ -80,14 +83,13 @@ class WantThisScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "send" -> createAndSaveDocUseCase(
-                    currentState.document,
-                    IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
-                ).onSuccess {
-                    postEffect(WantThisScreenEffect.Toast(R.string.success))
-                }.onFailure {
-                    postEffect(WantThisScreenEffect.Toast(R.string.failure))
-                }
+                "send" ->
+                    createAndSaveDocUseCase(
+                            currentState.document,
+                            IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
+                        )
+                        .onSuccess { postEffect(WantThisScreenEffect.Toast(R.string.success)) }
+                        .onFailure { postEffect(WantThisScreenEffect.Toast(R.string.failure)) }
             }
         }
     }

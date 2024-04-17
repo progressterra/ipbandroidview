@@ -24,29 +24,29 @@ import com.progressterra.ipbandroidview.widgets.messages.MessagesState
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun ChatScreen(
-    modifier: Modifier = Modifier, state: ChatScreenState, useComponent: UseChatScreen
-) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(id = R.string.chat),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Row(
-            modifier = Modifier.padding(
-                start = 20.dp, top = 8.dp, end = 20.dp, bottom = 20.dp
+fun ChatScreen(modifier: Modifier = Modifier, state: ChatScreenState, useComponent: UseChatScreen) {
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(id = R.string.chat),
+                showBackButton = true,
+                useComponent = useComponent
             )
-        ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.input,
-                useComponent = useComponent,
-                hint = stringResource(R.string.message)
-            )
+        },
+        bottomBar = {
+            Row(
+                modifier = Modifier.padding(start = 20.dp, top = 8.dp, end = 20.dp, bottom = 20.dp)
+            ) {
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.input,
+                    useComponent = useComponent,
+                    hint = stringResource(R.string.message)
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {
             Messages(
                 modifier = Modifier.padding(horizontal = 20.dp),
@@ -62,32 +62,40 @@ fun ChatScreen(
 private fun ChatScreenPreview() {
     IpbTheme {
         ChatScreen(
-            state = ChatScreenState(
-                input = TextFieldState(text = "Some input"), messages = MessagesState(
-                    items = flowOf(
-                        PagingData.from(
-                            listOf(
-                                Message(
-                                    id = "",
-                                    user = true,
-                                    content = "Hello world!",
-                                    date = "12.12.2012"
-                                ), Message(
-                                    id = "",
-                                    user = false,
-                                    content = "Hello, user!",
-                                    date = "12.12.2012"
-                                ), Message(
-                                    id = "",
-                                    user = true,
-                                    content = "Mucho gusto!",
-                                    date = "12.12.2012"
+            state =
+                ChatScreenState(
+                    input = TextFieldState(text = "Some input"),
+                    messages =
+                        MessagesState(
+                            items =
+                                flowOf(
+                                    PagingData.from(
+                                        listOf(
+                                            Message(
+                                                id = "",
+                                                user = true,
+                                                content = "Hello world!",
+                                                date = "12.12.2012"
+                                            ),
+                                            Message(
+                                                id = "",
+                                                user = false,
+                                                content = "Hello, user!",
+                                                date = "12.12.2012"
+                                            ),
+                                            Message(
+                                                id = "",
+                                                user = true,
+                                                content = "Mucho gusto!",
+                                                date = "12.12.2012"
+                                            )
+                                        )
+                                    )
                                 )
-                            )
-                        )
-                    )
-                ), screen = StateColumnState(state = ScreenState.SUCCESS)
-            ), useComponent = UseChatScreen.Empty()
+                        ),
+                    screen = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+            useComponent = UseChatScreen.Empty()
         )
     }
 }

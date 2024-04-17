@@ -33,13 +33,12 @@ class DocsModule(
             is TextFieldEvent.TextChanged -> {
                 emitModuleState {
                     it.copy(
-                        entries = it.entries.updateById(event) { field ->
-                            field.copy(text = event.text)
-                        })
+                        entries =
+                            it.entries.updateById(event) { field -> field.copy(text = event.text) }
+                    )
                 }
                 validation()
             }
-
             else -> Unit
         }
     }
@@ -54,19 +53,17 @@ class DocsModule(
     override fun handle(event: DocumentPhotoEvent) {
         onBackground {
             when (event) {
-                is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                    makePhotoUseCase().onSuccess { photo ->
-                        emitModuleState {
-                            it.copy(
-                                photo = it.photo.copy(
-                                    items = it.photo.items + photo
-                                )
-                            )
+                is DocumentPhotoEvent.MakePhoto ->
+                    checkPermissionUseCase(Manifest.permission.CAMERA)
+                        .onSuccess {
+                            makePhotoUseCase().onSuccess { photo ->
+                                emitModuleState {
+                                    it.copy(photo = it.photo.copy(items = it.photo.items + photo))
+                                }
+                            }
+                            validation()
                         }
-                    }
-                    validation()
-                }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
-
+                        .onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
                 is DocumentPhotoEvent.Select -> openPhoto(event.image.url)
             }
         }

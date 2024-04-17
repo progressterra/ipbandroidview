@@ -7,5 +7,4 @@ sealed class SignInScreenEffect {
     class Next(val data: SignInData) : SignInScreenEffect()
 
     data object Skip : SignInScreenEffect()
-
 }

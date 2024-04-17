@@ -9,12 +9,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class OrdersScreenNode(
-    buildContext: BuildContext,
-    private val navigation: OrdersScreenNavigation
-) : Node(
-    buildContext
-) {
+class OrdersScreenNode(buildContext: BuildContext, private val navigation: OrdersScreenNavigation) :
+    Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,13 +22,7 @@ class OrdersScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        OrdersScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        OrdersScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.features.avatarpicker.AvatarPicker
 import com.progressterra.ipbandroidview.features.avatarpicker.AvatarPickerState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -27,7 +27,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 @Composable
 fun AvatarPickerScreen(
     modifier: Modifier = Modifier,
-    state: AvatarPickerScreenState, useComponent: UseAvatarPickerScreen
+    state: AvatarPickerScreenState,
+    useComponent: UseAvatarPickerScreen
 ) {
     Layout(
         modifier = modifier,
@@ -37,7 +38,8 @@ fun AvatarPickerScreen(
                 showBackButton = true,
                 useComponent = useComponent
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -49,10 +51,9 @@ fun AvatarPickerScreen(
                     title = stringResource(R.string.choose)
                 )
             }
-        }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             Spacer(modifier = Modifier.height(36.dp))
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
@@ -62,9 +63,7 @@ fun AvatarPickerScreen(
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
             Spacer(modifier = Modifier.height(25.dp))
-            AvatarPicker(
-                state = state.avatars, useComponent = useComponent
-            )
+            AvatarPicker(state = state.avatars, useComponent = useComponent)
         }
     }
 }
@@ -72,27 +71,26 @@ fun AvatarPickerScreen(
 @Preview
 @Composable
 private fun AvatarPickerScreenPreview() {
-    val avatars = listOf(
-        AvatarPickerState.Item(
-            url = "https://example.com/avatar1.jpg", selected = true
-        ), AvatarPickerState.Item(
-            url = "https://example.com/avatar2.jpg", selected = false
-        ), AvatarPickerState.Item(
-            url = "https://example.com/avatar3.jpg", selected = false
-        ), AvatarPickerState.Item(
-            url = "https://example.com/avatar4.jpg", selected = false
+    val avatars =
+        listOf(
+            AvatarPickerState.Item(url = "https://example.com/avatar1.jpg", selected = true),
+            AvatarPickerState.Item(url = "https://example.com/avatar2.jpg", selected = false),
+            AvatarPickerState.Item(url = "https://example.com/avatar3.jpg", selected = false),
+            AvatarPickerState.Item(url = "https://example.com/avatar4.jpg", selected = false)
         )
-    )
 
     val avatarPickerState = AvatarPickerState(avatars)
 
-    val avatarPickerScreenState = AvatarPickerScreenState(
-        screen = StateColumnState(state = ScreenState.SUCCESS), avatars = avatarPickerState
-    )
+    val avatarPickerScreenState =
+        AvatarPickerScreenState(
+            screen = StateColumnState(state = ScreenState.SUCCESS),
+            avatars = avatarPickerState
+        )
 
     IpbTheme {
         AvatarPickerScreen(
-            state = avatarPickerScreenState, useComponent = UseAvatarPickerScreen.Empty()
+            state = avatarPickerScreenState,
+            useComponent = UseAvatarPickerScreen.Empty()
         )
     }
 }

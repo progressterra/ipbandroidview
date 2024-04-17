@@ -25,13 +25,16 @@ fun CurrentCitizenship(
     state: CurrentCitizenshipState,
     useComponent: UseCurrentCitizenship
 ) {
-    Column(modifier = modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(8.dp))
-        .background(IpbTheme.colors.surface.asBrush())
-        .niceClickable { useComponent.handle(CurrentCitizenshipEvent) }
-        .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .niceClickable { useComponent.handle(CurrentCitizenshipEvent) }
+                .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
         if (state.citizenship == null) {
             Text(
                 text = stringResource(R.string.citizenship),
@@ -51,10 +54,7 @@ fun CurrentCitizenship(
             )
         }
     }
-    DialogPicker(
-        state = state.dialog,
-        useComponent = useComponent
-    )
+    DialogPicker(state = state.dialog, useComponent = useComponent)
 }
 
 @Preview
@@ -63,14 +63,13 @@ private fun CurrentCitizenshipPreview() {
     IpbTheme {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             CurrentCitizenship(
-                state = CurrentCitizenshipState(
-                    citizenship = Citizenship(
-                        name = "Albania", id = ""
-                    )
-                ), useComponent = UseCurrentCitizenship.Empty()
+                state =
+                    CurrentCitizenshipState(citizenship = Citizenship(name = "Albania", id = "")),
+                useComponent = UseCurrentCitizenship.Empty()
             )
             CurrentCitizenship(
-                state = CurrentCitizenshipState(), useComponent = UseCurrentCitizenship.Empty()
+                state = CurrentCitizenshipState(),
+                useComponent = UseCurrentCitizenship.Empty()
             )
         }
     }

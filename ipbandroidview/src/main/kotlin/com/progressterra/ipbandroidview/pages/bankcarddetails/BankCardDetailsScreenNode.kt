@@ -16,9 +16,7 @@ class BankCardDetailsScreenNode(
     buildContext: BuildContext,
     private val input: Document,
     private val navigation: BankCardDetailsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -28,17 +26,12 @@ class BankCardDetailsScreenNode(
             when (effect) {
                 is BankCardDetailsScreenEffect.Back -> navigation.onBack()
                 is BankCardDetailsScreenEffect.OpenPhoto -> navigation.onPhoto(effect.data)
-                is BankCardDetailsScreenEffect.Toast -> Toast.makeText(
-                    context,
-                    effect.data,
-                    Toast.LENGTH_SHORT
-                ).show()
+                is BankCardDetailsScreenEffect.Toast ->
+                    Toast.makeText(context, effect.data, Toast.LENGTH_SHORT).show()
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
+        LaunchedEffect(input) { viewModel.setup(input) }
         BankCardDetailsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

@@ -24,16 +24,17 @@ fun WantThisRequestsScreen(
     state: WantThisRequestsScreenState,
     useComponent: UseWantThisRequestsScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.want_this_requests),
-            useComponent = useComponent,
-            showBackButton = true
-        )
-    }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.want_this_requests),
+                useComponent = useComponent,
+                showBackButton = true
+            )
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             val lazyItems = state.items.collectAsLazyPagingItems()
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -41,16 +42,10 @@ fun WantThisRequestsScreen(
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
                 verticalArrangement = Arrangement.spacedBy(30.dp)
             ) {
-                items(
-                    count = lazyItems.itemCount,
-                    key = lazyItems.itemKey { it.id }
-                ) { index ->
+                items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
                     lazyItems[index]?.let {
                         Box(contentAlignment = Alignment.Center) {
-                            WantThisCard(
-                                state = it,
-                                useComponent = useComponent
-                            )
+                            WantThisCard(state = it, useComponent = useComponent)
                         }
                     }
                 }

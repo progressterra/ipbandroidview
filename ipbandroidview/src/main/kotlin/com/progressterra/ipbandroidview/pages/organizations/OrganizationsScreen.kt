@@ -26,21 +26,21 @@ import com.progressterra.ipbandroidview.entities.Organization
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
-fun OrganizationsScreen(
-    state: OrganizationsScreenState, useComponent: UseOrganizationsScreen
-) {
-    Layout(topBar = {
-        TopBar(title = stringResource(id = R.string.organizations), useComponent = useComponent)
-    }) { _, _ ->
+fun OrganizationsScreen(state: OrganizationsScreenState, useComponent: UseOrganizationsScreen) {
+    Layout(
+        topBar = {
+            TopBar(title = stringResource(id = R.string.organizations), useComponent = useComponent)
+        }
+    ) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -48,20 +48,22 @@ fun OrganizationsScreen(
                 contentPadding = PaddingValues(16.dp)
             ) {
                 items(state.organizations) {
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .niceClickable {
-                            useComponent.handle(OrganizationsScreenEvent.OnOrganization(it))
-                        }
-                        .padding(12.dp),
+                    Row(
+                        modifier =
+                            Modifier.fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(IpbTheme.colors.surface.asBrush())
+                                .niceClickable {
+                                    useComponent.handle(OrganizationsScreenEvent.OnOrganization(it))
+                                }
+                                .padding(12.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
                         Image(
-                            modifier = Modifier
-                                .size(width = 110.dp, height = 90.dp)
-                                .clip(RoundedCornerShape(8.dp)),
+                            modifier =
+                                Modifier.size(width = 110.dp, height = 90.dp)
+                                    .clip(RoundedCornerShape(8.dp)),
                             image = it.imageUrl
                         )
                         Column(
@@ -80,9 +82,7 @@ fun OrganizationsScreen(
                                 style = IpbTheme.typography.footnoteRegular,
                                 maxLines = 1
                             )
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(
                                     resId = R.drawable.ic_audits,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()
@@ -122,39 +122,46 @@ fun OrganizationsScreen(
 private fun OrganizationsScreenPreview() {
     IpbTheme {
         OrganizationsScreen(
-            state = OrganizationsScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS), organizations = listOf(
-                    Organization(
-                        id = "1",
-                        name = "Organization 1",
-                        address = "Address 1",
-                        imageUrl = "https://picsum.photos/200/300",
-                        audits = "10",
-                        documents = "20"
-                    ), Organization(
-                        id = "2",
-                        name = "Organization 2",
-                        address = "Address 2",
-                        imageUrl = "https://picsum.photos/200/300",
-                        audits = "10",
-                        documents = "20"
-                    ), Organization(
-                        id = "3",
-                        name = "Organization 3",
-                        address = "Address 3",
-                        imageUrl = "https://picsum.photos/200/300",
-                        audits = "10",
-                        documents = "20"
-                    ), Organization(
-                        id = "4",
-                        name = "Organization 4",
-                        address = "Address 4",
-                        imageUrl = "https://picsum.photos/200/300",
-                        audits = "10",
-                        documents = "20"
-                    )
-                )
-            ), useComponent = UseOrganizationsScreen.Empty()
+            state =
+                OrganizationsScreenState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    organizations =
+                        listOf(
+                            Organization(
+                                id = "1",
+                                name = "Organization 1",
+                                address = "Address 1",
+                                imageUrl = "https://picsum.photos/200/300",
+                                audits = "10",
+                                documents = "20"
+                            ),
+                            Organization(
+                                id = "2",
+                                name = "Organization 2",
+                                address = "Address 2",
+                                imageUrl = "https://picsum.photos/200/300",
+                                audits = "10",
+                                documents = "20"
+                            ),
+                            Organization(
+                                id = "3",
+                                name = "Organization 3",
+                                address = "Address 3",
+                                imageUrl = "https://picsum.photos/200/300",
+                                audits = "10",
+                                documents = "20"
+                            ),
+                            Organization(
+                                id = "4",
+                                name = "Organization 4",
+                                address = "Address 4",
+                                imageUrl = "https://picsum.photos/200/300",
+                                audits = "10",
+                                documents = "20"
+                            )
+                        )
+                ),
+            useComponent = UseOrganizationsScreen.Empty()
         )
     }
 }

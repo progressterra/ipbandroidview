@@ -5,11 +5,11 @@ import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataService
 import com.progressterra.ipbandroidapi.api.ipbmediadata.models.StatusResult
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.ToastedException
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
-import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.media.FileExplorer
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -21,25 +21,30 @@ interface SaveAvatarUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val mediaDataService: IPBMediaDataService,
-        private val fileExplorer: FileExplorer, makeToastUseCase: MakeToastUseCase,
+        private val fileExplorer: FileExplorer,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : SaveAvatarUseCase, AbstractTokenUseCase(
-        obtainAccessToken, makeToastUseCase,
-        manageResources
-    ) {
+    ) :
+        SaveAvatarUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(uri: Uri): Result<Unit> = withToken {
-            val response = mediaDataService.attachToClient(
-                accessToken = it,
-                typeContent = "image",
-                alias = "profilePicture",
-                tag = 0,
-                file = MultipartBody.Part.createFormData(
-                    name = "profilePicture",
-                    filename = "profilePicture",
-                    body = fileExplorer.fileForUri(uri, "ProfilePicture.jpg").asRequestBody("image/*".toMediaType())
+            val response =
+                mediaDataService.attachToClient(
+                    accessToken = it,
+                    typeContent = "image",
+                    alias = "profilePicture",
+                    tag = 0,
+                    file =
+                        MultipartBody.Part.createFormData(
+                            name = "profilePicture",
+                            filename = "profilePicture",
+                            body =
+                                fileExplorer
+                                    .fileForUri(uri, "ProfilePicture.jpg")
+                                    .asRequestBody("image/*".toMediaType())
+                        )
                 )
-            )
             if (response.result?.status != StatusResult.SUCCESS) {
                 throw ToastedException(R.string.failure)
             }

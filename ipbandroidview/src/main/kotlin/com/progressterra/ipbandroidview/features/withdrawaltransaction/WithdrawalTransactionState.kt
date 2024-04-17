@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidapi.api.payment.models.TypeResultOperationBis
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.entities.Price
 
-
 data class WithdrawalTransactionState(
     override val id: String = "",
     val sum: Price = Price(),

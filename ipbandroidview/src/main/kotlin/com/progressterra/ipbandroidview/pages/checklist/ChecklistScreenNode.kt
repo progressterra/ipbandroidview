@@ -26,13 +26,8 @@ class ChecklistScreenNode(
                 is ChecklistScreenEffect.OnImage -> navigation.onPhoto(it.picture)
             }
         }
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
+        LaunchedEffect(input) { viewModel.setup(input) }
         val state = viewModel.state.collectAsState().value
-        ChecklistScreen(
-            state = state,
-            useComponent = viewModel
-        )
+        ChecklistScreen(state = state, useComponent = viewModel)
     }
 }

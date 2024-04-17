@@ -13,9 +13,7 @@ import org.koin.androidx.compose.koinViewModel
 class WithdrawalScreenNode(
     buildContext: BuildContext,
     private val navigation: WithdrawalScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -28,10 +26,7 @@ class WithdrawalScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         WithdrawalScreen(modifier = modifier, state = state, useComponent = viewModel)
-
     }
 }

@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.processes.utils
 
-
 interface ManagePermissionContract {
 
     interface Client {
@@ -31,7 +30,6 @@ interface ManagePermissionContract {
         }
 
         override fun requestPermission(permission: String) = listener.requestPermission(permission)
-
 
         override fun checkPermission(permission: String): Boolean =
             listener.checkPermission(permission)

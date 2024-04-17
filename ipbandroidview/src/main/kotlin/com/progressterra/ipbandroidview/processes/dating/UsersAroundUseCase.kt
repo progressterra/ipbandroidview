@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toDatingUser
 import com.progressterra.ipbandroidview.processes.connection.UserConnectionStatusUseCase
 import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.mvi.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.mvi.CacheUseCase
-import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
 interface UsersAroundUseCase : CacheUseCase<List<DatingUser>> {
 
@@ -18,26 +18,33 @@ interface UsersAroundUseCase : CacheUseCase<List<DatingUser>> {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val imhService: ImhService, makeToastUseCase: MakeToastUseCase,
+        private val imhService: ImhService,
+        makeToastUseCase: MakeToastUseCase,
         private val bitmapImageUseCase: BitmapImageUseCase,
         private val userConnectionStatusUseCase: UserConnectionStatusUseCase,
         manageResources: ManageResources
-    ) : UsersAroundUseCase, AbstractCacheTokenUseCase<List<DatingUser>>(
-        obtainAccessToken,
-        makeToastUseCase, manageResources
-    ) {
+    ) :
+        UsersAroundUseCase,
+        AbstractCacheTokenUseCase<List<DatingUser>>(
+            obtainAccessToken,
+            makeToastUseCase,
+            manageResources
+        ) {
 
         override suspend fun invoke() {
             withCache { token ->
-                imhService.clientDataAround(
-                    token = token, minMeter = 0, maxMeter = 300
-                ).dataList?.map {
-                    val user =
-                        userConnectionStatusUseCase(it.idClient!!).getOrThrow() ?: it.toDatingUser()
-                    Log.d("AROUND", "$user")
-                    val bitmapAvatar = bitmapImageUseCase(user.avatar).getOrThrow()
-                    user.copy(avatarBitmap = bitmapAvatar)
-                }?.sortedBy { it.distance } ?: emptyList()
+                imhService
+                    .clientDataAround(token = token, minMeter = 0, maxMeter = 300)
+                    .dataList
+                    ?.map {
+                        val user =
+                            userConnectionStatusUseCase(it.idClient!!).getOrThrow()
+                                ?: it.toDatingUser()
+                        Log.d("AROUND", "$user")
+                        val bitmapAvatar = bitmapImageUseCase(user.avatar).getOrThrow()
+                        user.copy(avatarBitmap = bitmapAvatar)
+                    }
+                    ?.sortedBy { it.distance } ?: emptyList()
             }
         }
     }

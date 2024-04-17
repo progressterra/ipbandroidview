@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-
 data class BonusesState(
     val roubles: String = "",
     val hasCards: Boolean = false,

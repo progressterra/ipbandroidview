@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.pages.favorites
 
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.goods.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.goods.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -21,41 +21,37 @@ class FavoritesScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { createInitialState() }
-            favoriteGoodsUseCase().onSuccess { nonCached ->
-                emitState {
-                    it.copy(
-                        screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        items = it.items.copy(items = cachePaging(nonCached))
-                    )
+            favoriteGoodsUseCase()
+                .onSuccess { nonCached ->
+                    emitState {
+                        it.copy(
+                            screen = it.screen.copy(state = ScreenState.SUCCESS),
+                            items = it.items.copy(items = cachePaging(nonCached))
+                        )
+                    }
                 }
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+                .onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess {
-                    refresh()
-                }
-
-                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                    refresh()
-                }
+                is CounterEvent.Add ->
+                    addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess { refresh() }
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess { refresh() }
             }
         }
     }
-
 
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
                 is StoreCardEvent.Open -> postEffect(FavoritesScreenEffect.GoodsDetails(event.id))
-                is StoreCardEvent.AddToCart -> addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess {
-                    refresh()
-                }
+                is StoreCardEvent.AddToCart ->
+                    addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess { refresh() }
             }
         }
     }

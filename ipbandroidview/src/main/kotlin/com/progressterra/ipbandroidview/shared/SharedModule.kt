@@ -12,7 +12,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val sharedModule = module {
-
     single { WorkManager.getInstance(androidContext()) }
 
     single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
@@ -21,10 +20,8 @@ val sharedModule = module {
 
     @Suppress("DEPRECATION")
     single {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            MediaRecorder(androidContext())
-        else
-            MediaRecorder()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) MediaRecorder(androidContext())
+        else MediaRecorder()
     }
 
     single { LocationServices.getFusedLocationProviderClient(androidContext()) }

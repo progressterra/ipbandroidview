@@ -35,35 +35,32 @@ fun YesNoButton(
         activeColor: Brush,
         alternateColor: Brush
     ) {
-        val background = when (state) {
-            null -> IpbTheme.colors.onSurface.asBrush()
-            else -> alternateColor
-        }
+        val background =
+            when (state) {
+                null -> IpbTheme.colors.onSurface.asBrush()
+                else -> alternateColor
+            }
         Row(
-            modifier = modifier
-                .clip(RoundedCornerShape(14.dp))
-                .background(if (state == role) activeColor else background)
-                .niceClickable(enabled) { onClick(role) }
-                .padding(
-                    horizontal = 32.dp,
-                    vertical = 16.dp
-                ),
+            modifier =
+                modifier
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(if (state == role) activeColor else background)
+                    .niceClickable(enabled) { onClick(role) }
+                    .padding(horizontal = 32.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
                 text = text,
                 style = IpbTheme.typography.headline,
-                tint = if (state == role) IpbTheme.colors.textButton.asBrush() else IpbTheme.colors.textDisabled.asBrush()
+                tint =
+                    if (state == role) IpbTheme.colors.textButton.asBrush()
+                    else IpbTheme.colors.textDisabled.asBrush()
             )
         }
     }
 
-
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Button(
             modifier = Modifier.weight(1f),
             text = stringResource(id = R.string.yes),
@@ -84,28 +81,20 @@ fun YesNoButton(
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreview() {
-    IpbTheme {
-        YesNoButton(state = null, onClick = {}, enabled = true)
-    }
+    IpbTheme { YesNoButton(state = null, onClick = {}, enabled = true) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreviewYes() {
-    IpbTheme {
-        YesNoButton(state = true, onClick = {}, enabled = true)
-    }
+    IpbTheme { YesNoButton(state = true, onClick = {}, enabled = true) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreviewNo() {
     IpbTheme {
-        YesNoButton(
-            modifier = Modifier.fillMaxWidth(),
-            state = false,
-            onClick = {}, enabled = true
-        )
+        YesNoButton(modifier = Modifier.fillMaxWidth(), state = false, onClick = {}, enabled = true)
     }
 }
 

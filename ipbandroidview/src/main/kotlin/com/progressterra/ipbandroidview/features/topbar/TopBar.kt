@@ -25,27 +25,27 @@ fun TopBar(
     useComponent: UseTopBar
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(44.dp)
-            .background(IpbTheme.colors.background.asBrush())
-            .padding(horizontal = 16.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(44.dp)
+                .background(IpbTheme.colors.background.asBrush())
+                .padding(horizontal = 16.dp)
     ) {
         if (showBackButton) {
-            IconButton(modifier = Modifier
-                .size(30.dp)
-                .align(Alignment.CenterStart),
-                onClick = { useComponent.handle(TopBarEvent) }) {
+            IconButton(
+                modifier = Modifier.size(30.dp).align(Alignment.CenterStart),
+                onClick = { useComponent.handle(TopBarEvent) }
+            ) {
                 Icon(
                     modifier = Modifier.size(30.dp),
-                    resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
+                    resId = R.drawable.ic_back,
+                    tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
         }
         Text(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(horizontal = 40.dp),
+            modifier = Modifier.align(Alignment.Center).padding(horizontal = 40.dp),
             text = title,
             maxLines = 1,
             style = IpbTheme.typography.title,

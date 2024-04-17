@@ -29,22 +29,20 @@ import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 
 @Composable
 fun SignUpScreen(
-    modifier: Modifier = Modifier, state: SignUpScreenState, useComponent: UseSignUpScreen
+    modifier: Modifier = Modifier,
+    state: SignUpScreenState,
+    useComponent: UseSignUpScreen
 ) {
     Layout(
         modifier = modifier,
-        topBar = {
-            TopBar(
-                title = stringResource(R.string.sign_up),
-                useComponent = useComponent
-            )
-        }, bottomBar = {
+        topBar = { TopBar(title = stringResource(R.string.sign_up), useComponent = useComponent) },
+        bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Button(
@@ -60,12 +58,10 @@ fun SignUpScreen(
                     useComponent = useComponent
                 )
             }
-        }, bottomOverlap = true
+        },
+        bottomOverlap = true
     ) { _, bottom ->
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-        ) {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             EditUser(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                 state = state.editUser,
@@ -80,18 +76,17 @@ fun SignUpScreen(
 @Composable
 private fun SignUpScreenPreview() {
     SignUpScreen(
-        state = SignUpScreenState(
-            editUser = EditUserState(
-                name = TextFieldState(
-                    id = "mattis", text = "integer"
-                ), email = TextFieldState(
-                    id = "consetetur", text = "saepe"
-                ), birthday = TextFieldState(
-                    id = "voluptatibus", text = "mutat"
-                )
+        state =
+            SignUpScreenState(
+                editUser =
+                    EditUserState(
+                        name = TextFieldState(id = "mattis", text = "integer"),
+                        email = TextFieldState(id = "consetetur", text = "saepe"),
+                        birthday = TextFieldState(id = "voluptatibus", text = "mutat")
+                    ),
+                next = ButtonState(id = "orci"),
+                skip = ButtonState(id = "laudem")
             ),
-            next = ButtonState(id = "orci"),
-            skip = ButtonState(id = "laudem")
-        ), useComponent = UseSignUpScreen.Empty()
+        useComponent = UseSignUpScreen.Empty()
     )
 }

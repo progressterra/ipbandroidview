@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
-
 data class WantThisCardState(
     override val id: String = "",
     val image: String = "",

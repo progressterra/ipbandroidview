@@ -5,16 +5,13 @@ import com.progressterra.ipbandroidview.processes.chat.FetchDatingChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import kotlinx.coroutines.flow.collectLatest
 
-class ChatsScreenViewModel(
-    private val datingChatsUseCase: FetchDatingChatsUseCase
-) : AbstractNonInputViewModel<ChatsScreenState, ChatsScreenEffect>(), UseChatsScreen {
+class ChatsScreenViewModel(private val datingChatsUseCase: FetchDatingChatsUseCase) :
+    AbstractNonInputViewModel<ChatsScreenState, ChatsScreenEffect>(), UseChatsScreen {
 
     init {
         onBackground {
             datingChatsUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { newFlow ->
-                    emitState { it.copy(items = newFlow) }
-                }
+                result.onSuccess { newFlow -> emitState { it.copy(items = newFlow) } }
             }
         }
     }
@@ -24,9 +21,7 @@ class ChatsScreenViewModel(
     override fun createInitialState() = ChatsScreenState()
 
     override fun refresh() {
-        onBackground {
-            datingChatsUseCase()
-        }
+        onBackground { datingChatsUseCase() }
     }
 
     override fun handle(event: ChatsScreenEvent) {

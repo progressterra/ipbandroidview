@@ -6,7 +6,4 @@ import kotlinx.parcelize.Parcelize
 
 @Immutable
 @Parcelize
-data class ButtonState(
-    val id: String = "",
-    val enabled: Boolean = true
-) : Parcelable
+data class ButtonState(val id: String = "", val enabled: Boolean = true) : Parcelable

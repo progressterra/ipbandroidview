@@ -23,8 +23,7 @@ data class CurrentCheckState(
     val ready: ButtonState = ButtonState(id = "ready")
 ) {
 
-    fun updateReadyAvailable(available: Boolean) =
-        copy(ready = ready.copy(enabled = available))
+    fun updateReadyAvailable(available: Boolean) = copy(ready = ready.copy(enabled = available))
 
     fun addVoice(voice: Voice) = copy(media = media.addVoice(voice))
 
@@ -44,11 +43,12 @@ data class CurrentCheckState(
 
     fun updateVoiceState(voiceState: VoiceState) = copy(voiceState = voiceState)
 
-    fun updateScreenState(screenState: ScreenState) = copy(screen = screen.copy(state = screenState))
+    fun updateScreenState(screenState: ScreenState) =
+        copy(screen = screen.copy(state = screenState))
 
     fun removeImage(image: MultisizedImage) = copy(media = media.removeImage(image))
 
-    fun removeRecord() = copy(voiceState = VoiceState.Recorder(false), media =  media.removeRecord())
+    fun removeRecord() = copy(voiceState = VoiceState.Recorder(false), media = media.removeRecord())
 
     fun addImage(image: MultisizedImage) = copy(media = media.addImage(image))
 }

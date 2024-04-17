@@ -20,8 +20,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
@@ -35,21 +35,24 @@ fun TargetPickerScreen(
     useComponent: UseTargetPickerScreen
 ) {
     @Composable
-    fun Item(
-        itemState: DatingTarget
-    ) {
+    fun Item(itemState: DatingTarget) {
         val picked = itemState.id == state.selectedTarget.id
         val backgroundBrush =
-            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
-        Box(modifier = Modifier
-            .padding(vertical = 4.dp)
-            .clip(CircleShape)
-            .background(backgroundBrush)
-            .border(
-                width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-            )
-            .niceClickable { useComponent.handle(TargetPickerScreenEvent(itemState)) }
-            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+            if (picked) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.background.asBrush()
+        Box(
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.secondary.asBrush(),
+                        shape = CircleShape
+                    )
+                    .niceClickable { useComponent.handle(TargetPickerScreenEvent(itemState)) }
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
             Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
@@ -58,33 +61,38 @@ fun TargetPickerScreen(
         }
     }
 
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.dating_target),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.save,
-                useComponent = useComponent,
-                title = stringResource(R.string.save)
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.dating_target),
+                showBackButton = true,
+                useComponent = useComponent
             )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.skip,
-                useComponent = useComponent,
-                title = stringResource(R.string.skip_yet)
-            )
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.save,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.save)
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.skip_yet)
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
+            state = state.screen,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
@@ -95,14 +103,10 @@ fun TargetPickerScreen(
                 textAlign = TextAlign.Center
             )
             FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp),
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                state.targets.forEach {
-                    Item(it)
-                }
+                state.targets.forEach { Item(it) }
             }
         }
     }

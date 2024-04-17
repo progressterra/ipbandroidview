@@ -2,9 +2,7 @@ package com.progressterra.ipbandroidview.shared
 
 import com.progressterra.ipbandroidview.shared.theme.IpbColors
 
-/**
- * Storage for configuration settings from config.properties file
- */
+/** Storage for configuration settings from config.properties file */
 internal object IpbAndroidViewSettings {
 
     var ACCESS_TOKEN_FOR_UNAUTHORIZED_USER: String = ""

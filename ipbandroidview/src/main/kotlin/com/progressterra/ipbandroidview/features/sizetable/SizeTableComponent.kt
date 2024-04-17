@@ -20,16 +20,14 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.WebViewCompose
 
 @Composable
-fun SizeTableComponent(
-    modifier: Modifier = Modifier,
-    url: String
-) {
+fun SizeTableComponent(modifier: Modifier = Modifier, url: String) {
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(12.dp)
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(12.dp)
+                .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -46,7 +44,5 @@ fun SizeTableComponent(
 @Composable
 @Preview
 private fun SizeTableComponentPreview() {
-    IpbTheme {
-        SizeTableComponent(url = "https://www.google.com")
-    }
+    IpbTheme { SizeTableComponent(url = "https://www.google.com") }
 }

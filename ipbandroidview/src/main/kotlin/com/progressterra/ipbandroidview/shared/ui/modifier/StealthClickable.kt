@@ -9,9 +9,7 @@ import androidx.compose.ui.composed
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 @Suppress("unused")
-fun Modifier.stealthClickable(
-    enabled: Boolean = true, onClick: () -> Unit
-) = composed {
+fun Modifier.stealthClickable(enabled: Boolean = true, onClick: () -> Unit) = composed {
     clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = null,

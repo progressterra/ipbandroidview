@@ -31,25 +31,21 @@ fun ItemGallery(
     val pagerState = rememberPagerState { state.images.size }
     Box(modifier = modifier) {
         HorizontalPager(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
+            modifier = Modifier.fillMaxWidth().aspectRatio(1f),
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp
         ) {
             Image(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(8.dp))
-                    .niceClickable { useComponent.handle(ItemGalleryEvent(state.images[it])) },
+                modifier =
+                    Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)).niceClickable {
+                        useComponent.handle(ItemGalleryEvent(state.images[it]))
+                    },
                 image = state.images[it]
             )
         }
         HorizontalPagerIndicator(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(10.dp),
+            modifier = Modifier.align(Alignment.BottomCenter).padding(10.dp),
             pagerState = pagerState,
             pageCount = state.images.size,
             activeColor = IpbTheme.colors.onSurface.asColor(),
@@ -64,15 +60,17 @@ fun ItemGallery(
 private fun ItemGalleryPreview() {
     IpbTheme {
         ItemGallery(
-            state = ItemGalleryState(
-                images = listOf(
-                    "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-                    "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-                    "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-                    "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-                    "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-                )
-            ),
+            state =
+                ItemGalleryState(
+                    images =
+                        listOf(
+                            "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+                            "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+                            "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+                            "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+                            "https://images.unsplash.com/photo-1616166334058-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+                        )
+                ),
             useComponent = UseItemGallery.Empty()
         )
     }

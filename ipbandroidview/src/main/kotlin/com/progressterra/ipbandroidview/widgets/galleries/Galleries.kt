@@ -19,16 +19,10 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
-fun Galleries(
-    modifier: Modifier = Modifier,
-    state: GalleriesState,
-    useComponent: UseGalleries
-) {
+fun Galleries(modifier: Modifier = Modifier, state: GalleriesState, useComponent: UseGalleries) {
     val items = state.items.collectAsLazyPagingItems()
     StateColumn(
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 100.dp),
+        modifier = modifier.fillMaxWidth().heightIn(min = 100.dp),
         state = state.state,
         maxSize = false,
         useComponent = useComponent,
@@ -46,15 +40,10 @@ fun Galleries(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(horizontal = 20.dp)
         ) {
-            items(count = items.itemCount,
-                key = items.itemKey { it.id }
-            ) {
+            items(count = items.itemCount, key = items.itemKey { it.id }) {
                 items[it]?.let { item ->
                     Box(contentAlignment = Alignment.Center) {
-                        StoreCard(
-                            state = item,
-                            useComponent = useComponent
-                        )
+                        StoreCard(state = item, useComponent = useComponent)
                     }
                 }
             }

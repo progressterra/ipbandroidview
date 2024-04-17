@@ -23,9 +23,7 @@ class ConnectionsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         ConnectionsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

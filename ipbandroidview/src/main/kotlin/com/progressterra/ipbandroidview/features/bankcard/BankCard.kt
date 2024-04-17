@@ -38,23 +38,27 @@ fun BankCard(
     canBePicked: Boolean = true
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .border(
-                width = 1.dp,
-                brush = if (state.isSelected && canBePicked) {
-                    IpbTheme.colors.primary.asBrush()
-                } else {
-                    Color.Transparent.toBrush()
-                },
-                shape = RoundedCornerShape(8.dp)
-            )
-            .niceClickable(enabled = canBePicked || state.document.status != TypeStatusDoc.CONFIRMED) {
-                useComponent.handleEvent(BankCardEvent.Click(state))
-            }
-            .padding(vertical = 8.dp, horizontal = 16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .border(
+                    width = 1.dp,
+                    brush =
+                        if (state.isSelected && canBePicked) {
+                            IpbTheme.colors.primary.asBrush()
+                        } else {
+                            Color.Transparent.toBrush()
+                        },
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .niceClickable(
+                    enabled = canBePicked || state.document.status != TypeStatusDoc.CONFIRMED
+                ) {
+                    useComponent.handleEvent(BankCardEvent.Click(state))
+                }
+                .padding(vertical = 8.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -82,10 +86,9 @@ fun BankCard(
         if (canBeRemoved) {
             IconButton(
                 modifier = Modifier.size(24.dp),
-                onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }) {
-                Icon(
-                    resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
-                )
+                onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }
+            ) {
+                Icon(resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush())
             }
         }
     }
@@ -95,15 +98,14 @@ fun BankCard(
 @Composable
 private fun BankCardPreview0() {
     BankCard(
-        state = BankCardState(
-            isMainCard = true,
-            document = Document(
-                name = "VISA **** **** **** 1234",
-                status = TypeStatusDoc.CONFIRMED
+        state =
+            BankCardState(
+                isMainCard = true,
+                document =
+                    Document(name = "VISA **** **** **** 1234", status = TypeStatusDoc.CONFIRMED),
+                id = "",
+                isSelected = false
             ),
-            id = "",
-            isSelected = false
-        ),
         useComponent = UseBankCard.Empty(),
         canBeRemoved = true
     )
@@ -113,15 +115,14 @@ private fun BankCardPreview0() {
 @Composable
 private fun BankCardPreview1() {
     BankCard(
-        state = BankCardState(
-            isMainCard = true,
-            document = Document(
-                name = "VISA **** **** **** 1234",
-                status = TypeStatusDoc.WAIT_IMAGE
+        state =
+            BankCardState(
+                isMainCard = true,
+                document =
+                    Document(name = "VISA **** **** **** 1234", status = TypeStatusDoc.WAIT_IMAGE),
+                id = "",
+                isSelected = false
             ),
-            id = "",
-            isSelected = false
-        ),
         useComponent = UseBankCard.Empty()
     )
 }

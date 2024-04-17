@@ -25,8 +25,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransaction
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -55,12 +55,12 @@ fun WithdrawalScreen(
         ) {
             if (state.hasCards) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 20.dp, top = 20.dp, end = 20.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(6.dp)
+                    modifier =
+                        Modifier.fillMaxWidth()
+                            .padding(start = 20.dp, top = 20.dp, end = 20.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(6.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.can_be_out),
@@ -75,9 +75,7 @@ fun WithdrawalScreen(
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     state = state.add,
                     title = stringResource(id = R.string.new_withdrawal),
                     useComponent = useComponent
@@ -94,17 +92,15 @@ fun WithdrawalScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     contentPadding = PaddingValues(horizontal = 20.dp)
                 ) {
-                    items(
-                        count = lazyItems.itemCount,
-                        key = lazyItems.itemKey { it.id }
-                    ) { index -> lazyItems[index]?.let { WithdrawalTransaction(state = it) } }
+                    items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
+                        lazyItems[index]?.let { WithdrawalTransaction(state = it) }
+                    }
                 }
             } else {
                 Column {
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(start = 20.dp, top = 20.dp, end = 20.dp),
+                        modifier =
+                            Modifier.fillMaxSize().padding(start = 20.dp, top = 20.dp, end = 20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
@@ -116,8 +112,7 @@ fun WithdrawalScreen(
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Button(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             state = state.addCard,
                             title = stringResource(id = R.string.add_card),
                             useComponent = useComponent
@@ -134,10 +129,12 @@ fun WithdrawalScreen(
 private fun WithdrawalScreenPreview0() {
     IpbTheme {
         WithdrawalScreen(
-            state = WithdrawalScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                hasCards = true
-            ), useComponent = UseWithdrawalScreen.Empty()
+            state =
+                WithdrawalScreenState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    hasCards = true
+                ),
+            useComponent = UseWithdrawalScreen.Empty()
         )
     }
 }
@@ -147,9 +144,8 @@ private fun WithdrawalScreenPreview0() {
 private fun WithdrawalScreenPreview1() {
     IpbTheme {
         WithdrawalScreen(
-            state = WithdrawalScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS)
-            ), useComponent = UseWithdrawalScreen.Empty()
+            state = WithdrawalScreenState(screen = StateColumnState(state = ScreenState.SUCCESS)),
+            useComponent = UseWithdrawalScreen.Empty()
         )
     }
 }

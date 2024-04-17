@@ -19,24 +19,20 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun Trace(
-    modifier: Modifier = Modifier, state: TraceState, useComponent: UseTrace
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-    ) {
+fun Trace(modifier: Modifier = Modifier, state: TraceState, useComponent: UseTrace) {
+    Column(modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
         Row(
             modifier = Modifier.padding(vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
                 modifier = Modifier.size(30.dp),
-                onClick = { useComponent.handle(TraceEvent) }) {
+                onClick = { useComponent.handle(TraceEvent) }
+            ) {
                 Icon(
                     modifier = Modifier.size(30.dp),
-                    resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
+                    resId = R.drawable.ic_back,
+                    tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
             Text(
@@ -47,9 +43,7 @@ fun Trace(
             )
         }
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 6.dp),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -68,28 +62,33 @@ fun Trace(
 private fun TracePreview() {
     IpbTheme {
         Trace(
-            state = TraceState(
-                listOf(
-                    CatalogCardState(
-                        id = "nunc PARENT",
-                        name = "NUNU",
-                        image = "https://www.google.com/#q=montes"
-                    ), CatalogCardState(
-                        id = "nunc 1",
-                        name = "Cory fdggdgdfg",
-                        image = "https://www.google.com/#q=montes"
-                    ), CatalogCardState(
-                        id = "nunc 2",
-                        name = "Changs wefwrefgerg",
-                        image = "https://www.google.com/#q=montes"
-                    )
+            state =
+                TraceState(
+                    listOf(
+                        CatalogCardState(
+                            id = "nunc PARENT",
+                            name = "NUNU",
+                            image = "https://www.google.com/#q=montes"
+                        ),
+                        CatalogCardState(
+                            id = "nunc 1",
+                            name = "Cory fdggdgdfg",
+                            image = "https://www.google.com/#q=montes"
+                        ),
+                        CatalogCardState(
+                            id = "nunc 2",
+                            name = "Changs wefwrefgerg",
+                            image = "https://www.google.com/#q=montes"
+                        )
+                    ),
+                    current =
+                        CatalogCardState(
+                            id = "nunc 1",
+                            name = "Cory fdggdgdfg",
+                            image = "https://www.google.com/#q=montes"
+                        )
                 ),
-                current = CatalogCardState(
-                    id = "nunc 1",
-                    name = "Cory fdggdgdfg",
-                    image = "https://www.google.com/#q=montes"
-                )
-            ), useComponent = UseTrace.Empty()
+            useComponent = UseTrace.Empty()
         )
     }
 }

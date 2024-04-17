@@ -25,31 +25,32 @@ class ProfileScreenViewModel(
         onBackground {
             emitState { createInitialState() }
             var isSuccess = true
-            fetchUserProfileUseCase().onSuccess { profile ->
-                emitState {
-                    it.copy(isAuthorized = true, authProfileState = profile)
+            fetchUserProfileUseCase()
+                .onSuccess { profile ->
+                    emitState { it.copy(isAuthorized = true, authProfileState = profile) }
                 }
-            }.onFailure {
-                isSuccess = false
-            }
-            documentsNotification().onSuccess { notification ->
-                emitState {
-                    it.copy(
-                        docNotification = notification,
-                        documents = it.documents.copy(enabled = !notification.isFull() || notification.isEmpty())
-                    )
+                .onFailure { isSuccess = false }
+            documentsNotification()
+                .onSuccess { notification ->
+                    emitState {
+                        it.copy(
+                            docNotification = notification,
+                            documents =
+                                it.documents.copy(
+                                    enabled = !notification.isFull() || notification.isEmpty()
+                                )
+                        )
+                    }
                 }
-            }.onFailure {
-                emitState {
-                    it.copy(documents = it.documents.copy(enabled = false))
+                .onFailure { emitState { it.copy(documents = it.documents.copy(enabled = false)) } }
+            fetchAvatarUseCase()
+                .onSuccess { url ->
+                    emitState {
+                        it.copy(authProfileState = it.authProfileState.copy(profileImage = url))
+                    }
                 }
-            }
-            fetchAvatarUseCase().onSuccess { url ->
-                emitState { it.copy(authProfileState = it.authProfileState.copy(profileImage = url)) }
-            }.onFailure { isSuccess = false }
-            emitState {
-                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
-            }
+                .onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
@@ -65,11 +66,8 @@ class ProfileScreenViewModel(
         onBackground {
             when (event.id) {
                 "logout" -> {
-                    logoutUseCase().onSuccess {
-                        postEffect(ProfileScreenEffect.Logout)
-                    }
+                    logoutUseCase().onSuccess { postEffect(ProfileScreenEffect.Logout) }
                 }
-
                 "delete" -> Unit
                 "orders" -> postEffect(ProfileScreenEffect.Orders)
                 "wantThis" -> postEffect(ProfileScreenEffect.WantThis)

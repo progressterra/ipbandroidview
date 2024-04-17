@@ -4,12 +4,10 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Operations performed by ViewModels
- */
+/** Operations performed by ViewModels */
 interface Operations {
 
     fun <T : Any> cachePaging(toBeCached: Flow<PagingData<T>>): Flow<PagingData<T>>
 
-    fun onBackground(block: suspend () -> Unit) : Job
+    fun onBackground(block: suspend () -> Unit): Job
 }

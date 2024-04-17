@@ -22,16 +22,18 @@ class OccupationScreenViewModel(
     init {
         onBackground {
             fetchDatingUserUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { user ->
-                    emitState {
-                        it.copy(
-                            userOccupation = user.occupation,
-                            save = it.save.copy(enabled = !user.occupation.isEmpty())
-                        )
+                result
+                    .onSuccess { user ->
+                        emitState {
+                            it.copy(
+                                userOccupation = user.occupation,
+                                save = it.save.copy(enabled = !user.occupation.isEmpty())
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
@@ -40,11 +42,11 @@ class OccupationScreenViewModel(
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
-            fetchOccupationsUseCase().onSuccess { newOccupations ->
-                emitState {
-                    it.copy(allOccupations = newOccupations)
+            fetchOccupationsUseCase()
+                .onSuccess { newOccupations ->
+                    emitState { it.copy(allOccupations = newOccupations) }
                 }
-            }.onFailure { isSuccess = false }
+                .onFailure { isSuccess = false }
             fetchDatingUserUseCase()
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
@@ -53,12 +55,7 @@ class OccupationScreenViewModel(
     override fun createInitialState() = OccupationScreenState()
 
     override fun handle(event: OccupationScreenEvent) {
-        emitState {
-            it.copy(
-                pickedOccupation = event.data,
-                save = it.save.copy(enabled = true)
-            )
-        }
+        emitState { it.copy(pickedOccupation = event.data, save = it.save.copy(enabled = true)) }
     }
 
     override fun handle(event: TopBarEvent) {
@@ -69,14 +66,11 @@ class OccupationScreenViewModel(
         if (event.id == "save") {
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-                saveOccupationUseCase(
-                    currentState.pickedOccupation,
-                    currentState.userOccupation
-                ).onSuccess {
-                    postEffect(OccupationScreenEffect.OnNext)
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                saveOccupationUseCase(currentState.pickedOccupation, currentState.userOccupation)
+                    .onSuccess { postEffect(OccupationScreenEffect.OnNext) }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         } else if (event.id == "skip") {
             postEffect(OccupationScreenEffect.OnSkip)

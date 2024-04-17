@@ -24,9 +24,7 @@ class AvatarPickerScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         AvatarPickerScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

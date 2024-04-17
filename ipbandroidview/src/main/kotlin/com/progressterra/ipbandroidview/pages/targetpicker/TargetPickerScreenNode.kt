@@ -24,11 +24,7 @@ class TargetPickerScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        TargetPickerScreen(
-            modifier = modifier, state = state, useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        TargetPickerScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

@@ -6,5 +6,5 @@ import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.widgets.edituser.UseEditUser
 
-interface UseProfileDetailsScreen : UseStateColumn, UseTopBar, UseEditUser,
-    UseEditButton, UseEditProfile
+interface UseProfileDetailsScreen :
+    UseStateColumn, UseTopBar, UseEditUser, UseEditButton, UseEditProfile

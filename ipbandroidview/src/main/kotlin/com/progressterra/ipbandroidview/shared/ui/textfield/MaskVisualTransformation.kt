@@ -33,4 +33,3 @@ class MaskVisualTransformation(private val mask: String) : VisualTransformation 
         return TransformedText(annotatedString, PhoneOffsetMapper(mask, maskNumber))
     }
 }
-

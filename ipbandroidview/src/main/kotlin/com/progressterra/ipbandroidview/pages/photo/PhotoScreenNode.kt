@@ -13,9 +13,7 @@ class PhotoScreenNode(
     buildContext: BuildContext,
     private val navigation: PhotoScreenNavigation,
     private val input: String
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,11 +24,7 @@ class PhotoScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
-        PhotoScreen(
-            modifier = modifier, state = state, useComponent = viewModel
-        )
+        LaunchedEffect(input) { viewModel.setup(input) }
+        PhotoScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

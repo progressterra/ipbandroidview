@@ -29,35 +29,36 @@ fun StateColumn(
     content: @Composable (ColumnScope.() -> Unit)
 ) {
     Column(
-        modifier = modifier
-            .then(
-                if (maxSize) {
-                    Modifier.fillMaxSize()
-                } else {
-                    Modifier
-                }
-            )
-            .then(
-                if (scrollable) {
-                    Modifier.verticalScroll(scrollState ?: rememberScrollState())
-                } else {
-                    Modifier
-                }
-            ),
-        verticalArrangement = if (state.state == ScreenState.SUCCESS) verticalArrangement else Arrangement.Center,
-        horizontalAlignment = if (state.state == ScreenState.SUCCESS) horizontalAlignment else Alignment.CenterHorizontally
+        modifier =
+            modifier
+                .then(
+                    if (maxSize) {
+                        Modifier.fillMaxSize()
+                    } else {
+                        Modifier
+                    }
+                )
+                .then(
+                    if (scrollable) {
+                        Modifier.verticalScroll(scrollState ?: rememberScrollState())
+                    } else {
+                        Modifier
+                    }
+                ),
+        verticalArrangement =
+            if (state.state == ScreenState.SUCCESS) verticalArrangement else Arrangement.Center,
+        horizontalAlignment =
+            if (state.state == ScreenState.SUCCESS) horizontalAlignment
+            else Alignment.CenterHorizontally
     ) {
         when (state.state) {
-            ScreenState.ERROR -> IconButton(
-                onClick = {
-                    useComponent.handle(StateColumnEvent(state.id))
+            ScreenState.ERROR ->
+                IconButton(onClick = { useComponent.handle(StateColumnEvent(state.id)) }) {
+                    Icon(
+                        resId = R.drawable.ic_refresh,
+                        tint = IpbTheme.colors.iconPrimary.asBrush()
+                    )
                 }
-            ) {
-                Icon(
-                    resId = R.drawable.ic_refresh,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
-                )
-            }
             ScreenState.LOADING -> LoadingIndicator()
             ScreenState.SUCCESS -> content()
         }

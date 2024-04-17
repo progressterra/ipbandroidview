@@ -7,10 +7,8 @@ import com.progressterra.ipbandroidview.shared.mvi.PagingUseCase
 
 interface IncomingConnectionsUseCase : PagingUseCase<Nothing, DatingUser> {
 
-    class Base(
-        private val obtainAccessToken: ObtainAccessToken,
-        private val service: ImhService
-    ) : IncomingConnectionsUseCase, PagingUseCase.Abstract<Nothing, DatingUser>() {
+    class Base(private val obtainAccessToken: ObtainAccessToken, private val service: ImhService) :
+        IncomingConnectionsUseCase, PagingUseCase.Abstract<Nothing, DatingUser>() {
 
         override fun createSource() = IncomingConnectionsSource(obtainAccessToken, service)
     }

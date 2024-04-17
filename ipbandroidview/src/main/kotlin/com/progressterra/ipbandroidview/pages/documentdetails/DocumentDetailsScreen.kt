@@ -34,21 +34,19 @@ fun DocumentDetailsScreen(
     useComponent: UseDocumentDetailsScreen
 ) {
     Layout(
-        modifier = modifier, topBar = {
-        TopBar(
-            title = state.document.name,
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    },
+        modifier = modifier,
+        topBar = {
+            TopBar(title = state.document.name, showBackButton = true, useComponent = useComponent)
+        },
         bottomBar = {
             if (state.document.status.toCanBeEditted()) {
                 Column(
-                    modifier = modifier
-                        .padding(horizontal = 8.dp)
-                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+                    modifier =
+                        modifier
+                            .padding(horizontal = 8.dp)
+                            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
@@ -58,15 +56,11 @@ fun DocumentDetailsScreen(
                     )
                 }
             }
-        }) { _, _ ->
-        StateColumn(
-            state = state.screen,
-            useComponent = useComponent
-        ) {
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             LazyColumn(
-                modifier = Modifier
-                    .padding(horizontal = 20.dp)
-                    .fillMaxSize(),
+                modifier = Modifier.padding(horizontal = 20.dp).fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -82,7 +76,8 @@ fun DocumentDetailsScreen(
                         DocumentPhoto(
                             state = state.document.photo,
                             useComponent = useComponent,
-                            name = "${stringResource(id = R.string.document_photo)} ${state.document.name.lowercase()}"
+                            name =
+                                "${stringResource(id = R.string.document_photo)} ${state.document.name.lowercase()}"
                         )
                     }
                 }

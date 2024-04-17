@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class DeliveryScreenNode(
     buildContext: BuildContext,
     private val navigation: DeliveryScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,13 +24,7 @@ class DeliveryScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        DeliveryScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        DeliveryScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

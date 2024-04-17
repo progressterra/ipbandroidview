@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class WantThisRequestsScreenNode(
     buildContext: BuildContext,
     private val navigation: WantThisRequestsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -22,17 +20,12 @@ class WantThisRequestsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is WantThisRequestsScreenEffect.Back -> navigation.onBack()
-                is WantThisRequestsScreenEffect.RequestDetails -> navigation.onRequestDetails(effect.data)
+                is WantThisRequestsScreenEffect.RequestDetails ->
+                    navigation.onRequestDetails(effect.data)
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        WantThisRequestsScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        WantThisRequestsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

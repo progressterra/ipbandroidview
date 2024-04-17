@@ -16,14 +16,13 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
-fun CountDown(
-    modifier: Modifier = Modifier, state: CountDownState, useComponent: UseCountDown
-) {
+fun CountDown(modifier: Modifier = Modifier, state: CountDownState, useComponent: UseCountDown) {
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(14.dp))
-            .niceClickable(enabled = state.enabled) { useComponent.handle(CountdownEvent) }
-            .padding(horizontal = 32.dp, vertical = 15.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(14.dp))
+                .niceClickable(enabled = state.enabled) { useComponent.handle(CountdownEvent) }
+                .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

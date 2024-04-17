@@ -16,7 +16,9 @@ interface AllOrganizationsUseCase {
         manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase,
         obtainAccessToken: ObtainAccessToken
-    ) : AllOrganizationsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
+    ) :
+        AllOrganizationsUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(): Result<List<Organization>> = withToken { token ->
             val places = checklistService.availableChecklistsAndDocs(token).dataList ?: emptyList()

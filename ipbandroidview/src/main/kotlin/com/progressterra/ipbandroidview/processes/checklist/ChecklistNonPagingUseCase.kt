@@ -17,21 +17,25 @@ interface ChecklistNonPagingUseCase {
         obtainAccessToken: ObtainAccessToken,
         makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : ChecklistNonPagingUseCase,
+    ) :
+        ChecklistNonPagingUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(id: String): Result<List<Check>> = withToken { token ->
-            val checks = checklistService.checklistElements(
-                token,
-                id,
-                FilterAndSort(
-                    listFields = emptyList(),
-                    sort = null,
-                    searchData = "",
-                    skip = 0,
-                    take = 300
-                )
-            ).dataList!!
+            val checks =
+                checklistService
+                    .checklistElements(
+                        token,
+                        id,
+                        FilterAndSort(
+                            listFields = emptyList(),
+                            sort = null,
+                            searchData = "",
+                            skip = 0,
+                            take = 300
+                        )
+                    )
+                    .dataList!!
             var currentCategory = ""
             var categorizedChecks = 0
             var categoryNumber = 0
@@ -54,5 +58,4 @@ interface ChecklistNonPagingUseCase {
             }
         }
     }
-
 }

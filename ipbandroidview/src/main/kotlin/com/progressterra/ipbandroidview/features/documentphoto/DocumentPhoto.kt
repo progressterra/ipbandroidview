@@ -21,8 +21,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -36,19 +36,16 @@ fun DocumentPhoto(
     @Composable
     fun Item(picture: MultisizedImage) {
         Image(
-            modifier = Modifier
-                .size(63.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable { useComponent.handle(DocumentPhotoEvent.Select(picture)) },
+            modifier =
+                Modifier.size(63.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .niceClickable { useComponent.handle(DocumentPhotoEvent.Select(picture)) },
             image = picture.url
         )
     }
 
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -59,17 +56,21 @@ fun DocumentPhoto(
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
             Box(
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .niceClickable(enabled = state.enabled) { useComponent.handle(DocumentPhotoEvent.MakePhoto) }
-                    .padding(12.dp),
+                modifier =
+                    Modifier.size(56.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .niceClickable(enabled = state.enabled) {
+                            useComponent.handle(DocumentPhotoEvent.MakePhoto)
+                        }
+                        .padding(12.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     resId = R.drawable.ic_camera,
-                    tint = if (state.enabled) IpbTheme.colors.iconPrimary.asBrush() else IpbTheme.colors.textDisabled.asBrush()
+                    tint =
+                        if (state.enabled) IpbTheme.colors.iconPrimary.asBrush()
+                        else IpbTheme.colors.textDisabled.asBrush()
                 )
             }
         }
@@ -77,9 +78,7 @@ fun DocumentPhoto(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(state.items) { item ->
-                Item(picture = item)
-            }
+            items(state.items) { item -> Item(picture = item) }
         }
     }
 }
@@ -89,18 +88,17 @@ fun DocumentPhoto(
 private fun AttachedPhotosPreviewEnabled() {
     IpbTheme {
         DocumentPhoto(
-            state = DocumentPhotoState(
-                enabled = true,
-                items = listOf(
-                    MultisizedImage(
-                        id = "", local = false, toRemove = false, url = ""
-                    ), MultisizedImage(
-                        id = "", local = false, toRemove = false, url = ""
-                    ), MultisizedImage(
-                        id = "", local = false, toRemove = false, url = ""
-                    )
-                )
-            ), useComponent = UseDocumentPhoto.Empty(),
+            state =
+                DocumentPhotoState(
+                    enabled = true,
+                    items =
+                        listOf(
+                            MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                            MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                            MultisizedImage(id = "", local = false, toRemove = false, url = "")
+                        )
+                ),
+            useComponent = UseDocumentPhoto.Empty(),
             name = "Foto foto"
         )
     }

@@ -19,30 +19,20 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun OrderSteps(
-    modifier: Modifier = Modifier, state: OrderStepsState
-) {
-    Column(
-        modifier = modifier, verticalArrangement = Arrangement.spacedBy(18.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+fun OrderSteps(modifier: Modifier = Modifier, state: OrderStepsState) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(2.dp)
-                    .background(IpbTheme.colors.primary.asBrush())
+                modifier =
+                    Modifier.weight(1f).height(2.dp).background(IpbTheme.colors.primary.asBrush())
             )
             Icon(
                 resId = R.drawable.ic_tick,
                 tint = IpbTheme.colors.primary.asBrush(),
             )
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(2.dp)
-                    .background(IpbTheme.colors.primary.asBrush())
+                modifier =
+                    Modifier.weight(1f).height(2.dp).background(IpbTheme.colors.primary.asBrush())
             )
             if (state > OrderStepsState.DELIVERY) {
                 Icon(
@@ -57,55 +47,53 @@ fun OrderSteps(
             }
             if (state == OrderStepsState.DELIVERY) {
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(2.dp)
-                        .background(IpbTheme.colors.textPrimary.asBrush())
+                    modifier =
+                        Modifier.weight(1f)
+                            .height(2.dp)
+                            .background(IpbTheme.colors.textPrimary.asBrush())
                 )
             } else {
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(2.dp)
-                        .background(IpbTheme.colors.primary.asBrush())
+                    modifier =
+                        Modifier.weight(1f)
+                            .height(2.dp)
+                            .background(IpbTheme.colors.primary.asBrush())
                 )
             }
             when (state) {
-                OrderStepsState.DELIVERY -> Icon(
-                    resId = R.drawable.ic_untick,
-                    tint = IpbTheme.colors.textDisabled.asBrush(),
-                )
-
-                OrderStepsState.PAYMENT -> Icon(
-                    resId = R.drawable.ic_untick,
-                    tint = IpbTheme.colors.iconPrimary.asBrush(),
-                )
-
-                OrderStepsState.FINISHED -> Icon(
-                    resId = R.drawable.ic_tick,
-                    tint = IpbTheme.colors.primary.asBrush(),
-                )
+                OrderStepsState.DELIVERY ->
+                    Icon(
+                        resId = R.drawable.ic_untick,
+                        tint = IpbTheme.colors.textDisabled.asBrush(),
+                    )
+                OrderStepsState.PAYMENT ->
+                    Icon(
+                        resId = R.drawable.ic_untick,
+                        tint = IpbTheme.colors.iconPrimary.asBrush(),
+                    )
+                OrderStepsState.FINISHED ->
+                    Icon(
+                        resId = R.drawable.ic_tick,
+                        tint = IpbTheme.colors.primary.asBrush(),
+                    )
             }
             if (state == OrderStepsState.FINISHED) {
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(2.dp)
-                        .background(IpbTheme.colors.primary.asBrush())
+                    modifier =
+                        Modifier.weight(1f)
+                            .height(2.dp)
+                            .background(IpbTheme.colors.primary.asBrush())
                 )
             } else {
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(2.dp)
-                        .background(IpbTheme.colors.textPrimary.asBrush())
+                    modifier =
+                        Modifier.weight(1f)
+                            .height(2.dp)
+                            .background(IpbTheme.colors.textPrimary.asBrush())
                 )
             }
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
             Text(
                 text = stringResource(R.string.details),
                 style = IpbTheme.typography.body,
@@ -125,23 +113,24 @@ fun OrderSteps(
                 )
             }
             when (state) {
-                OrderStepsState.DELIVERY -> Text(
-                    text = stringResource(R.string.payment),
-                    style = IpbTheme.typography.body,
-                    tint = IpbTheme.colors.textDisabled.asBrush()
-                )
-
-                OrderStepsState.PAYMENT -> Text(
-                    text = stringResource(R.string.payment),
-                    style = IpbTheme.typography.headline,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
-                )
-
-                OrderStepsState.FINISHED -> Text(
-                    text = stringResource(R.string.payment),
-                    style = IpbTheme.typography.body,
-                    tint = IpbTheme.colors.primary.asBrush()
-                )
+                OrderStepsState.DELIVERY ->
+                    Text(
+                        text = stringResource(R.string.payment),
+                        style = IpbTheme.typography.body,
+                        tint = IpbTheme.colors.textDisabled.asBrush()
+                    )
+                OrderStepsState.PAYMENT ->
+                    Text(
+                        text = stringResource(R.string.payment),
+                        style = IpbTheme.typography.headline,
+                        tint = IpbTheme.colors.textPrimary.asBrush()
+                    )
+                OrderStepsState.FINISHED ->
+                    Text(
+                        text = stringResource(R.string.payment),
+                        style = IpbTheme.typography.body,
+                        tint = IpbTheme.colors.primary.asBrush()
+                    )
             }
         }
     }
@@ -152,9 +141,9 @@ fun OrderSteps(
 private fun OrderStepsPreview() {
     IpbTheme {
         Column {
-        OrderSteps(state = OrderStepsState.DELIVERY)
-        OrderSteps(state = OrderStepsState.PAYMENT)
-        OrderSteps(state = OrderStepsState.FINISHED)
+            OrderSteps(state = OrderStepsState.DELIVERY)
+            OrderSteps(state = OrderStepsState.PAYMENT)
+            OrderSteps(state = OrderStepsState.FINISHED)
         }
     }
 }

@@ -15,8 +15,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.widgets.galleries.UseGalleries
 
-interface UseGoodsDetailsScreen : UseTopBar, UseItemGallery, UseGoodsDescription, UseBuyGoods,
-    UseStateColumn, UseGalleries {
+interface UseGoodsDetailsScreen :
+    UseTopBar, UseItemGallery, UseGoodsDescription, UseBuyGoods, UseStateColumn, UseGalleries {
 
     class Empty : UseGoodsDetailsScreen {
 

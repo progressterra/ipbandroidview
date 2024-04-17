@@ -30,12 +30,12 @@ class LocationPermissionScreenViewModel(
 
     private fun checkAndAsk() {
         onBackground {
-            checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                checkJob?.cancel()
-                postEffect(LocationPermissionScreenEffect.OnSuccess)
-            }.onFailure {
-                askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
-            }
+            checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                .onSuccess {
+                    checkJob?.cancel()
+                    postEffect(LocationPermissionScreenEffect.OnSuccess)
+                }
+                .onFailure { askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION) }
         }
     }
 

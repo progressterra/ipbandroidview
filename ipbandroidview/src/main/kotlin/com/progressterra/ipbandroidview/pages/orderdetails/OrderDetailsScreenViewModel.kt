@@ -9,8 +9,8 @@ import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
-import com.progressterra.ipbandroidview.processes.order.OrderDetailsUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.order.OrderDetailsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -22,31 +22,32 @@ class OrderDetailsScreenViewModel(
     private val fetchOrderChatUseCase: FetchOrderChatUseCase,
     fetchMessagesUseCase: FetchMessagesUseCase,
     sendMessageUseCase: SendMessageUseCase
-) : AbstractInputViewModel<String, OrderDetailsScreenState, OrderDetailsScreenEffect>(),
+) :
+    AbstractInputViewModel<String, OrderDetailsScreenState, OrderDetailsScreenEffect>(),
     UseOrderDetailsScreen {
 
     override fun createInitialState() = OrderDetailsScreenState()
 
-    private val attachableChatModule = AttachableChatModule(
-        sendMessageUseCase,
-        fetchMessagesUseCase,
-        this,
-        object : ModuleUser<AttachableChatState> {
+    private val attachableChatModule =
+        AttachableChatModule(
+            sendMessageUseCase,
+            fetchMessagesUseCase,
+            this,
+            object : ModuleUser<AttachableChatState> {
 
-            override fun emitModuleState(reducer: (AttachableChatState) -> AttachableChatState) {
-                emitState {
-                    it.copy(chat = reducer(currentState.chat))
+                override fun emitModuleState(
+                    reducer: (AttachableChatState) -> AttachableChatState
+                ) {
+                    emitState { it.copy(chat = reducer(currentState.chat)) }
                 }
-            }
 
-            override val moduleState: AttachableChatState
-                get() = currentState.chat
-        })
+                override val moduleState: AttachableChatState
+                    get() = currentState.chat
+            }
+        )
 
     override fun setup(data: String) {
-        emitState {
-            it.copy(details = it.details.copy(id = data))
-        }
+        emitState { it.copy(details = it.details.copy(id = data)) }
         refresh()
     }
 
@@ -54,20 +55,15 @@ class OrderDetailsScreenViewModel(
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
-            orderDetailsUseCase(currentState.details.id).onSuccess { details ->
-                emitState { it.copy(details = details) }
-            }.onFailure {
-                isSuccess = false
-            }
-            fetchOrderChatUseCase(
-                currentState.details.id,
-                currentState.details.number
-            ).onSuccess { dialogId ->
-                attachableChatModule.setup(dialogId)
-                attachableChatModule.refresh()
-            }.onFailure {
-                isSuccess = false
-            }
+            orderDetailsUseCase(currentState.details.id)
+                .onSuccess { details -> emitState { it.copy(details = details) } }
+                .onFailure { isSuccess = false }
+            fetchOrderChatUseCase(currentState.details.id, currentState.details.number)
+                .onSuccess { dialogId ->
+                    attachableChatModule.setup(dialogId)
+                    attachableChatModule.refresh()
+                }
+                .onFailure { isSuccess = false }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
@@ -82,10 +78,10 @@ class OrderDetailsScreenViewModel(
 
     override fun handle(event: OrderDetailsEvent) {
         when (event) {
-            is OrderDetailsEvent.Tracking -> postEffect(
-                OrderDetailsScreenEffect.Tracking(currentState.details.toOrderTrackingState())
-            )
-
+            is OrderDetailsEvent.Tracking ->
+                postEffect(
+                    OrderDetailsScreenEffect.Tracking(currentState.details.toOrderTrackingState())
+                )
             is OrderDetailsEvent.Chat -> attachableChatModule.open()
         }
     }

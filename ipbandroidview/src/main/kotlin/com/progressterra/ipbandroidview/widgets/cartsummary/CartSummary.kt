@@ -21,14 +21,8 @@ fun CartSummary(
     state: CartSummaryState,
     useComponent: UseCartSummary
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
                 text = stringResource(R.string.total_to_pay),
                 style = IpbTheme.typography.title,
@@ -52,10 +46,5 @@ fun CartSummary(
 @Preview
 @Composable
 private fun CartSummaryPreview() {
-    Preview {
-        CartSummary(
-            state = CartSummaryState(),
-            useComponent = UseCartSummary.Empty()
-        )
-    }
+    Preview { CartSummary(state = CartSummaryState(), useComponent = UseCartSummary.Empty()) }
 }

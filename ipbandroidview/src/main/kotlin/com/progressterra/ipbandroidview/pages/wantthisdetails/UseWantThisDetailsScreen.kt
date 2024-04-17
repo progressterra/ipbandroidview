@@ -15,12 +15,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
-interface UseWantThisDetailsScreen : UseTopBar,
-    UseTextField,
-    UseAttachableChat,
-    UseDocumentPhoto,
-    UseStoreCard,
-    UseButton {
+interface UseWantThisDetailsScreen :
+    UseTopBar, UseTextField, UseAttachableChat, UseDocumentPhoto, UseStoreCard, UseButton {
 
     fun handle(event: WantThisDetailsScreenEvent)
 

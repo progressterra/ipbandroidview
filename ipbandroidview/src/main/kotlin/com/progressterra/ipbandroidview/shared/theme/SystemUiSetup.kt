@@ -6,16 +6,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-/**
- * Setup the system UI to match the theme
- */
+/** Setup the system UI to match the theme */
 @Composable
 fun SystemUiSetup() {
     val systemUiController = rememberSystemUiController()
     val systemBarColor = IpbTheme.colors.background.asColor()
-    val transparentColor: (Color) -> Color = { original ->
-        systemBarColor.compositeOver(original)
-    }
+    val transparentColor: (Color) -> Color = { original -> systemBarColor.compositeOver(original) }
     LaunchedEffect(Unit) {
         systemUiController.setStatusBarColor(
             color = systemBarColor,

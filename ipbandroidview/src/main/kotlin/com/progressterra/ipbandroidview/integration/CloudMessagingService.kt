@@ -13,13 +13,13 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.progressterra.ipbandroidview.processes.utils.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
+import java.net.HttpURLConnection
+import java.net.URL
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import java.net.HttpURLConnection
-import java.net.URL
 
 abstract class CloudMessagingService : FirebaseMessagingService() {
 
@@ -39,9 +39,7 @@ abstract class CloudMessagingService : FirebaseMessagingService() {
         super.onCreate()
         if (!UserData.fcmTokenSent && UserData.clientExist) {
             scope.launch {
-                updateFcmTokenUseCase(UserData.fcmToken).onSuccess {
-                    UserData.fcmTokenSent = true
-                }
+                updateFcmTokenUseCase(UserData.fcmToken).onSuccess { UserData.fcmTokenSent = true }
             }
         }
     }
@@ -63,22 +61,20 @@ abstract class CloudMessagingService : FirebaseMessagingService() {
         remoteMessage: RemoteMessage,
         pendingIntent: PendingIntent
     ): NotificationCompat.Builder {
-        val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(notificationIconId)
-            .setContentTitle(remoteMessage.notification?.title)
-            .setContentText(remoteMessage.notification?.body)
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_PROMO)
+        val builder =
+            NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(notificationIconId)
+                .setContentTitle(remoteMessage.notification?.title)
+                .setContentText(remoteMessage.notification?.body)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_PROMO)
 
         remoteMessage.notification?.imageUrl?.let { imageUrl ->
             getBitmapFromUrl(imageUrl.toString())?.let {
                 builder.setLargeIcon(it)
-                builder.setStyle(
-                    NotificationCompat.BigPictureStyle()
-                        .bigPicture(it)
-                )
+                builder.setStyle(NotificationCompat.BigPictureStyle().bigPicture(it))
             }
         }
 
@@ -86,18 +82,12 @@ abstract class CloudMessagingService : FirebaseMessagingService() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun sendMessage(
-        remoteMessage: RemoteMessage,
-        builder: NotificationCompat.Builder
-    ) {
+    private fun sendMessage(remoteMessage: RemoteMessage, builder: NotificationCompat.Builder) {
         val manager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
 
         val channelName = applicationContext.getString(notificationNameId)
-        val channel = NotificationChannel(
-            channelId,
-            channelName,
-            NotificationManager.IMPORTANCE_HIGH
-        )
+        val channel =
+            NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
         manager?.createNotificationChannel(channel)
 
         with(NotificationManagerCompat.from(this)) {

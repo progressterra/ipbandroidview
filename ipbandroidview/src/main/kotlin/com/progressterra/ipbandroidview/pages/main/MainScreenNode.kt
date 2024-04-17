@@ -10,12 +10,8 @@ import com.progressterra.ipbandroidview.entities.Document
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class MainScreenNode(
-    buildContext: BuildContext,
-    private val navigation: MainScreenNavigation
-) : Node(
-    buildContext
-) {
+class MainScreenNode(buildContext: BuildContext, private val navigation: MainScreenNavigation) :
+    Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -30,11 +26,7 @@ class MainScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        MainScreen(
-            modifier = modifier, state = state, useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        MainScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

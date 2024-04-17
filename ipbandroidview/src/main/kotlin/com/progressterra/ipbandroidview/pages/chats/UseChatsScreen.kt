@@ -12,6 +12,5 @@ interface UseChatsScreen : UseTopBar {
         override fun handle(event: TopBarEvent) = Unit
 
         override fun handle(event: ChatsScreenEvent) = Unit
-
     }
 }

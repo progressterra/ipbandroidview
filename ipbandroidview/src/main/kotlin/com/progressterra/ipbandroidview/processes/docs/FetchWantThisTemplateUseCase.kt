@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.processes.docs
 
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.Document
-import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
 
 interface FetchWantThisTemplateUseCase {
@@ -12,7 +12,8 @@ interface FetchWantThisTemplateUseCase {
 
     class Base(
         private val fetchDocTemplateUseCase: FetchDocTemplateUseCase,
-        makeToastUseCase: MakeToastUseCase, manageResources: ManageResources
+        makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
     ) : FetchWantThisTemplateUseCase, AbstractLoggingUseCase(makeToastUseCase, manageResources) {
 
         override suspend fun invoke(): Result<Document> = handle {

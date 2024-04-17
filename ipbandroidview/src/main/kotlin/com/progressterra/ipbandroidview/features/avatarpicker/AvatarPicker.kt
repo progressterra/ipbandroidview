@@ -22,42 +22,39 @@ import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
 fun AvatarPicker(
-    modifier: Modifier = Modifier, state: AvatarPickerState, useComponent: UseAvatarPicker
+    modifier: Modifier = Modifier,
+    state: AvatarPickerState,
+    useComponent: UseAvatarPicker
 ) {
 
     @Composable
-    fun Item(
-        itemState: AvatarPickerState.Item
-    ) {
-        val borderModifier = if (itemState.selected) Modifier.border(
-            width = 1.dp, brush = IpbTheme.colors.primary.asBrush(), shape = CircleShape
-        ) else Modifier
-        Box(
-            modifier = borderModifier.padding(4.dp)
-        ) {
+    fun Item(itemState: AvatarPickerState.Item) {
+        val borderModifier =
+            if (itemState.selected)
+                Modifier.border(
+                    width = 1.dp,
+                    brush = IpbTheme.colors.primary.asBrush(),
+                    shape = CircleShape
+                )
+            else Modifier
+        Box(modifier = borderModifier.padding(4.dp)) {
             Image(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(80.dp)
-                    .niceClickable { useComponent.handle(AvatarPickerEvent(itemState.id)) },
+                modifier =
+                    Modifier.clip(CircleShape).size(80.dp).niceClickable {
+                        useComponent.handle(AvatarPickerEvent(itemState.id))
+                    },
                 image = itemState.url
             )
         }
     }
 
     LazyVerticalGrid(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 32.dp),
+        modifier = modifier.fillMaxWidth().padding(horizontal = 32.dp),
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
-        items(state.items) {
-            Box(contentAlignment = Alignment.Center) {
-                Item(it)
-            }
-        }
+        items(state.items) { Box(contentAlignment = Alignment.Center) { Item(it) } }
     }
 }
 
@@ -65,17 +62,20 @@ fun AvatarPicker(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 private fun AvatarPickerPreview() {
     AvatarPicker(
-        state = AvatarPickerState(
-            items = listOf(
-                AvatarPickerState.Item(selected = false),
-                AvatarPickerState.Item(selected = false),
-                AvatarPickerState.Item(selected = false),
-                AvatarPickerState.Item(selected = true),
-                AvatarPickerState.Item(selected = false),
-                AvatarPickerState.Item(selected = false),
-                AvatarPickerState.Item(selected = false),
-                AvatarPickerState.Item(selected = false)
-            )
-        ), useComponent = UseAvatarPicker.Empty()
+        state =
+            AvatarPickerState(
+                items =
+                    listOf(
+                        AvatarPickerState.Item(selected = false),
+                        AvatarPickerState.Item(selected = false),
+                        AvatarPickerState.Item(selected = false),
+                        AvatarPickerState.Item(selected = true),
+                        AvatarPickerState.Item(selected = false),
+                        AvatarPickerState.Item(selected = false),
+                        AvatarPickerState.Item(selected = false),
+                        AvatarPickerState.Item(selected = false)
+                    )
+            ),
+        useComponent = UseAvatarPicker.Empty()
     )
 }

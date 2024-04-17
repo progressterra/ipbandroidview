@@ -9,11 +9,11 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEven
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.chat.FetchDocumentChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.processes.docs.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule
 import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
@@ -33,7 +33,8 @@ class DocumentDetailsViewModel(
     documentValidationUseCase: DocumentValidationUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val fetchDocumentChatUseCase: FetchDocumentChatUseCase
-) : AbstractInputViewModel<Document, DocumentDetailsScreenState, DocumentDetailsScreenEffect>(),
+) :
+    AbstractInputViewModel<Document, DocumentDetailsScreenState, DocumentDetailsScreenEffect>(),
     UseDocumentDetailsScreen {
 
     private val attachableChatModule =
@@ -43,43 +44,43 @@ class DocumentDetailsViewModel(
             this,
             object : ModuleUser<AttachableChatState> {
 
-                override fun emitModuleState(reducer: (AttachableChatState) -> AttachableChatState) {
-                    emitState {
-                        it.copy(chat = reducer(currentState.chat))
-                    }
+                override fun emitModuleState(
+                    reducer: (AttachableChatState) -> AttachableChatState
+                ) {
+                    emitState { it.copy(chat = reducer(currentState.chat)) }
                 }
 
                 override val moduleState: AttachableChatState
                     get() = currentState.chat
-            })
-
-    private val docsModule = DocsModule(
-        documentValidationUseCase,
-        DocsVerificationPolicy.PHOTO_AND_TEXT,
-        checkPermissionUseCase,
-        askPermissionUseCase,
-        makePhotoUseCase,
-        this,
-        object : DocsModuleUser {
-
-            override fun emitModuleState(reducer: (Document) -> Document) {
-                emitState { it.copy(document = reducer(moduleState)) }
             }
+        )
 
-            override val moduleState: Document
-                get() = currentState.document
+    private val docsModule =
+        DocsModule(
+            documentValidationUseCase,
+            DocsVerificationPolicy.PHOTO_AND_TEXT,
+            checkPermissionUseCase,
+            askPermissionUseCase,
+            makePhotoUseCase,
+            this,
+            object : DocsModuleUser {
 
-            override fun isValid(isValid: Boolean) {
-                emitState {
-                    it.copy(apply = it.apply.copy(enabled = isValid))
+                override fun emitModuleState(reducer: (Document) -> Document) {
+                    emitState { it.copy(document = reducer(moduleState)) }
+                }
+
+                override val moduleState: Document
+                    get() = currentState.document
+
+                override fun isValid(isValid: Boolean) {
+                    emitState { it.copy(apply = it.apply.copy(enabled = isValid)) }
+                }
+
+                override fun openPhoto(url: String) {
+                    postEffect(DocumentDetailsScreenEffect.OpenPhoto(url))
                 }
             }
-
-            override fun openPhoto(url: String) {
-                postEffect(DocumentDetailsScreenEffect.OpenPhoto(url))
-            }
-        }
-    )
+        )
 
     override fun createInitialState() = DocumentDetailsScreenState()
 
@@ -96,16 +97,15 @@ class DocumentDetailsViewModel(
     private fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            fetchDocumentChatUseCase(
-                currentState.document.id,
-                currentState.document.name
-            ).onSuccess { dialogId ->
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
-                attachableChatModule.setup(dialogId)
-                attachableChatModule.refresh()
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+            fetchDocumentChatUseCase(currentState.document.id, currentState.document.name)
+                .onSuccess { dialogId ->
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+                    attachableChatModule.setup(dialogId)
+                    attachableChatModule.refresh()
+                }
+                .onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
@@ -120,9 +120,10 @@ class DocumentDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> saveDocumentsUseCase(currentState.document).onSuccess {
-                    postEffect(DocumentDetailsScreenEffect.Back)
-                }
+                "apply" ->
+                    saveDocumentsUseCase(currentState.document).onSuccess {
+                        postEffect(DocumentDetailsScreenEffect.Back)
+                    }
             }
         }
     }

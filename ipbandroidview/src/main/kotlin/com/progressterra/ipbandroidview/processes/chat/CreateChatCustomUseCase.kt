@@ -18,26 +18,31 @@ interface CreateChatCustomUseCase {
         private val messengerService: MessengerService,
         manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase
-    ) : CreateChatCustomUseCase,
+    ) :
+        CreateChatCustomUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(id: String, desc: String): Result<String> =
-            withToken { token ->
-                messengerService.clientAreaDialog(
+        override suspend fun invoke(id: String, desc: String): Result<String> = withToken { token ->
+            messengerService
+                .clientAreaDialog(
                     accessToken = token,
-                    body = IncomeDataForCreateDialog(
-                        listClients = listOf(
-                            MetaDataClientWithID(
-                                dataSourceType = TypeDataSource.CUSTOM,
-                                dataSourceName = "",
-                                idClient = id,
-                                description = desc
-                            )
-                        ),
-                        description = "",
-                        additionalDataJSON = ""
-                    )
-                ).data?.idUnique!!
-            }
+                    body =
+                        IncomeDataForCreateDialog(
+                            listClients =
+                                listOf(
+                                    MetaDataClientWithID(
+                                        dataSourceType = TypeDataSource.CUSTOM,
+                                        dataSourceName = "",
+                                        idClient = id,
+                                        description = desc
+                                    )
+                                ),
+                            description = "",
+                            additionalDataJSON = ""
+                        )
+                )
+                .data
+                ?.idUnique!!
+        }
     }
 }

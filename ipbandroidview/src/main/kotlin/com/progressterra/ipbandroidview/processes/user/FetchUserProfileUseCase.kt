@@ -12,10 +12,12 @@ interface FetchUserProfileUseCase {
         override suspend fun invoke(): Result<AuthProfileState> = runCatching {
             AuthProfileState(
                 profileImage = "https://placekitten.com/200/200",
-                name = buildString {
-                    if (UserData.userName.name.isNotBlank()) append(UserData.userName.name)
-                    if (UserData.userName.soname.isNotBlank()) append(" ${UserData.userName.soname}")
-                },
+                name =
+                    buildString {
+                        if (UserData.userName.name.isNotBlank()) append(UserData.userName.name)
+                        if (UserData.userName.soname.isNotBlank())
+                            append(" ${UserData.userName.soname}")
+                    },
                 email = UserData.email
             )
         }

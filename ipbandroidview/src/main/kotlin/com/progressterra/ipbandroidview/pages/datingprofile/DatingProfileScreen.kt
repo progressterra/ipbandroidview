@@ -29,17 +29,17 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.shouldShow
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -50,23 +50,30 @@ fun DatingProfileScreen(
 ) {
 
     @Composable
-    fun ItemEditMode(
-        itemState: Interest
-    ) {
+    fun ItemEditMode(itemState: Interest) {
         val picked =
-            (!state.user.interests.contains(itemState) && state.changedInterests.contains(itemState)) ||
-                    (state.user.interests.contains(itemState) && !state.changedInterests.contains(itemState))
+            (!state.user.interests.contains(itemState) &&
+                state.changedInterests.contains(itemState)) ||
+                (state.user.interests.contains(itemState) &&
+                    !state.changedInterests.contains(itemState))
         val backgroundBrush =
-            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
-        Box(modifier = Modifier
-            .padding(vertical = 4.dp)
-            .clip(CircleShape)
-            .background(backgroundBrush)
-            .border(
-                width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-            )
-            .niceClickable { useComponent.handle(DatingProfileScreenEvent.PickInterest(itemState)) }
-            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+            if (picked) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.background.asBrush()
+        Box(
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.secondary.asBrush(),
+                        shape = CircleShape
+                    )
+                    .niceClickable {
+                        useComponent.handle(DatingProfileScreenEvent.PickInterest(itemState))
+                    }
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
             Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
@@ -76,19 +83,19 @@ fun DatingProfileScreen(
     }
 
     @Composable
-    fun Item(
-        itemState: Interest
-    ) {
+    fun Item(itemState: Interest) {
         val backgroundBrush = IpbTheme.colors.secondary.asBrush()
         Box(
-            modifier = Modifier
-                .padding(vertical = 4.dp)
-                .clip(CircleShape)
-                .background(backgroundBrush)
-                .border(
-                    width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-                )
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.secondary.asBrush(),
+                        shape = CircleShape
+                    )
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Text(
                 text = itemState.name,
@@ -101,18 +108,17 @@ fun DatingProfileScreen(
         modifier = modifier,
         topBar = {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(44.dp)
-                    .background(IpbTheme.colors.background.asBrush())
-                    .padding(horizontal = 16.dp)
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .height(44.dp)
+                        .background(IpbTheme.colors.background.asBrush())
+                        .padding(horizontal = 16.dp)
             ) {
                 if (state.user.own && !state.editMode) {
                     IconButton(
-                        modifier = Modifier
-                            .size(32.dp)
-                            .align(Alignment.CenterStart),
-                        onClick = { useComponent.handle(DatingProfileScreenEvent.Edit) }) {
+                        modifier = Modifier.size(32.dp).align(Alignment.CenterStart),
+                        onClick = { useComponent.handle(DatingProfileScreenEvent.Edit) }
+                    ) {
                         Icon(
                             modifier = Modifier.size(32.dp),
                             resId = R.drawable.ic_profile_edit,
@@ -121,31 +127,31 @@ fun DatingProfileScreen(
                     }
                 }
                 if (state.user.own && state.editMode || !state.user.own) {
-                    IconButton(modifier = Modifier
-                        .size(30.dp)
-                        .align(Alignment.CenterStart),
-                        onClick = { useComponent.handle(TopBarEvent) }) {
+                    IconButton(
+                        modifier = Modifier.size(30.dp).align(Alignment.CenterStart),
+                        onClick = { useComponent.handle(TopBarEvent) }
+                    ) {
                         Icon(
                             modifier = Modifier.size(30.dp),
-                            resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
+                            resId = R.drawable.ic_back,
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }
                 }
                 Text(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(horizontal = 40.dp),
-                    text = if (state.user.own) stringResource(id = R.string.own_profile) else state.user.name,
+                    modifier = Modifier.align(Alignment.Center).padding(horizontal = 40.dp),
+                    text =
+                        if (state.user.own) stringResource(id = R.string.own_profile)
+                        else state.user.name,
                     maxLines = 1,
                     style = IpbTheme.typography.title2,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
                 if (state.user.own && !state.editMode) {
                     IconButton(
-                        modifier = Modifier
-                            .size(32.dp)
-                            .align(Alignment.CenterEnd),
-                        onClick = { useComponent.handle(DatingProfileScreenEvent.OnSettings) }) {
+                        modifier = Modifier.size(32.dp).align(Alignment.CenterEnd),
+                        onClick = { useComponent.handle(DatingProfileScreenEvent.OnSettings) }
+                    ) {
                         Icon(
                             modifier = Modifier.size(32.dp),
                             resId = R.drawable.ic_settings,
@@ -154,7 +160,8 @@ fun DatingProfileScreen(
                     }
                 }
             }
-        }, bottomBar = {
+        },
+        bottomBar = {
             Column(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 38.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -193,12 +200,7 @@ fun DatingProfileScreen(
             useComponent = useComponent
         ) {
             if (state.editMode) {
-                Image(
-                    modifier = Modifier
-                        .size(137.dp)
-                        .clip(CircleShape),
-                    image = state.user.avatar
-                )
+                Image(modifier = Modifier.size(137.dp).clip(CircleShape), image = state.user.avatar)
                 TextButton(
                     state = state.choosePhoto,
                     title = stringResource(id = R.string.choose_another_photo),
@@ -248,23 +250,22 @@ fun DatingProfileScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    state.allInterests.forEach {
-                        ItemEditMode(it)
-                    }
+                    state.allInterests.forEach { ItemEditMode(it) }
                 }
             } else {
                 Image(
-                    modifier = Modifier
-                        .size(137.dp)
-                        .clip(CircleShape),
-                    image = state.user.avatar.ifEmpty {
-                        rememberResourceUri(
-                            resourceId = when (state.user.sex) {
-                                Sex.MALE -> R.drawable.avatar_male
-                                Sex.FEMALE -> R.drawable.avatar_female
-                            }
-                        ).toString()
-                    }
+                    modifier = Modifier.size(137.dp).clip(CircleShape),
+                    image =
+                        state.user.avatar.ifEmpty {
+                            rememberResourceUri(
+                                    resourceId =
+                                        when (state.user.sex) {
+                                            Sex.MALE -> R.drawable.avatar_male
+                                            Sex.FEMALE -> R.drawable.avatar_female
+                                        }
+                                )
+                                .toString()
+                        }
                 )
                 if (state.user.name.isNotEmpty()) {
                     Text(
@@ -308,7 +309,11 @@ fun DatingProfileScreen(
                         )
                     }
                 }
-                if (state.user.age.isNotEmpty() || !state.user.occupation.isEmpty() || state.user.description.isNotEmpty()) {
+                if (
+                    state.user.age.isNotEmpty() ||
+                        !state.user.occupation.isEmpty() ||
+                        state.user.description.isNotEmpty()
+                ) {
                     Text(
                         modifier = Modifier,
                         text = stringResource(id = R.string.about_me),
@@ -360,9 +365,7 @@ fun DatingProfileScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        state.user.interests.forEach {
-                            Item(it)
-                        }
+                        state.user.interests.forEach { Item(it) }
                     }
                 }
             }
@@ -374,26 +377,29 @@ fun DatingProfileScreen(
 @Composable
 private fun DatingProfileScreenPreviewOwn() {
     IpbTheme {
-        val currentUser = DatingUser(
-            name = "Daniil Pechorin",
-            description = "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
-            interests = listOf(
-                Interest(name = "Zen Buddhism"),
-                Interest(name = "Cooking"),
-                Interest(name = "Programming")
-            ),
-            target = DatingTarget(name = "LALALA"),
-            distance = 112,
-            age = "90 y.0.",
-            occupation = Interest(name = "Android Super-Senior Staff Lead")
-        )
+        val currentUser =
+            DatingUser(
+                name = "Daniil Pechorin",
+                description =
+                    "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
+                interests =
+                    listOf(
+                        Interest(name = "Zen Buddhism"),
+                        Interest(name = "Cooking"),
+                        Interest(name = "Programming")
+                    ),
+                target = DatingTarget(name = "LALALA"),
+                distance = 112,
+                age = "90 y.0.",
+                occupation = Interest(name = "Android Super-Senior Staff Lead")
+            )
         DatingProfileScreen(
-            state = DatingProfileScreenState(
-                user = currentUser,
-            ),
+            state =
+                DatingProfileScreenState(
+                    user = currentUser,
+                ),
             useComponent = UseDatingProfileScreen.Empty()
         )
-
     }
 }
 
@@ -401,27 +407,26 @@ private fun DatingProfileScreenPreviewOwn() {
 @Composable
 private fun DatingProfileScreenPreviewOther() {
     IpbTheme {
-        val currentUser = DatingUser(
-            name = "Daniil Pechorin",
-            description = "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
-            interests = listOf(
-                Interest(name = "Zen Buddhism"),
-                Interest(name = "Cooking"),
-                Interest(name = "Programming")
-            ),
-            target = DatingTarget(name = "LALALA"),
-            distance = 112,
-            age = "90 y.0.",
-            occupation = Interest(name = "Android Super-Senior Staff Lead")
-        )
+        val currentUser =
+            DatingUser(
+                name = "Daniil Pechorin",
+                description =
+                    "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
+                interests =
+                    listOf(
+                        Interest(name = "Zen Buddhism"),
+                        Interest(name = "Cooking"),
+                        Interest(name = "Programming")
+                    ),
+                target = DatingTarget(name = "LALALA"),
+                distance = 112,
+                age = "90 y.0.",
+                occupation = Interest(name = "Android Super-Senior Staff Lead")
+            )
         DatingProfileScreen(
-            state = DatingProfileScreenState(
-                user = currentUser
-            ),
+            state = DatingProfileScreenState(user = currentUser),
             useComponent = UseDatingProfileScreen.Empty()
-
         )
-
     }
 }
 
@@ -429,29 +434,25 @@ private fun DatingProfileScreenPreviewOther() {
 @Composable
 private fun DatingProfileScreenPreviewEdit() {
     IpbTheme {
-        val currentUser = DatingUser(
-            name = "Daniil Pechorin",
-            description = "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
-            interests = listOf(
-                Interest(name = "Zen Buddhism"),
-                Interest(name = "Cooking"),
-                Interest(name = "Programming")
-            ),
-            target = DatingTarget(name = "LALALA"),
-            distance = 112,
-            age = "90 y.0.",
-            occupation = Interest(name = "Android Super-Senior Staff Lead")
-        )
+        val currentUser =
+            DatingUser(
+                name = "Daniil Pechorin",
+                description =
+                    "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
+                interests =
+                    listOf(
+                        Interest(name = "Zen Buddhism"),
+                        Interest(name = "Cooking"),
+                        Interest(name = "Programming")
+                    ),
+                target = DatingTarget(name = "LALALA"),
+                distance = 112,
+                age = "90 y.0.",
+                occupation = Interest(name = "Android Super-Senior Staff Lead")
+            )
         DatingProfileScreen(
-            state = DatingProfileScreenState(
-                user = currentUser,
-                editMode = true
-            ),
+            state = DatingProfileScreenState(user = currentUser, editMode = true),
             useComponent = UseDatingProfileScreen.Empty()
         )
-
     }
 }
-
-
-

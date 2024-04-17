@@ -13,8 +13,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
-interface UseWantThisScreen : UseStateColumn, UseTopBar, UseProfileButton, UseTextField, UseButton,
-    UseDocumentPhoto {
+interface UseWantThisScreen :
+    UseStateColumn, UseTopBar, UseProfileButton, UseTextField, UseButton, UseDocumentPhoto {
 
     class Empty : UseWantThisScreen {
 

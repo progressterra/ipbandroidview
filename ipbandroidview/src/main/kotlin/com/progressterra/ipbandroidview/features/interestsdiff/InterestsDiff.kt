@@ -18,23 +18,19 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun InterestsDiff(
-    modifier: Modifier = Modifier,
-    state: InterestsDiffState = InterestsDiffState()
-) {
+fun InterestsDiff(modifier: Modifier = Modifier, state: InterestsDiffState = InterestsDiffState()) {
 
     @Composable
-    fun Item(
-        itemState: InterestsDiffState.Item
-    ) {
+    fun Item(itemState: InterestsDiffState.Item) {
         val backgroundBrush =
-            if (itemState.match) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.secondary2.asBrush()
+            if (itemState.match) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.secondary2.asBrush()
         Box(
-            modifier = Modifier
-                .padding(vertical = 4.dp)
-                .clip(CircleShape)
-                .background(backgroundBrush)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Text(
                 text = itemState.name,
@@ -48,9 +44,7 @@ fun InterestsDiff(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        state.items.forEach {
-            Item(it)
-        }
+        state.items.forEach { Item(it) }
     }
 }
 
@@ -58,26 +52,22 @@ fun InterestsDiff(
 @Composable
 private fun InterestsDiffPreview() {
     InterestsDiff(
-        state = InterestsDiffState(
-            items = listOf(
-                InterestsDiffState.Item(
-                    name = "coffee", match = true
-                ), InterestsDiffState.Item(
-                    name = "sport", match = true
-                ), InterestsDiffState.Item(
-                    name = "tea", match = true
-                ), InterestsDiffState.Item(
-                    name = "lalala", match = true
-                ), InterestsDiffState.Item(
-                    name = "some very long interest like a small dog psychology", match = false
-                ), InterestsDiffState.Item(
-                    name = "armenian coffee", match = false
-                ), InterestsDiffState.Item(
-                    name = "argentinian coffee", match = false
-                ), InterestsDiffState.Item(
-                    name = "colombian coffee", match = false
-                )
+        state =
+            InterestsDiffState(
+                items =
+                    listOf(
+                        InterestsDiffState.Item(name = "coffee", match = true),
+                        InterestsDiffState.Item(name = "sport", match = true),
+                        InterestsDiffState.Item(name = "tea", match = true),
+                        InterestsDiffState.Item(name = "lalala", match = true),
+                        InterestsDiffState.Item(
+                            name = "some very long interest like a small dog psychology",
+                            match = false
+                        ),
+                        InterestsDiffState.Item(name = "armenian coffee", match = false),
+                        InterestsDiffState.Item(name = "argentinian coffee", match = false),
+                        InterestsDiffState.Item(name = "colombian coffee", match = false)
+                    )
             )
-        )
     )
 }

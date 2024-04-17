@@ -15,4 +15,3 @@ interface ChecklistUseCase : PagingUseCase<String, Check> {
         override fun createSource() = ChecklistSource(obtainAccessToken, checklistService)
     }
 }
-

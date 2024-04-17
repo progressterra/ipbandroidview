@@ -8,26 +8,28 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.flow.collectLatest
 
-class SupportScreenViewModel(
-    private val fetchChatsUseCase: FetchChatsUseCase
-) : AbstractNonInputViewModel<SupportScreenState, SupportScreenEffect>(), UseSupportScreen {
+class SupportScreenViewModel(private val fetchChatsUseCase: FetchChatsUseCase) :
+    AbstractNonInputViewModel<SupportScreenState, SupportScreenEffect>(), UseSupportScreen {
 
     override fun createInitialState() = SupportScreenState()
 
     init {
         onBackground {
             fetchChatsUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { newState ->
-                    val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
-                    emitState {
-                        it.copy(
-                            screen = it.screen.copy(state = ScreenState.SUCCESS),
-                            current = cached
-                        )
+                result
+                    .onSuccess { newState ->
+                        val cached =
+                            newState.copy(subCategories = cachePaging(newState.subCategories))
+                        emitState {
+                            it.copy(
+                                screen = it.screen.copy(state = ScreenState.SUCCESS),
+                                current = cached
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }

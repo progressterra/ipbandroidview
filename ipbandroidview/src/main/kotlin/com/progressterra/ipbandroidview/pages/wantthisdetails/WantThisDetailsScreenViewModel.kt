@@ -9,15 +9,15 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatSt
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.docs.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
+import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchWantThisDetailsChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
-import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
-import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule
 import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
@@ -42,7 +42,8 @@ class WantThisDetailsScreenViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchSingleGoodsUseCase: FetchSingleGoodsUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase
-) : AbstractInputViewModel<Document, WantThisDetailsScreenState, WantThisDetailsScreenEffect>(),
+) :
+    AbstractInputViewModel<Document, WantThisDetailsScreenState, WantThisDetailsScreenEffect>(),
     UseWantThisDetailsScreen {
 
     override fun createInitialState() = WantThisDetailsScreenState()
@@ -54,43 +55,43 @@ class WantThisDetailsScreenViewModel(
             this,
             object : ModuleUser<AttachableChatState> {
 
-                override fun emitModuleState(reducer: (AttachableChatState) -> AttachableChatState) {
-                    emitState {
-                        it.copy(chat = reducer(currentState.chat))
-                    }
+                override fun emitModuleState(
+                    reducer: (AttachableChatState) -> AttachableChatState
+                ) {
+                    emitState { it.copy(chat = reducer(currentState.chat)) }
                 }
 
                 override val moduleState: AttachableChatState
                     get() = currentState.chat
-            })
-
-    private val docsModule = DocsModule(
-        documentValidationUseCase,
-        DocsVerificationPolicy.PHOTO_OR_TEXT,
-        checkPermissionUseCase,
-        askPermissionUseCase,
-        makePhotoUseCase,
-        this,
-        object : DocsModuleUser {
-
-            override fun emitModuleState(reducer: (Document) -> Document) {
-                emitState { it.copy(document = reducer(currentState.document)) }
             }
+        )
 
-            override val moduleState: Document
-                get() = currentState.document
+    private val docsModule =
+        DocsModule(
+            documentValidationUseCase,
+            DocsVerificationPolicy.PHOTO_OR_TEXT,
+            checkPermissionUseCase,
+            askPermissionUseCase,
+            makePhotoUseCase,
+            this,
+            object : DocsModuleUser {
 
-            override fun isValid(isValid: Boolean) {
-                emitState {
-                    it.copy(apply = it.apply.copy(enabled = isValid))
+                override fun emitModuleState(reducer: (Document) -> Document) {
+                    emitState { it.copy(document = reducer(currentState.document)) }
+                }
+
+                override val moduleState: Document
+                    get() = currentState.document
+
+                override fun isValid(isValid: Boolean) {
+                    emitState { it.copy(apply = it.apply.copy(enabled = isValid)) }
+                }
+
+                override fun openPhoto(url: String) {
+                    postEffect(WantThisDetailsScreenEffect.OpenPhoto(url))
                 }
             }
-
-            override fun openPhoto(url: String) {
-                postEffect(WantThisDetailsScreenEffect.OpenPhoto(url))
-            }
-        }
-    )
+        )
 
     override fun setup(data: Document) {
         emitState { it.copy(document = data) }
@@ -101,22 +102,15 @@ class WantThisDetailsScreenViewModel(
         onBackground {
             var isSuccess = true
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            fetchWantThisDetailsChatUseCase(
-                currentState.document.id,
-                currentState.document.name
-            ).onSuccess { dialogId ->
-                attachableChatModule.setup(dialogId)
-                attachableChatModule.refresh()
-            }.onFailure {
-                isSuccess = false
-            }
-            fetchSingleGoodsUseCase(
-                currentState.document.additionalValue
-            ).onSuccess { newStoreCard ->
-                emitState { it.copy(storeCard = newStoreCard) }
-            }.onFailure {
-                isSuccess = false
-            }
+            fetchWantThisDetailsChatUseCase(currentState.document.id, currentState.document.name)
+                .onSuccess { dialogId ->
+                    attachableChatModule.setup(dialogId)
+                    attachableChatModule.refresh()
+                }
+                .onFailure { isSuccess = false }
+            fetchSingleGoodsUseCase(currentState.document.additionalValue)
+                .onSuccess { newStoreCard -> emitState { it.copy(storeCard = newStoreCard) } }
+                .onFailure { isSuccess = false }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
@@ -124,15 +118,10 @@ class WantThisDetailsScreenViewModel(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id, onAuth = {}).onSuccess {
-                    refresh()
-                }
-
-                is StoreCardEvent.Open -> postEffect(
-                    WantThisDetailsScreenEffect.GoodsDetails(
-                        event.id
-                    )
-                )
+                is StoreCardEvent.AddToCart ->
+                    addToCartUseCase(event.id, onAuth = {}).onSuccess { refresh() }
+                is StoreCardEvent.Open ->
+                    postEffect(WantThisDetailsScreenEffect.GoodsDetails(event.id))
             }
         }
     }
@@ -144,13 +133,9 @@ class WantThisDetailsScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id, onAuth = {}).onSuccess {
-                    refresh()
-                }
-
-                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                    refresh()
-                }
+                is CounterEvent.Add ->
+                    addToCartUseCase(event.id, onAuth = {}).onSuccess { refresh() }
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess { refresh() }
             }
         }
     }
@@ -162,9 +147,10 @@ class WantThisDetailsScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> saveDocumentsUseCase(currentState.document).onSuccess {
-                    postEffect(WantThisDetailsScreenEffect.Back)
-                }
+                "apply" ->
+                    saveDocumentsUseCase(currentState.document).onSuccess {
+                        postEffect(WantThisDetailsScreenEffect.Back)
+                    }
             }
         }
     }

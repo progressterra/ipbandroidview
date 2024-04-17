@@ -6,11 +6,4 @@ import com.progressterra.ipbandroidview.processes.processesModule
 import com.progressterra.ipbandroidview.shared.sharedModule
 import org.koin.dsl.module
 
-val ipbModule = module {
-    includes(
-        iPBAndroidAPIModule,
-        pagesModule,
-        sharedModule,
-        processesModule
-    )
-}
+val ipbModule = module { includes(iPBAndroidAPIModule, pagesModule, sharedModule, processesModule) }

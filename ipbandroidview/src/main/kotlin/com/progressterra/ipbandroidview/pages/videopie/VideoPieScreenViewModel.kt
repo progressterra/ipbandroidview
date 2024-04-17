@@ -7,13 +7,12 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicInteger
 
-class VideoPieScreenViewModel(
-    private val fileExplorer: FileExplorer
-) : AbstractNonInputViewModel<VideoPieScreenState, Nothing>(), UseVideoPieScreen {
+class VideoPieScreenViewModel(private val fileExplorer: FileExplorer) :
+    AbstractNonInputViewModel<VideoPieScreenState, Nothing>(), UseVideoPieScreen {
 
     override fun createInitialState() = VideoPieScreenState()
 
@@ -22,17 +21,19 @@ class VideoPieScreenViewModel(
         currentState.toDownload.forEachIndexed { index, url ->
             viewModelScope.launch(Dispatchers.IO) {
                 val fileName = "Video$index.mp4"
-                fileExplorer.downloadFile(url = url,
+                fileExplorer.downloadFile(
+                    url = url,
                     fileName = fileName,
                     progress = { progress ->
                         if (progress == 100F) {
                             if (counter.incrementAndGet() == currentState.toDownload.size) {
-                                val mediaItems = List(currentState.toDownload.size) { mapIndex ->
-                                    val tempFileName = "Video$mapIndex.mp4"
-                                    val file = fileExplorer.file(tempFileName)
-                                    val uri = fileExplorer.uriForFile(file)
-                                    MediaItem.fromUri(uri)
-                                }
+                                val mediaItems =
+                                    List(currentState.toDownload.size) { mapIndex ->
+                                        val tempFileName = "Video$mapIndex.mp4"
+                                        val file = fileExplorer.file(tempFileName)
+                                        val uri = fileExplorer.uriForFile(file)
+                                        MediaItem.fromUri(uri)
+                                    }
                                 emitState {
                                     it.copy(
                                         screen = it.screen.copy(state = ScreenState.SUCCESS),
@@ -46,7 +47,8 @@ class VideoPieScreenViewModel(
                     },
                     handleException = {
                         emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                    })
+                    }
+                )
             }
         }
     }
@@ -56,12 +58,7 @@ class VideoPieScreenViewModel(
     }
 
     private fun next() {
-        emitState {
-            it.copy(
-                current = it.next,
-                next = (it.downloaded - it.next).random()
-            )
-        }
+        emitState { it.copy(current = it.next, next = (it.downloaded - it.next).random()) }
     }
 
     override fun handle(event: VideoPieScreenEvent) = Unit

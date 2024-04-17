@@ -11,10 +11,10 @@ import com.progressterra.ipbandroidview.processes.order.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.processes.order.YouKassaPaymentUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 
 class PaymentScreenViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
@@ -31,30 +31,18 @@ class PaymentScreenViewModel(
         onBackground {
             emitState { createInitialState() }
             var isSuccess = true
-            fetchPaymentMethods().onSuccess { paymentMethods ->
-                emitState {
-                    it.copy(paymentMethod = paymentMethods)
+            fetchPaymentMethods()
+                .onSuccess { paymentMethods ->
+                    emitState { it.copy(paymentMethod = paymentMethods) }
                 }
-            }.onFailure {
-                isSuccess = false
-            }
-            fetchBonusSwitchUseCase().onSuccess { bonusSwitch ->
-                emitState {
-                    it.copy(bonusSwitch = bonusSwitch)
-                }
-            }.onFailure {
-                isSuccess = false
-            }
-            fetchReceiptUseCase().onSuccess { receipt ->
-                emitState {
-                    it.copy(receipt = receipt)
-                }
-            }.onFailure {
-                isSuccess = false
-            }
-            emitState {
-                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
-            }
+                .onFailure { isSuccess = false }
+            fetchBonusSwitchUseCase()
+                .onSuccess { bonusSwitch -> emitState { it.copy(bonusSwitch = bonusSwitch) } }
+                .onFailure { isSuccess = false }
+            fetchReceiptUseCase()
+                .onSuccess { receipt -> emitState { it.copy(receipt = receipt) } }
+                .onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
@@ -66,15 +54,22 @@ class PaymentScreenViewModel(
         onBackground {
             when (event.id) {
                 "pay" -> {
-                    emitState { it.copy(receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = false))) }
-                    val result = when (currentState.paymentMethod.selectedPaymentMethod) {
-                        PaymentType.InnerBalance -> confirmOrderUseCase()
-                        PaymentType.YouKassa -> youKassaPaymentUseCase()
+                    emitState {
+                        it.copy(
+                            receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = false))
+                        )
                     }
-                    result.onSuccess {
-                        postEffect(PaymentScreenEffect.Next(it))
+                    val result =
+                        when (currentState.paymentMethod.selectedPaymentMethod) {
+                            PaymentType.InnerBalance -> confirmOrderUseCase()
+                            PaymentType.YouKassa -> youKassaPaymentUseCase()
+                        }
+                    result.onSuccess { postEffect(PaymentScreenEffect.Next(it)) }
+                    emitState {
+                        it.copy(
+                            receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = true))
+                        )
                     }
-                    emitState { it.copy(receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = true))) }
                 }
             }
         }
@@ -82,15 +77,18 @@ class PaymentScreenViewModel(
 
     override fun handle(event: SwitchEvent) {
         when (event.id) {
-            "useBonuses" -> emitState {
-                it.copy(
-                    bonusSwitch = it.bonusSwitch.copy(
-                        useBonuses = it.bonusSwitch.useBonuses.copy(
-                            enabled = !it.bonusSwitch.useBonuses.enabled
-                        )
+            "useBonuses" ->
+                emitState {
+                    it.copy(
+                        bonusSwitch =
+                            it.bonusSwitch.copy(
+                                useBonuses =
+                                    it.bonusSwitch.useBonuses.copy(
+                                        enabled = !it.bonusSwitch.useBonuses.enabled
+                                    )
+                            )
                     )
-                )
-            }
+                }
         }
     }
 
@@ -99,9 +97,7 @@ class PaymentScreenViewModel(
     }
 
     override fun handle(event: LinkTextEvent) {
-        onBackground {
-            openUrlUseCase(event.url)
-        }
+        onBackground { openUrlUseCase(event.url) }
     }
 
     override fun handle(event: PaymentMethodEvent) {

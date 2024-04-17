@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-
 data class InterestsScreenState(
     val screen: StateColumnState = StateColumnState(),
     val userInterests: List<Interest> = emptyList(),

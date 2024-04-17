@@ -22,43 +22,58 @@ class DatingChatsSource(
     override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<DatingChat>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
-            val response = messengerRepository.clientAreaDialogList(
-                accessToken = token,
-                body = FilterAndSort(
-                    listFields = listOf(),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = skip,
-                    take = take
-                )
-            ).dataList ?: emptyList()
-            response.size to response.map {
-                val lastMessage = messengerRepository.clientAreaMessageList(
-                    accessToken = token,
-                    body = FilterAndSort(
-                        listFields = listOf(
-                            FieldForFilter(
-                                fieldName = "idDialog",
-                                listValue = listOf(it.idUnique!!),
-                                comparison = TypeComparison.EQUALS_STRONG
+            val response =
+                messengerRepository
+                    .clientAreaDialogList(
+                        accessToken = token,
+                        body =
+                            FilterAndSort(
+                                listFields = listOf(),
+                                sort =
+                                    SortData(
+                                        fieldName = "dateAdded",
+                                        variantSort = TypeVariantSort.DESC
+                                    ),
+                                searchData = "",
+                                skip = skip,
+                                take = take
                             )
-                        ),
-                        sort = SortData(
-                            fieldName = "dateAdded",
-                            variantSort = TypeVariantSort.DESC
-                        ),
-                        searchData = "",
-                        skip = 0,
-                        take = 1
                     )
-                ).dataList?.lastOrNull()?.toMessage()
-                it.toDatingChat().copy(
-                    previewMessage = lastMessage?.content ?: "",
-                    lastTime = lastMessage?.date ?: ""
-                )
-            }
+                    .dataList ?: emptyList()
+            response.size to
+                response.map {
+                    val lastMessage =
+                        messengerRepository
+                            .clientAreaMessageList(
+                                accessToken = token,
+                                body =
+                                    FilterAndSort(
+                                        listFields =
+                                            listOf(
+                                                FieldForFilter(
+                                                    fieldName = "idDialog",
+                                                    listValue = listOf(it.idUnique!!),
+                                                    comparison = TypeComparison.EQUALS_STRONG
+                                                )
+                                            ),
+                                        sort =
+                                            SortData(
+                                                fieldName = "dateAdded",
+                                                variantSort = TypeVariantSort.DESC
+                                            ),
+                                        searchData = "",
+                                        skip = 0,
+                                        take = 1
+                                    )
+                            )
+                            .dataList
+                            ?.lastOrNull()
+                            ?.toMessage()
+                    it.toDatingChat()
+                        .copy(
+                            previewMessage = lastMessage?.content ?: "",
+                            lastTime = lastMessage?.date ?: ""
+                        )
+                }
         }
 }

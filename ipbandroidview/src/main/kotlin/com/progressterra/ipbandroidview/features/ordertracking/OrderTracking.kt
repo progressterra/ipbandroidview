@@ -25,27 +25,26 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun OrderTracking(
-    modifier: Modifier = Modifier, state: OrderTrackingState
-) {
+fun OrderTracking(modifier: Modifier = Modifier, state: OrderTrackingState) {
 
-    val steps = mapOf(
-        TypeStatusOrder.CONFIRM_FROM_STORE to 0,
-        TypeStatusOrder.CONFIRM_FROM_CALL_CENTER to 1,
-        TypeStatusOrder.SENT_TO_WAREHOUSE to 2,
-        TypeStatusOrder.SENT_DELIVERY_SERVICE to 3,
-        TypeStatusOrder.ON_PICK_UP_POINT to 4,
-        TypeStatusOrder.DELIVERED to 5
-    )
+    val steps =
+        mapOf(
+            TypeStatusOrder.CONFIRM_FROM_STORE to 0,
+            TypeStatusOrder.CONFIRM_FROM_CALL_CENTER to 1,
+            TypeStatusOrder.SENT_TO_WAREHOUSE to 2,
+            TypeStatusOrder.SENT_DELIVERY_SERVICE to 3,
+            TypeStatusOrder.ON_PICK_UP_POINT to 4,
+            TypeStatusOrder.DELIVERED to 5
+        )
 
     @Composable
-    fun Item(
-        itemState: TypeStatusOrder
-    ) {
+    fun Item(itemState: TypeStatusOrder) {
         val brush =
-            if (state.status == itemState) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textSecondary.asBrush()
+            if (state.status == itemState) IpbTheme.colors.textPrimary.asBrush()
+            else IpbTheme.colors.textSecondary.asBrush()
         val style =
-            if (state.status == itemState) IpbTheme.typography.body else IpbTheme.typography.subHeadlineRegular
+            if (state.status == itemState) IpbTheme.typography.body
+            else IpbTheme.typography.subHeadlineRegular
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -62,26 +61,21 @@ fun OrderTracking(
             } else {
                 Spacer(modifier = Modifier.width(20.dp))
             }
-            Text(
-                text = itemState.toString { stringResource(id = it) },
-                tint = brush,
-                style = style
-            )
+            Text(text = itemState.toString { stringResource(id = it) }, tint = brush, style = style)
         }
     }
 
     if (steps.containsKey(state.status)) {
         Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .padding(8.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
                     text = state.status.toString { stringResource(id = it) },
                     tint = IpbTheme.colors.textPrimary.asBrush(),

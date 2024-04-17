@@ -22,23 +22,26 @@ fun PulsingDot(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "pulsing dot")
 
     @Composable
-    fun Dot(
-        modifier: Modifier,
-        scale: Float
-    ) = Spacer(
-        modifier
-            .size(48.dp)
-            .scale(scale)
-            .background(brush = IpbTheme.colors.primary.asBrush(), shape = CircleShape, alpha = 0.5f)
-    )
+    fun Dot(modifier: Modifier, scale: Float) =
+        Spacer(
+            modifier
+                .size(48.dp)
+                .scale(scale)
+                .background(
+                    brush = IpbTheme.colors.primary.asBrush(),
+                    shape = CircleShape,
+                    alpha = 0.5f
+                )
+        )
 
     @Composable
-    fun animateScale() = infiniteTransition.animateFloat(
-        label = "Pulsing dot animation",
-        initialValue = 1f,
-        targetValue = 0.7f,
-        animationSpec = infiniteRepeatable(animation = tween(), repeatMode = RepeatMode.Reverse)
-    )
+    fun animateScale() =
+        infiniteTransition.animateFloat(
+            label = "Pulsing dot animation",
+            initialValue = 1f,
+            targetValue = 0.7f,
+            animationSpec = infiniteRepeatable(animation = tween(), repeatMode = RepeatMode.Reverse)
+        )
 
     val scale by animateScale()
     Dot(modifier, scale)

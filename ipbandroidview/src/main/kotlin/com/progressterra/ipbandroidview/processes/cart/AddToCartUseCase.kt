@@ -31,47 +31,51 @@ interface AddToCartUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepo: CartService,
-        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        private val productRepository: ProductRepository,
+        makeToastUseCase: MakeToastUseCase,
         private val makeDialogUseCase: MakeDialogUseCase,
         manageResources: ManageResources
-    ) : AddToCartUseCase,
+    ) :
+        AddToCartUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(
             goodsId: String,
             count: Int,
             onAuth: () -> Unit
-        ): Result<CartScreenState> =
-            withToken { token ->
-                if (!UserData.clientExist) {
-                    makeDialogUseCase.auth(onAuth)
-                    throw SilentException()
-                }
-                val goods = cartRepo.addToCart(
-                    token,
-                    IncomeDataAddProductFullPrice(
-                        idrfNomenclature = goodsId,
-                        count = 1
-                    )
-                ).also {
-                    if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
-                        it.result?.message ?: ""
-                    )
-                }.data?.listDRSale?.mapNotNull {
-                    val oneGoods =
-                        productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
-                            .getOrThrow()?.toGoodsItem()?.toCartCardState()
-                    oneGoods?.copy(
-                        price = it.amountEndPrice?.toPrice() ?: Price(),
-                        counter = oneGoods.counter.copy(count = it.quantity ?: 0)
-                    )
-                } ?: emptyList()
-                CartScreenState(
-                    items = CartItemsState(goods),
-                    summary = CartSummaryState(
-                        total = goods.map { it.price }.sum()
-                    )
-                )
+        ): Result<CartScreenState> = withToken { token ->
+            if (!UserData.clientExist) {
+                makeDialogUseCase.auth(onAuth)
+                throw SilentException()
             }
+            val goods =
+                cartRepo
+                    .addToCart(
+                        token,
+                        IncomeDataAddProductFullPrice(idrfNomenclature = goodsId, count = 1)
+                    )
+                    .also {
+                        if (it.result?.status != StatusResult.SUCCESS)
+                            throw ToastedException(it.result?.message ?: "")
+                    }
+                    .data
+                    ?.listDRSale
+                    ?.mapNotNull {
+                        val oneGoods =
+                            productRepository
+                                .productByNomenclatureId(token, it.idrfNomenclature!!)
+                                .getOrThrow()
+                                ?.toGoodsItem()
+                                ?.toCartCardState()
+                        oneGoods?.copy(
+                            price = it.amountEndPrice?.toPrice() ?: Price(),
+                            counter = oneGoods.counter.copy(count = it.quantity ?: 0)
+                        )
+                    } ?: emptyList()
+            CartScreenState(
+                items = CartItemsState(goods),
+                summary = CartSummaryState(total = goods.map { it.price }.sum())
+            )
+        }
     }
 }

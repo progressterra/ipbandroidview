@@ -21,11 +21,11 @@ import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
-
 @Composable
 fun WelcomeScreen(
     modifier: Modifier = Modifier,
-    state: WelcomeScreenState, useComponent: UseWelcomeScreen
+    state: WelcomeScreenState,
+    useComponent: UseWelcomeScreen
 ) {
     Layout(
         modifier = modifier,
@@ -47,13 +47,9 @@ fun WelcomeScreen(
                     useComponent = useComponent
                 )
             }
-        }) { _, _ ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            contentAlignment = Alignment.Center
-        ) {
+        }
+    ) { _, _ ->
+        Box(modifier = Modifier.fillMaxSize().padding(20.dp), contentAlignment = Alignment.Center) {
             Image(
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.FillWidth,

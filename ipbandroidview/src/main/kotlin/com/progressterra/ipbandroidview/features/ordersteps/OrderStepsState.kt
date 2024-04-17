@@ -5,4 +5,3 @@ enum class OrderStepsState {
     PAYMENT,
     FINISHED
 }
-

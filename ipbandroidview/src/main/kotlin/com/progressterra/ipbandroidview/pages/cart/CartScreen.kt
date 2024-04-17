@@ -27,34 +27,27 @@ import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummary
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 @Composable
-fun CartScreen(
-    modifier: Modifier = Modifier, state: CartScreenState, useComponent: UseCartScreen
-) {
+fun CartScreen(modifier: Modifier = Modifier, state: CartScreenState, useComponent: UseCartScreen) {
     Layout(
         modifier = modifier,
-        topBar = {
-            TopBar(
-                title = stringResource(R.string.cart), useComponent = useComponent
-            )
-        }, bottomBar = {
+        topBar = { TopBar(title = stringResource(R.string.cart), useComponent = useComponent) },
+        bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
             ) {
-                CartSummary(
-                    state = state.summary, useComponent = useComponent
-                )
+                CartSummary(state = state.summary, useComponent = useComponent)
             }
-        }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             CartItems(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
-                state = state.items, useComponent = useComponent
+                state = state.items,
+                useComponent = useComponent
             )
         }
     }
@@ -64,43 +57,46 @@ fun CartScreen(
 @Composable
 fun CartScreenPreview() {
     CartScreen(
-        state = CartScreenState(
-            screen = StateColumnState(state = ScreenState.SUCCESS),
-            items = CartItemsState(
-                items = listOf(
-                    CartCardState(
-                        id = "1",
-                        name = "Товар 1",
-                        price = Price(10000),
-                        counter = CounterState(count = 1),
-                        image = "https://picsum.photos/200/300"
+        state =
+            CartScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                items =
+                    CartItemsState(
+                        items =
+                            listOf(
+                                CartCardState(
+                                    id = "1",
+                                    name = "Товар 1",
+                                    price = Price(10000),
+                                    counter = CounterState(count = 1),
+                                    image = "https://picsum.photos/200/300"
+                                ),
+                                CartCardState(
+                                    id = "2",
+                                    name = "Товар 2",
+                                    price = Price(2000),
+                                    counter = CounterState(count = 1),
+                                    image = "https://picsum.photos/200/300"
+                                ),
+                                CartCardState(
+                                    id = "3",
+                                    name = "Товар 3",
+                                    price = Price(2000),
+                                    counter = CounterState(count = 1),
+                                    image = "https://picsum.photos/200/300"
+                                ),
+                                CartCardState(
+                                    id = "4",
+                                    name = "Товар 4",
+                                    price = Price(2000),
+                                    counter = CounterState(count = 1),
+                                    image = "https://picsum.photos/200/300"
+                                ),
+                            )
                     ),
-                    CartCardState(
-                        id = "2",
-                        name = "Товар 2",
-                        price = Price(2000),
-                        counter = CounterState(count = 1),
-                        image = "https://picsum.photos/200/300"
-                    ),
-                    CartCardState(
-                        id = "3",
-                        name = "Товар 3",
-                        price = Price(2000),
-                        counter = CounterState(count = 1),
-                        image = "https://picsum.photos/200/300"
-                    ),
-                    CartCardState(
-                        id = "4",
-                        name = "Товар 4",
-                        price = Price(2000),
-                        counter = CounterState(count = 1),
-                        image = "https://picsum.photos/200/300"
-                    ),
-                )
-            ), summary = CartSummaryState(
-                total = Price(12000)
-            )
-        ), useComponent = UseCartScreen.Empty()
+                summary = CartSummaryState(total = Price(12000))
+            ),
+        useComponent = UseCartScreen.Empty()
     )
 }
 
@@ -108,14 +104,15 @@ fun CartScreenPreview() {
 @Composable
 fun CartScreenPreviewEmpty() {
     CartScreen(
-        state = CartScreenState(
-            screen = StateColumnState(state = ScreenState.SUCCESS),
-            items = CartItemsState(
-                items = emptyList(),
-            ), summary = CartSummaryState(
-                total = Price(0),
-                proceed = ButtonState(enabled = false)
-            )
-        ), useComponent = UseCartScreen.Empty()
+        state =
+            CartScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                items =
+                    CartItemsState(
+                        items = emptyList(),
+                    ),
+                summary = CartSummaryState(total = Price(0), proceed = ButtonState(enabled = false))
+            ),
+        useComponent = UseCartScreen.Empty()
     )
 }

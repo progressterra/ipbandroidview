@@ -4,4 +4,3 @@ interface UseSwitch {
 
     fun handle(event: SwitchEvent)
 }
-

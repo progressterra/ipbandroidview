@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
@@ -28,31 +28,35 @@ fun LocationPermissionScreen(
     state: LocationPermissionScreenState,
     useComponent: UseLocationPermissionScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.location),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.give,
-                useComponent = useComponent,
-                title = stringResource(R.string.give_access)
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.location),
+                showBackButton = true,
+                useComponent = useComponent
             )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.skip,
-                useComponent = useComponent,
-                title = stringResource(R.string.skip_yet)
-            )
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.give,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.give_access)
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.skip_yet)
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         Column(
             modifier = Modifier.padding(top = 36.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -65,10 +69,7 @@ fun LocationPermissionScreen(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(63.dp))
-            Icon(
-                resId = R.drawable.ic_location,
-                tint = IpbTheme.colors.iconPrimary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_location, tint = IpbTheme.colors.iconPrimary.asBrush())
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 modifier = Modifier.padding(start = 53.dp, end = 53.dp),
@@ -79,7 +80,6 @@ fun LocationPermissionScreen(
             )
         }
     }
-
 }
 
 @Preview

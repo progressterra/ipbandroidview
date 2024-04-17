@@ -30,30 +30,27 @@ fun Layout(
     bottomOverlap: Boolean = false,
     content: @Composable (topPadding: Dp, bottomPadding: Dp) -> Unit
 ) {
-    Box(
-        modifier = modifier
-            .background(backgroundColor)
-    ) {
+    Box(modifier = modifier.background(backgroundColor)) {
         val density = LocalDensity.current
         var topBarHeight by remember { mutableStateOf(0.dp) }
         var bottomBarHeight by remember { mutableStateOf(0.dp) }
         Box(
-            modifier = Modifier
-                .zIndex(1f)
-                .align(Alignment.TopCenter)
-                .fillMaxWidth()
-                .onGloballyPositioned { topBarHeight = with(density) { it.size.height.toDp() } },
+            modifier =
+                Modifier.zIndex(1f).align(Alignment.TopCenter).fillMaxWidth().onGloballyPositioned {
+                    topBarHeight = with(density) { it.size.height.toDp() }
+                },
             contentAlignment = Alignment.Center
         ) {
             topBar()
         }
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    top = if (topOverlap) 0.dp else topBarHeight,
-                    bottom = if (bottomOverlap) 0.dp else bottomBarHeight
-                ), contentAlignment = Alignment.TopCenter
+            modifier =
+                Modifier.fillMaxSize()
+                    .padding(
+                        top = if (topOverlap) 0.dp else topBarHeight,
+                        bottom = if (bottomOverlap) 0.dp else bottomBarHeight
+                    ),
+            contentAlignment = Alignment.TopCenter
         ) {
             content(
                 if (topOverlap) topBarHeight else 0.dp,
@@ -61,11 +58,13 @@ fun Layout(
             )
         }
         Box(
-            modifier = Modifier
-                .zIndex(1f)
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .onGloballyPositioned { bottomBarHeight = with(density) { it.size.height.toDp() } },
+            modifier =
+                Modifier.zIndex(1f)
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .onGloballyPositioned {
+                        bottomBarHeight = with(density) { it.size.height.toDp() }
+                    },
             contentAlignment = Alignment.Center
         ) {
             bottomBar()

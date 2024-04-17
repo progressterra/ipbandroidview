@@ -21,10 +21,7 @@ import com.progressterra.ipbandroidview.shared.ui.Divider
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun BonusesTransactions(
-    modifier: Modifier = Modifier,
-    state: BonusesTransactionsState
-) {
+fun BonusesTransactions(modifier: Modifier = Modifier, state: BonusesTransactionsState) {
     Column(
         modifier = modifier.padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -37,15 +34,13 @@ fun BonusesTransactions(
         )
         if (state.transactions.isNotEmpty()) {
             LazyColumn(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.surface.asBrush()),
+                modifier =
+                    Modifier.clip(RoundedCornerShape(12.dp))
+                        .background(IpbTheme.colors.surface.asBrush()),
                 contentPadding = PaddingValues(24.dp)
             ) {
                 itemsIndexed(state.transactions) { index, item ->
-                    BonusTransaction(
-                        state = item
-                    )
+                    BonusTransaction(state = item)
                     if (index != state.transactions.lastIndex) {
                         Divider(tint = IpbTheme.colors.background.asColor())
                     }

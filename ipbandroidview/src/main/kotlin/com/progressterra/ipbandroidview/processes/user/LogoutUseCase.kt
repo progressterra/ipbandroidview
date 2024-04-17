@@ -8,8 +8,6 @@ interface LogoutUseCase {
 
     class Base : LogoutUseCase {
 
-        override suspend fun invoke(): Result<Unit> = runCatching {
-            UserData.clearUser()
-        }
+        override suspend fun invoke(): Result<Unit> = runCatching { UserData.clearUser() }
     }
 }

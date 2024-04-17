@@ -11,9 +11,7 @@ class AvatarPickerScreenViewModel :
     UseAvatarPickerScreen {
     override fun createInitialState() = AvatarPickerScreenState()
 
-    override fun handle(event: AvatarPickerEvent) {
-
-    }
+    override fun handle(event: AvatarPickerEvent) {}
 
     override fun handle(event: TopBarEvent) {
         postEffect(AvatarPickerScreenEffect.OnBack)
@@ -27,4 +25,3 @@ class AvatarPickerScreenViewModel :
         refresh()
     }
 }
-

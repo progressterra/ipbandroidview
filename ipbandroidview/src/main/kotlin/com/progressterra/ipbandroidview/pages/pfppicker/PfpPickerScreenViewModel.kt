@@ -18,49 +18,48 @@ class PfpPickerScreenViewModel(
     private val pickPhotoUseCase: PickPhotoUseCase,
     private val saveAvatarUseCase: SaveAvatarUseCase,
     private val makeToastUseCase: MakeToastUseCase
-) :
-    AbstractNonInputViewModel<PfpPickerScreenState, PfpPickerScreenEffect>(), UsePfpPickerScreen {
+) : AbstractNonInputViewModel<PfpPickerScreenState, PfpPickerScreenEffect>(), UsePfpPickerScreen {
 
     override fun createInitialState() = PfpPickerScreenState()
 
     init {
         onBackground {
             fetchDatingUserUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { user ->
-                    emitState {
-                        it.copy(
-                            pfpPicker = it.pfpPicker.copy(url = user.avatar),
-                            choose = it.choose.copy(enabled = user.avatar.isNotEmpty()),
-                            screen = it.screen.copy(state = ScreenState.SUCCESS)
-                        )
+                result
+                    .onSuccess { user ->
+                        emitState {
+                            it.copy(
+                                pfpPicker = it.pfpPicker.copy(url = user.avatar),
+                                choose = it.choose.copy(enabled = user.avatar.isNotEmpty()),
+                                screen = it.screen.copy(state = ScreenState.SUCCESS)
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
 
     override fun refresh() {
-        onBackground {
-            fetchDatingUserUseCase()
-        }
+        onBackground { fetchDatingUserUseCase() }
     }
 
     override fun handle(event: PfpPickerEvent) {
         onBackground {
             pickPhotoUseCase().onSuccess { path ->
-                saveAvatarUseCase(path).onSuccess {
-                    emitState {
-                        it.copy(
-                            pfpPicker = it.pfpPicker.copy(url = path.toString()),
-                            choose = it.choose.copy(enabled = true)
-                        )
+                saveAvatarUseCase(path)
+                    .onSuccess {
+                        emitState {
+                            it.copy(
+                                pfpPicker = it.pfpPicker.copy(url = path.toString()),
+                                choose = it.choose.copy(enabled = true)
+                            )
+                        }
+                        makeToastUseCase(R.string.success)
                     }
-                    makeToastUseCase(R.string.success)
-                }.onFailure {
-                    makeToastUseCase(R.string.failure)
-                }
+                    .onFailure { makeToastUseCase(R.string.failure) }
             }
         }
     }
@@ -78,4 +77,3 @@ class PfpPickerScreenViewModel(
         refresh()
     }
 }
-

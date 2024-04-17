@@ -27,11 +27,8 @@ fun GoodsDetailsScreen(
 ) {
     Layout(
         modifier = modifier,
-        topBar = {
-            TopBar(
-                title = state.name, showBackButton = true, useComponent = useComponent
-            )
-        }) { _, _ ->
+        topBar = { TopBar(title = state.name, showBackButton = true, useComponent = useComponent) }
+    ) { _, _ ->
         StateColumn(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             scrollable = true,
@@ -42,9 +39,7 @@ fun GoodsDetailsScreen(
             ItemGallery(state = state.gallery, useComponent = useComponent)
             GoodsDescription(state = state.description, useComponent = useComponent)
             BuyGoods(state = state.buyGoods, useComponent = useComponent)
-            Galleries(
-                state = state.similarGoods, useComponent = useComponent
-            )
+            Galleries(state = state.similarGoods, useComponent = useComponent)
         }
     }
 }
@@ -52,22 +47,22 @@ fun GoodsDetailsScreen(
 @Preview
 @Composable
 private fun GoodsDetailsScreenPreview() {
-    val state = GoodsDetailsScreenState(
-        screen = StateColumnState(state = ScreenState.SUCCESS),
-        name = "Красивый товар",
-        gallery = ItemGalleryState(
-            listOf(
-                "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            )
-        ),
-        description = GoodsDescriptionState(
+    val state =
+        GoodsDetailsScreenState(
+            screen = StateColumnState(state = ScreenState.SUCCESS),
             name = "Красивый товар",
-            description = "Описание товара"
+            gallery =
+                ItemGalleryState(
+                    listOf(
+                        "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                        "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                        "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                        "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                        "https://images.unsplash.com/photo-1616489953148-8b8f8f1b8f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                    )
+                ),
+            description =
+                GoodsDescriptionState(name = "Красивый товар", description = "Описание товара")
         )
-    )
     GoodsDetailsScreen(state = state, useComponent = UseGoodsDetailsScreen.Empty())
 }

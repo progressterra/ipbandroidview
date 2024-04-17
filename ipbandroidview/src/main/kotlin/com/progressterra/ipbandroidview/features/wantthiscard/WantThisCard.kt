@@ -18,8 +18,8 @@ import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
@@ -30,41 +30,36 @@ fun WantThisCard(
     useComponent: UseWantThisCard
 ) {
     Column(
-        modifier = modifier
-            .width(157.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .niceClickable {
+        modifier =
+            modifier.width(157.dp).clip(RoundedCornerShape(8.dp)).niceClickable {
                 useComponent.handle(WantThisCardEvent.Open(state.document))
             },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Image(
-            modifier = Modifier
-                .size(157.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            image = state.image
-        )
+        Image(modifier = Modifier.size(157.dp).clip(RoundedCornerShape(8.dp)), image = state.image)
         Text(
             text = state.name,
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.textPrimary.asBrush(),
         )
         Text(
-            text = when (state.status) {
-                TypeStatusDoc.NOT_FILL -> stringResource(R.string.request_not_fill)
-                TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.request_wait_image)
-                TypeStatusDoc.WAIT_REVIEW -> stringResource(R.string.request_wait_review)
-                TypeStatusDoc.REJECTED -> stringResource(R.string.request_rejected)
-                TypeStatusDoc.CONFIRMED -> stringResource(R.string.request_confirmed)
-            },
+            text =
+                when (state.status) {
+                    TypeStatusDoc.NOT_FILL -> stringResource(R.string.request_not_fill)
+                    TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.request_wait_image)
+                    TypeStatusDoc.WAIT_REVIEW -> stringResource(R.string.request_wait_review)
+                    TypeStatusDoc.REJECTED -> stringResource(R.string.request_rejected)
+                    TypeStatusDoc.CONFIRMED -> stringResource(R.string.request_confirmed)
+                },
             style = IpbTheme.typography.footnoteBold,
-            tint = when (state.status) {
-                TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
-                TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
-                TypeStatusDoc.WAIT_REVIEW -> IpbTheme.colors.textTertiary.asBrush()
-                TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
-                TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
-            }
+            tint =
+                when (state.status) {
+                    TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
+                    TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
+                    TypeStatusDoc.WAIT_REVIEW -> IpbTheme.colors.textTertiary.asBrush()
+                    TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
+                    TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
+                }
         )
         if (state.status == TypeStatusDoc.CONFIRMED) {
             Row(
@@ -76,9 +71,7 @@ fun WantThisCard(
                     modifier = Modifier.width(if (state.counter.isEmpty()) 130.dp else 80.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             text = state.oldPrice.toString(),
                             style = IpbTheme.typography.body2,
@@ -97,7 +90,8 @@ fun WantThisCard(
                     }
                     if (!state.installment.isEmpty()) {
                         Text(
-                            text = "(${stringResource(R.string.installment)}: ${
+                            text =
+                                "(${stringResource(R.string.installment)}: ${
                                 state.installment.months
                             } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
                             style = IpbTheme.typography.footnoteRegular,
@@ -108,20 +102,17 @@ fun WantThisCard(
                 if (state.counter.isEmpty()) {
                     IconButton(
                         modifier = Modifier.size(26.dp),
-                        onClick = {
-                            useComponent.handle(WantThisCardEvent.Buy(state.id))
-                        }) {
+                        onClick = { useComponent.handle(WantThisCardEvent.Buy(state.id)) }
+                    ) {
                         Icon(
-                            resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
+                            resId = R.drawable.ic_cart,
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }
                 } else {
-                    Counter(
-                        state = state.counter, useComponent = useComponent
-                    )
+                    Counter(state = state.counter, useComponent = useComponent)
                 }
             }
         }
     }
 }
-

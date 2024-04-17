@@ -16,12 +16,11 @@ interface DocumentChecklistUseCase {
         obtainAccessToken: ObtainAccessToken,
         manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase
-    ) : DocumentChecklistUseCase,
+    ) :
+        DocumentChecklistUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(
-            id: String
-        ): Result<List<Check>> = withToken { token ->
+        override suspend fun invoke(id: String): Result<List<Check>> = withToken { token ->
             val responseChecklist = checklistService.checklistForDoc(token, id).dataList!!
             var currentCategory = ""
             var categorizedChecks = 0

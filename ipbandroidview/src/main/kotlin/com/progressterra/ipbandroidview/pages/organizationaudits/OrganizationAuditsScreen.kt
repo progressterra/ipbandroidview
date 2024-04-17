@@ -27,9 +27,9 @@ import com.progressterra.ipbandroidview.entities.OrganizationAudit
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -40,36 +40,34 @@ fun OrganizationAuditsScreen(
     state: OrganizationAuditsScreenState,
     useComponent: UseOrganizationAuditsScreen
 ) {
-    Layout(topBar = {
-        TopBar(
-            title = stringResource(id = R.string.organization),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }) { _, _ ->
-        StateColumn(
-            state = state.screen,
-            useComponent = useComponent
-        ) {
+    Layout(
+        topBar = {
+            TopBar(
+                title = stringResource(id = R.string.organization),
+                showBackButton = true,
+                useComponent = useComponent
+            )
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
                 item {
                     Column(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(IpbTheme.colors.surface.asBrush())
-                            .padding(12.dp),
+                        modifier =
+                            Modifier.clip(RoundedCornerShape(12.dp))
+                                .background(IpbTheme.colors.surface.asBrush())
+                                .padding(12.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         Image(
-                            modifier = Modifier
-                                .height(188.dp)
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp)),
+                            modifier =
+                                Modifier.height(188.dp)
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(8.dp)),
                             image = state.imageUrl
                         )
                         Row(
@@ -90,7 +88,9 @@ fun OrganizationAuditsScreen(
                                 )
                             }
                             IconButton(
-                                onClick = { useComponent.handle(OrganizationAuditsScreenEvent.OnMap) }
+                                onClick = {
+                                    useComponent.handle(OrganizationAuditsScreenEvent.OnMap)
+                                }
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -112,18 +112,16 @@ fun OrganizationAuditsScreen(
                 }
                 items(state.audits) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(IpbTheme.colors.surface.asBrush())
-                            .niceClickable {
-                                useComponent.handle(
-                                    OrganizationAuditsScreenEvent.OnAuditDetails(
-                                        it
+                        modifier =
+                            Modifier.fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(IpbTheme.colors.surface.asBrush())
+                                .niceClickable {
+                                    useComponent.handle(
+                                        OrganizationAuditsScreenEvent.OnAuditDetails(it)
                                     )
-                                )
-                            }
-                            .padding(12.dp),
+                                }
+                                .padding(12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -160,49 +158,23 @@ fun OrganizationAuditsScreen(
 private fun OrganizationAuditsScreenPreview() {
     IpbTheme {
         OrganizationAuditsScreen(
-            state = OrganizationAuditsScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                organizationName = "Organization name",
-                organizationAddress = "Organization address",
-                imageUrl = "https://picsum.photos/200/300",
-                audits = listOf(
-                    OrganizationAudit(
-                        id = "1",
-                        name = "Audit 1",
-                        lastTime = "Last time 1"
-                    ),
-                    OrganizationAudit(
-                        id = "2",
-                        name = "Audit 2",
-                        lastTime = "Last time 2"
-                    ),
-                    OrganizationAudit(
-                        id = "3",
-                        name = "Audit 3",
-                        lastTime = "Last time 3"
-                    ),
-                    OrganizationAudit(
-                        id = "4",
-                        name = "Audit 4",
-                        lastTime = "Last time 4"
-                    ),
-                    OrganizationAudit(
-                        id = "5",
-                        name = "Audit 5",
-                        lastTime = "Last time 5"
-                    ),
-                    OrganizationAudit(
-                        id = "6",
-                        name = "Audit 6",
-                        lastTime = "Last time 6"
-                    ),
-                    OrganizationAudit(
-                        id = "7",
-                        name = "Audit 7",
-                        lastTime = "Last time 7"
-                    )
-                )
-            ),
+            state =
+                OrganizationAuditsScreenState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    organizationName = "Organization name",
+                    organizationAddress = "Organization address",
+                    imageUrl = "https://picsum.photos/200/300",
+                    audits =
+                        listOf(
+                            OrganizationAudit(id = "1", name = "Audit 1", lastTime = "Last time 1"),
+                            OrganizationAudit(id = "2", name = "Audit 2", lastTime = "Last time 2"),
+                            OrganizationAudit(id = "3", name = "Audit 3", lastTime = "Last time 3"),
+                            OrganizationAudit(id = "4", name = "Audit 4", lastTime = "Last time 4"),
+                            OrganizationAudit(id = "5", name = "Audit 5", lastTime = "Last time 5"),
+                            OrganizationAudit(id = "6", name = "Audit 6", lastTime = "Last time 6"),
+                            OrganizationAudit(id = "7", name = "Audit 7", lastTime = "Last time 7")
+                        )
+                ),
             useComponent = UseOrganizationAuditsScreen.Empty()
         )
     }

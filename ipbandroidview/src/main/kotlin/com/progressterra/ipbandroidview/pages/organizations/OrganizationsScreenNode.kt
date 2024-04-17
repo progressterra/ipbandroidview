@@ -12,21 +12,18 @@ import org.koin.androidx.compose.koinViewModel
 class OrganizationsScreenNode(
     buildContext: BuildContext,
     private val navigation: OrganizationsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = koinViewModel<OrganizationsViewModel>()
         viewModel.collectEffects {
             when (it) {
-                is OrganizationsScreenEffect.OnOrganization -> navigation.onOrganization(it.organization)
+                is OrganizationsScreenEffect.OnOrganization ->
+                    navigation.onOrganization(it.organization)
             }
         }
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         val state = viewModel.state.collectAsState().value
         OrganizationsScreen(state = state, useComponent = viewModel)
     }

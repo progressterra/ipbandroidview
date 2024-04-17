@@ -19,27 +19,22 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 
 @Composable
-fun BuyGoods(
-    modifier: Modifier = Modifier,
-    state: BuyGoodsState,
-    useComponent: UseBuyGoods
-) {
+fun BuyGoods(modifier: Modifier = Modifier, state: BuyGoodsState, useComponent: UseBuyGoods) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier = modifier.fillMaxWidth().padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
                     text = state.oldPrice.toString(),
-                    style = IpbTheme.typography.title2.copy(textDecoration = TextDecoration.LineThrough),
+                    style =
+                        IpbTheme.typography.title2.copy(
+                            textDecoration = TextDecoration.LineThrough
+                        ),
                     tint = IpbTheme.colors.textTertiary.asBrush(),
                 )
                 Text(
@@ -67,7 +62,8 @@ fun BuyGoods(
             ) {
                 Text(
                     modifier = Modifier.widthIn(max = 100.dp),
-                    text = "(${stringResource(R.string.installment)}: ${
+                    text =
+                        "(${stringResource(R.string.installment)}: ${
                         state.installment.months
                     } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
                     style = IpbTheme.typography.body,

@@ -8,10 +8,10 @@ import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toOrder
 import com.progressterra.ipbandroidview.entities.toPrice
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
-import com.progressterra.ipbandroidview.processes.utils.ManageResources
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 interface OrderDetailsUseCase {
@@ -21,34 +21,41 @@ interface OrderDetailsUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepository: CartService,
-        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        private val productRepository: ProductRepository,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : OrderDetailsUseCase, AbstractTokenUseCase(
-        obtainAccessToken, makeToastUseCase,
-        manageResources
-    ) {
+    ) :
+        OrderDetailsUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(orderId: String): Result<OrderDetailsState> = withToken { token ->
-            val result =
-                cartRepository.orderById(accessToken = token, idOrder = orderId).also {
-                    if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
-                        it.result?.message ?: ""
-                    )
-                }.data!!
-            val order = result.toOrder()
-            val goods = result.listDRSale?.mapNotNull { dr ->
-                productRepository.productByNomenclatureId(token, dr.idrfNomenclature!!)
-                    .getOrThrow()
-                    ?.toGoodsItem()
-                    ?.toOrderCardState()?.copy(
-                        oldPrice = (dr.amountBeginPrice?.toPrice()
-                            ?: Price()) * (dr.quantity ?: 0),
-                        count = dr.quantity ?: 0,
-                        price = (dr.amountEndPrice?.toPrice()
-                            ?: Price()) * (dr.quantity ?: 0)
-                    )
-            } ?: emptyList()
-            order.toOrderDetailsState(goods)
-        }
+        override suspend fun invoke(orderId: String): Result<OrderDetailsState> =
+            withToken { token ->
+                val result =
+                    cartRepository
+                        .orderById(accessToken = token, idOrder = orderId)
+                        .also {
+                            if (it.result?.status != StatusResult.SUCCESS)
+                                throw ToastedException(it.result?.message ?: "")
+                        }
+                        .data!!
+                val order = result.toOrder()
+                val goods =
+                    result.listDRSale?.mapNotNull { dr ->
+                        productRepository
+                            .productByNomenclatureId(token, dr.idrfNomenclature!!)
+                            .getOrThrow()
+                            ?.toGoodsItem()
+                            ?.toOrderCardState()
+                            ?.copy(
+                                oldPrice =
+                                    (dr.amountBeginPrice?.toPrice() ?: Price()) *
+                                        (dr.quantity ?: 0),
+                                count = dr.quantity ?: 0,
+                                price =
+                                    (dr.amountEndPrice?.toPrice() ?: Price()) * (dr.quantity ?: 0)
+                            )
+                    } ?: emptyList()
+                order.toOrderDetailsState(goods)
+            }
     }
 }

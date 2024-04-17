@@ -25,32 +25,25 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Messages(
-    modifier: Modifier = Modifier,
-    state: MessagesState,
-    messagesBackground: Brush
-) {
+fun Messages(modifier: Modifier = Modifier, state: MessagesState, messagesBackground: Brush) {
 
     @Composable
-    fun Item(
-        modifier: Modifier = Modifier,
-        itemState: Message
-    ) {
-        val paddingValues = PaddingValues(
-            start = if (itemState.user) 40.dp else 0.dp,
-            end = if (itemState.user) 0.dp else 40.dp
-        )
+    fun Item(modifier: Modifier = Modifier, itemState: Message) {
+        val paddingValues =
+            PaddingValues(
+                start = if (itemState.user) 40.dp else 0.dp,
+                end = if (itemState.user) 0.dp else 40.dp
+            )
         Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(paddingValues),
+            modifier = modifier.fillMaxWidth().padding(paddingValues),
             horizontalArrangement = if (itemState.user) Arrangement.End else Arrangement.Start
         ) {
             Column(
-                modifier = modifier
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(messagesBackground)
-                    .padding(12.dp),
+                modifier =
+                    modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(messagesBackground)
+                        .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = if (itemState.user) Alignment.End else Alignment.Start
             ) {
@@ -73,10 +66,7 @@ fun Messages(
         verticalArrangement = Arrangement.spacedBy(space = 8.dp, alignment = Alignment.Bottom),
         reverseLayout = true
     ) {
-        items(
-            count = lazyItems.itemCount,
-            key = lazyItems.itemKey { it.id }
-        ) { index ->
+        items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
             lazyItems[index]?.let {
                 Item(modifier = Modifier.animateItemPlacement(), itemState = it)
             }

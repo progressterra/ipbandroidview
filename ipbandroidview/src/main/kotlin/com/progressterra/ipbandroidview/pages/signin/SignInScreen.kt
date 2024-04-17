@@ -15,9 +15,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
@@ -28,21 +28,22 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun SignInScreen(
-    modifier: Modifier = Modifier, state: SignInScreenState, useComponent: UseSignInScreen
+    modifier: Modifier = Modifier,
+    state: SignInScreenState,
+    useComponent: UseSignInScreen
 ) {
     Layout(
         modifier = modifier,
         topBar = {
-            TopBar(
-                title = stringResource(R.string.authorization), useComponent = useComponent
-            )
-        }, bottomBar = {
+            TopBar(title = stringResource(R.string.authorization), useComponent = useComponent)
+        },
+        bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Button(
@@ -58,12 +59,9 @@ fun SignInScreen(
                     useComponent = useComponent
                 )
             }
-        }) { _, _ ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 20.dp, start = 16.dp, end = 16.dp)
-        ) {
+        }
+    ) { _, _ ->
+        Column(modifier = Modifier.fillMaxSize().padding(top = 20.dp, start = 16.dp, end = 16.dp)) {
             TextField(
                 modifier = Modifier.fillMaxWidth(),
                 state = state.phone,
@@ -73,14 +71,19 @@ fun SignInScreen(
             )
             Spacer(Modifier.height(20.dp))
             LinkText(
-                linkTextData = listOf(
-                    LinkTextData(stringResource(R.string.auth_warning_0)),
-                    LinkTextData(stringResource(R.string.offer), IpbAndroidViewSettings.OFFER_URL),
-                    LinkTextData(stringResource(R.string.and)),
-                    LinkTextData(
-                        stringResource(R.string.privacy_policy), IpbAndroidViewSettings.PRIVACY_URL
-                    )
-                ),
+                linkTextData =
+                    listOf(
+                        LinkTextData(stringResource(R.string.auth_warning_0)),
+                        LinkTextData(
+                            stringResource(R.string.offer),
+                            IpbAndroidViewSettings.OFFER_URL
+                        ),
+                        LinkTextData(stringResource(R.string.and)),
+                        LinkTextData(
+                            stringResource(R.string.privacy_policy),
+                            IpbAndroidViewSettings.PRIVACY_URL
+                        )
+                    ),
                 useComponent = useComponent,
                 style = IpbTheme.typography.footnoteRegular,
                 brush = IpbTheme.colors.textDisabled.asBrush()
@@ -92,10 +95,5 @@ fun SignInScreen(
 @Preview
 @Composable
 private fun SignInScreenPreview() {
-    IpbTheme {
-        SignInScreen(
-            state = SignInScreenState(),
-            useComponent = UseSignInScreen.Empty()
-        )
-    }
+    IpbTheme { SignInScreen(state = SignInScreenState(), useComponent = UseSignInScreen.Empty()) }
 }

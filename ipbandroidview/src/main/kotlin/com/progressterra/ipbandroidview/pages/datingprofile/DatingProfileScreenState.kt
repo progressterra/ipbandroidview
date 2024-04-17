@@ -15,19 +15,11 @@ data class DatingProfileScreenState(
     val chat: ButtonState = ButtonState(id = "chat"),
     val connect: ButtonState = ButtonState(id = "connect"),
     val choosePhoto: ButtonState = ButtonState(id = "choosePhoto"),
-    val name: TextFieldState = TextFieldState(
-        id = "name",
-        enabled = false
-    ),
-    val phone: TextFieldState = TextFieldState(
-        id = "phone",
-        type = TextInputType.PHONE_NUMBER,
-        enabled = false
-    ),
-    val birthday: TextFieldState = TextFieldState(
-        id = "birthday",
-        type = TextInputType.DATE, enabled = false
-    ),
+    val name: TextFieldState = TextFieldState(id = "name", enabled = false),
+    val phone: TextFieldState =
+        TextFieldState(id = "phone", type = TextInputType.PHONE_NUMBER, enabled = false),
+    val birthday: TextFieldState =
+        TextFieldState(id = "birthday", type = TextInputType.DATE, enabled = false),
     val screen: StateColumnState = StateColumnState(),
     val allInterests: List<Interest> = emptyList(),
     val changedInterests: List<Interest> = emptyList(),

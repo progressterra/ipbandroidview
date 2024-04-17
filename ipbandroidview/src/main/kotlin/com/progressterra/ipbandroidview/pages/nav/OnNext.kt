@@ -4,4 +4,3 @@ interface OnNext {
 
     fun onNext()
 }
-

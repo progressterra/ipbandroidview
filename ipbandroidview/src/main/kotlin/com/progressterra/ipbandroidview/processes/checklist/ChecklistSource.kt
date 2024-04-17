@@ -28,37 +28,42 @@ class ChecklistSource(
                 categoryNumber = 0
                 prevMaxIndex = 0
             }
-            val checks = checklistService.checklistElements(
-                token,
-                filter!!,
-                FilterAndSort(
-                    listFields = emptyList(),
-                    sort = null,
-                    searchData = "",
-                    skip = skip,
-                    take = take
-                )
-            ).dataList ?: emptyList()
-            checks.size to checks.mapIndexed { index, check ->
-                if (check.parameter?.internalName != currentCategory) {
-                    currentCategory = check.parameter?.internalName!!
-                    categoryNumber++
-                    categorizedChecks = index
-                }
-                Check(
-                    id = check.idUnique!!,
-                    category = currentCategory,
-                    name = check.shortDescription ?: "",
-                    yesNo = null,
-                    comment = "",
-                    description = check.description ?: "",
-                    categoryNumber = categoryNumber,
-                    ordinal = index + 1 - categorizedChecks
-                ).also {
-                    if (checks.lastIndex == index) {
-                        prevMaxIndex += index
+            val checks =
+                checklistService
+                    .checklistElements(
+                        token,
+                        filter!!,
+                        FilterAndSort(
+                            listFields = emptyList(),
+                            sort = null,
+                            searchData = "",
+                            skip = skip,
+                            take = take
+                        )
+                    )
+                    .dataList ?: emptyList()
+            checks.size to
+                checks.mapIndexed { index, check ->
+                    if (check.parameter?.internalName != currentCategory) {
+                        currentCategory = check.parameter?.internalName!!
+                        categoryNumber++
+                        categorizedChecks = index
                     }
+                    Check(
+                            id = check.idUnique!!,
+                            category = currentCategory,
+                            name = check.shortDescription ?: "",
+                            yesNo = null,
+                            comment = "",
+                            description = check.description ?: "",
+                            categoryNumber = categoryNumber,
+                            ordinal = index + 1 - categorizedChecks
+                        )
+                        .also {
+                            if (checks.lastIndex == index) {
+                                prevMaxIndex += index
+                            }
+                        }
                 }
-            }
         }
 }

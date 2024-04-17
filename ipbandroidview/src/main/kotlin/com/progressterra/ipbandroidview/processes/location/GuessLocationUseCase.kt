@@ -17,16 +17,20 @@ interface GuessLocationUseCase {
     ) : GuessLocationUseCase {
 
         override suspend fun invoke(latLng: LatLng): Result<Address> = runCatching {
-            val suggestionsResult = repo.getSuggestionsAddressFromLocation(
-                DadataSuggestionsFromLocationRequest(
-                    latitude = latLng.latitude.toFloat(),
-                    longitude = latLng.longitude.toFloat(),
-                    count = 3
-                )
-            ).getOrThrow()
-            suggestionsResult?.firstOrNull()?.suggestionExtendedInfo?.convertSuggestionToAddressUIModel(
-                ZonedDateTime.now().formatZdtIso()
-            ) ?: Address()
+            val suggestionsResult =
+                repo
+                    .getSuggestionsAddressFromLocation(
+                        DadataSuggestionsFromLocationRequest(
+                            latitude = latLng.latitude.toFloat(),
+                            longitude = latLng.longitude.toFloat(),
+                            count = 3
+                        )
+                    )
+                    .getOrThrow()
+            suggestionsResult
+                ?.firstOrNull()
+                ?.suggestionExtendedInfo
+                ?.convertSuggestionToAddressUIModel(ZonedDateTime.now().formatZdtIso()) ?: Address()
         }
     }
 }

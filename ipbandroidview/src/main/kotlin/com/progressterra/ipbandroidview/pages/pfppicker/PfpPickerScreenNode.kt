@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class PfpPickerScreenNode(
     buildContext: BuildContext,
     private val navigation: PfpPickerScreenNavigation
-) : Node(
-    buildContext = buildContext
-) {
+) : Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -27,9 +25,7 @@ class PfpPickerScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         PfpPickerScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

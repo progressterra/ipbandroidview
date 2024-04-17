@@ -44,9 +44,7 @@ fun CatalogScreen(
         modifier = modifier,
         topBar = {
             if (state.trace.trace.isNotEmpty()) {
-                Trace(
-                    state = state.trace, useComponent = useComponent
-                )
+                Trace(state = state.trace, useComponent = useComponent)
             } else if (IpbAndroidViewSettings.CATALOG_SEARCH) {
                 Search(
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
@@ -54,10 +52,9 @@ fun CatalogScreen(
                     useComponent = useComponent
                 )
             }
-        }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             Box {
                 StoreItems(
                     modifier = Modifier.zIndex(1f),
@@ -73,9 +70,7 @@ fun CatalogScreen(
                 ) {
                     items(state.current.children) {
                         Box(contentAlignment = Alignment.Center) {
-                            CatalogCard(
-                                state = it, useComponent = useComponent
-                            )
+                            CatalogCard(state = it, useComponent = useComponent)
                         }
                     }
                 }
@@ -89,44 +84,48 @@ fun CatalogScreen(
 private fun CatalogScreenPreview() {
     IpbTheme {
         CatalogScreen(
-            state = CatalogScreenState(
-                trace = TraceState(trace = listOf()),
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                search = SearchState(
-                    text = "aliquam"
-                ),
-                current = CatalogCardState(
-                    id = "liber",
-                    name = "Dick Carter",
-                    image = "http://www.bing.com/search?q=libris",
-                    children = listOf()
-                ),
-                goods = StoreItemsState(
-                    items = flowOf(
-                        PagingData.from(
-                            listOf(
-                                StoreCardState(
-                                    id = "Kotek",
-                                    name = "Weston",
-                                    price = Price(1000),
-                                    image = "https://placekitten.com/200/300",
-                                ), StoreCardState(
-                                    id = "Kotek 2",
-                                    name = "Weston",
-                                    price = Price(2000),
-                                    image = "https://placekitten.com/200/300",
-                                ), StoreCardState(
-                                    id = "Kotek 3",
-                                    name = "Nombre",
-                                    price = Price(5000),
-                                    image = "https://placekitten.com/200/300",
+            state =
+                CatalogScreenState(
+                    trace = TraceState(trace = listOf()),
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    search = SearchState(text = "aliquam"),
+                    current =
+                        CatalogCardState(
+                            id = "liber",
+                            name = "Dick Carter",
+                            image = "http://www.bing.com/search?q=libris",
+                            children = listOf()
+                        ),
+                    goods =
+                        StoreItemsState(
+                            items =
+                                flowOf(
+                                    PagingData.from(
+                                        listOf(
+                                            StoreCardState(
+                                                id = "Kotek",
+                                                name = "Weston",
+                                                price = Price(1000),
+                                                image = "https://placekitten.com/200/300",
+                                            ),
+                                            StoreCardState(
+                                                id = "Kotek 2",
+                                                name = "Weston",
+                                                price = Price(2000),
+                                                image = "https://placekitten.com/200/300",
+                                            ),
+                                            StoreCardState(
+                                                id = "Kotek 3",
+                                                name = "Nombre",
+                                                price = Price(5000),
+                                                image = "https://placekitten.com/200/300",
+                                            )
+                                        )
+                                    )
                                 )
-                            )
                         )
-                    )
-                )
-
-            ), useComponent = UseCatalog.Empty()
+                ),
+            useComponent = UseCatalog.Empty()
         )
     }
 }

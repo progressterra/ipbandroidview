@@ -38,11 +38,11 @@ import kotlinx.coroutines.delay
 @OptIn(UnstableApi::class)
 @Composable
 fun VideoPieScreen(
-    modifier: Modifier, state: VideoPieScreenState, useComponent: UseVideoPieScreen
+    modifier: Modifier,
+    state: VideoPieScreenState,
+    useComponent: UseVideoPieScreen
 ) {
-    Layout(
-        modifier = modifier
-    ) { _, _ ->
+    Layout(modifier = modifier) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 val context = LocalContext.current
@@ -50,12 +50,12 @@ fun VideoPieScreen(
                 var animationEnabled by remember { mutableStateOf(false) }
                 val exoPlayer = remember { ExoPlayer.Builder(context).build() }
                 val animationAlpha by
-                animateFloatAsState(targetValue = if (animationEnabled) 1F else 0F,
-                    animationSpec = tween(durationMillis = 600, easing = LinearEasing),
-                    label = "player visibility",
-                    finishedListener = {
-                        animationEnabled = false
-                    })
+                    animateFloatAsState(
+                        targetValue = if (animationEnabled) 1F else 0F,
+                        animationSpec = tween(durationMillis = 600, easing = LinearEasing),
+                        label = "player visibility",
+                        finishedListener = { animationEnabled = false }
+                    )
                 LaunchedEffect(state.current, state.next) {
                     if (state.current != MediaItem.EMPTY && state.next != MediaItem.EMPTY) {
                         if (firstTime) {
@@ -72,23 +72,28 @@ fun VideoPieScreen(
                         }
                     }
                 }
-                AndroidView(factory = {
-                    PlayerView(it).apply {
-                        player = exoPlayer
-                        useController = false
-                        layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-                    }
-                }, modifier = Modifier.fillMaxWidth())
-                Box(modifier = Modifier
-                    .background(Color.Black.copy(animationAlpha))
-                    .zIndex(1f)
-                    .fillMaxSize())
+                AndroidView(
+                    factory = {
+                        PlayerView(it).apply {
+                            player = exoPlayer
+                            useController = false
+                            layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Box(
+                    modifier =
+                        Modifier.background(Color.Black.copy(animationAlpha))
+                            .zIndex(1f)
+                            .fillMaxSize()
+                )
                 Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .zIndex(2f)
-                        .align(Alignment.BottomCenter)
-                        .padding(20.dp),
+                    modifier =
+                        Modifier.fillMaxWidth()
+                            .zIndex(2f)
+                            .align(Alignment.BottomCenter)
+                            .padding(20.dp),
                     state = state.nextButton,
                     title = stringResource(id = R.string.next),
                     useComponent = useComponent
@@ -97,4 +102,3 @@ fun VideoPieScreen(
         }
     }
 }
-

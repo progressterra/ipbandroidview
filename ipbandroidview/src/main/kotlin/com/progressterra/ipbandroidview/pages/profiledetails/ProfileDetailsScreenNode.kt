@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class ProfileDetailsScreenNode(
     buildContext: BuildContext,
     private val navigation: ProfileDetailsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -25,13 +23,7 @@ class ProfileDetailsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        ProfileDetailsScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        ProfileDetailsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

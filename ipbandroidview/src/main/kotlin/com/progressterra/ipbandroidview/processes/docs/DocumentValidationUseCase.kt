@@ -9,26 +9,27 @@ interface DocumentValidationUseCase {
 
     class Base : DocumentValidationUseCase {
 
-        override suspend fun invoke(state: Document, policy: DocsVerificationPolicy): Result<Unit> = runCatching {
-            state.entries.forEach {
-                if (!it.valid()) {
-                    throw Exception("Invalid!")
-                }
-            }
-            val allFieldsEmpty = state.entries.all { it.formatByType().isEmpty() }
-            val photoIsEmpty = state.photo.isEmpty()
-            when (policy) {
-                DocsVerificationPolicy.PHOTO_AND_TEXT -> {
-                    if (allFieldsEmpty || photoIsEmpty) {
+        override suspend fun invoke(state: Document, policy: DocsVerificationPolicy): Result<Unit> =
+            runCatching {
+                state.entries.forEach {
+                    if (!it.valid()) {
                         throw Exception("Invalid!")
                     }
                 }
-                DocsVerificationPolicy.PHOTO_OR_TEXT -> {
-                    if (allFieldsEmpty && photoIsEmpty) {
-                        throw Exception("Invalid!")
+                val allFieldsEmpty = state.entries.all { it.formatByType().isEmpty() }
+                val photoIsEmpty = state.photo.isEmpty()
+                when (policy) {
+                    DocsVerificationPolicy.PHOTO_AND_TEXT -> {
+                        if (allFieldsEmpty || photoIsEmpty) {
+                            throw Exception("Invalid!")
+                        }
+                    }
+                    DocsVerificationPolicy.PHOTO_OR_TEXT -> {
+                        if (allFieldsEmpty && photoIsEmpty) {
+                            throw Exception("Invalid!")
+                        }
                     }
                 }
             }
-        }
     }
 }

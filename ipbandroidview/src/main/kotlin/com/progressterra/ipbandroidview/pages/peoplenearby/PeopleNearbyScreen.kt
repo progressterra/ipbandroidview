@@ -33,13 +33,13 @@ import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -50,17 +50,16 @@ fun PeopleNearbyScreen(
 ) {
 
     @Composable
-    fun Interest(
-        itemState: Interest
-    ) {
+    fun Interest(itemState: Interest) {
         val backgroundBrush =
-            if (state.currentUser.interests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.secondary2.asBrush()
+            if (state.currentUser.interests.contains(itemState)) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.secondary2.asBrush()
         Box(
-            modifier = Modifier
-                .padding(vertical = 4.dp)
-                .clip(CircleShape)
-                .background(backgroundBrush)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Text(
                 text = itemState.name,
@@ -71,37 +70,31 @@ fun PeopleNearbyScreen(
     }
 
     @Composable
-    fun Item(
-        itemState: DatingUser
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Box(
-                    modifier = Modifier,
-                    contentAlignment = Alignment.Center
-                ) {
+    fun Item(itemState: DatingUser) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Box(modifier = Modifier, contentAlignment = Alignment.Center) {
                     Image(
                         modifier = Modifier.size(79.dp),
                         painter = painterResource(id = R.drawable.avatar_background),
                         contentDescription = null
                     )
                     Image(
-                        modifier = Modifier
-                            .size(64.dp)
-                            .clip(CircleShape)
-                            .niceClickable { useComponent.handle(PeopleNearbyScreenEvent(itemState)) },
-                        image = itemState.avatar.ifEmpty {
-                            rememberResourceUri(
-                                resourceId = when (itemState.sex) {
-                                    Sex.MALE -> R.drawable.avatar_male
-                                    Sex.FEMALE -> R.drawable.avatar_female
-                                }
-                            ).toString()
-                        }
+                        modifier =
+                            Modifier.size(64.dp).clip(CircleShape).niceClickable {
+                                useComponent.handle(PeopleNearbyScreenEvent(itemState))
+                            },
+                        image =
+                            itemState.avatar.ifEmpty {
+                                rememberResourceUri(
+                                        resourceId =
+                                            when (itemState.sex) {
+                                                Sex.MALE -> R.drawable.avatar_male
+                                                Sex.FEMALE -> R.drawable.avatar_female
+                                            }
+                                    )
+                                    .toString()
+                            }
                     )
                 }
                 Column {
@@ -134,15 +127,17 @@ fun PeopleNearbyScreen(
                             resId = R.drawable.ic_interests_small,
                             tint = IpbTheme.colors.primary.asBrush()
                         )
-                        val matchPercent = remember(state.currentUser, itemState) {
-                            if (state.currentUser.interests.isNotEmpty()) state.currentUser.interests.count {
-                                itemState.interests.contains(
-                                    it
-                                )
-                            } / state.currentUser.interests.size * 100 else 0
-                        }
+                        val matchPercent =
+                            remember(state.currentUser, itemState) {
+                                if (state.currentUser.interests.isNotEmpty())
+                                    state.currentUser.interests.count {
+                                        itemState.interests.contains(it)
+                                    } / state.currentUser.interests.size * 100
+                                else 0
+                            }
                         Text(
-                            text = "${matchPercent}% ${stringResource(id = R.string.of_interests_match)}",
+                            text =
+                                "${matchPercent}% ${stringResource(id = R.string.of_interests_match)}",
                             style = IpbTheme.typography.footnoteRegular,
                             tint = IpbTheme.colors.textPrimary.asBrush()
                         )
@@ -153,9 +148,7 @@ fun PeopleNearbyScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                itemState.interests.forEach {
-                    Interest(itemState = it)
-                }
+                itemState.interests.forEach { Interest(itemState = it) }
             }
         }
     }
@@ -171,9 +164,7 @@ fun PeopleNearbyScreen(
             contentPadding = PaddingValues(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(28.dp)
         ) {
-            items(state.items) {
-                Item(it)
-            }
+            items(state.items) { Item(it) }
         }
     }
 }
@@ -183,82 +174,85 @@ fun PeopleNearbyScreen(
 private fun PeopleNearbyScreenPreview() {
     IpbTheme {
         PeopleNearbyScreen(
-            state = PeopleNearbyScreenState(
-                items = listOf(
-                    DatingUser(
-                        id = "intellegebat",
-                        avatar = "splendide",
-                        avatarBitmap = null,
-                        name = "Roxanne Bradford",
-                        description = "dicit",
-                        hideAvatar = false,
-                        locationPoint = LocationPoint(
-                            id = "sollicitudin",
-                            name = "Ed Robbins",
-                            address = "iusto",
-                            latitude = 4.5,
-                            longitude = 6.7
+            state =
+                PeopleNearbyScreenState(
+                    items =
+                        listOf(
+                            DatingUser(
+                                id = "intellegebat",
+                                avatar = "splendide",
+                                avatarBitmap = null,
+                                name = "Roxanne Bradford",
+                                description = "dicit",
+                                hideAvatar = false,
+                                locationPoint =
+                                    LocationPoint(
+                                        id = "sollicitudin",
+                                        name = "Ed Robbins",
+                                        address = "iusto",
+                                        latitude = 4.5,
+                                        longitude = 6.7
+                                    ),
+                                interests =
+                                    listOf(
+                                        Interest(name = "Lyzhi 0"),
+                                        Interest(name = "Lyzhi 1"),
+                                        Interest(name = "Lyzhi 2"),
+                                        Interest(name = "Lyzhi 3"),
+                                        Interest(name = "Lyzhi 4"),
+                                        Interest(name = "Lyzhi 5"),
+                                        Interest(name = "Lyzhi 6"),
+                                        Interest(name = "Lyzhi 7")
+                                    ),
+                                distance = 8410,
+                                target = DatingTarget(id = "hinc", name = "Bernadette Maddox"),
+                                age = "interesset",
+                                occupation = Interest(name = "ceteros"),
+                                sex = Sex.MALE,
+                                own = false
+                            ),
+                            DatingUser(
+                                id = "quaerendum",
+                                avatar = "ubique",
+                                avatarBitmap = null,
+                                name = "Rickey Hughes",
+                                description = "molestiae",
+                                hideAvatar = false,
+                                locationPoint =
+                                    LocationPoint(
+                                        id = "gubergren",
+                                        name = "Blanche Maxwell",
+                                        address = "mutat",
+                                        latitude = 12.13,
+                                        longitude = 14.15
+                                    ),
+                                interests =
+                                    listOf(
+                                        Interest(name = "Lyzhi 0"),
+                                        Interest(name = "Lyzhi 1"),
+                                        Interest(name = "Lyzhi 2"),
+                                        Interest(name = "Lyzhi 3")
+                                    ),
+                                distance = 6800,
+                                target = DatingTarget(id = "sit", name = "Dewayne Kelley"),
+                                age = "at",
+                                occupation = Interest(name = "option"),
+                                sex = Sex.MALE,
+                                own = false
+                            )
                         ),
-                        interests = listOf(
-                            Interest(name = "Lyzhi 0"),
-                            Interest(name = "Lyzhi 1"),
-                            Interest(name = "Lyzhi 2"),
-                            Interest(name = "Lyzhi 3"),
-                            Interest(name = "Lyzhi 4"),
-                            Interest(name = "Lyzhi 5"),
-                            Interest(name = "Lyzhi 6"),
-                            Interest(name = "Lyzhi 7")
-                        ),
-                        distance = 8410,
-                        target = DatingTarget(
-                            id = "hinc",
-                            name = "Bernadette Maddox"
-                        ),
-                        age = "interesset",
-                        occupation = Interest(name = "ceteros"),
-                        sex = Sex.MALE,
-                        own = false
-                    ),
-                    DatingUser(
-                        id = "quaerendum",
-                        avatar = "ubique",
-                        avatarBitmap = null,
-                        name = "Rickey Hughes",
-                        description = "molestiae",
-                        hideAvatar = false,
-                        locationPoint = LocationPoint(
-                            id = "gubergren",
-                            name = "Blanche Maxwell",
-                            address = "mutat",
-                            latitude = 12.13,
-                            longitude = 14.15
-                        ),
-                        interests = listOf(
-                            Interest(name = "Lyzhi 0"),
-                            Interest(name = "Lyzhi 1"),
-                            Interest(name = "Lyzhi 2"),
-                            Interest(name = "Lyzhi 3")
-                        ),
-                        distance = 6800,
-                        target = DatingTarget(
-                            id = "sit",
-                            name = "Dewayne Kelley"
-                        ),
-                        age = "at",
-                        occupation = Interest(name = "option"),
-                        sex = Sex.MALE,
-                        own = false
-                    )
+                    currentUser =
+                        DatingUser(
+                            interests =
+                                listOf(
+                                    Interest(name = "Lyzhi 0"),
+                                    Interest(name = "Lyzhi 1"),
+                                    Interest(name = "Lyzhi 7"),
+                                    Interest(name = "Lyzhi 8")
+                                )
+                        )
                 ),
-                currentUser = DatingUser(
-                    interests = listOf(
-                        Interest(name = "Lyzhi 0"),
-                        Interest(name = "Lyzhi 1"),
-                        Interest(name = "Lyzhi 7"),
-                        Interest(name = "Lyzhi 8")
-                    )
-                )
-            ), useComponent = UsePeopleNearbyScreen.Empty()
+            useComponent = UsePeopleNearbyScreen.Empty()
         )
     }
 }

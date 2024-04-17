@@ -11,7 +11,6 @@ interface UseGoodsDescription : UseFavoriteButton {
 
         override fun handle(event: GoodsDescriptionEvent) = Unit
 
-
         override fun handle(event: FavoriteButtonEvent) = Unit
     }
 }

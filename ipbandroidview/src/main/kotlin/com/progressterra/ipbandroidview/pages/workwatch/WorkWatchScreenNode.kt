@@ -8,9 +8,7 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class WorkWatchScreenNode(
-    buildContext: BuildContext
-) : Node(buildContext = buildContext) {
+class WorkWatchScreenNode(buildContext: BuildContext) : Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {

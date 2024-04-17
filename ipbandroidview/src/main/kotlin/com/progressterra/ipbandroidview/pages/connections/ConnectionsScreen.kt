@@ -23,13 +23,13 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 
 @Composable
 fun ConnectionsScreen(
@@ -39,35 +39,33 @@ fun ConnectionsScreen(
 ) {
 
     @Composable
-    fun Item(
-        itemState: DatingUser
-    ) {
+    fun Item(itemState: DatingUser) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = modifier, contentAlignment = Alignment.Center) {
                 Image(
                     modifier = Modifier.size(79.dp),
                     painter = painterResource(id = R.drawable.avatar_background),
                     contentDescription = null
                 )
                 Image(
-                    modifier = Modifier
-                        .size(64.dp)
-                        .clip(CircleShape)
-                        .niceClickable { useComponent.handle(ConnectionsScreenEvent(itemState)) },
-                    image = itemState.avatar.ifEmpty {
-                        rememberResourceUri(
-                            resourceId = when (itemState.sex) {
-                                Sex.MALE -> R.drawable.avatar_male
-                                Sex.FEMALE -> R.drawable.avatar_female
-                            }
-                        ).toString()
-                    }
+                    modifier =
+                        Modifier.size(64.dp).clip(CircleShape).niceClickable {
+                            useComponent.handle(ConnectionsScreenEvent(itemState))
+                        },
+                    image =
+                        itemState.avatar.ifEmpty {
+                            rememberResourceUri(
+                                    resourceId =
+                                        when (itemState.sex) {
+                                            Sex.MALE -> R.drawable.avatar_male
+                                            Sex.FEMALE -> R.drawable.avatar_female
+                                        }
+                                )
+                                .toString()
+                        }
                 )
             }
             Text(
@@ -79,10 +77,7 @@ fun ConnectionsScreen(
     }
 
     @Composable
-    fun Category(
-        name: String,
-        items: LazyPagingItems<DatingUser>
-    ) {
+    fun Category(name: String, items: LazyPagingItems<DatingUser>) {
         Text(
             text = name,
             style = IpbTheme.typography.title,
@@ -92,13 +87,8 @@ fun ConnectionsScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(26.dp)
         ) {
-            items(
-                count = items.itemCount,
-                key = items.itemKey { it.id }
-            ) { index ->
-                items[index]?.let {
-                    Item(it)
-                }
+            items(count = items.itemCount, key = items.itemKey { it.id }) { index ->
+                items[index]?.let { Item(it) }
             }
         }
     }
@@ -113,18 +103,15 @@ fun ConnectionsScreen(
             )
         }
     ) { _, _ ->
-        StateColumn(
-            state = state.screen,
-            useComponent = useComponent
-        ) {
-
+        StateColumn(state = state.screen, useComponent = useComponent) {
             Column(
                 modifier = Modifier.padding(horizontal = 28.dp),
                 verticalArrangement = Arrangement.spacedBy(28.dp)
             ) {
                 val incomingItems = state.incoming.collectAsLazyPagingItems()
                 Category(
-                    name = "${stringResource(R.string.you_have)} ${incomingItems.itemCount} ${
+                    name =
+                        "${stringResource(R.string.you_have)} ${incomingItems.itemCount} ${
                         stringResource(
                             R.string.incoming_connections
                         )
@@ -146,25 +133,17 @@ fun ConnectionsScreen(
                         count = successInItems.itemCount,
                         key = successInItems.itemKey { it.id }
                     ) { index ->
-                        successInItems[index]?.let {
-                            Item(it)
-                        }
+                        successInItems[index]?.let { Item(it) }
                     }
                     items(
                         count = successOutItems.itemCount,
                         key = successOutItems.itemKey { it.id }
                     ) { index ->
-                        successOutItems[index]?.let {
-                            Item(it)
-                        }
+                        successOutItems[index]?.let { Item(it) }
                     }
                 }
                 val pendingItems = state.pending.collectAsLazyPagingItems()
-                Category(
-                    name = stringResource(R.string.pending_connections),
-                    items = pendingItems
-                )
-
+                Category(name = stringResource(R.string.pending_connections), items = pendingItems)
             }
         }
     }

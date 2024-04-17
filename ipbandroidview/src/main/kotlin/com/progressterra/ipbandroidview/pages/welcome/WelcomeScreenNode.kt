@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class WelcomeScreenNode(
     buildContext: BuildContext,
     private val navigation: WelcomeScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,13 +24,7 @@ class WelcomeScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        WelcomeScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        WelcomeScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

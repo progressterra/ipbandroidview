@@ -10,9 +10,7 @@ interface AudioManager {
 
     fun pause()
 
-    class Base(
-        private val mediaPlayer: MediaPlayer
-    ) : AudioManager {
+    class Base(private val mediaPlayer: MediaPlayer) : AudioManager {
 
         private var lastPreparedCheckPath: String? = null
 

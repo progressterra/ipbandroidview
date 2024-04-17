@@ -39,18 +39,16 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = 4.dp, shape = RoundedCornerShape(8.dp),
+            elevation = 4.dp,
+            shape = RoundedCornerShape(8.dp),
         ) {
             LazyColumn(modifier = Modifier.heightIn(max = 150.dp)) {
                 items(state.suggestions) {
                     Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .niceClickable { useComponent.handle(AddressSuggestionsEvent(it)) }
-                            .padding(
-                                horizontal = 8.dp,
-                                vertical = 6.dp
-                            )
+                        modifier =
+                            Modifier.fillMaxWidth()
+                                .niceClickable { useComponent.handle(AddressSuggestionsEvent(it)) }
+                                .padding(horizontal = 8.dp, vertical = 6.dp)
                     ) {
                         Text(
                             text = it.previewOfSuggestion,
@@ -69,30 +67,31 @@ fun AddressSuggestions(
 private fun AddressSuggestionsPreview() {
     IpbTheme {
         Column(
-            Modifier
-                .background(Color.White)
-                .fillMaxSize(),
+            Modifier.background(Color.White).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             AddressSuggestions(
-                state = AddressSuggestionsState(
-                    isVisible = true,
-                    suggestions = listOf(
-                        SuggestionUI(
-                            previewOfSuggestion = "Lalala",
-                            suggestionExtendedInfo = SuggestionExtendedInfo()
-                        ),
-                        SuggestionUI(
-                            previewOfSuggestion = "Estoy triste",
-                            suggestionExtendedInfo = SuggestionExtendedInfo()
-                        ),
-                        SuggestionUI(
-                            previewOfSuggestion = "Estoy loco",
-                            suggestionExtendedInfo = SuggestionExtendedInfo()
-                        ),
-                    )
-                ), useComponent = UseAddressSuggestions.Empty()
+                state =
+                    AddressSuggestionsState(
+                        isVisible = true,
+                        suggestions =
+                            listOf(
+                                SuggestionUI(
+                                    previewOfSuggestion = "Lalala",
+                                    suggestionExtendedInfo = SuggestionExtendedInfo()
+                                ),
+                                SuggestionUI(
+                                    previewOfSuggestion = "Estoy triste",
+                                    suggestionExtendedInfo = SuggestionExtendedInfo()
+                                ),
+                                SuggestionUI(
+                                    previewOfSuggestion = "Estoy loco",
+                                    suggestionExtendedInfo = SuggestionExtendedInfo()
+                                ),
+                            )
+                    ),
+                useComponent = UseAddressSuggestions.Empty()
             )
         }
     }

@@ -25,9 +25,7 @@ class OrganizationAuditsScreenNode(
                 is OrganizationAuditsScreenEffect.OnChecklist -> navigation.onChecklist(it.data)
             }
         }
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
+        LaunchedEffect(input) { viewModel.setup(input) }
         val state = viewModel.state.collectAsState().value
         OrganizationAuditsScreen(state = state, useComponent = viewModel)
     }

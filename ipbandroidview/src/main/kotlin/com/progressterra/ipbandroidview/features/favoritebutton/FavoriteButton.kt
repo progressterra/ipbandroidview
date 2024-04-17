@@ -15,22 +15,21 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 
 @Composable
 fun FavoriteButton(
-    modifier: Modifier = Modifier, state: FavoriteButtonState, useComponent: UseFavoriteButton
+    modifier: Modifier = Modifier,
+    state: FavoriteButtonState,
+    useComponent: UseFavoriteButton
 ) {
     IconButton(
         modifier = modifier.size(24.dp),
         onClick = { useComponent.handle(FavoriteButtonEvent(state.id)) },
         enabled = state.enabled
     ) {
-        Icon(
-            resId = R.drawable.ic_favorite_off, tint = IpbTheme.colors.iconTertiary.asBrush()
-        )
+        Icon(resId = R.drawable.ic_favorite_off, tint = IpbTheme.colors.iconTertiary.asBrush())
         Column {
-            AnimatedVisibility(
-                visible = state.favorite, enter = scaleIn(), exit = scaleOut()
-            ) {
+            AnimatedVisibility(visible = state.favorite, enter = scaleIn(), exit = scaleOut()) {
                 Icon(
-                    resId = R.drawable.ic_favorite_on, tint = IpbTheme.colors.iconPressed.asBrush()
+                    resId = R.drawable.ic_favorite_on,
+                    tint = IpbTheme.colors.iconPressed.asBrush()
                 )
             }
         }

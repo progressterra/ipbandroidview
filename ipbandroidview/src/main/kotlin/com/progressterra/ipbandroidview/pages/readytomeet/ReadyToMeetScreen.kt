@@ -15,8 +15,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -27,31 +27,35 @@ fun ReadyToMeetScreen(
     state: ReadyToMeetScreenState,
     useComponent: UseReadyToMeetScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.status),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.save,
-                useComponent = useComponent,
-                title = stringResource(R.string.save)
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.status),
+                showBackButton = true,
+                useComponent = useComponent
             )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.skip,
-                useComponent = useComponent,
-                title = stringResource(R.string.skip_yet)
-            )
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.save,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.save)
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.skip_yet)
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
@@ -71,15 +75,15 @@ fun ReadyToMeetScreen(
                 ) {
                     RadioButton(
                         selected = state.readyToMeet ?: state.user.readyToMeet,
-                        onClick = { useComponent.handle(ReadyToMeetScreenEvent(true)) })
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
+                        onClick = { useComponent.handle(ReadyToMeetScreenEvent(true)) }
+                    )
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             modifier = Modifier.padding(start = 34.dp, top = 34.dp, end = 34.dp),
-                            text = if (state.user.sex == Sex.MALE) stringResource(id = R.string.ready_male) else stringResource(
-                                id = R.string.ready_female
-                            ),
+                            text =
+                                if (state.user.sex == Sex.MALE)
+                                    stringResource(id = R.string.ready_male)
+                                else stringResource(id = R.string.ready_female),
                             style = IpbTheme.typography.headline,
                             tint = IpbTheme.colors.textPrimary.asBrush()
                         )
@@ -96,15 +100,15 @@ fun ReadyToMeetScreen(
                 ) {
                     RadioButton(
                         selected = state.readyToMeet?.not() ?: !state.user.readyToMeet,
-                        onClick = { useComponent.handle(ReadyToMeetScreenEvent(false)) })
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
+                        onClick = { useComponent.handle(ReadyToMeetScreenEvent(false)) }
+                    )
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             modifier = Modifier.padding(start = 34.dp, top = 34.dp, end = 34.dp),
-                            text = if (state.user.sex == Sex.MALE) stringResource(id = R.string.not_ready_male) else stringResource(
-                                id = R.string.not_ready_female
-                            ),
+                            text =
+                                if (state.user.sex == Sex.MALE)
+                                    stringResource(id = R.string.not_ready_male)
+                                else stringResource(id = R.string.not_ready_female),
                             style = IpbTheme.typography.headline,
                             tint = IpbTheme.colors.textPrimary.asBrush()
                         )
@@ -126,4 +130,3 @@ fun ReadyToMeetScreen(
         }
     }
 }
-

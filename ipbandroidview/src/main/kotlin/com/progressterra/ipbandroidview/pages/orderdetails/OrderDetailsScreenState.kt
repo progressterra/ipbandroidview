@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatSt
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-
 data class OrderDetailsScreenState(
     val details: OrderDetailsState = OrderDetailsState(),
     val dialogId: String = "",

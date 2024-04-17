@@ -21,8 +21,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -32,24 +32,33 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun InterestsScreen(
-    modifier: Modifier = Modifier, state: InterestsScreenState, useComponent: UseInterestsScreen
+    modifier: Modifier = Modifier,
+    state: InterestsScreenState,
+    useComponent: UseInterestsScreen
 ) {
     @Composable
-    fun Item(
-        itemState: Interest
-    ) {
-        val picked = (state.userInterests.contains(itemState) && !state.changedInterests.contains(itemState)) || (!state.userInterests.contains(itemState) && state.changedInterests.contains(itemState))
+    fun Item(itemState: Interest) {
+        val picked =
+            (state.userInterests.contains(itemState) &&
+                !state.changedInterests.contains(itemState)) ||
+                (!state.userInterests.contains(itemState) &&
+                    state.changedInterests.contains(itemState))
         val backgroundBrush =
-            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
-        Box(modifier = Modifier
-            .padding(vertical = 4.dp)
-            .clip(CircleShape)
-            .background(backgroundBrush)
-            .border(
-                width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-            )
-            .niceClickable { useComponent.handle(InterestsScreenEvent(itemState)) }
-            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+            if (picked) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.background.asBrush()
+        Box(
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.secondary.asBrush(),
+                        shape = CircleShape
+                    )
+                    .niceClickable { useComponent.handle(InterestsScreenEvent(itemState)) }
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
             Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
@@ -58,27 +67,32 @@ fun InterestsScreen(
         }
     }
 
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.interests),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.save,
-                useComponent = useComponent,
-                title = stringResource(R.string.save)
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.interests),
+                showBackButton = true,
+                useComponent = useComponent
             )
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.save,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.save)
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
+            state = state.screen,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
@@ -89,14 +103,10 @@ fun InterestsScreen(
                 textAlign = TextAlign.Center
             )
             FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp),
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                state.allInterests.forEach {
-                    Item(it)
-                }
+                state.allInterests.forEach { Item(it) }
             }
         }
     }
@@ -107,62 +117,37 @@ fun InterestsScreen(
 private fun InterestsScreenPreview() {
     IpbTheme {
         InterestsScreen(
-            state = InterestsScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                userInterests = listOf(
-                    Interest(
-                        id = "0",
-                        name = "coffee"
-                    ), Interest(
-                        id = "1",
-                        name = "sport"
-                    ), Interest(
-                        id = "2",
-                        name = "tea"
-                    )
+            state =
+                InterestsScreenState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    userInterests =
+                        listOf(
+                            Interest(id = "0", name = "coffee"),
+                            Interest(id = "1", name = "sport"),
+                            Interest(id = "2", name = "tea")
+                        ),
+                    changedInterests =
+                        listOf(
+                            Interest(id = "0", name = "coffee"),
+                            Interest(id = "1", name = "sport"),
+                            Interest(id = "2", name = "tea")
+                        ),
+                    allInterests =
+                        listOf(
+                            Interest(id = "0", name = "coffee"),
+                            Interest(id = "1", name = "sport"),
+                            Interest(id = "2", name = "tea"),
+                            Interest(id = "3", name = "lalala"),
+                            Interest(
+                                id = "4",
+                                name = "some very long interest like a small dog psychology"
+                            ),
+                            Interest(id = "5", name = "armenian coffee"),
+                            Interest(id = "6", name = "argentinian coffee"),
+                            Interest(id = "7", name = "colombian coffee")
+                        )
                 ),
-                changedInterests = listOf(
-                    Interest(
-                        id = "0",
-                        name = "coffee"
-                    ), Interest(
-                        id = "1",
-                        name = "sport"
-                    ), Interest(
-                        id = "2",
-                        name = "tea"
-                    )
-                ),
-                allInterests =
-                listOf(
-                    Interest(
-                        id = "0",
-                        name = "coffee"
-                    ), Interest(
-                        id = "1",
-                        name = "sport"
-                    ), Interest(
-                        id = "2",
-                        name = "tea"
-                    ), Interest(
-                        id = "3",
-                        name = "lalala"
-                    ), Interest(
-                        id = "4",
-                        name = "some very long interest like a small dog psychology"
-                    ), Interest(
-                        id = "5",
-                        name = "armenian coffee"
-                    ), Interest(
-                        id = "6",
-                        name = "argentinian coffee"
-                    ), Interest(
-                        id = "7",
-                        name = "colombian coffee"
-                    )
-                )
-            ), useComponent = UseInterestsScreen.Empty()
+            useComponent = UseInterestsScreen.Empty()
         )
     }
 }
-

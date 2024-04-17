@@ -24,9 +24,9 @@ import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.launch
@@ -49,11 +49,11 @@ fun BankCardsScreen(
         },
         bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
             ) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
@@ -69,10 +69,11 @@ fun BankCardsScreen(
             val scope = rememberCoroutineScope()
             Tabs(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
-                tabs = listOf(
-                    stringResource(id = R.string.added_cards),
-                    stringResource(id = R.string.other)
-                ),
+                tabs =
+                    listOf(
+                        stringResource(id = R.string.added_cards),
+                        stringResource(id = R.string.other)
+                    ),
                 currentIndex = pagerState.currentPage,
                 onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } }
             )
@@ -88,10 +89,8 @@ fun BankCardsScreen(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp)
                     ) {
-                        items(
-                            count = lazyItems.itemCount,
-                            key = lazyItems.itemKey { it.id }
-                        ) { index ->
+                        items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) {
+                            index ->
                             lazyItems[index]?.let {
                                 BankCard(
                                     state = it,
@@ -108,10 +107,8 @@ fun BankCardsScreen(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp)
                     ) {
-                        items(
-                            count = lazyItems.itemCount,
-                            key = lazyItems.itemKey { it.id }
-                        ) { index ->
+                        items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) {
+                            index ->
                             lazyItems[index]?.let {
                                 BankCard(
                                     state = it,

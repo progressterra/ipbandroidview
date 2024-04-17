@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DEFAULT_ID
 
 /**
  * Object used to store user data in shared preferences using
+ *
  * @property idUnique - unique id of user
  * @property deviceId - unique id of device
  * @property clientExist - flag that shows if user logged in

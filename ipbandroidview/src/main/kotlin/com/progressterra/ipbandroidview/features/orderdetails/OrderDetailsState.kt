@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
-
 data class OrderDetailsState(
     val id: String = "",
     val number: String = "",
@@ -16,8 +15,5 @@ data class OrderDetailsState(
     val goods: OrderItemsState = OrderItemsState()
 ) {
 
-    fun toOrderTrackingState() = OrderTrackingState(
-        status = status,
-        number = number
-    )
+    fun toOrderTrackingState() = OrderTrackingState(status = status, number = number)
 }

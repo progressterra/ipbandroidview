@@ -13,24 +13,14 @@ class ChatScreenNode(
     buildContext: BuildContext,
     private val navigation: ChatScreenNavigation,
     private val input: String
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = koinViewModel<ChatScreenViewModel>()
-        viewModel.collectEffects {
-            navigation.onBack()
-        }
+        viewModel.collectEffects { navigation.onBack() }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
-        ChatScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(input) { viewModel.setup(input) }
+        ChatScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

@@ -27,30 +27,33 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
-import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
+import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.ui.Text
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GoodsDescription(
-    modifier: Modifier = Modifier, state: GoodsDescriptionState, useComponent: UseGoodsDescription
+    modifier: Modifier = Modifier,
+    state: GoodsDescriptionState,
+    useComponent: UseGoodsDescription
 ) {
-    Column(
-        modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         val pagerState = rememberPagerState { 3 }
         val scope = rememberCoroutineScope()
-        Tabs(modifier = Modifier.padding(horizontal = 20.dp),
-            tabs = listOf(
-                stringResource(id = R.string.description),
-                stringResource(id = R.string.parameters),
-                stringResource(id = R.string.delivery)
-            ),
+        Tabs(
+            modifier = Modifier.padding(horizontal = 20.dp),
+            tabs =
+                listOf(
+                    stringResource(id = R.string.description),
+                    stringResource(id = R.string.parameters),
+                    stringResource(id = R.string.delivery)
+                ),
             currentIndex = pagerState.currentPage,
-            onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } })
+            onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } }
+        )
         HorizontalPager(
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
@@ -58,11 +61,11 @@ fun GoodsDescription(
             verticalAlignment = Alignment.Top
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(12.dp),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 when (it) {
@@ -76,7 +79,8 @@ fun GoodsDescription(
                             )
                             Spacer(Modifier.weight(1f))
                             FavoriteButton(
-                                state = state.favoriteButton, useComponent = useComponent
+                                state = state.favoriteButton,
+                                useComponent = useComponent
                             )
                         }
                         Text(
@@ -85,7 +89,6 @@ fun GoodsDescription(
                             style = IpbTheme.typography.subHeadlineRegular
                         )
                     }
-
                     1 -> {
                         Text(
                             text = stringResource(R.string.parameters),
@@ -108,7 +111,6 @@ fun GoodsDescription(
                             }
                         }
                     }
-
                     2 -> {
                         Text(
                             text = stringResource(R.string.delivery),
@@ -119,8 +121,10 @@ fun GoodsDescription(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            IconButton(modifier = Modifier.size(45.dp),
-                                onClick = { useComponent.handle(GoodsDescriptionEvent) }) {
+                            IconButton(
+                                modifier = Modifier.size(45.dp),
+                                onClick = { useComponent.handle(GoodsDescriptionEvent) }
+                            ) {
                                 Icon(
                                     modifier = Modifier.size(45.dp),
                                     resId = R.drawable.ic_courier,
@@ -144,17 +148,19 @@ fun GoodsDescription(
 @Composable
 fun PreviewGoodsDescription() {
     GoodsDescription(
-        state = GoodsDescriptionState(
-            name = "Product Loooooooooooooooooooooooong Name",
-            description = "This is a great product that you would definitely want to buy.",
-            favoriteButton = FavoriteButtonState(
-                id = "1", enabled = true, favorite = false
+        state =
+            GoodsDescriptionState(
+                name = "Product Loooooooooooooooooooooooong Name",
+                description = "This is a great product that you would definitely want to buy.",
+                favoriteButton = FavoriteButtonState(id = "1", enabled = true, favorite = false),
+                properties =
+                    listOf(
+                        "color" to "black",
+                        "size" to "M",
+                        "additional info" to
+                            "Veeeeeeeeryyyyy long value it is realy very long it even can't be fitted in field"
+                    )
             ),
-            properties = listOf(
-                "color" to "black",
-                "size" to "M",
-                "additional info" to "Veeeeeeeeryyyyy long value it is realy very long it even can't be fitted in field"
-            )
-        ), useComponent = UseGoodsDescription.Empty()
+        useComponent = UseGoodsDescription.Empty()
     )
 }

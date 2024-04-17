@@ -13,7 +13,9 @@ import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 
 @Composable
 fun FavoritesScreen(
-    modifier: Modifier = Modifier, state: FavoritesScreenState, useComponent: UseFavorites
+    modifier: Modifier = Modifier,
+    state: FavoritesScreenState,
+    useComponent: UseFavorites
 ) {
     Layout(
         modifier = modifier,
@@ -23,15 +25,10 @@ fun FavoritesScreen(
                 useComponent = useComponent,
                 showBackButton = true
             )
-        }) { _, _ ->
-        StateColumn(
-            state = state.screen,
-            useComponent = useComponent
-        ) {
-            StoreItems(
-                state = state.items,
-                useComponent = useComponent
-            )
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
+            StoreItems(state = state.items, useComponent = useComponent)
         }
     }
 }

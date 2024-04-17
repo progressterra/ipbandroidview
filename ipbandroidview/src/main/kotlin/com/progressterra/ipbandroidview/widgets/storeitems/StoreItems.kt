@@ -31,15 +31,11 @@ fun StoreItems(
             columns = GridCells.Fixed(IpbAndroidViewSettings.CATALOG_STORE_COLUMNS),
             contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
         ) {
-            items(
-                count = lazyItems.itemCount,
-                key = lazyItems.itemKey { it.id }
-            ) { index ->
+            items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
                 lazyItems[index]?.let {
                     Box(contentAlignment = Alignment.Center) {
-                        customStoreCard?.invoke(it, useComponent) ?: StoreCard(
-                            state = it, useComponent = useComponent
-                        )
+                        customStoreCard?.invoke(it, useComponent)
+                            ?: StoreCard(state = it, useComponent = useComponent)
                     }
                 }
             }

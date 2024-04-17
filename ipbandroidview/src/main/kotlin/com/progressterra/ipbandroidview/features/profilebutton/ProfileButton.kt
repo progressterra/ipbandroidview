@@ -20,7 +20,6 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
-
 @Composable
 fun ProfileButton(
     modifier: Modifier = Modifier,
@@ -31,40 +30,38 @@ fun ProfileButton(
     useComponent: UseProfileButton
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable(state.enabled) { useComponent.handle(ProfileButtonEvent(state.id)) }
-            .then(
-                if (IpbAndroidViewSettings.PROFILE_BUTTONS_BORDER) {
-                    Modifier.border(
-                        width = 2.dp,
-                        brush = IpbTheme.colors.onSurface2.asBrush(),
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                } else {
-                    Modifier
-                }
-            )
-            .padding(16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .niceClickable(state.enabled) { useComponent.handle(ProfileButtonEvent(state.id)) }
+                .then(
+                    if (IpbAndroidViewSettings.PROFILE_BUTTONS_BORDER) {
+                        Modifier.border(
+                            width = 2.dp,
+                            brush = IpbTheme.colors.onSurface2.asBrush(),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                    } else {
+                        Modifier
+                    }
+                )
+                .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val color = if (state.enabled) {
-            if (isDanger) {
-                IpbTheme.colors.textPrimary2.asBrush()
+        val color =
+            if (state.enabled) {
+                if (isDanger) {
+                    IpbTheme.colors.textPrimary2.asBrush()
+                } else {
+                    IpbTheme.colors.textPrimary.asBrush()
+                }
             } else {
-                IpbTheme.colors.textPrimary.asBrush()
+                IpbTheme.colors.textDisabled.asBrush()
             }
-        } else {
-            IpbTheme.colors.textDisabled.asBrush()
-        }
-        Text(
-            text = title,
-            style = IpbTheme.typography.body,
-            tint = color
-        )
+        Text(text = title, style = IpbTheme.typography.body, tint = color)
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -73,13 +70,12 @@ fun ProfileButton(
                 Text(
                     text = "${notification.count}/${notification.max}",
                     style = IpbTheme.typography.footnoteBold,
-                    tint = if (notification.isFull()) IpbTheme.colors.onBackground.asBrush() else IpbTheme.colors.textPrimary2.asBrush()
+                    tint =
+                        if (notification.isFull()) IpbTheme.colors.onBackground.asBrush()
+                        else IpbTheme.colors.textPrimary2.asBrush()
                 )
             }
-            Icon(
-                resId = R.drawable.ic_forw,
-                tint = color
-            )
+            Icon(resId = R.drawable.ic_forw, tint = color)
         }
     }
 }

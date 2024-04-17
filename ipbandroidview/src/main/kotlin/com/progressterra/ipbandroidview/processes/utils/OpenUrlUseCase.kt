@@ -7,9 +7,7 @@ interface OpenUrlUseCase {
 
     suspend operator fun invoke(url: String)
 
-    class Base(
-        private val startActivityContract: StartActivityContract.Client
-    ) : OpenUrlUseCase {
+    class Base(private val startActivityContract: StartActivityContract.Client) : OpenUrlUseCase {
 
         override suspend fun invoke(url: String) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

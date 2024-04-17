@@ -19,13 +19,11 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun DeliveryPicker(
-    modifier: Modifier = Modifier, state: DeliveryPickerState, useComponent: UseDeliveryPicker
+    modifier: Modifier = Modifier,
+    state: DeliveryPickerState,
+    useComponent: UseDeliveryPicker
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
+    Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Text(
             text = stringResource(R.string.delivery),
             tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -38,9 +36,7 @@ fun DeliveryPicker(
                 style = IpbTheme.typography.body
             )
             Spacer(Modifier.weight(1f))
-            Icon(
-                resId = R.drawable.ic_courier, tint = IpbTheme.colors.primary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_courier, tint = IpbTheme.colors.primary.asBrush())
         }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             TextField(
@@ -49,11 +45,7 @@ fun DeliveryPicker(
                 useComponent = useComponent,
                 hint = stringResource(R.string.address)
             )
-            AddressSuggestions(
-                state = state.suggestions,
-                useComponent = useComponent
-            )
+            AddressSuggestions(state = state.suggestions, useComponent = useComponent)
         }
     }
 }
-

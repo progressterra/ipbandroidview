@@ -7,5 +7,4 @@ sealed class NewWithdrawalScreenEffect {
     data object Back : NewWithdrawalScreenEffect()
 
     class Toast(@StringRes val data: Int) : NewWithdrawalScreenEffect()
-
 }

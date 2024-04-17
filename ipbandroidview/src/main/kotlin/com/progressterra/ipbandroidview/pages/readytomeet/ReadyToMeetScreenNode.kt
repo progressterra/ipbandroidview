@@ -26,11 +26,7 @@ class ReadyToMeetScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
-        ReadyToMeetScreen(
-            modifier = modifier, state = state, useComponent = viewModel
-        )
+        LaunchedEffect(input) { viewModel.setup(input) }
+        ReadyToMeetScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

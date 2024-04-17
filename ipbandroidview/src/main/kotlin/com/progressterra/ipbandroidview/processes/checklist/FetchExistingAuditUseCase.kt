@@ -16,14 +16,14 @@ interface FetchExistingAuditUseCase {
         makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources,
         obtainAccessToken: ObtainAccessToken
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+    ) :
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         FetchExistingAuditUseCase {
 
-        override suspend fun invoke(
-            idPlace: String,
-            idChecklist: String
-        ): Result<String> = withToken { token ->
-            checklistService.activeDoc(token, idPlace, idChecklist).data?.idUnique ?: throw SilentException()
-        }
+        override suspend fun invoke(idPlace: String, idChecklist: String): Result<String> =
+            withToken { token ->
+                checklistService.activeDoc(token, idPlace, idChecklist).data?.idUnique
+                    ?: throw SilentException()
+            }
     }
 }

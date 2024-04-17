@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.features.cartcard
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,42 +18,33 @@ import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
-fun CartCard(
-    modifier: Modifier = Modifier, state: CartCardState, useComponent: UseCartCard
-) {
+fun CartCard(modifier: Modifier = Modifier, state: CartCardState, useComponent: UseCartCard) {
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .niceClickable {
-                useComponent.handle(
-                    CartCardEvent.Open(state.id)
-                )
-            }, horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier =
+            modifier.clip(RoundedCornerShape(8.dp)).niceClickable {
+                useComponent.handle(CartCardEvent.Open(state.id))
+            },
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Image(
-            modifier = Modifier
-                .size(width = 157.dp, height = 157.dp)
-                .clip(RoundedCornerShape(8.dp)),
+            modifier =
+                Modifier.size(width = 157.dp, height = 157.dp).clip(RoundedCornerShape(8.dp)),
             image = state.image
         )
-        Column(
-            modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(
                 text = state.name,
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
             )
             if (state.installment.isEmpty()) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
                         text = state.oldPrice.toString(),
                         style = IpbTheme.typography.body2,
@@ -73,7 +63,8 @@ fun CartCard(
                 }
             } else {
                 Text(
-                    text = "${stringResource(R.string.po)} ${state.installment.perMonth} ${
+                    text =
+                        "${stringResource(R.string.po)} ${state.installment.perMonth} ${
                         state.installment.months
                     } ${stringResource(R.string.payments)}",
                     style = IpbTheme.typography.subHeadlineRegular,
@@ -85,15 +76,13 @@ fun CartCard(
                     tint = IpbTheme.colors.textDisabled.asBrush(),
                 )
             }
-            Counter(
-                state = state.counter, useComponent = useComponent
-            )
+            Counter(state = state.counter, useComponent = useComponent)
         }
-        IconButton(modifier = Modifier.size(20.dp),
-            onClick = { useComponent.handle(CartCardEvent.RemoveFromCart(state.id)) }) {
-            Icon(
-                resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
-            )
+        IconButton(
+            modifier = Modifier.size(20.dp),
+            onClick = { useComponent.handle(CartCardEvent.RemoveFromCart(state.id)) }
+        ) {
+            Icon(resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush())
         }
     }
 }
@@ -103,11 +92,13 @@ fun CartCard(
 private fun CartCardPreview() {
     Preview {
         CartCard(
-            state = CartCardState(
-                name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = Price(1000),
-                installment = Installment()
-            ), useComponent = UseCartCard.Empty()
+            state =
+                CartCardState(
+                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                    price = Price(1000),
+                    installment = Installment()
+                ),
+            useComponent = UseCartCard.Empty()
         )
     }
 }

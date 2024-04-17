@@ -21,28 +21,24 @@ import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
-fun StoreCard(
-    modifier: Modifier = Modifier, state: StoreCardState, useComponent: UseStoreCard
-) {
+fun StoreCard(modifier: Modifier = Modifier, state: StoreCardState, useComponent: UseStoreCard) {
     Column(
-        modifier = modifier
-            .width(157.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .niceClickable {
+        modifier =
+            modifier.width(157.dp).clip(RoundedCornerShape(8.dp)).niceClickable {
                 useComponent.handle(StoreCardEvent.Open(state.id))
-            }, verticalArrangement = Arrangement.spacedBy(4.dp)
+            },
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Image(
-            modifier = Modifier
-                .size(width = 157.dp, height = 157.dp)
-                .clip(RoundedCornerShape(8.dp)),
+            modifier =
+                Modifier.size(width = 157.dp, height = 157.dp).clip(RoundedCornerShape(8.dp)),
             image = state.image
         )
         Text(
@@ -59,9 +55,7 @@ fun StoreCard(
                 modifier = Modifier.width(if (state.counter.isEmpty()) 130.dp else 80.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
                         text = state.oldPrice.toString(),
                         style = IpbTheme.typography.body2,
@@ -80,7 +74,8 @@ fun StoreCard(
                 }
                 if (!state.installment.isEmpty()) {
                     Text(
-                        text = "(${stringResource(R.string.installment)}: ${
+                        text =
+                            "(${stringResource(R.string.installment)}: ${
                             state.installment.months
                         } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
                         style = IpbTheme.typography.footnoteRegular,
@@ -91,9 +86,8 @@ fun StoreCard(
             if (state.counter.isEmpty()) {
                 IconButton(
                     modifier = Modifier.size(32.dp),
-                    onClick = {
-                        useComponent.handle(StoreCardEvent.AddToCart(state.id))
-                    }) {
+                    onClick = { useComponent.handle(StoreCardEvent.AddToCart(state.id)) }
+                ) {
                     Icon(
                         modifier = Modifier.size(32.dp),
                         resId = R.drawable.ic_cart,
@@ -101,9 +95,7 @@ fun StoreCard(
                     )
                 }
             } else {
-                Counter(
-                    state = state.counter, useComponent = useComponent
-                )
+                Counter(state = state.counter, useComponent = useComponent)
             }
         }
     }
@@ -114,21 +106,18 @@ fun StoreCard(
 private fun StoreCardPreview() {
     Preview {
         StoreCard(
-            state = StoreCardState(
-                name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = Price(1000)
-            ), useComponent = UseStoreCard.Empty()
+            state = StoreCardState(name = "Ноутбук Lenovo IdeaPad 3 15ADA05", price = Price(1000)),
+            useComponent = UseStoreCard.Empty()
         )
         StoreCard(
-            state = StoreCardState(
-                name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = Price(1000),
-                counter = CounterState("1", 5),
-                installment = Installment(
-                    months = 4,
-                    perMonth = Price(500)
-                )
-            ), useComponent = UseStoreCard.Empty()
+            state =
+                StoreCardState(
+                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                    price = Price(1000),
+                    counter = CounterState("1", 5),
+                    installment = Installment(months = 4, perMonth = Price(500))
+                ),
+            useComponent = UseStoreCard.Empty()
         )
     }
 }

@@ -20,18 +20,15 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 @Composable
-fun UnAuthPlaceholder(
-    modifier: Modifier = Modifier,
-    state: ButtonState,
-    useComponent: UseButton
-) {
+fun UnAuthPlaceholder(modifier: Modifier = Modifier, state: ButtonState, useComponent: UseButton) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(12.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

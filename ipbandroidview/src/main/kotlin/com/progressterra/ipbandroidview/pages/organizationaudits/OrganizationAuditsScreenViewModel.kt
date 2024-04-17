@@ -13,9 +13,13 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class OrganizationAuditsScreenViewModel(
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
     private val openMapUseCase: OpenMapUseCase
-) : AbstractInputViewModel<Organization, OrganizationAuditsScreenState, OrganizationAuditsScreenEffect>(),
+) :
+    AbstractInputViewModel<
+        Organization,
+        OrganizationAuditsScreenState,
+        OrganizationAuditsScreenEffect
+    >(),
     UseOrganizationAuditsScreen {
-
 
     override fun createInitialState() = OrganizationAuditsScreenState()
 
@@ -38,16 +42,18 @@ class OrganizationAuditsScreenViewModel(
     private fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            organizationAuditsUseCase(currentState.id).onSuccess { audits ->
-                emitState {
-                    it.copy(
-                        audits = audits,
-                        screen = it.screen.copy(state = ScreenState.SUCCESS)
-                    )
+            organizationAuditsUseCase(currentState.id)
+                .onSuccess { audits ->
+                    emitState {
+                        it.copy(
+                            audits = audits,
+                            screen = it.screen.copy(state = ScreenState.SUCCESS)
+                        )
+                    }
                 }
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+                .onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
@@ -58,21 +64,19 @@ class OrganizationAuditsScreenViewModel(
     override fun handle(event: OrganizationAuditsScreenEvent) {
         onBackground {
             when (event) {
-                is OrganizationAuditsScreenEvent.OnMap -> openMapUseCase(
-                    currentState.latitude,
-                    currentState.longitude
-                )
-
-                is OrganizationAuditsScreenEvent.OnAuditDetails -> postEffect(
-                    OrganizationAuditsScreenEffect.OnChecklist(
-                        AuditDocument(
-                            placeId = currentState.id,
-                            checklistId = event.audit.id,
-                            name = event.audit.name,
-                            documentId = null
-                        ) to ChecklistStatus.CAN_BE_STARTED
+                is OrganizationAuditsScreenEvent.OnMap ->
+                    openMapUseCase(currentState.latitude, currentState.longitude)
+                is OrganizationAuditsScreenEvent.OnAuditDetails ->
+                    postEffect(
+                        OrganizationAuditsScreenEffect.OnChecklist(
+                            AuditDocument(
+                                placeId = currentState.id,
+                                checklistId = event.audit.id,
+                                name = event.audit.name,
+                                documentId = null
+                            ) to ChecklistStatus.CAN_BE_STARTED
+                        )
                     )
-                )
             }
         }
     }

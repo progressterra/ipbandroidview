@@ -28,7 +28,8 @@ import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPicker
 @Composable
 fun DeliveryScreen(
     modifier: Modifier = Modifier,
-    state: DeliveryScreenState, useComponent: UseDelivery
+    state: DeliveryScreenState,
+    useComponent: UseDelivery
 ) {
     Layout(
         modifier = modifier,
@@ -38,13 +39,14 @@ fun DeliveryScreen(
                 useComponent = useComponent,
                 showBackButton = true
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
             ) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
@@ -53,7 +55,8 @@ fun DeliveryScreen(
                     title = stringResource(R.string.next)
                 )
             }
-        }) { _, _ ->
+        }
+    ) { _, _ ->
         val scrollState = rememberScrollState()
         StateColumn(
             state = state.screen,
@@ -62,18 +65,14 @@ fun DeliveryScreen(
             useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
-            OrderSteps(
-                modifier = Modifier.padding(top = 40.dp),
-                state = OrderStepsState.DELIVERY
-            )
+            OrderSteps(modifier = Modifier.padding(top = 40.dp), state = OrderStepsState.DELIVERY)
             DeliveryPicker(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                useComponent = useComponent, state = state.deliveryPicker
+                useComponent = useComponent,
+                state = state.deliveryPicker
             )
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 state = state.commentary,
                 useComponent = useComponent,
                 hint = stringResource(R.string.comment)
@@ -90,8 +89,5 @@ fun DeliveryScreen(
 @Preview
 @Composable
 private fun DeliveryScreenPreview() {
-    DeliveryScreen(
-        state = DeliveryScreenState(),
-        useComponent = UseDelivery.Empty()
-    )
+    DeliveryScreen(state = DeliveryScreenState(), useComponent = UseDelivery.Empty())
 }

@@ -7,9 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 
-/**
- * Fun to observe lifecycle events in Compose
- */
+/** Fun to observe lifecycle events in Compose */
 @Composable
 fun ComposableLifecycle(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
@@ -17,13 +15,9 @@ fun ComposableLifecycle(
 ) {
 
     DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { source, event ->
-            onEvent(source, event)
-        }
+        val observer = LifecycleEventObserver { source, event -> onEvent(source, event) }
         lifecycleOwner.lifecycle.addObserver(observer)
 
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 }

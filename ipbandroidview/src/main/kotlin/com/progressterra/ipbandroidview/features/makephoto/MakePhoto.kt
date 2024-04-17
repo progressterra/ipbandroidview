@@ -39,19 +39,16 @@ fun MakePhoto(
     fun Item(picture: MultisizedImage) {
         Box {
             Image(
-                modifier = Modifier
-                    .size(63.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .niceClickable { useComponent.handle(MakePhotoEvent.Select(picture)) },
+                modifier =
+                    Modifier.size(63.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .niceClickable { useComponent.handle(MakePhotoEvent.Select(picture)) },
                 image = picture.url
             )
             if (!photosFromRemote) {
                 IconButton(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .size(18.dp)
-                        .padding(4.dp),
+                    modifier = Modifier.align(Alignment.TopEnd).size(18.dp).padding(4.dp),
                     onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) },
                     enabled = state.enabled
                 ) {
@@ -64,10 +61,7 @@ fun MakePhoto(
         }
     }
 
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         PseudoButton(
             modifier = Modifier.fillMaxWidth(),
             state = state.makePhoto,
@@ -79,9 +73,7 @@ fun MakePhoto(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(state.items) { item ->
-                Item(picture = item)
-            }
+            items(state.items) { item -> Item(picture = item) }
         }
     }
 }
@@ -91,18 +83,17 @@ fun MakePhoto(
 private fun AttachedPhotosPreviewEnabled() {
     IpbTheme {
         MakePhoto(
-            state = MakePhotoState(
-                enabled = true,
-                items = listOf(
-                    MultisizedImage(
-                        id = "", local = false, toRemove = false, url = ""
-                    ), MultisizedImage(
-                        id = "", local = false, toRemove = false, url = ""
-                    ), MultisizedImage(
-                        id = "", local = false, toRemove = false, url = ""
-                    )
-                )
-            ), useComponent = UseMakePhoto.Empty(),
+            state =
+                MakePhotoState(
+                    enabled = true,
+                    items =
+                        listOf(
+                            MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                            MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                            MultisizedImage(id = "", local = false, toRemove = false, url = "")
+                        )
+                ),
+            useComponent = UseMakePhoto.Empty(),
             title = stringResource(R.string.passport_photo),
             photosFromRemote = true
         )

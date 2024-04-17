@@ -25,8 +25,8 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -47,13 +47,14 @@ fun NewWithdrawalScreen(
                 useComponent = useComponent,
                 showBackButton = true
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+                modifier =
+                    Modifier.padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
             ) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
@@ -71,12 +72,12 @@ fun NewWithdrawalScreen(
             horizontalAlignment = Alignment.End
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(6.dp)
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(6.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.can_be_out),
@@ -98,23 +99,14 @@ fun NewWithdrawalScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(20.dp)
             ) {
-                items(
-                    count = lazyItems.itemCount,
-                    key = lazyItems.itemKey { it.id }
-                ) { index ->
-                    lazyItems[index]?.let {
-                        BankCard(
-                            state = it,
-                            useComponent = useComponent
-                        )
-                    }
+                items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
+                    lazyItems[index]?.let { BankCard(state = it, useComponent = useComponent) }
                 }
             }
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                state = state.input, useComponent = useComponent,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                state = state.input,
+                useComponent = useComponent,
                 hint = stringResource(id = R.string.input_amount)
             )
             TextButton(
@@ -132,26 +124,19 @@ fun NewWithdrawalScreen(
 @Preview
 private fun NewWithdrawalScreenPreview() {
     NewWithdrawalScreen(
-        state = NewWithdrawalScreenState(
-            cardsFlow = flowOf(
-                PagingData.from(
-                    listOf(
-                        BankCardState(
-                            id = "0",
-                            isMainCard = true
-                        ),
-                        BankCardState(
-                            id = "1",
-                            isMainCard = false
-                        ),
-                        BankCardState(
-                            id = "2",
-                            isMainCard = false
+        state =
+            NewWithdrawalScreenState(
+                cardsFlow =
+                    flowOf(
+                        PagingData.from(
+                            listOf(
+                                BankCardState(id = "0", isMainCard = true),
+                                BankCardState(id = "1", isMainCard = false),
+                                BankCardState(id = "2", isMainCard = false)
+                            )
                         )
                     )
-                )
-            )
-        ),
+            ),
         useComponent = UseNewWithdrawalScreen.Empty()
     )
 }

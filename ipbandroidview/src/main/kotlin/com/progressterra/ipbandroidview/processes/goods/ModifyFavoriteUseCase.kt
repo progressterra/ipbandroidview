@@ -6,8 +6,7 @@ interface ModifyFavoriteUseCase {
 
     class Base : ModifyFavoriteUseCase {
 
-        override suspend fun invoke(
-            id: String, favorite: Boolean
-        ): Result<Unit> = Result.success(Unit)
+        override suspend fun invoke(id: String, favorite: Boolean): Result<Unit> =
+            Result.success(Unit)
     }
 }

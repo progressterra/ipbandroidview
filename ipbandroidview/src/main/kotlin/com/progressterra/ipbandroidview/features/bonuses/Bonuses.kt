@@ -37,30 +37,27 @@ fun Bonuses(
     useComponent: UseBonuses
 ) {
     StateColumn(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(if (UserData.clientExist) 162.dp else 198.dp),
+        modifier = modifier.fillMaxWidth().height(if (UserData.clientExist) 162.dp else 198.dp),
         state = state.state,
         useComponent = useComponent
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(if (UserData.clientExist) 162.dp else 198.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.secondaryPressed.asBrush())
-                .padding(16.dp)
+            modifier =
+                Modifier.fillMaxWidth()
+                    .height(if (UserData.clientExist) 162.dp else 198.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(IpbTheme.colors.secondaryPressed.asBrush())
+                    .padding(16.dp)
         ) {
             if (UserData.clientExist) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(45.dp),
+                    modifier = Modifier.fillMaxWidth().height(45.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${
+                        text =
+                            "${stringResource(R.string.you_have)} ${state.roubles} ${
                             stringResource(
                                 R.string.roubles
                             )
@@ -71,7 +68,8 @@ fun Bonuses(
                     if (style == BonusesStyle.MAIN) {
                         IconButton(
                             modifier = Modifier.size(45.dp),
-                            onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
+                            onClick = { useComponent.handle(BonusesEvent.Transactions) }
+                        ) {
                             Icon(
                                 modifier = Modifier.size(45.dp),
                                 resId = R.drawable.ic_arrow,
@@ -82,7 +80,8 @@ fun Bonuses(
                 }
                 if (style == BonusesStyle.MAIN && !state.hasCards) {
                     Text(
-                        modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+                        modifier =
+                            Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
                         text = stringResource(R.string.add_card),
                         style = IpbTheme.typography.subHeadlineBold,
                         tint = IpbTheme.colors.primary.asBrush()
@@ -91,14 +90,13 @@ fun Bonuses(
                     Spacer(modifier = Modifier.weight(1f))
                 }
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(45.dp),
+                    modifier = Modifier.fillMaxWidth().height(45.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${
+                        text =
+                            "${stringResource(R.string.can_be_out)} ${state.roubles} ${
                             stringResource(
                                 R.string.roubles
                             )
@@ -109,7 +107,8 @@ fun Bonuses(
                     if (style == BonusesStyle.MAIN) {
                         IconButton(
                             modifier = Modifier.size(45.dp),
-                            onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
+                            onClick = { useComponent.handle(BonusesEvent.Withdrawal) }
+                        ) {
                             Icon(
                                 modifier = Modifier.size(45.dp),
                                 resId = R.drawable.ic_withdrawal,
@@ -118,9 +117,7 @@ fun Bonuses(
                         }
                     }
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = stringResource(R.string.available_installment),
                         style = IpbTheme.typography.subHeadlineRegular,
@@ -134,7 +131,8 @@ fun Bonuses(
                 }
             } else {
                 Text(
-                    text = "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
+                    text =
+                        "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textButton.asBrush()
                 )
@@ -161,10 +159,12 @@ fun Bonuses(
 private fun BonusesPreview0() {
     IpbTheme {
         Bonuses(
-            state = BonusesState(
-                roubles = "100",
-                state = StateColumnState(state = ScreenState.SUCCESS)
-            ), useComponent = UseBonuses.Empty()
+            state =
+                BonusesState(
+                    roubles = "100",
+                    state = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+            useComponent = UseBonuses.Empty()
         )
     }
 }
@@ -174,11 +174,13 @@ private fun BonusesPreview0() {
 private fun BonusesPreview1() {
     IpbTheme {
         Bonuses(
-            state = BonusesState(
-                roubles = "100",
-                hasCards = true,
-                state = StateColumnState(state = ScreenState.SUCCESS)
-            ), useComponent = UseBonuses.Empty(),
+            state =
+                BonusesState(
+                    roubles = "100",
+                    hasCards = true,
+                    state = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+            useComponent = UseBonuses.Empty(),
             style = BonusesStyle.TRANSACTIONS
         )
     }
@@ -189,11 +191,13 @@ private fun BonusesPreview1() {
 private fun BonusesPreview2() {
     IpbTheme {
         Bonuses(
-            state = BonusesState(
-                roubles = "100",
-                hasCards = true,
-                state = StateColumnState(state = ScreenState.SUCCESS)
-            ), useComponent = UseBonuses.Empty()
+            state =
+                BonusesState(
+                    roubles = "100",
+                    hasCards = true,
+                    state = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+            useComponent = UseBonuses.Empty()
         )
     }
 }

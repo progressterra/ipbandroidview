@@ -6,10 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Immutable
-data class Interest(
-    override val id: String = "",
-    val name: String = ""
-) : Id, Parcelable, IsEmpty {
+data class Interest(override val id: String = "", val name: String = "") : Id, Parcelable, IsEmpty {
 
     override fun isEmpty() = this == Interest()
 }

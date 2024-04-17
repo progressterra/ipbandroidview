@@ -18,9 +18,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
 @Composable
-fun EditButton(
-    modifier: Modifier = Modifier, state: EditButtonState, useComponent: UseEditButton
-) {
+fun EditButton(modifier: Modifier = Modifier, state: EditButtonState, useComponent: UseEditButton) {
     Column(
         modifier
             .fillMaxWidth()

@@ -30,13 +30,14 @@ fun LinkText(
         onClick = { offset ->
             linkTextData.forEach { annotatedStringData ->
                 annotatedStringData.url?.let { url ->
-                    annotatedString.getStringAnnotations(
-                        tag = annotatedStringData.url,
-                        start = offset,
-                        end = offset,
-                    ).firstOrNull()?.let {
-                        useComponent.handle(LinkTextEvent(url))
-                    }
+                    annotatedString
+                        .getStringAnnotations(
+                            tag = annotatedStringData.url,
+                            start = offset,
+                            end = offset,
+                        )
+                        .firstOrNull()
+                        ?.let { useComponent.handle(LinkTextEvent(url)) }
                 }
             }
         }
@@ -50,9 +51,7 @@ private fun createAnnotatedString(data: List<LinkTextData>): AnnotatedString {
             if (linkTextData.url != null) {
                 pushStringAnnotation(tag = linkTextData.url, annotation = linkTextData.url)
                 withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
-                    append(
-                        linkTextData.text
-                    )
+                    append(linkTextData.text)
                 }
                 pop()
             } else append(linkTextData.text)

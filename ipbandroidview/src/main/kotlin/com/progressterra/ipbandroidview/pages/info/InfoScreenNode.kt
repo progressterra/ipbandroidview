@@ -9,10 +9,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class InfoScreenNode(
-    buildContext: BuildContext,
-    private val navigation: InfoScreenNavigation
-) : Node(buildContext = buildContext) {
+class InfoScreenNode(buildContext: BuildContext, private val navigation: InfoScreenNavigation) :
+    Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -25,9 +23,7 @@ class InfoScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         InfoScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

@@ -6,9 +6,8 @@ interface AskPermissionUseCase {
 
     suspend operator fun invoke(permission: String)
 
-    class Base(
-        private val managePermissionContract: ManagePermissionContract.Client
-    ) : AskPermissionUseCase {
+    class Base(private val managePermissionContract: ManagePermissionContract.Client) :
+        AskPermissionUseCase {
 
         override suspend fun invoke(permission: String) {
             managePermissionContract.requestPermission(permission)

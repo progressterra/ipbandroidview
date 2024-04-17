@@ -13,9 +13,9 @@ import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCas
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 import kotlinx.coroutines.flow.collectLatest
 
 class DatingMainScreenViewModel(
@@ -28,7 +28,8 @@ class DatingMainScreenViewModel(
     private val availableTargets: AvailableTargetsUseCase,
     private val fetchDatingUserUseCase: FetchDatingUserUseCase,
     private val makeToastUseCase: MakeToastUseCase
-) : UseDatingMainScreen,
+) :
+    UseDatingMainScreen,
     AbstractNonInputViewModel<DatingMainScreenState, DatingMainScreenEffect>() {
 
     private var lastTimeUpdated: Long = 0
@@ -38,7 +39,8 @@ class DatingMainScreenViewModel(
     init {
         onBackground {
             usersAroundUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { anotherUsers -> emitState { it.copy(users = anotherUsers) } }
+                result
+                    .onSuccess { anotherUsers -> emitState { it.copy(users = anotherUsers) } }
                     .onFailure {
                         emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                     }
@@ -46,25 +48,30 @@ class DatingMainScreenViewModel(
         }
         onBackground {
             fetchDatingUserUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { newCurrent ->
-                    emitState {
-                        it.copy(
-                            currentUser = newCurrent,
-                            readyToMeet = it.readyToMeet.copy(turned = newCurrent.readyToMeet)
-                        )
-                    }
-                    val currentTime = System.currentTimeMillis()
-                    if (newCurrent.readyToMeet && currentTime - lastTimeUpdated >= updateInterval) {
-                        lastTimeUpdated = currentTime
-                        updateDatingLocationUseCase().onSuccess {
-                            makeToastUseCase(R.string.location_updated)
-                            usersAroundUseCase()
-                            fetchDatingUserUseCase()
+                result
+                    .onSuccess { newCurrent ->
+                        emitState {
+                            it.copy(
+                                currentUser = newCurrent,
+                                readyToMeet = it.readyToMeet.copy(turned = newCurrent.readyToMeet)
+                            )
+                        }
+                        val currentTime = System.currentTimeMillis()
+                        if (
+                            newCurrent.readyToMeet &&
+                                currentTime - lastTimeUpdated >= updateInterval
+                        ) {
+                            lastTimeUpdated = currentTime
+                            updateDatingLocationUseCase().onSuccess {
+                                makeToastUseCase(R.string.location_updated)
+                                usersAroundUseCase()
+                                fetchDatingUserUseCase()
+                            }
                         }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
@@ -78,24 +85,22 @@ class DatingMainScreenViewModel(
     override fun handle(event: DatingMainScreenEvent) {
         onBackground {
             when (event) {
-                is DatingMainScreenEvent.OnOwnProfile -> postEffect(
-                    DatingMainScreenEffect.OnOwnProfile
-                )
-
-                is DatingMainScreenEvent.OnProfile -> postEffect(
-                    DatingMainScreenEffect.OnProfile(event.user)
-                )
-
+                is DatingMainScreenEvent.OnOwnProfile ->
+                    postEffect(DatingMainScreenEffect.OnOwnProfile)
+                is DatingMainScreenEvent.OnProfile ->
+                    postEffect(DatingMainScreenEffect.OnProfile(event.user))
                 is DatingMainScreenEvent.SelectTarget -> {
-                    checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                        readyToMeetUseCase(event.data).onSuccess {
-                            fetchDatingUserUseCase()
-                            usersAroundUseCase()
+                    checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                        .onSuccess {
+                            readyToMeetUseCase(event.data).onSuccess {
+                                fetchDatingUserUseCase()
+                                usersAroundUseCase()
+                            }
                         }
-                    }.onFailure {
-                        makeToastUseCase(R.string.failure_location_permission)
-                        askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
-                    }
+                        .onFailure {
+                            makeToastUseCase(R.string.failure_location_permission)
+                            askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                        }
                 }
             }
         }
@@ -105,32 +110,30 @@ class DatingMainScreenViewModel(
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
-            availableTargets().onSuccess { targets ->
-                emitState { it.copy(datingTargets = targets) }
-            }.onFailure { isSuccess = false }
+            availableTargets()
+                .onSuccess { targets -> emitState { it.copy(datingTargets = targets) } }
+                .onFailure { isSuccess = false }
             fetchDatingUserUseCase()
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
-
     }
-
 
     override fun handle(event: SwitchEvent) {
         onBackground {
             if (!currentState.readyToMeet.turned) {
-                checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                    readyToMeetUseCase(currentState.currentUser.target).onSuccess {
-                        fetchDatingUserUseCase()
-                        usersAroundUseCase()
+                checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                    .onSuccess {
+                        readyToMeetUseCase(currentState.currentUser.target).onSuccess {
+                            fetchDatingUserUseCase()
+                            usersAroundUseCase()
+                        }
                     }
-                }.onFailure {
-                    makeToastUseCase(R.string.failure_location_permission)
-                    askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
-                }
+                    .onFailure {
+                        makeToastUseCase(R.string.failure_location_permission)
+                        askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                    }
             } else {
-                deleteReadyToMeetUseCase().onSuccess {
-                    fetchDatingUserUseCase()
-                }
+                deleteReadyToMeetUseCase().onSuccess { fetchDatingUserUseCase() }
             }
         }
     }

@@ -20,9 +20,11 @@ class InterestsScreenViewModel(
     init {
         onBackground {
             fetchDatingUserUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { user ->
-                    emitState { it.copy(userInterests = user.interests) }
-                }.onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
+                result
+                    .onSuccess { user -> emitState { it.copy(userInterests = user.interests) } }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
@@ -31,9 +33,9 @@ class InterestsScreenViewModel(
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
-            fetchInterestsUseCase().onSuccess { newInterests ->
-                emitState { it.copy(allInterests = newInterests) }
-            }.onFailure { isSuccess = false }
+            fetchInterestsUseCase()
+                .onSuccess { newInterests -> emitState { it.copy(allInterests = newInterests) } }
+                .onFailure { isSuccess = false }
             fetchDatingUserUseCase()
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
@@ -44,7 +46,9 @@ class InterestsScreenViewModel(
     override fun handle(event: InterestsScreenEvent) {
         emitState {
             it.copy(
-                changedInterests = if (it.changedInterests.contains(event.data)) it.changedInterests - event.data else it.changedInterests + event.data
+                changedInterests =
+                    if (it.changedInterests.contains(event.data)) it.changedInterests - event.data
+                    else it.changedInterests + event.data
             )
         }
     }
@@ -57,11 +61,11 @@ class InterestsScreenViewModel(
         if (event.id == "save") {
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-                changeInterestsUseCase(currentState.userInterests, currentState.changedInterests).onSuccess {
-                    postEffect(InterestsScreenEffect.OnNext)
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                changeInterestsUseCase(currentState.userInterests, currentState.changedInterests)
+                    .onSuccess { postEffect(InterestsScreenEffect.OnNext) }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         } else if (event.id == "skip") {
             postEffect(InterestsScreenEffect.OnSkip)

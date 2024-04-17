@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.pages.welcome
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
-class WelcomeScreenViewModel : AbstractNonInputViewModel<WelcomeScreenState, WelcomeScreenEffect>(),
-    UseWelcomeScreen {
+class WelcomeScreenViewModel :
+    AbstractNonInputViewModel<WelcomeScreenState, WelcomeScreenEffect>(), UseWelcomeScreen {
 
     override fun createInitialState() = WelcomeScreenState()
 

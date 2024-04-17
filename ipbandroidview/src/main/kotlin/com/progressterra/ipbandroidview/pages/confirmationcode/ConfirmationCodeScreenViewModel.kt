@@ -14,7 +14,8 @@ import kotlinx.coroutines.delay
 class ConfirmationCodeScreenViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : AbstractInputViewModel<SignInData, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect>(),
+) :
+    AbstractInputViewModel<SignInData, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect>(),
     UseConfirmationCodeScreen {
 
     override fun createInitialState() = ConfirmationCodeScreenState()
@@ -29,13 +30,13 @@ class ConfirmationCodeScreenViewModel(
     private fun onNext() {
         onBackground {
             emitState { it.copy(code = it.code.copy(enabled = false)) }
-            val call = endVerificationChannelUseCase(
-                currentState.signInData.token,
-                currentState.signInData.phone,
-                currentState.code.code
-            ).onSuccess {
-                postEffect(ConfirmationCodeScreenEffect.Next)
-            }
+            val call =
+                endVerificationChannelUseCase(
+                        currentState.signInData.token,
+                        currentState.signInData.phone,
+                        currentState.code.code
+                    )
+                    .onSuccess { postEffect(ConfirmationCodeScreenEffect.Next) }
             emitState { it.copy(code = it.code.copy(enabled = call.isSuccess)) }
         }
     }
@@ -46,7 +47,9 @@ class ConfirmationCodeScreenViewModel(
             emitState { it.copy(repeat = it.repeat.copy(enabled = false)) }
             if (currentState.signInData.allowedAttempts >= 0) {
                 for (i in currentState.signInData.secondsToResend.downTo(1)) {
-                    emitState { it.copy(repeat = it.repeat.copy(count = if (i >= 10) "00:$i" else "00:0$i")) }
+                    emitState {
+                        it.copy(repeat = it.repeat.copy(count = if (i >= 10) "00:$i" else "00:0$i"))
+                    }
                     delay(1000)
                 }
                 emitState { it.copy(repeat = it.repeat.copy(enabled = true)) }
@@ -55,9 +58,7 @@ class ConfirmationCodeScreenViewModel(
     }
 
     override fun handle(event: CodeEvent) {
-        emitState {
-            it.copy(code = it.code.copy(code = event.code))
-        }
+        emitState { it.copy(code = it.code.copy(code = event.code)) }
         if (event.code.length == 4) onNext()
     }
 

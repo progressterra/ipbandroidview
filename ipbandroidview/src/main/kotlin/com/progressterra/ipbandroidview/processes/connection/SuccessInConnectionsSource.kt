@@ -21,24 +21,31 @@ class SuccessInConnectionsSource(
     override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<DatingUser>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
-            val response = service.connectsIncoming(
-                token = token,
-                body = FilterAndSort(
-                    listFields = listOf(
-                        FieldForFilter(
-                            fieldName = "statusConnect",
-                            listValue = listOf("success"),
-                            comparison = TypeComparison.EQUALS_STRONG
-                        )
-                    ),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = skip, take = take
-                )
-            ).dataList ?: emptyList()
+            val response =
+                service
+                    .connectsIncoming(
+                        token = token,
+                        body =
+                            FilterAndSort(
+                                listFields =
+                                    listOf(
+                                        FieldForFilter(
+                                            fieldName = "statusConnect",
+                                            listValue = listOf("success"),
+                                            comparison = TypeComparison.EQUALS_STRONG
+                                        )
+                                    ),
+                                sort =
+                                    SortData(
+                                        fieldName = "dateAdded",
+                                        variantSort = TypeVariantSort.DESC
+                                    ),
+                                searchData = "",
+                                skip = skip,
+                                take = take
+                            )
+                    )
+                    .dataList ?: emptyList()
             response.size to response.map { it.toDatingUser(false) }
         }
 }

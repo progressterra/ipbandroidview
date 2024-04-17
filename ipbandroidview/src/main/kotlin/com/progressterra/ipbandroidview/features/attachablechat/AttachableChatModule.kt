@@ -32,38 +32,37 @@ class AttachableChatModule(
     fun refresh() {
         onBackground {
             emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            fetchMessagesUseCase(moduleState.id).onSuccess { newMessages ->
-                emitModuleState {
-                    it.copy(
-                        messagesState = it.messagesState.copy(
-                            items = cachePaging(newMessages)
-                        ),
-                        screen = it.screen.copy(state = ScreenState.SUCCESS)
-                    )
+            fetchMessagesUseCase(moduleState.id)
+                .onSuccess { newMessages ->
+                    emitModuleState {
+                        it.copy(
+                            messagesState = it.messagesState.copy(items = cachePaging(newMessages)),
+                            screen = it.screen.copy(state = ScreenState.SUCCESS)
+                        )
+                    }
                 }
-            }.onFailure {
-                emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+                .onFailure {
+                    emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
     private fun sendMessage() {
         onBackground {
             emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            sendMessageUseCase(
-                moduleState.id,
-                moduleState.input.text
-            ).onSuccess {
-                emitModuleState {
-                    it.copy(
-                        input = it.input.copy(text = ""),
-                        screen = it.screen.copy(state = ScreenState.SUCCESS)
-                    )
+            sendMessageUseCase(moduleState.id, moduleState.input.text)
+                .onSuccess {
+                    emitModuleState {
+                        it.copy(
+                            input = it.input.copy(text = ""),
+                            screen = it.screen.copy(state = ScreenState.SUCCESS)
+                        )
+                    }
+                    refresh()
                 }
-                refresh()
-            }.onFailure {
-                emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+                .onFailure {
+                    emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
@@ -74,10 +73,8 @@ class AttachableChatModule(
     override fun handle(event: TextFieldEvent) {
         if (event.id == "input") {
             when (event) {
-                is TextFieldEvent.TextChanged -> emitModuleState {
-                    it.copy(input = it.input.copy(text = event.text))
-                }
-
+                is TextFieldEvent.TextChanged ->
+                    emitModuleState { it.copy(input = it.input.copy(text = event.text)) }
                 else -> sendMessage()
             }
         }

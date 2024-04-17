@@ -25,38 +25,34 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun PaymentScreen(
-    modifier: Modifier = Modifier, state: PaymentScreenState, useComponent: UsePaymentScreen
+    modifier: Modifier = Modifier,
+    state: PaymentScreenState,
+    useComponent: UsePaymentScreen
 ) {
     Layout(
         modifier = modifier,
         topBar = {
             TopBar(
-                title = stringResource(R.string.processing), useComponent = useComponent,
+                title = stringResource(R.string.processing),
+                useComponent = useComponent,
                 showBackButton = true
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             Receipt(
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-                state = state.receipt, useComponent = useComponent
+                state = state.receipt,
+                useComponent = useComponent
             )
-        }) { _, _ ->
-        StateColumn(
-            scrollable = true,
-            state = state.screen,
-            useComponent = useComponent
-        ) {
+        }
+    ) { _, _ ->
+        StateColumn(scrollable = true, state = state.screen, useComponent = useComponent) {
             Spacer(Modifier.height(40.dp))
-            OrderSteps(
-                state = OrderStepsState.DELIVERY
-            )
+            OrderSteps(state = OrderStepsState.DELIVERY)
             Spacer(Modifier.height(8.dp))
-            PaymentMethod(
-                state = state.paymentMethod, useComponent = useComponent
-            )
+            PaymentMethod(state = state.paymentMethod, useComponent = useComponent)
             Spacer(Modifier.height(8.dp))
-            BonusSwitch(
-                state = state.bonusSwitch, useComponent = useComponent
-            )
+            BonusSwitch(state = state.bonusSwitch, useComponent = useComponent)
             Spacer(Modifier.height(40.dp))
         }
     }
@@ -66,16 +62,24 @@ fun PaymentScreen(
 @Composable
 private fun PaymentScreenPreview() {
     PaymentScreen(
-        state = PaymentScreenState(
-            screen = StateColumnState(state = ScreenState.SUCCESS), receipt = ReceiptState(
-                total = Price(12500), items = listOf(
-                    ReceiptState.Item(
-                        name = "Кофе", price = Price(10000), quantity = 1
-                    ), ReceiptState.Item(
-                        name = "Сахар", price = Price(2500), quantity = 2
-                    )
-                )
-            ), paymentMethod = PaymentMethodState()
-        ), useComponent = UsePaymentScreen.Empty()
+        state =
+            PaymentScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                receipt =
+                    ReceiptState(
+                        total = Price(12500),
+                        items =
+                            listOf(
+                                ReceiptState.Item(
+                                    name = "Кофе",
+                                    price = Price(10000),
+                                    quantity = 1
+                                ),
+                                ReceiptState.Item(name = "Сахар", price = Price(2500), quantity = 2)
+                            )
+                    ),
+                paymentMethod = PaymentMethodState()
+            ),
+        useComponent = UsePaymentScreen.Empty()
     )
 }

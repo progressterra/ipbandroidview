@@ -28,18 +28,16 @@ import com.progressterra.ipbandroidview.features.stats.Stats
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
-import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Tabs
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OverviewScreen(
-    state: OverviewState, useComponent: UseOverviewScreen
-) {
+fun OverviewScreen(state: OverviewState, useComponent: UseOverviewScreen) {
     Layout(
         topBar = {
             TopBar(title = stringResource(id = R.string.audits), useComponent = useComponent)
@@ -51,39 +49,42 @@ fun OverviewScreen(
             useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            val tabs = listOf(
-                stringResource(id = R.string.ongoing),
-                stringResource(id = R.string.archived)
-            )
+            val tabs =
+                listOf(
+                    stringResource(id = R.string.ongoing),
+                    stringResource(id = R.string.archived)
+                )
             val pagerState = rememberPagerState(pageCount = { tabs.size })
             val scope = rememberCoroutineScope()
-            Tabs(tabs = tabs, currentIndex = pagerState.currentPage, onTabClicked = {
-                scope.launch { pagerState.animateScrollToPage(it) }
-            })
+            Tabs(
+                tabs = tabs,
+                currentIndex = pagerState.currentPage,
+                onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } }
+            )
             HorizontalPager(state = pagerState, pageSpacing = 16.dp) { pageNumber ->
                 val lazyItems =
-                    (if (pageNumber == 0) state.ongoing else state.archived).collectAsLazyPagingItems()
+                    (if (pageNumber == 0) state.ongoing else state.archived)
+                        .collectAsLazyPagingItems()
                 if (pageNumber == 0) {
                     LaunchedEffect(lazyItems.itemCount) {
                         useComponent.handle(OverviewEvent.UpdateOngoingCounter(lazyItems.itemCount))
                     }
                 }
                 val cardBackground =
-                    if (pageNumber == 0) IpbTheme.colors.tertiary.asBrush() else IpbTheme.colors.surface.asBrush()
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
+                    if (pageNumber == 0) IpbTheme.colors.tertiary.asBrush()
+                    else IpbTheme.colors.surface.asBrush()
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     items(lazyItems.itemCount, key = lazyItems.itemKey { it.documentId }) { index ->
                         lazyItems[index]?.let {
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(cardBackground)
-                                    .niceClickable {
-                                        useComponent.handle(OverviewEvent.OnChecklist(it))
-                                    }
-                                    .padding(12.dp),
+                                modifier =
+                                    Modifier.fillMaxWidth()
+                                        .clip(RoundedCornerShape(12.dp))
+                                        .background(cardBackground)
+                                        .niceClickable {
+                                            useComponent.handle(OverviewEvent.OnChecklist(it))
+                                        }
+                                        .padding(12.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -112,7 +113,6 @@ fun OverviewScreen(
                             }
                         }
                     }
-
                 }
             }
         }

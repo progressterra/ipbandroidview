@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.features.documentphoto
 
 import android.os.Parcelable
-import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.entities.IsEmpty
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 import kotlinx.parcelize.Parcelize
-
 
 @Parcelize
 data class DocumentPhotoState(

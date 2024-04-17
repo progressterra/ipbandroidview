@@ -28,22 +28,18 @@ fun SupportChat(
 ) {
     if (state.iconRes != 0) {
         Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable { useComponent.handle(SupportChatEvent(state)) }
-                .padding(horizontal = 8.dp, vertical = 12.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .niceClickable { useComponent.handle(SupportChatEvent(state)) }
+                    .padding(horizontal = 8.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                resId = state.iconRes,
-                tint = IpbTheme.colors.primary.asBrush()
-            )
+            Icon(resId = state.iconRes, tint = IpbTheme.colors.primary.asBrush())
             Spacer(modifier = Modifier.width(8.dp))
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
                     text = state.title,
                     style = IpbTheme.typography.headline,
@@ -66,12 +62,13 @@ fun SupportChat(
         }
     } else {
         Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable { useComponent.handle(SupportChatEvent(state)) }
-                .padding(16.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .niceClickable { useComponent.handle(SupportChatEvent(state)) }
+                    .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -80,10 +77,7 @@ fun SupportChat(
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
-            Icon(
-                resId = R.drawable.ic_forw,
-                tint = IpbTheme.colors.primary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_forw, tint = IpbTheme.colors.primary.asBrush())
         }
     }
 }

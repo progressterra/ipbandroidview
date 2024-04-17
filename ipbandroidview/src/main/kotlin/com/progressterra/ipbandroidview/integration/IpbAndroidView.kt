@@ -17,7 +17,8 @@ import org.koin.core.module.Module
 import timber.log.Timber
 
 @Suppress("unused")
-class IpbAndroidView private constructor(
+class IpbAndroidView
+private constructor(
     private val config: Map<String, List<String>>,
     private val context: Context,
     private val debug: Boolean,
@@ -38,49 +39,50 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES = config["mainCategories"]!!
         IpbAndroidViewSettings.SHOW_PROFILE_DETAILS_BACK_BUTTON =
             config["showProfileDetailsBackButton"]!!.first().toBoolean()
-        IpbAndroidViewSettings.COLORS = IpbColors(
-            //Main
-            primary = ColorUnit(config["primary"]!!),
-            secondary = ColorUnit(config["secondary"]!!),
-            secondary2 = ColorUnit(config["secondary2"]!!),
-            tertiary = ColorUnit(config["tertiary"]!!),
-            background = ColorUnit(config["background"]!!),
-            onBackground = ColorUnit(config["onBackground"]!!),
-            surface = ColorUnit(config["surface"]!!),
-            surface2 = ColorUnit(config["surface2"]!!),
-            onSurface = ColorUnit(config["onSurface"]!!),
-            onSurface2 = ColorUnit(config["onSurface2"]!!),
-            primaryPressed = ColorUnit(config["primaryPressed"]!!),
-            primaryDisabled = ColorUnit(config["primaryDisabled"]!!),
-            secondaryPressed = ColorUnit(config["secondaryPressed"]!!),
-            //Status
-            error = ColorUnit(config["error"]!!),
-            success = ColorUnit(config["success"]!!),
-            info = ColorUnit(config["info"]!!),
-            warning = ColorUnit(config["warning"]!!),
-            //Text
-            textPrimary = ColorUnit(config["textPrimary"]!!),
-            textPrimary2 = ColorUnit(config["textPrimary2"]!!),
-            textSecondary = ColorUnit(config["textSecondary"]!!),
-            textTertiary = ColorUnit(config["textTertiary"]!!),
-            textTertiary2 = ColorUnit(config["textTertiary2"]!!),
-            textTertiary3 = ColorUnit(config["textTertiary3"]!!),
-            textTertiary4 = ColorUnit(config["textTertiary4"]!!),
-            textButton = ColorUnit(config["textButton"]!!),
-            textDisabled = ColorUnit(config["textDisabled"]!!),
-            textPressed = ColorUnit(config["textPressed"]!!),
-            //Icon
-            iconPrimary = ColorUnit(config["iconPrimary"]!!),
-            iconPrimary2 = ColorUnit(config["iconPrimary2"]!!),
-            iconSecondary = ColorUnit(config["iconSecondary"]!!),
-            iconSecondary2 = ColorUnit(config["iconSecondary2"]!!),
-            iconTertiary = ColorUnit(config["iconTertiary"]!!),
-            iconTertiary2 = ColorUnit(config["iconTertiary2"]!!),
-            iconTertiary3 = ColorUnit(config["iconTertiary3"]!!),
-            iconTertiary4 = ColorUnit(config["iconTertiary4"]!!),
-            iconPressed = ColorUnit(config["iconPressed"]!!),
-            iconDisabled = ColorUnit(config["iconDisabled"]!!)
-        )
+        IpbAndroidViewSettings.COLORS =
+            IpbColors(
+                // Main
+                primary = ColorUnit(config["primary"]!!),
+                secondary = ColorUnit(config["secondary"]!!),
+                secondary2 = ColorUnit(config["secondary2"]!!),
+                tertiary = ColorUnit(config["tertiary"]!!),
+                background = ColorUnit(config["background"]!!),
+                onBackground = ColorUnit(config["onBackground"]!!),
+                surface = ColorUnit(config["surface"]!!),
+                surface2 = ColorUnit(config["surface2"]!!),
+                onSurface = ColorUnit(config["onSurface"]!!),
+                onSurface2 = ColorUnit(config["onSurface2"]!!),
+                primaryPressed = ColorUnit(config["primaryPressed"]!!),
+                primaryDisabled = ColorUnit(config["primaryDisabled"]!!),
+                secondaryPressed = ColorUnit(config["secondaryPressed"]!!),
+                // Status
+                error = ColorUnit(config["error"]!!),
+                success = ColorUnit(config["success"]!!),
+                info = ColorUnit(config["info"]!!),
+                warning = ColorUnit(config["warning"]!!),
+                // Text
+                textPrimary = ColorUnit(config["textPrimary"]!!),
+                textPrimary2 = ColorUnit(config["textPrimary2"]!!),
+                textSecondary = ColorUnit(config["textSecondary"]!!),
+                textTertiary = ColorUnit(config["textTertiary"]!!),
+                textTertiary2 = ColorUnit(config["textTertiary2"]!!),
+                textTertiary3 = ColorUnit(config["textTertiary3"]!!),
+                textTertiary4 = ColorUnit(config["textTertiary4"]!!),
+                textButton = ColorUnit(config["textButton"]!!),
+                textDisabled = ColorUnit(config["textDisabled"]!!),
+                textPressed = ColorUnit(config["textPressed"]!!),
+                // Icon
+                iconPrimary = ColorUnit(config["iconPrimary"]!!),
+                iconPrimary2 = ColorUnit(config["iconPrimary2"]!!),
+                iconSecondary = ColorUnit(config["iconSecondary"]!!),
+                iconSecondary2 = ColorUnit(config["iconSecondary2"]!!),
+                iconTertiary = ColorUnit(config["iconTertiary"]!!),
+                iconTertiary2 = ColorUnit(config["iconTertiary2"]!!),
+                iconTertiary3 = ColorUnit(config["iconTertiary3"]!!),
+                iconTertiary4 = ColorUnit(config["iconTertiary4"]!!),
+                iconPressed = ColorUnit(config["iconPressed"]!!),
+                iconDisabled = ColorUnit(config["iconDisabled"]!!)
+            )
         IpbAndroidViewSettings.YOU_KASSA_SHOP_ID = config["youKassaShopId"]!!.first()
         IpbAndroidViewSettings.YOU_KASSA_CLIENT_APPLICATION_KEY =
             config["youKassaClientApplicationKey"]!!.first()
@@ -89,7 +91,8 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
         IpbAndroidViewSettings.CATALOG_SEARCH = config["catalogSearch"]!!.first().toBoolean()
         IpbAndroidViewSettings.CATALOG_COLUMNS = config["catalogColumns"]!!.first().toInt()
-        IpbAndroidViewSettings.CATALOG_STORE_COLUMNS = config["catalogStoreColumns"]!!.first().toInt()
+        IpbAndroidViewSettings.CATALOG_STORE_COLUMNS =
+            config["catalogStoreColumns"]!!.first().toInt()
         IpbAndroidViewSettings.PROFILE_BUTTONS = config["profileButtons"]!!
         IpbAndroidViewSettings.PROFILE_BUTTONS_BORDER =
             config["profileButtonsBorder"]!!.first().toBoolean()

@@ -21,18 +21,20 @@ class OngoingAuditsSource(
         take: Int
     ): Result<Pair<Int, List<ChecklistDocument>>> = runCatching {
         val token = obtainAccessToken().getOrThrow()
-        val response = checklistService.allDocuments(
-            token, FilterAndSort(
-                listFields = emptyList(),
-                sort = SortData(
-                    fieldName = "dateStart",
-                    variantSort = TypeVariantSort.DESC
-                ),
-                searchData = "",
-                skip = skip,
-                take = take
-            )
-        ).dataList!!
+        val response =
+            checklistService
+                .allDocuments(
+                    token,
+                    FilterAndSort(
+                        listFields = emptyList(),
+                        sort =
+                            SortData(fieldName = "dateStart", variantSort = TypeVariantSort.DESC),
+                        searchData = "",
+                        skip = skip,
+                        take = take
+                    )
+                )
+                .dataList!!
         response.size to response.map { it.toChecklistDocument() }.filter { it.finishDate == null }
     }
 }

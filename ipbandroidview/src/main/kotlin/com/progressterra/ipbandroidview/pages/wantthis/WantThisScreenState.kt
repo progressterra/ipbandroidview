@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonStat
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-
 data class WantThisScreenState(
     val send: ButtonState = ButtonState(id = "send"),
     val requests: ProfileButtonState = ProfileButtonState(id = "requests"),

@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.features.ordercard
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,32 +15,21 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
-fun OrderCard(
-    modifier: Modifier = Modifier, state: OrderCardState, useComponent: UseOrderCard
-) {
+fun OrderCard(modifier: Modifier = Modifier, state: OrderCardState, useComponent: UseOrderCard) {
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .niceClickable {
-                useComponent.handle(
-                    OrderCardEvent(state.id)
-                )
-            }, horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier =
+            modifier.clip(RoundedCornerShape(8.dp)).niceClickable {
+                useComponent.handle(OrderCardEvent(state.id))
+            },
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Image(
-            modifier = Modifier
-                .size(157.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            image = state.image
-        )
-        Column(
-            modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
+        Image(modifier = Modifier.size(157.dp).clip(RoundedCornerShape(8.dp)), image = state.image)
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(
                 text = state.name,
                 style = IpbTheme.typography.footnoteRegular,
@@ -55,9 +43,7 @@ fun OrderCard(
                 )
             }
             if (state.installment.isEmpty()) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
                         text = state.oldPrice.toString(),
                         style = IpbTheme.typography.body2,
@@ -76,7 +62,8 @@ fun OrderCard(
                 }
             } else {
                 Text(
-                    text = "${stringResource(R.string.po)} ${state.installment.perMonth} ${
+                    text =
+                        "${stringResource(R.string.po)} ${state.installment.perMonth} ${
                         state.installment.months
                     } ${stringResource(R.string.payments)}",
                     style = IpbTheme.typography.subHeadlineRegular,
@@ -97,11 +84,13 @@ fun OrderCard(
 private fun CartCardPreview() {
     Preview {
         OrderCard(
-            state = OrderCardState(
-                name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                oldPrice = Price(10000),
-                price = Price(1000)
-            ), useComponent = UseOrderCard.Empty()
+            state =
+                OrderCardState(
+                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                    oldPrice = Price(10000),
+                    price = Price(1000)
+                ),
+            useComponent = UseOrderCard.Empty()
         )
     }
 }

@@ -37,7 +37,8 @@ fun BonusesScreen(
         }
     ) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
+            state = state.screen,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
             Bonuses(
@@ -55,33 +56,36 @@ fun BonusesScreen(
 @Preview
 private fun BonusesScreenPreview() {
     BonusesScreen(
-        state = BonusesDetailsScreenState(
-            screen = StateColumnState(state = ScreenState.SUCCESS),
-            transactions = BonusesTransactionsState(
-                transactions = listOf(
-                    BonusTransactionState(
-                        date = "2021-01-01",
-                        amount = "100",
-                        type = BonusTransactionType.BURNING
-                    ),
-                    BonusTransactionState(
-                        date = "2021-01-02",
-                        amount = "200",
-                        type = BonusTransactionType.BUYING
-                    ),
-                    BonusTransactionState(
-                        date = "2021-01-03",
-                        amount = "300",
-                        type = BonusTransactionType.BURNING
-                    ),
-                    BonusTransactionState(
-                        date = "2021-01-04",
-                        amount = "400",
-                        type = BonusTransactionType.RECEIVING
+        state =
+            BonusesDetailsScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                transactions =
+                    BonusesTransactionsState(
+                        transactions =
+                            listOf(
+                                BonusTransactionState(
+                                    date = "2021-01-01",
+                                    amount = "100",
+                                    type = BonusTransactionType.BURNING
+                                ),
+                                BonusTransactionState(
+                                    date = "2021-01-02",
+                                    amount = "200",
+                                    type = BonusTransactionType.BUYING
+                                ),
+                                BonusTransactionState(
+                                    date = "2021-01-03",
+                                    amount = "300",
+                                    type = BonusTransactionType.BURNING
+                                ),
+                                BonusTransactionState(
+                                    date = "2021-01-04",
+                                    amount = "400",
+                                    type = BonusTransactionType.RECEIVING
+                                )
+                            )
                     )
-                )
-            )
-        ),
+            ),
         useComponent = UseBonusesDetailsScreen.Empty()
     )
 }
@@ -90,12 +94,11 @@ private fun BonusesScreenPreview() {
 @Preview
 private fun BonusesScreenPreviewEmpty() {
     BonusesScreen(
-        state = BonusesDetailsScreenState(
-            screen = StateColumnState(state = ScreenState.SUCCESS),
-            transactions = BonusesTransactionsState(
-                transactions = emptyList()
-            )
-        ),
+        state =
+            BonusesDetailsScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                transactions = BonusesTransactionsState(transactions = emptyList())
+            ),
         useComponent = UseBonusesDetailsScreen.Empty()
     )
 }

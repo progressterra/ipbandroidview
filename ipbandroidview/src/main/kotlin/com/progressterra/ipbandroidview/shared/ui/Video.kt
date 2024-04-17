@@ -15,10 +15,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 
 @Composable
-fun Video(
-    modifier: Modifier = Modifier,
-    url: String
-) {
+fun Video(modifier: Modifier = Modifier, url: String) {
     Box(modifier = modifier.size(192.dp, 108.dp)) {
         val context = LocalContext.current
         val exoPlayer = remember {
@@ -28,11 +25,7 @@ fun Video(
             }
         }
         AndroidView(
-            factory = {
-                PlayerView(it).apply {
-                    player = exoPlayer
-                }
-            },
+            factory = { PlayerView(it).apply { player = exoPlayer } },
             modifier = Modifier.fillMaxSize()
         )
     }

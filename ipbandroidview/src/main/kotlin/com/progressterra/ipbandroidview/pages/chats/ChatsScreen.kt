@@ -23,12 +23,12 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingChat
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 
 @Composable
 fun ChatsScreen(
@@ -38,38 +38,34 @@ fun ChatsScreen(
 ) {
 
     @Composable
-    fun Item(
-        itemState: DatingChat
-    ) {
+    fun Item(itemState: DatingChat) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(CircleShape)
-                .niceClickable { useComponent.handle(ChatsScreenEvent.Click(itemState.id)) },
+            modifier =
+                Modifier.fillMaxWidth().clip(CircleShape).niceClickable {
+                    useComponent.handle(ChatsScreenEvent.Click(itemState.id))
+                },
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = modifier, contentAlignment = Alignment.Center) {
                 Icon(
                     modifier = Modifier.size(79.dp),
                     painter = painterResource(id = R.drawable.avatar_background),
                     contentDescription = null
                 )
                 Image(
-                    modifier = Modifier
-                        .size(64.dp)
-                        .clip(CircleShape),
-                    image = itemState.avatar.ifEmpty {
-                        rememberResourceUri(
-                            resourceId = when (itemState.sex) {
-                                Sex.MALE -> R.drawable.avatar_male
-                                Sex.FEMALE -> R.drawable.avatar_female
-                            }
-                        ).toString()
-                    }
+                    modifier = Modifier.size(64.dp).clip(CircleShape),
+                    image =
+                        itemState.avatar.ifEmpty {
+                            rememberResourceUri(
+                                    resourceId =
+                                        when (itemState.sex) {
+                                            Sex.MALE -> R.drawable.avatar_male
+                                            Sex.FEMALE -> R.drawable.avatar_female
+                                        }
+                                )
+                                .toString()
+                        }
                 )
             }
             Column(
@@ -107,13 +103,8 @@ fun ChatsScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
-            items(
-                count = items.itemCount,
-                key = items.itemKey { it.id }
-            ) { index ->
-                items[index]?.let {
-                    Item(it)
-                }
+            items(count = items.itemCount, key = items.itemKey { it.id }) { index ->
+                items[index]?.let { Item(it) }
             }
         }
     }

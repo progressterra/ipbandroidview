@@ -31,14 +31,17 @@ import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
 @Composable
 fun OrderDetails(
-    modifier: Modifier = Modifier, state: OrderDetailsState, useComponent: UseOrderDetails
+    modifier: Modifier = Modifier,
+    state: OrderDetailsState,
+    useComponent: UseOrderDetails
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(8.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -53,7 +56,6 @@ fun OrderDetails(
                     style = IpbTheme.typography.title
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-
                     if (state.status.canBeTracker()) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -106,9 +108,7 @@ fun OrderDetails(
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineBold
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "${state.count} ${stringResource(R.string.sum_of_goods)} ",
                     tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -121,9 +121,7 @@ fun OrderDetails(
                 )
             }
         }
-        OrderItems(
-            state = state.goods, useComponent = useComponent
-        )
+        OrderItems(state = state.goods, useComponent = useComponent)
     }
 }
 
@@ -132,31 +130,44 @@ fun OrderDetails(
 private fun OrderDetailsPreview() {
     IpbTheme {
         OrderDetails(
-            state = OrderDetailsState(
-                id = "dicam", number = "alienum", status = TypeStatusOrder.DELIVERED,
-                goods = OrderItemsState(
-                    items = listOf(
-                        OrderCardState(
-                            id = "mnesarchum",
-                            name = "Kris Sheppard",
-                            price = Price(price = 4541),
-                            image = "https://duckduckgo.com/?q=sodales",
-                            installment = Installment(
-                                months = 7486, perMonth = Price(price = 1309)
-                            )
-                        ), OrderCardState(
-                            id = "mnesarchum",
-                            name = "Kris Sheppard",
-                            price = Price(price = 4541),
-                            image = "https://duckduckgo.com/?q=sodales",
-                            installment = Installment(
-                                months = 7486, perMonth = Price(price = 1309)
-                            )
-                        )
-                    )
+            state =
+                OrderDetailsState(
+                    id = "dicam",
+                    number = "alienum",
+                    status = TypeStatusOrder.DELIVERED,
+                    goods =
+                        OrderItemsState(
+                            items =
+                                listOf(
+                                    OrderCardState(
+                                        id = "mnesarchum",
+                                        name = "Kris Sheppard",
+                                        price = Price(price = 4541),
+                                        image = "https://duckduckgo.com/?q=sodales",
+                                        installment =
+                                            Installment(
+                                                months = 7486,
+                                                perMonth = Price(price = 1309)
+                                            )
+                                    ),
+                                    OrderCardState(
+                                        id = "mnesarchum",
+                                        name = "Kris Sheppard",
+                                        price = Price(price = 4541),
+                                        image = "https://duckduckgo.com/?q=sodales",
+                                        installment =
+                                            Installment(
+                                                months = 7486,
+                                                perMonth = Price(price = 1309)
+                                            )
+                                    )
+                                )
+                        ),
+                    date = "13.10",
+                    count = 5,
+                    totalPrice = Price(price = 0),
                 ),
-                date = "13.10", count = 5, totalPrice = Price(price = 0),
-            ), useComponent = UseOrderDetails.Empty()
+            useComponent = UseOrderDetails.Empty()
         )
     }
 }

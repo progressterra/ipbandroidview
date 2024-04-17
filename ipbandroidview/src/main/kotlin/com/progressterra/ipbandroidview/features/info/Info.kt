@@ -14,15 +14,8 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
-fun Info(
-    modifier: Modifier = Modifier,
-    state: InfoState,
-    useComponent: UseInfo
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(28.dp)
-    ) {
+fun Info(modifier: Modifier = Modifier, state: InfoState, useComponent: UseInfo) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(28.dp)) {
         Text(
             text = stringResource(R.string.about_you),
             style = IpbTheme.typography.body,

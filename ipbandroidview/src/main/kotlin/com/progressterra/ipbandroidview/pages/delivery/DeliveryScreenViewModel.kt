@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import com.progressterra.ipbandroidview.entities.Address
-import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
 import com.progressterra.ipbandroidview.entities.SuggestionUI
-import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
+import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddDeliveryToCartUseCase
+import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
 import com.progressterra.ipbandroidview.processes.order.CommentUseCase
 import com.progressterra.ipbandroidview.processes.order.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.shared.UserData
@@ -27,22 +27,28 @@ class DeliveryScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { createInitialState() }
-            fetchShippingAddressUseCase().onSuccess {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
-                if (!UserData.shippingAddress.isEmpty()) {
-                    emitState {
-                        it.copy(
-                            address = UserData.shippingAddress,
-                            deliveryPicker = it.deliveryPicker.copy(
-                                address = it.deliveryPicker.address.copy(text = UserData.shippingAddress.printAddress())
+            fetchShippingAddressUseCase()
+                .onSuccess {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+                    if (!UserData.shippingAddress.isEmpty()) {
+                        emitState {
+                            it.copy(
+                                address = UserData.shippingAddress,
+                                deliveryPicker =
+                                    it.deliveryPicker.copy(
+                                        address =
+                                            it.deliveryPicker.address.copy(
+                                                text = UserData.shippingAddress.printAddress()
+                                            )
+                                    )
                             )
-                        )
+                        }
                     }
+                    checkValid()
                 }
-                checkValid()
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+                .onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
         }
     }
 
@@ -62,9 +68,7 @@ class DeliveryScreenViewModel(
                     addDeliveryToCartUseCase(currentState.suggestion).onFailure {
                         isSuccess = false
                     }
-                    commentUseCase(currentState.commentary.text).onFailure {
-                        isSuccess = false
-                    }
+                    commentUseCase(currentState.commentary.text).onFailure { isSuccess = false }
                     if (isSuccess) {
                         postEffect(DeliveryScreenEffect.Next)
                     }
@@ -78,10 +82,14 @@ class DeliveryScreenViewModel(
             it.copy(
                 suggestion = event.suggestion,
                 address = Address(),
-                deliveryPicker = it.deliveryPicker.copy(
-                    address = it.deliveryPicker.address.copy(text = event.suggestion.previewOfSuggestion),
-                    suggestions = it.deliveryPicker.suggestions.copy(isVisible = false)
-                )
+                deliveryPicker =
+                    it.deliveryPicker.copy(
+                        address =
+                            it.deliveryPicker.address.copy(
+                                text = event.suggestion.previewOfSuggestion
+                            ),
+                        suggestions = it.deliveryPicker.suggestions.copy(isVisible = false)
+                    )
             )
         }
         checkValid()
@@ -89,22 +97,20 @@ class DeliveryScreenViewModel(
 
     override fun handle(event: TextFieldEvent) {
         when (event) {
-            is TextFieldEvent.TextChanged -> when (event.id) {
-                "address" -> emitState {
-                    it.copy(
-                        deliveryPicker = it.deliveryPicker.copy(
-                            address = it.deliveryPicker.address.copy(
-                                text = event.text
+            is TextFieldEvent.TextChanged ->
+                when (event.id) {
+                    "address" ->
+                        emitState {
+                            it.copy(
+                                deliveryPicker =
+                                    it.deliveryPicker.copy(
+                                        address = it.deliveryPicker.address.copy(text = event.text)
+                                    )
                             )
-                        )
-                    )
+                        }
+                    "commentary" ->
+                        emitState { it.copy(commentary = it.commentary.copy(text = event.text)) }
                 }
-
-                "commentary" -> emitState {
-                    it.copy(commentary = it.commentary.copy(text = event.text))
-                }
-            }
-
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> Unit
         }
@@ -118,12 +124,14 @@ class DeliveryScreenViewModel(
             suggestionsUse(currentState.deliveryPicker.address.text).onSuccess { suggestions ->
                 emitState {
                     it.copy(
-                        deliveryPicker = it.deliveryPicker.copy(
-                            suggestions = it.deliveryPicker.suggestions.copy(
-                                isVisible = true,
-                                suggestions = suggestions
+                        deliveryPicker =
+                            it.deliveryPicker.copy(
+                                suggestions =
+                                    it.deliveryPicker.suggestions.copy(
+                                        isVisible = true,
+                                        suggestions = suggestions
+                                    )
                             )
-                        )
                     )
                 }
             }
@@ -132,7 +140,13 @@ class DeliveryScreenViewModel(
 
     private fun checkValid() {
         emitState {
-            it.copy(confirm = it.confirm.copy(enabled = !currentState.address.isEmpty() || !currentState.suggestion.isEmpty()))
+            it.copy(
+                confirm =
+                    it.confirm.copy(
+                        enabled =
+                            !currentState.address.isEmpty() || !currentState.suggestion.isEmpty()
+                    )
+            )
         }
     }
 }

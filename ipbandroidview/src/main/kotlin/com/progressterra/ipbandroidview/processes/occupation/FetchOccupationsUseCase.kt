@@ -8,10 +8,10 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.TypeComparison
 import com.progressterra.ipbandroidapi.api.iamhere.models.TypeVariantSort
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.entities.toInterest
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 interface FetchOccupationsUseCase {
 
@@ -19,33 +19,39 @@ interface FetchOccupationsUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val service: ImhService, makeToastUseCase: MakeToastUseCase,
+        private val service: ImhService,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : FetchOccupationsUseCase, AbstractTokenUseCase(
-        obtainAccessToken, makeToastUseCase,
-        manageResources
-    ) {
+    ) :
+        FetchOccupationsUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(): Result<List<Interest>> = withToken { token ->
-            service.interestList(
-                token = token,
-                body = FilterAndSort(
-                    listFields = listOf(
-                        FieldForFilter(
-                            fieldName = "interestType",
-                            listValue = listOf("profession"),
-                            comparison = TypeComparison.EQUALS_STRONG
+            service
+                .interestList(
+                    token = token,
+                    body =
+                        FilterAndSort(
+                            listFields =
+                                listOf(
+                                    FieldForFilter(
+                                        fieldName = "interestType",
+                                        listValue = listOf("profession"),
+                                        comparison = TypeComparison.EQUALS_STRONG
+                                    )
+                                ),
+                            sort =
+                                SortData(
+                                    fieldName = "dateAdded",
+                                    variantSort = TypeVariantSort.DESC
+                                ),
+                            searchData = "",
+                            skip = 0,
+                            take = 100
                         )
-                    ),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = 0,
-                    take = 100
                 )
-            ).dataList?.map { it.toInterest() } ?: emptyList()
+                .dataList
+                ?.map { it.toInterest() } ?: emptyList()
         }
     }
 }

@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class DocumentsScreenNode(
     buildContext: BuildContext,
     private val navigation: DocumentsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,14 +24,7 @@ class DocumentsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        DocumentsScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        DocumentsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }
-

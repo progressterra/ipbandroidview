@@ -14,9 +14,7 @@ import org.koin.androidx.compose.koinViewModel
 class WantThisScreenNode(
     buildContext: BuildContext,
     private val navigation: WantThisScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,20 +24,12 @@ class WantThisScreenNode(
             when (effect) {
                 is WantThisScreenEffect.Requests -> navigation.onWantThisRequests()
                 is WantThisScreenEffect.OpenPhoto -> navigation.onPhoto(effect.data)
-                is WantThisScreenEffect.Toast -> Toast.makeText(
-                    context,
-                    effect.data,
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                is WantThisScreenEffect.Toast ->
+                    Toast.makeText(context, effect.data, Toast.LENGTH_SHORT).show()
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        WantThisScreen(
-            modifier = modifier, state = state, useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        WantThisScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

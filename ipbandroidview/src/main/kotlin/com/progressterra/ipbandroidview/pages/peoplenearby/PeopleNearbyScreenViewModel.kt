@@ -14,17 +14,13 @@ class PeopleNearbyScreenViewModel(
     init {
         onBackground {
             usersAroundUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { newUsers ->
-                    emitState { it.copy(items = newUsers) }
-                }
+                result.onSuccess { newUsers -> emitState { it.copy(items = newUsers) } }
             }
         }
     }
 
     override fun refresh() {
-        onBackground {
-            usersAroundUseCase()
-        }
+        onBackground { usersAroundUseCase() }
     }
 
     override fun handle(event: TopBarEvent) = Unit

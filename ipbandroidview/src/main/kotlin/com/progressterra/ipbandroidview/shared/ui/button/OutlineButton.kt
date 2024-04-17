@@ -28,17 +28,20 @@ fun OutlineButton(
     richTitle: (@Composable () -> Unit)? = null,
     useComponent: UseButton
 ) {
-    Row(modifier = modifier
-        .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
-        .border(
-            width = 2.dp,
-            brush = IpbTheme.colors.primary.asBrush(),
-            shape = RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp)
-        )
-        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
-        .padding(horizontal = 32.dp, vertical = 15.dp),
+    Row(
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
+                .border(
+                    width = 2.dp,
+                    brush = IpbTheme.colors.primary.asBrush(),
+                    shape = RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp)
+                )
+                .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
+                .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically) {
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         if (richTitle != null) {
             richTitle()
         } else {
@@ -57,11 +60,7 @@ fun OutlineButton(
 private fun OutlineButtonPreview() {
     IpbTheme {
         Column {
-            OutlineButton(
-                state = ButtonState(),
-                title = "Button",
-                useComponent = UseButton.Empty()
-            )
+            OutlineButton(state = ButtonState(), title = "Button", useComponent = UseButton.Empty())
             Spacer(Modifier.height(10.dp))
             OutlineButton(
                 state = ButtonState(enabled = false),

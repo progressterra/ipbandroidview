@@ -22,9 +22,11 @@ interface SaveDataUseCase {
 
     class Base(
         private val scrmService: ScrmService,
-        obtainAccessToken: ObtainAccessToken, makeToastUseCase: MakeToastUseCase,
+        obtainAccessToken: ObtainAccessToken,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : SaveDataUseCase,
+    ) :
+        SaveDataUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
@@ -34,64 +36,62 @@ interface SaveDataUseCase {
                         UserData.userName =
                             UserData.userName.copy(name = income.name.formatByType())
                     }
-
                     "soname" -> {
                         UserData.userName =
                             UserData.userName.copy(soname = income.soname.formatByType())
                     }
-
                     "patronymic" -> {
                         UserData.userName =
                             UserData.userName.copy(patronymic = income.patronymic.formatByType())
                     }
-
                     "eMailGeneral" -> {
                         UserData.email = income.email.formatByType()
                     }
-
                     "sex" -> {
-                        UserData.sex = when (income.sex) {
-                            Sex.MALE -> 1
-                            Sex.FEMALE -> 2
-                            null -> 0
-                        }
+                        UserData.sex =
+                            when (income.sex) {
+                                Sex.MALE -> 1
+                                Sex.FEMALE -> 2
+                                null -> 0
+                            }
                     }
-
                     "dateOfBirth" -> {
                         val birthday = income.birthday.formatByType()
-                        val zonedDateTimeBirthday = ZonedDateTime.of(
-                            birthday.subSequence(6, 10).toString().toInt(),
-                            birthday.subSequence(3, 5).toString().toInt(),
-                            birthday.subSequence(0, 2).toString().toInt(),
-                            0,
-                            0,
-                            0,
-                            0,
-                            ZoneOffset.UTC
-                        )
+                        val zonedDateTimeBirthday =
+                            ZonedDateTime.of(
+                                birthday.subSequence(6, 10).toString().toInt(),
+                                birthday.subSequence(3, 5).toString().toInt(),
+                                birthday.subSequence(0, 2).toString().toInt(),
+                                0,
+                                0,
+                                0,
+                                0,
+                                ZoneOffset.UTC
+                            )
                         UserData.dateOfBirthday = zonedDateTimeBirthday.formatZdtIso()
                     }
                 }
             }
             scrmService.postClient(
                 token = token,
-                body = ClientsEntity(
-                    name = UserData.userName.name,
-                    soname = UserData.userName.soname,
-                    patronymic = UserData.userName.patronymic,
-                    dateOfBirth = UserData.dateOfBirthday.ifEmpty { "0001-01-01T00:00:00.000Z" },
-                    sex = when (income.sex) {
-                        Sex.FEMALE -> TypeSex.FEMALE
-                        Sex.MALE -> TypeSex.MALE
-                        else -> null
-                    }
-                )
+                body =
+                    ClientsEntity(
+                        name = UserData.userName.name,
+                        soname = UserData.userName.soname,
+                        patronymic = UserData.userName.patronymic,
+                        dateOfBirth =
+                            UserData.dateOfBirthday.ifEmpty { "0001-01-01T00:00:00.000Z" },
+                        sex =
+                            when (income.sex) {
+                                Sex.FEMALE -> TypeSex.FEMALE
+                                Sex.MALE -> TypeSex.MALE
+                                else -> null
+                            }
+                    )
             )
             scrmService.postClientEmail(
                 token = token,
-                body = IncomeDataChannel(
-                    data = UserData.email
-                )
+                body = IncomeDataChannel(data = UserData.email)
             )
         }
     }

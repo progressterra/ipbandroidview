@@ -11,22 +11,23 @@ interface UpdateFirebaseCloudMessagingTokenUseCase {
 
     class Base(
         private val repo: ScrmService,
-        obtainAccessToken: ObtainAccessToken, makeToastUseCase: MakeToastUseCase,
+        obtainAccessToken: ObtainAccessToken,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : UpdateFirebaseCloudMessagingTokenUseCase, AbstractTokenUseCase(obtainAccessToken,
-        makeToastUseCase, manageResources
-    ) {
+    ) :
+        UpdateFirebaseCloudMessagingTokenUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(
-            firebaseCloudMessagingToken: String
-        ): Result<Unit> = withToken { token ->
-            repo.setDeviceToken(
-                token = token,
-                body = RGDeviceTokenEntity(
-                    osType = OsType.ANDROID,
-                    tokenData = firebaseCloudMessagingToken
+        override suspend fun invoke(firebaseCloudMessagingToken: String): Result<Unit> =
+            withToken { token ->
+                repo.setDeviceToken(
+                    token = token,
+                    body =
+                        RGDeviceTokenEntity(
+                            osType = OsType.ANDROID,
+                            tokenData = firebaseCloudMessagingToken
+                        )
                 )
-            )
-        }
+            }
     }
 }

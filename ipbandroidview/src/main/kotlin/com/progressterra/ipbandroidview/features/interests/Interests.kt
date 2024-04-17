@@ -32,20 +32,23 @@ fun Interests(
 ) {
 
     @Composable
-    fun Item(
-        itemState: InterestsState.Item
-    ) {
+    fun Item(itemState: InterestsState.Item) {
         val backgroundBrush =
-            if (itemState.selected) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
-        Box(modifier = Modifier
-            .padding(vertical = 4.dp)
-            .clip(CircleShape)
-            .background(backgroundBrush)
-            .border(
-                width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-            )
-            .niceClickable { useComponent.handle(InterestsEvent(itemState.id)) }
-            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+            if (itemState.selected) IpbTheme.colors.secondary.asBrush()
+            else IpbTheme.colors.background.asBrush()
+        Box(
+            modifier =
+                Modifier.padding(vertical = 4.dp)
+                    .clip(CircleShape)
+                    .background(backgroundBrush)
+                    .border(
+                        width = 2.dp,
+                        brush = IpbTheme.colors.secondary.asBrush(),
+                        shape = CircleShape
+                    )
+                    .niceClickable { useComponent.handle(InterestsEvent(itemState.id)) }
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
             Text(
                 text = itemState.name,
                 style = IpbTheme.typography.body,
@@ -64,16 +67,13 @@ fun Interests(
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary.asBrush()
         )
-        val items = remember(state.editMode) {
-            state.items.filter { it.selected || state.editMode }
-        }
+        val items =
+            remember(state.editMode) { state.items.filter { it.selected || state.editMode } }
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items.forEach {
-                Item(it)
-            }
+            items.forEach { Item(it) }
         }
     }
 }
@@ -82,27 +82,23 @@ fun Interests(
 @Composable
 private fun InterestsPreview() {
     Interests(
-        state = InterestsState(
-            items = listOf(
-                InterestsState.Item(
-                    name = "coffee", selected = false
-                ), InterestsState.Item(
-                    name = "sport", selected = true
-                ), InterestsState.Item(
-                    name = "tea", selected = false
-                ), InterestsState.Item(
-                    name = "lalala", selected = true
-                ), InterestsState.Item(
-                    name = "some very long interest like a small dog psychology", selected = false
-                ), InterestsState.Item(
-                    name = "armenian coffee", selected = false
-                ), InterestsState.Item(
-                    name = "argentinian coffee", selected = true
-                ), InterestsState.Item(
-                    name = "colombian coffee", selected = false
-                )
-            )
-        ),
+        state =
+            InterestsState(
+                items =
+                    listOf(
+                        InterestsState.Item(name = "coffee", selected = false),
+                        InterestsState.Item(name = "sport", selected = true),
+                        InterestsState.Item(name = "tea", selected = false),
+                        InterestsState.Item(name = "lalala", selected = true),
+                        InterestsState.Item(
+                            name = "some very long interest like a small dog psychology",
+                            selected = false
+                        ),
+                        InterestsState.Item(name = "armenian coffee", selected = false),
+                        InterestsState.Item(name = "argentinian coffee", selected = true),
+                        InterestsState.Item(name = "colombian coffee", selected = false)
+                    )
+            ),
         useComponent = UseInterests.Empty()
     )
 }
@@ -111,28 +107,24 @@ private fun InterestsPreview() {
 @Composable
 private fun InterestsEditPreview() {
     Interests(
-        state = InterestsState(
-            items = listOf(
-                InterestsState.Item(
-                    name = "coffee", selected = false
-                ), InterestsState.Item(
-                    name = "sport", selected = true
-                ), InterestsState.Item(
-                    name = "tea", selected = false
-                ), InterestsState.Item(
-                    name = "lalala", selected = true
-                ), InterestsState.Item(
-                    name = "some very long interest like a small dog psychology", selected = false
-                ), InterestsState.Item(
-                    name = "armenian coffee", selected = false
-                ), InterestsState.Item(
-                    name = "argentinian coffee", selected = true
-                ), InterestsState.Item(
-                    name = "colombian coffee", selected = false
-                )
+        state =
+            InterestsState(
+                items =
+                    listOf(
+                        InterestsState.Item(name = "coffee", selected = false),
+                        InterestsState.Item(name = "sport", selected = true),
+                        InterestsState.Item(name = "tea", selected = false),
+                        InterestsState.Item(name = "lalala", selected = true),
+                        InterestsState.Item(
+                            name = "some very long interest like a small dog psychology",
+                            selected = false
+                        ),
+                        InterestsState.Item(name = "armenian coffee", selected = false),
+                        InterestsState.Item(name = "argentinian coffee", selected = true),
+                        InterestsState.Item(name = "colombian coffee", selected = false)
+                    ),
+                editMode = true
             ),
-            editMode = true
-        ),
         useComponent = UseInterests.Empty()
     )
 }

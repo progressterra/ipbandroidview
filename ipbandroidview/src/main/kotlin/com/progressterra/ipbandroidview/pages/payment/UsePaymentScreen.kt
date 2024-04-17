@@ -6,15 +6,15 @@ import com.progressterra.ipbandroidview.features.paymentmethod.UsePaymentMethod
 import com.progressterra.ipbandroidview.features.receipt.UseReceipt
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
-import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchEvent
 
-interface UsePaymentScreen : UseTopBar, UsePaymentMethod, UseStateColumn, UseButton, UseBonusSwitch,
-    UseReceipt {
+interface UsePaymentScreen :
+    UseTopBar, UsePaymentMethod, UseStateColumn, UseButton, UseBonusSwitch, UseReceipt {
 
     class Empty : UsePaymentScreen {
 

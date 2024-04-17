@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -30,20 +30,16 @@ fun EditProfile(
     useComponent: UseEditProfile
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable(state.editing) { useComponent.handle(EditProfileEvent) }
-            .padding(16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .niceClickable(state.editing) { useComponent.handle(EditProfileEvent) }
+                .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            modifier = Modifier
-                .clip(CircleShape)
-                .size(80.dp),
-            image = state.profileImage
-        )
+        Image(modifier = Modifier.clip(CircleShape).size(80.dp), image = state.profileImage)
         if (state.editing) {
             Spacer(modifier = Modifier.width(20.dp))
             Text(
@@ -52,10 +48,7 @@ fun EditProfile(
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
             Spacer(modifier = Modifier.width(4.dp))
-            Icon(
-                resId = R.drawable.ic_edit,
-                tint = IpbTheme.colors.textTertiary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_edit, tint = IpbTheme.colors.textTertiary.asBrush())
         }
     }
 }
@@ -63,10 +56,5 @@ fun EditProfile(
 @Composable
 @Preview
 private fun AuthProfilePreview() {
-    IpbTheme {
-        EditProfile(
-            state = EditProfileState(),
-            useComponent = UseEditProfile.Empty()
-        )
-    }
+    IpbTheme { EditProfile(state = EditProfileState(), useComponent = UseEditProfile.Empty()) }
 }

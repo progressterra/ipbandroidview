@@ -12,19 +12,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 
 @Composable
-fun Icon(
-    modifier: Modifier = Modifier,
-    resId: Int,
-    tint: Brush
-) {
+fun Icon(modifier: Modifier = Modifier, resId: Int, tint: Brush) {
     Icon(
-        modifier = modifier
-            .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
-            .drawWithCache {
-                onDrawWithContent {
-                    drawContent()
-                    drawRect(tint, blendMode = BlendMode.SrcAtop)
-                }
-            }, imageVector = ImageVector.vectorResource(id = resId), contentDescription = null
+        modifier =
+            modifier
+                .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
+                .drawWithCache {
+                    onDrawWithContent {
+                        drawContent()
+                        drawRect(tint, blendMode = BlendMode.SrcAtop)
+                    }
+                },
+        imageVector = ImageVector.vectorResource(id = resId),
+        contentDescription = null
     )
 }

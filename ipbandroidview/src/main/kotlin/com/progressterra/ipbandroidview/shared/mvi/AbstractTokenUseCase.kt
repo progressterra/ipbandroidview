@@ -1,22 +1,19 @@
 package com.progressterra.ipbandroidview.shared.mvi
 
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 
-/**
- * Abstract class for use cases that need to obtain an access token
- */
+/** Abstract class for use cases that need to obtain an access token */
 abstract class AbstractTokenUseCase(
     private val obtainAccessToken: ObtainAccessToken,
     makeToastUseCase: MakeToastUseCase,
     manageResources: ManageResources
 ) : AbstractLoggingUseCase(makeToastUseCase, manageResources) {
 
-    protected suspend fun <T> withToken(
-        block: suspend (accessToken: String) -> T
-    ): Result<T> = handle {
-        val result = obtainAccessToken().getOrThrow()
-        block(result)
-    }
+    protected suspend fun <T> withToken(block: suspend (accessToken: String) -> T): Result<T> =
+        handle {
+            val result = obtainAccessToken().getOrThrow()
+            block(result)
+        }
 }

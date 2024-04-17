@@ -5,7 +5,11 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
 class OrderStatusScreenViewModel :
-    AbstractInputViewModel<OrderStatusScreenState, OrderStatusScreenState, OrderStatusScreenEffect>(),
+    AbstractInputViewModel<
+        OrderStatusScreenState,
+        OrderStatusScreenState,
+        OrderStatusScreenEffect
+    >(),
     UseOrderStatusScreen {
 
     override fun createInitialState() = OrderStatusScreenState()
@@ -26,4 +30,3 @@ class OrderStatusScreenViewModel :
         }
     }
 }
-

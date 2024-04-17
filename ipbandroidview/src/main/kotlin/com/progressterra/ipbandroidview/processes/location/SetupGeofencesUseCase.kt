@@ -34,22 +34,23 @@ interface SetupGeofencesUseCase {
         @SuppressLint("MissingPermission")
         override suspend fun invoke(fences: List<Fence>) {
             handle {
-                val geofences = fences.map {
-                    Geofence.Builder()
-                        .setRequestId(it.id)
-                        .setCircularRegion(
-                            it.latitude,
-                            it.longitude,
-                            it.radius
-                        )
-                        .setExpirationDuration(Geofence.NEVER_EXPIRE)
-                        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
+                val geofences =
+                    fences.map {
+                        Geofence.Builder()
+                            .setRequestId(it.id)
+                            .setCircularRegion(it.latitude, it.longitude, it.radius)
+                            .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                            .setTransitionTypes(
+                                Geofence.GEOFENCE_TRANSITION_ENTER or
+                                    Geofence.GEOFENCE_TRANSITION_EXIT
+                            )
+                            .build()
+                    }
+                val request =
+                    GeofencingRequest.Builder()
+                        .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                        .addGeofences(geofences)
                         .build()
-                }
-                val request = GeofencingRequest.Builder()
-                    .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-                    .addGeofences(geofences)
-                    .build()
                 val intent = Intent(context, receiverClass)
                 val pendingIntent =
                     PendingIntent.getBroadcast(
@@ -60,15 +61,14 @@ interface SetupGeofencesUseCase {
                     )
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).throwOnFailure()
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                    checkPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION).throwOnFailure()
+                    checkPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                        .throwOnFailure()
                 }
                 geofencingClient.addGeofences(request, pendingIntent).run {
                     addOnSuccessListener {
                         makeNotificationUseCase("Geofencing", "Geofencing began")
                     }
-                    addOnFailureListener {
-                        log("failure with $it")
-                    }
+                    addOnFailureListener { log("failure with $it") }
                 }
             }
         }

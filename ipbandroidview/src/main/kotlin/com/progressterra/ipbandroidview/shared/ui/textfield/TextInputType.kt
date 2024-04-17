@@ -16,28 +16,32 @@ enum class TextInputType {
     EMAIL,
     CHAT;
 
-    fun toVisualTransformation() = when (this) {
-        PHONE_NUMBER -> MaskVisualTransformation(PHONE_MASK)
-        DATE -> MaskVisualTransformation(DATE_MASK)
-        else -> VisualTransformation.None
-    }
+    fun toVisualTransformation() =
+        when (this) {
+            PHONE_NUMBER -> MaskVisualTransformation(PHONE_MASK)
+            DATE -> MaskVisualTransformation(DATE_MASK)
+            else -> VisualTransformation.None
+        }
 
-    fun toKeyboardOptions() = when (this) {
-        NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
-        PHONE_NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
-        CHAT -> KeyboardOptions.Default.copy(imeAction = ImeAction.Send)
-        else -> KeyboardOptions.Default
-    }
+    fun toKeyboardOptions() =
+        when (this) {
+            NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+            PHONE_NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
+            CHAT -> KeyboardOptions.Default.copy(imeAction = ImeAction.Send)
+            else -> KeyboardOptions.Default
+        }
 
-    fun toTypeValueCharacteristic() = when (this) {
-        NUMBER -> TypeValueCharacteristic.AS_NUMBER
-        DATE -> TypeValueCharacteristic.AS_DATE_TIME
-        else -> TypeValueCharacteristic.AS_STRING
-    }
+    fun toTypeValueCharacteristic() =
+        when (this) {
+            NUMBER -> TypeValueCharacteristic.AS_NUMBER
+            DATE -> TypeValueCharacteristic.AS_DATE_TIME
+            else -> TypeValueCharacteristic.AS_STRING
+        }
 
-    fun toAllowedChars() = when (this) {
-        PHONE_NUMBER -> 11
-        DATE -> 8
-        else -> Int.MAX_VALUE
-    }
+    fun toAllowedChars() =
+        when (this) {
+            PHONE_NUMBER -> 11
+            DATE -> 8
+            else -> Int.MAX_VALUE
+        }
 }

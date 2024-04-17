@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
@@ -32,20 +32,16 @@ fun AuthProfile(
     useComponent: UseAuthProfile
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(AuthProfileEvent) }
-            .padding(16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .niceClickable { useComponent.handle(AuthProfileEvent) }
+                .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            modifier = Modifier
-                .clip(CircleShape)
-                .size(80.dp),
-            image = state.profileImage
-        )
+        Image(modifier = Modifier.clip(CircleShape).size(80.dp), image = state.profileImage)
         Spacer(modifier = Modifier.width(20.dp))
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -70,7 +66,8 @@ fun AuthProfile(
                     tint = IpbTheme.colors.secondary.asBrush()
                 )
                 Text(
-                    text = "${state.bonuses} ${
+                    text =
+                        "${state.bonuses} ${
                         pluralStringResource(
                             id = R.plurals.bonuses,
                             state.bonuses
@@ -81,7 +78,8 @@ fun AuthProfile(
                 )
             }
             Text(
-                text = "${state.expiringBonuses} ${
+                text =
+                    "${state.expiringBonuses} ${
                     pluralStringResource(
                         id = R.plurals.bonuses,
                         state.expiringBonuses
@@ -97,10 +95,7 @@ fun AuthProfile(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        Icon(
-            resId = R.drawable.ic_forw,
-            tint = IpbTheme.colors.iconPrimary.asBrush()
-        )
+        Icon(resId = R.drawable.ic_forw, tint = IpbTheme.colors.iconPrimary.asBrush())
     }
 }
 
@@ -109,13 +104,14 @@ fun AuthProfile(
 private fun AuthProfilePreview() {
     IpbTheme {
         AuthProfile(
-            state = AuthProfileState(
-                name = "Volan de Mort",
-                email = "email@email.email",
-                bonuses = 250,
-                expiringBonuses = 140,
-                expiringDate = "12.12.2012"
-            ),
+            state =
+                AuthProfileState(
+                    name = "Volan de Mort",
+                    email = "email@email.email",
+                    bonuses = 250,
+                    expiringBonuses = 140,
+                    expiringDate = "12.12.2012"
+                ),
             useComponent = UseAuthProfile.Empty()
         )
     }

@@ -14,11 +14,7 @@ interface MakeDialogUseCase {
     ) : MakeDialogUseCase {
 
         override fun invoke(text: String, action: String, onAction: () -> Unit) {
-            makeDialog.start(
-                text = text,
-                action = action,
-                onAction = onAction
-            )
+            makeDialog.start(text = text, action = action, onAction = onAction)
         }
 
         override fun auth(onAuth: () -> Unit) {
@@ -30,4 +26,3 @@ interface MakeDialogUseCase {
         }
     }
 }
-

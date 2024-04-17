@@ -34,16 +34,14 @@ fun AttachableChat(
     useComponent: UseAttachableChat
 ) {
     if (state.isVisible) {
-        Column(
-            modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+        Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(8.dp),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .aspectRatio(1f)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Row(
@@ -58,9 +56,10 @@ fun AttachableChat(
                     )
                     if (canBeClosed) {
                         Row(
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .niceClickable { useComponent.handle(AttachableChatEvent) },
+                            modifier =
+                                Modifier.clip(CircleShape).niceClickable {
+                                    useComponent.handle(AttachableChatEvent)
+                                },
                             horizontalArrangement = Arrangement.spacedBy(4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {

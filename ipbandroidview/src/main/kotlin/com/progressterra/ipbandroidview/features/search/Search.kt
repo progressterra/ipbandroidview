@@ -13,11 +13,7 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun Search(
-    modifier: Modifier = Modifier,
-    state: SearchState,
-    useComponent: UseSearch
-) {
+fun Search(modifier: Modifier = Modifier, state: SearchState, useComponent: UseSearch) {
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         value = state.text,
@@ -30,35 +26,33 @@ fun Search(
             )
         },
         shape = CircleShape,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = IpbTheme.colors.textPrimary.asColor(),
-            disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
-            cursorColor = IpbTheme.colors.primary.asColor(),
-            errorCursorColor = IpbTheme.colors.error.asColor(),
-            focusedBorderColor = IpbTheme.colors.onSurface2.asColor(),
-            unfocusedBorderColor = IpbTheme.colors.onSurface2.asColor(),
-            disabledBorderColor = IpbTheme.colors.onSurface2.asColor(),
-            errorBorderColor = IpbTheme.colors.onSurface2.asColor(),
-            leadingIconColor = IpbTheme.colors.iconPrimary.asColor(),
-            trailingIconColor = IpbTheme.colors.iconPrimary.asColor(),
-            disabledLeadingIconColor = IpbTheme.colors.iconDisabled.asColor(),
-            disabledTrailingIconColor = IpbTheme.colors.iconDisabled.asColor(),
-            focusedLabelColor = IpbTheme.colors.textPrimary.asColor(),
-            unfocusedLabelColor = IpbTheme.colors.textPrimary.asColor(),
-            disabledLabelColor = IpbTheme.colors.textDisabled.asColor(),
-            errorLabelColor = IpbTheme.colors.textPrimary.asColor(),
-            errorTrailingIconColor = IpbTheme.colors.error.asColor(),
-            errorLeadingIconColor = IpbTheme.colors.error.asColor(),
-            placeholderColor = IpbTheme.colors.textPrimary.asColor(),
-            disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor()
-        ),
+        colors =
+            TextFieldDefaults.outlinedTextFieldColors(
+                textColor = IpbTheme.colors.textPrimary.asColor(),
+                disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
+                cursorColor = IpbTheme.colors.primary.asColor(),
+                errorCursorColor = IpbTheme.colors.error.asColor(),
+                focusedBorderColor = IpbTheme.colors.onSurface2.asColor(),
+                unfocusedBorderColor = IpbTheme.colors.onSurface2.asColor(),
+                disabledBorderColor = IpbTheme.colors.onSurface2.asColor(),
+                errorBorderColor = IpbTheme.colors.onSurface2.asColor(),
+                leadingIconColor = IpbTheme.colors.iconPrimary.asColor(),
+                trailingIconColor = IpbTheme.colors.iconPrimary.asColor(),
+                disabledLeadingIconColor = IpbTheme.colors.iconDisabled.asColor(),
+                disabledTrailingIconColor = IpbTheme.colors.iconDisabled.asColor(),
+                focusedLabelColor = IpbTheme.colors.textPrimary.asColor(),
+                unfocusedLabelColor = IpbTheme.colors.textPrimary.asColor(),
+                disabledLabelColor = IpbTheme.colors.textDisabled.asColor(),
+                errorLabelColor = IpbTheme.colors.textPrimary.asColor(),
+                errorTrailingIconColor = IpbTheme.colors.error.asColor(),
+                errorLeadingIconColor = IpbTheme.colors.error.asColor(),
+                placeholderColor = IpbTheme.colors.textPrimary.asColor(),
+                disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor()
+            ),
         singleLine = true,
         textStyle = IpbTheme.typography.subHeadlineRegular,
         trailingIcon = {
-            Icon(
-                tint = IpbTheme.colors.iconPrimary.asBrush(),
-                resId = R.drawable.ic_search
-            )
+            Icon(tint = IpbTheme.colors.iconPrimary.asBrush(), resId = R.drawable.ic_search)
         }
     )
 }

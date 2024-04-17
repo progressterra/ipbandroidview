@@ -15,9 +15,7 @@ class DatingProfileScreenNode(
     buildContext: BuildContext,
     private val input: DatingUser,
     private val navigation: DatingProfileScreenNavigation
-) : Node(
-    buildContext = buildContext
-) {
+) : Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {

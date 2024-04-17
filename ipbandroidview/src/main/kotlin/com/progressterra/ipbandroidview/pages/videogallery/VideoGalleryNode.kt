@@ -6,9 +6,7 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 
 @Suppress("unused")
-class VideoGalleryNode(
-    buildContext: BuildContext
-) : Node(buildContext) {
+class VideoGalleryNode(buildContext: BuildContext) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {

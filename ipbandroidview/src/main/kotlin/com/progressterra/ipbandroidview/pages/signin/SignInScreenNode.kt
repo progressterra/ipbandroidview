@@ -9,10 +9,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class SignInScreenNode(
-    buildContext: BuildContext,
-    private val navigation: SignInScreenNavigation
-) : Node(buildContext) {
+class SignInScreenNode(buildContext: BuildContext, private val navigation: SignInScreenNavigation) :
+    Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -24,9 +22,7 @@ class SignInScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         SignInScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

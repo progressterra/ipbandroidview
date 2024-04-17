@@ -12,11 +12,10 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
-interface UseDocumentDetailsScreen : UseTopBar, UseTextField, UseDocumentPhoto, UseButton,
-    UseAttachableChat {
+interface UseDocumentDetailsScreen :
+    UseTopBar, UseTextField, UseDocumentPhoto, UseButton, UseAttachableChat {
 
     class Empty : UseDocumentDetailsScreen {
-
 
         override fun handle(event: StateColumnEvent) = Unit
 

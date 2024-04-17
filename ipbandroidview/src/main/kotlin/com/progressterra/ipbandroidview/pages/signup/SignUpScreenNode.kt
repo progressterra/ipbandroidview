@@ -10,12 +10,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class SignUpScreenNode(
-    buildContext: BuildContext,
-    private val navigation: SignUpScreenNavigation
-) : Node(
-    buildContext
-) {
+class SignUpScreenNode(buildContext: BuildContext, private val navigation: SignUpScreenNavigation) :
+    Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -32,10 +28,6 @@ class SignUpScreenNode(
             focusManager.clearFocus()
             viewModel.refresh()
         }
-        SignUpScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        SignUpScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

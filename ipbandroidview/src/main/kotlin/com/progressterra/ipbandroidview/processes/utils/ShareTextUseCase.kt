@@ -6,9 +6,7 @@ interface ShareTextUseCase {
 
     suspend operator fun invoke(text: String)
 
-    class Base(
-        private val startActivityContract: StartActivityContract.Client
-    ) : ShareTextUseCase {
+    class Base(private val startActivityContract: StartActivityContract.Client) : ShareTextUseCase {
 
         override suspend fun invoke(text: String) {
             val sendIntent = Intent()

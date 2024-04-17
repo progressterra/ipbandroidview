@@ -18,11 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Text
 
-
 @Composable
-fun Divider(
-    modifier: Modifier = Modifier, title: String
-) {
+fun Divider(modifier: Modifier = Modifier, title: String) {
     BoxWithConstraints {
         val width = maxWidth
         Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
@@ -35,11 +32,11 @@ fun Divider(
                 )
             }
             Box(
-                modifier = Modifier
-                    .padding(start = if (title.isNotBlank()) 8.dp else 0.dp)
-                    .background(IpbTheme.colors.textTertiary.asBrush())
-                    .height(1.dp)
-                    .weight(1f)
+                modifier =
+                    Modifier.padding(start = if (title.isNotBlank()) 8.dp else 0.dp)
+                        .background(IpbTheme.colors.textTertiary.asBrush())
+                        .height(1.dp)
+                        .weight(1f)
             )
         }
     }
@@ -50,10 +47,7 @@ fun Divider(
 private fun DividerPreview() {
     IpbTheme {
         Surface(color = IpbTheme.colors.surface.asColor()) {
-            Divider(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Some text"
-            )
+            Divider(modifier = Modifier.fillMaxWidth(), title = "Some text")
         }
     }
 }
@@ -61,13 +55,7 @@ private fun DividerPreview() {
 @Preview
 @Composable
 private fun CategoryDividerEmptyPreview() {
-    IpbTheme {
-        Surface(color = IpbTheme.colors.surface.asColor()) {
-            Divider(
-                title = ""
-            )
-        }
-    }
+    IpbTheme { Surface(color = IpbTheme.colors.surface.asColor()) { Divider(title = "") } }
 }
 
 @Preview
@@ -76,7 +64,8 @@ private fun CategoryDividerLongPreview() {
     IpbTheme {
         Surface(color = IpbTheme.colors.surface.asColor()) {
             Divider(
-                title = "Some very long text some very long text some very long text some very long text some very long text some very long text some very long text some very long text HAPPY END"
+                title =
+                    "Some very long text some very long text some very long text some very long text some very long text some very long text some very long text some very long text HAPPY END"
             )
         }
     }

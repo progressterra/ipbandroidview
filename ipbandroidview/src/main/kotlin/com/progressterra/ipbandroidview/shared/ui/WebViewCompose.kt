@@ -7,10 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
-fun WebViewCompose(
-    modifier: Modifier = Modifier,
-    url: String
-) {
+fun WebViewCompose(modifier: Modifier = Modifier, url: String) {
     AndroidView(
         modifier = modifier,
         factory = {

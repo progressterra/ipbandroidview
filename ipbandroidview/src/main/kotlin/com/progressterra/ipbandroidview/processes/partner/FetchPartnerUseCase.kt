@@ -20,29 +20,40 @@ interface FetchPartnerUseCase {
         private val provideLocationUseCase: ProvideLocationUseCase,
         manageResources: ManageResources,
         obtainAccessToken: ObtainAccessToken
-    ) : FetchPartnerUseCase,
+    ) :
+        FetchPartnerUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(): Result<Partner> = withToken { token ->
             val location = provideLocationUseCase().getOrNull()
-            val resultOrganization = repository.organizationById(
-                accessToken = token,
-                latitude = location?.latitude?.toString() ?: "0.0",
-                longitude = location?.longitude?.toString() ?: "0.0",
-                organizationId = "7eb4858d-962a-494b-b93f-24cdd0fca2e1"
-            ).getOrThrow()
-            val resultShop = repository.organizationShops(
-                accessToken = token,
-                latitude = location?.latitude?.toString() ?: "0.0",
-                longitude = location?.longitude?.toString() ?: "0.0",
-                organizationId = "7eb4858d-962a-494b-b93f-24cdd0fca2e1"
-            ).getOrThrow()
-            val resultOffers = repository.offersByOrganization(
-                accessToken = token,
-                latitude = location?.latitude?.toString() ?: "0.0",
-                longitude = location?.longitude?.toString() ?: "0.0",
-                organizationId = "7eb4858d-962a-494b-b93f-24cdd0fca2e1"
-            ).getOrThrow()?.map { it.toOffer() } ?: emptyList()
+            val resultOrganization =
+                repository
+                    .organizationById(
+                        accessToken = token,
+                        latitude = location?.latitude?.toString() ?: "0.0",
+                        longitude = location?.longitude?.toString() ?: "0.0",
+                        organizationId = "7eb4858d-962a-494b-b93f-24cdd0fca2e1"
+                    )
+                    .getOrThrow()
+            val resultShop =
+                repository
+                    .organizationShops(
+                        accessToken = token,
+                        latitude = location?.latitude?.toString() ?: "0.0",
+                        longitude = location?.longitude?.toString() ?: "0.0",
+                        organizationId = "7eb4858d-962a-494b-b93f-24cdd0fca2e1"
+                    )
+                    .getOrThrow()
+            val resultOffers =
+                repository
+                    .offersByOrganization(
+                        accessToken = token,
+                        latitude = location?.latitude?.toString() ?: "0.0",
+                        longitude = location?.longitude?.toString() ?: "0.0",
+                        organizationId = "7eb4858d-962a-494b-b93f-24cdd0fca2e1"
+                    )
+                    .getOrThrow()
+                    ?.map { it.toOffer() } ?: emptyList()
             resultOrganization!!.toPartner(resultShop!!.first(), resultOffers)
         }
     }

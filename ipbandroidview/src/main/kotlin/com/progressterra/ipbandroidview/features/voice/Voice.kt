@@ -21,9 +21,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.PulsingDot
-
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun Voice(
@@ -37,80 +36,85 @@ fun Voice(
     enabled: Boolean
 ) {
     when (state) {
-        is VoiceState.Recorder -> Box(modifier = modifier) {
-            Row(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .height(TextFieldDefaults.MinHeight)
-                    .fillMaxWidth()
-                    .background(IpbTheme.colors.background.asBrush())
-                    .padding(vertical = 14.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                if (state.ongoing) {
+        is VoiceState.Recorder ->
+            Box(modifier = modifier) {
+                Row(
+                    modifier =
+                        Modifier.clip(RoundedCornerShape(8.dp))
+                            .height(TextFieldDefaults.MinHeight)
+                            .fillMaxWidth()
+                            .background(IpbTheme.colors.background.asBrush())
+                            .padding(vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    if (state.ongoing) {
+                        IconButton(onClick = onRemove, enabled = enabled) {
+                            Icon(
+                                resId = R.drawable.ic_trash,
+                                tint =
+                                    if (enabled) IpbTheme.colors.error.asBrush()
+                                    else IpbTheme.colors.iconTertiary.asBrush()
+                            )
+                        }
+                    } else {
+                        Text(
+                            modifier = Modifier.padding(start = 12.dp),
+                            text = stringResource(id = R.string.voice_message),
+                            style = IpbTheme.typography.body,
+                            tint =
+                                if (enabled) IpbTheme.colors.textPrimary.asBrush()
+                                else IpbTheme.colors.textTertiary.asBrush()
+                        )
+                    }
+                    IconButton(
+                        onClick = if (state.ongoing) onStopRecording else onStartRecording,
+                        enabled = enabled
+                    ) {
+                        Icon(
+                            resId = R.drawable.ic_mic,
+                            tint =
+                                if (enabled) IpbTheme.colors.primary.asBrush()
+                                else IpbTheme.colors.iconTertiary.asBrush()
+                        )
+                    }
+                }
+                if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
+            }
+        is VoiceState.Player ->
+            Box(modifier = modifier) {
+                Row(
+                    modifier =
+                        Modifier.clip(RoundedCornerShape(8.dp))
+                            .height(TextFieldDefaults.MinHeight)
+                            .background(IpbTheme.colors.background.asBrush())
+                            .padding(vertical = 12.dp)
+                            .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
                     IconButton(onClick = onRemove, enabled = enabled) {
                         Icon(
                             resId = R.drawable.ic_trash,
-                            tint = if (enabled) IpbTheme.colors.error.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
+                            tint =
+                                if (enabled) IpbTheme.colors.error.asBrush()
+                                else IpbTheme.colors.iconTertiary.asBrush()
                         )
                     }
-                } else {
-                    Text(
-                        modifier = Modifier.padding(start = 12.dp),
-                        text = stringResource(id = R.string.voice_message),
-                        style = IpbTheme.typography.body,
-                        tint = if (enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textTertiary.asBrush()
+                    LinearProgressIndicator(
+                        modifier = Modifier.weight(1f),
+                        color = IpbTheme.colors.primary.asColor(),
+                        backgroundColor = IpbTheme.colors.surface.asColor(),
+                        progress = state.progress
                     )
-                }
-                IconButton(
-                    onClick = if (state.ongoing) onStopRecording else onStartRecording,
-                    enabled = enabled
-                ) {
-                    Icon(
-                        resId = R.drawable.ic_mic,
-                        tint = if (enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
-                    )
+                    IconButton(onClick = if (state.ongoing) onPausePlay else onStartPlay) {
+                        Icon(
+                            resId = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play,
+                            tint = IpbTheme.colors.primary.asBrush()
+                        )
+                    }
                 }
             }
-            if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
-        }
-
-        is VoiceState.Player -> Box(modifier = modifier) {
-            Row(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .height(TextFieldDefaults.MinHeight)
-                    .background(IpbTheme.colors.background.asBrush())
-                    .padding(vertical = 12.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                IconButton(
-                    onClick = onRemove,
-                    enabled = enabled
-                ) {
-                    Icon(
-                        resId = R.drawable.ic_trash,
-                        tint = if (enabled) IpbTheme.colors.error.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
-                    )
-                }
-                LinearProgressIndicator(
-                    modifier = Modifier.weight(1f),
-                    color = IpbTheme.colors.primary.asColor(),
-                    backgroundColor = IpbTheme.colors.surface.asColor(),
-                    progress = state.progress
-                )
-                IconButton(onClick = if (state.ongoing) onPausePlay else onStartPlay) {
-                    Icon(
-                        resId = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play,
-                        tint = IpbTheme.colors.primary.asBrush()
-                    )
-                }
-            }
-
-        }
     }
 }
 
@@ -145,7 +149,6 @@ private fun VoicePreviewRecord() {
         )
     }
 }
-
 
 @Preview
 @Composable

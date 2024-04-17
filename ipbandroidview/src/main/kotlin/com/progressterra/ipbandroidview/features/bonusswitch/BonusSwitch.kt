@@ -21,14 +21,17 @@ import com.progressterra.ipbandroidview.shared.ui.switch.Switch
 
 @Composable
 fun BonusSwitch(
-    modifier: Modifier = Modifier, state: BonusSwitchState, useComponent: UseBonusSwitch
+    modifier: Modifier = Modifier,
+    state: BonusSwitchState,
+    useComponent: UseBonusSwitch
 ) {
     Column(
-        modifier = modifier
-            .padding(horizontal = 20.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(12.dp),
+        modifier =
+            modifier
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
@@ -46,9 +49,7 @@ fun BonusSwitch(
                 tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.body
             )
-            Switch(
-                state = state.useBonuses, useComponent = useComponent
-            )
+            Switch(state = state.useBonuses, useComponent = useComponent)
         }
     }
 }

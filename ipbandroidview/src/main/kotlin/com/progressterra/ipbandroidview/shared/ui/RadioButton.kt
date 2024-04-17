@@ -18,10 +18,11 @@ fun RadioButton(
         selected = checked,
         enabled = enabled,
         onClick = onClick,
-        colors = RadioButtonDefaults.colors(
-            selectedColor = IpbTheme.colors.primary.asColor(),
-            unselectedColor = IpbTheme.colors.tertiary.asColor(),
-            disabledColor = IpbTheme.colors.textDisabled.asColor()
-        )
+        colors =
+            RadioButtonDefaults.colors(
+                selectedColor = IpbTheme.colors.primary.asColor(),
+                unselectedColor = IpbTheme.colors.tertiary.asColor(),
+                disabledColor = IpbTheme.colors.textDisabled.asColor()
+            )
     )
 }

@@ -13,12 +13,13 @@ interface SuggestionsUseCase {
         private val repo: SuggestionRepository,
     ) : SuggestionsUseCase {
 
-        override suspend fun invoke(
-            keyword: String
-        ): Result<List<SuggestionUI>> = runCatching {
-            val suggestionsResult = repo.getSuggestionsAddressFromDadata(
-                DadataSuggestionsRequest(count = 3, query = keyword)
-            ).getOrThrow()
+        override suspend fun invoke(keyword: String): Result<List<SuggestionUI>> = runCatching {
+            val suggestionsResult =
+                repo
+                    .getSuggestionsAddressFromDadata(
+                        DadataSuggestionsRequest(count = 3, query = keyword)
+                    )
+                    .getOrThrow()
             suggestionsResult?.map { it.convertSuggestionsDtoToUIModels() } ?: emptyList()
         }
     }

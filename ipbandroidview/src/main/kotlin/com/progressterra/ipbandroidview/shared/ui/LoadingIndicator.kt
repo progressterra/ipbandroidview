@@ -10,15 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
-fun LoadingIndicator(
-    modifier: Modifier = Modifier, visible: Boolean = true
-) {
-    AnimatedVisibility(
-        modifier = modifier,
-        visible = visible,
-        enter = fadeIn(),
-        exit = fadeOut()
-    ) {
+fun LoadingIndicator(modifier: Modifier = Modifier, visible: Boolean = true) {
+    AnimatedVisibility(modifier = modifier, visible = visible, enter = fadeIn(), exit = fadeOut()) {
         CircularProgressIndicator(color = IpbTheme.colors.primary.asColor())
     }
 }
@@ -26,7 +19,5 @@ fun LoadingIndicator(
 @Preview
 @Composable
 private fun LoadingIndicatorPreview() {
-    IpbTheme {
-        LoadingIndicator()
-    }
+    IpbTheme { LoadingIndicator() }
 }

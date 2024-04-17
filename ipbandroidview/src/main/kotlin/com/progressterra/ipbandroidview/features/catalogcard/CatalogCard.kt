@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.skydoves.landscapist.ImageOptions
 
@@ -26,19 +26,14 @@ fun CatalogCard(
     useComponent: UseCatalogCard
 ) {
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .width(98.dp)
-            .niceClickable {
-                useComponent.handle(
-                    CatalogCardEvent(state)
-                )
-            }, verticalArrangement = Arrangement.spacedBy(4.dp)
+        modifier =
+            modifier.clip(RoundedCornerShape(8.dp)).width(98.dp).niceClickable {
+                useComponent.handle(CatalogCardEvent(state))
+            },
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Image(
-            modifier = Modifier
-                .size(98.dp)
-                .clip(RoundedCornerShape(8.dp)),
+            modifier = Modifier.size(98.dp).clip(RoundedCornerShape(8.dp)),
             image = state.image,
             options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
@@ -57,14 +52,12 @@ private fun CatalogCardPreview() {
     Preview {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             CatalogCard(
-                state = CatalogCardState(
-                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05"
-                ), useComponent = UseCatalogCard.Empty()
+                state = CatalogCardState(name = "Ноутбук Lenovo IdeaPad 3 15ADA05"),
+                useComponent = UseCatalogCard.Empty()
             )
             CatalogCard(
-                state = CatalogCardState(
-                    name = "Лэп"
-                ), useComponent = UseCatalogCard.Empty()
+                state = CatalogCardState(name = "Лэп"),
+                useComponent = UseCatalogCard.Empty()
             )
         }
     }

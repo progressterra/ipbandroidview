@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.features.goodsdescription
 
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 
-
 data class GoodsDescriptionState(
     val name: String = "",
     val description: String = "",

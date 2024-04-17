@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
-
 data class GoodsDetailsScreenState(
     override val id: String = "",
     val description: GoodsDescriptionState = GoodsDescriptionState(),

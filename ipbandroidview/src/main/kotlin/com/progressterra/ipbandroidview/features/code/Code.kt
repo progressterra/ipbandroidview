@@ -43,19 +43,20 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.clearFocusOnKeyboardDismiss
 
 @Composable
-private fun Digit(
-    digit: String, active: Boolean
-) {
+private fun Digit(digit: String, active: Boolean) {
     Box(
-        modifier = Modifier
-            .size(56.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.background.asBrush())
-            .border(
-                width = 1.dp,
-                brush = if (active) IpbTheme.colors.primary.asBrush() else Color.Transparent.toBrush(),
-                shape = RoundedCornerShape(8.dp)
-            ), contentAlignment = Alignment.Center
+        modifier =
+            Modifier.size(56.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.background.asBrush())
+                .border(
+                    width = 1.dp,
+                    brush =
+                        if (active) IpbTheme.colors.primary.asBrush()
+                        else Color.Transparent.toBrush(),
+                    shape = RoundedCornerShape(8.dp)
+                ),
+        contentAlignment = Alignment.Center
     ) {
         if (!active && digit.isEmpty()) {
             Text(
@@ -73,15 +74,14 @@ private fun Digit(
 }
 
 @Composable
-fun Code(
-    modifier: Modifier = Modifier, state: CodeState, useComponent: UseCode
-) {
+fun Code(modifier: Modifier = Modifier, state: CodeState, useComponent: UseCode) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -97,21 +97,15 @@ fun Code(
         val focusManager = LocalFocusManager.current
         var innerValue by remember { mutableStateOf(TextFieldValue()) }
         val focusRequester = remember { FocusRequester() }
-        LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
-        }
+        LaunchedEffect(Unit) { focusRequester.requestFocus() }
         LaunchedEffect(focused) {
             if (focused) {
                 innerValue = innerValue.copy(selection = TextRange(innerValue.text.length))
             }
         }
-        LaunchedEffect(state.code) {
-            innerValue = innerValue.copy(text = state.code)
-        }
+        LaunchedEffect(state.code) { innerValue = innerValue.copy(text = state.code) }
         BasicTextField(
-            modifier = Modifier
-                .focusRequester(focusRequester)
-                .clearFocusOnKeyboardDismiss(),
+            modifier = Modifier.focusRequester(focusRequester).clearFocusOnKeyboardDismiss(),
             value = innerValue,
             singleLine = true,
             maxLines = 1,
@@ -122,12 +116,9 @@ fun Code(
                     innerValue = value
                 }
             },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(onDone = {
-                focusManager.clearFocus()
-            }),
+            keyboardOptions =
+                KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             decorationBox = {
                 Row(horizontalArrangement = Arrangement.Center) {
                     repeat(4) { index ->
@@ -138,6 +129,7 @@ fun Code(
                         if (index != 4 - 1) Spacer(modifier = Modifier.size(12.dp))
                     }
                 }
-            })
+            }
+        )
     }
 }

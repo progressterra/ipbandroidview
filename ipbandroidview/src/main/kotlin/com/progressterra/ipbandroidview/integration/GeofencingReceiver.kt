@@ -25,19 +25,26 @@ abstract class GeofencingReceiver : BroadcastReceiver() {
             return
         }
         val geofenceTransition = geofencingEvent.geofenceTransition
-        val makeNotificationUseCase = MakeNotificationUseCase.Base(
-            context = context,
-            iconId = iconId,
-            channelId = channelId,
-            channelName = channelName,
-            activity = activity
-        )
+        val makeNotificationUseCase =
+            MakeNotificationUseCase.Base(
+                context = context,
+                iconId = iconId,
+                channelId = channelId,
+                channelName = channelName,
+                activity = activity
+            )
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             log("Entering ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
-            makeNotificationUseCase("Geofencing", "Entering ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
+            makeNotificationUseCase(
+                "Geofencing",
+                "Entering ${geofencingEvent.triggeringGeofences?.map { it.requestId }}"
+            )
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             log("Exiting ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
-            makeNotificationUseCase("Geofencing", "Exiting ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
+            makeNotificationUseCase(
+                "Geofencing",
+                "Exiting ${geofencingEvent.triggeringGeofences?.map { it.requestId }}"
+            )
         }
     }
 }

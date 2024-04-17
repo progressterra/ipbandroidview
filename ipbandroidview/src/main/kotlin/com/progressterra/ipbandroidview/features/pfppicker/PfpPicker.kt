@@ -17,33 +17,29 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
-fun PfpPicker(
-    modifier: Modifier = Modifier, state: PfpPickerState, useComponent: UsePfpPicker
-) {
+fun PfpPicker(modifier: Modifier = Modifier, state: PfpPickerState, useComponent: UsePfpPicker) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(36.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(modifier = Modifier
-            .size(263.dp)
-            .clip(CircleShape)
-            .niceClickable { useComponent.handle(PfpPickerEvent) }
-            .background(IpbTheme.colors.surface.asBrush()), contentAlignment = Alignment.Center) {
+        Box(
+            modifier =
+                Modifier.size(263.dp)
+                    .clip(CircleShape)
+                    .niceClickable { useComponent.handle(PfpPickerEvent) }
+                    .background(IpbTheme.colors.surface.asBrush()),
+            contentAlignment = Alignment.Center
+        ) {
             if (state.url == null) {
-                Icon(
-                    resId = R.drawable.ic_add_avatar, tint = IpbTheme.colors.primary.asBrush()
-                )
+                Icon(resId = R.drawable.ic_add_avatar, tint = IpbTheme.colors.primary.asBrush())
             } else {
-                Image(
-                    modifier = Modifier.size(263.dp),
-                    image = state.url
-                )
+                Image(modifier = Modifier.size(263.dp), image = state.url)
             }
         }
         Text(
@@ -59,16 +55,9 @@ fun PfpPicker(
 @Composable
 private fun PfpPickerPreview() {
     IpbTheme {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            PfpPicker(
-                state = PfpPickerState(url = ""),
-                useComponent = UsePfpPicker.Empty()
-            )
-            PfpPicker(
-                state = PfpPickerState(), useComponent = UsePfpPicker.Empty()
-            )
+        Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+            PfpPicker(state = PfpPickerState(url = ""), useComponent = UsePfpPicker.Empty())
+            PfpPicker(state = PfpPickerState(), useComponent = UsePfpPicker.Empty())
         }
     }
 }

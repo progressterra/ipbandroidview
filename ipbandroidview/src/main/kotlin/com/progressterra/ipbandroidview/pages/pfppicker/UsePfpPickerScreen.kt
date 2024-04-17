@@ -11,7 +11,6 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
 interface UsePfpPickerScreen : UsePfpPicker, UseButton, UseTopBar, UseStateColumn {
 
-
     class Empty : UsePfpPickerScreen {
 
         override fun handle(event: TopBarEvent) = Unit

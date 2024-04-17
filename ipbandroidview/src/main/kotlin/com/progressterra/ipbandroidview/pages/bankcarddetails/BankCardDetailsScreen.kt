@@ -22,8 +22,8 @@ import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -39,23 +39,25 @@ fun BankCardDetailsScreen(
     useComponent: UseBankCardDetailsScreen
 ) {
     Layout(
-        modifier = modifier, topBar = {
-        TopBar(
-            title = if (state.document.isTemplate()) stringResource(id = R.string.card_adding) else stringResource(
-                id = R.string.card_viewing
-            ),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    },
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title =
+                    if (state.document.isTemplate()) stringResource(id = R.string.card_adding)
+                    else stringResource(id = R.string.card_viewing),
+                showBackButton = true,
+                useComponent = useComponent
+            )
+        },
         bottomBar = {
             if (state.document.status.toCanBeEditted()) {
                 Column(
-                    modifier = modifier
-                        .padding(horizontal = 8.dp)
-                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 36.dp)
+                    modifier =
+                        modifier
+                            .padding(horizontal = 8.dp)
+                            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 36.dp)
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
@@ -65,7 +67,8 @@ fun BankCardDetailsScreen(
                     )
                 }
             }
-        }) { _, _ ->
+        }
+    ) { _, _ ->
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
@@ -76,23 +79,21 @@ fun BankCardDetailsScreen(
             if (!state.document.isTemplate()) {
                 Text(
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
-                    text = state.document.status.toString {
-                        stringResource(id = it)
-                    },
+                    text = state.document.status.toString { stringResource(id = it) },
                     style = IpbTheme.typography.subHeadlineBold,
                     tint = state.document.status.toColor()
                 )
             }
             Column(
-                modifier = Modifier
-                    .padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                        top = if (!state.document.isTemplate()) 0.dp else 20.dp
-                    )
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(12.dp),
+                modifier =
+                    Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            top = if (!state.document.isTemplate()) 0.dp else 20.dp
+                        )
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -130,17 +131,21 @@ fun BankCardDetailsScreen(
 private fun BankCardDetailsScreenPreview() {
     IpbTheme {
         BankCardDetailsScreen(
-            state = BankCardDetailsScreenState(
-                document = Document(
-                    entries = listOf(
-                        TextFieldState(placeholder = "Номер карты"),
-                        TextFieldState(placeholder = "Имя"),
-                        TextFieldState(placeholder = "Срок действия"),
-                        TextFieldState(placeholder = "CVV/CVC")
-                    )
-                ), screen = StateColumnState(state = ScreenState.SUCCESS),
-                apply = ButtonState()
-            ),
+            state =
+                BankCardDetailsScreenState(
+                    document =
+                        Document(
+                            entries =
+                                listOf(
+                                    TextFieldState(placeholder = "Номер карты"),
+                                    TextFieldState(placeholder = "Имя"),
+                                    TextFieldState(placeholder = "Срок действия"),
+                                    TextFieldState(placeholder = "CVV/CVC")
+                                )
+                        ),
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    apply = ButtonState()
+                ),
             useComponent = UseBankCardDetailsScreen.Empty()
         )
     }

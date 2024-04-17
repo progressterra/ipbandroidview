@@ -22,26 +22,24 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun SupportScreen(
-    modifier: Modifier = Modifier, state: SupportScreenState, useComponent: UseSupportScreen
+    modifier: Modifier = Modifier,
+    state: SupportScreenState,
+    useComponent: UseSupportScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = state.current.title, showBackButton = true, useComponent = useComponent
-        )
-    }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
-
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(title = state.current.title, showBackButton = true, useComponent = useComponent)
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             val lazyItems = state.current.subCategories.collectAsLazyPagingItems()
             LazyColumn(
                 contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
-                    lazyItems[index]?.let {
-                        SupportChat(state = it, useComponent = useComponent)
-                    }
+                    lazyItems[index]?.let { SupportChat(state = it, useComponent = useComponent) }
                 }
             }
         }
@@ -53,20 +51,26 @@ fun SupportScreen(
 private fun SupportScreenPreview() {
     IpbTheme {
         SupportScreen(
-            state = SupportScreenState(
-                current = SupportChatState(
-                    title = "Служба поддержки", subCategories = flowOf(
-                        PagingData.from(
-                            listOf(
-                                SupportChatState(title = "Заказ 1234"),
-                                SupportChatState(title = "Заказ 1234"),
-                                SupportChatState(title = "Заказ 1234"),
-                                SupportChatState(title = "Заказ 1234")
-                            )
-                        )
-                    )
-                ), screen = StateColumnState(state = ScreenState.SUCCESS)
-            ), useComponent = UseSupportScreen.Empty()
+            state =
+                SupportScreenState(
+                    current =
+                        SupportChatState(
+                            title = "Служба поддержки",
+                            subCategories =
+                                flowOf(
+                                    PagingData.from(
+                                        listOf(
+                                            SupportChatState(title = "Заказ 1234"),
+                                            SupportChatState(title = "Заказ 1234"),
+                                            SupportChatState(title = "Заказ 1234"),
+                                            SupportChatState(title = "Заказ 1234")
+                                        )
+                                    )
+                                )
+                        ),
+                    screen = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+            useComponent = UseSupportScreen.Empty()
         )
     }
 }

@@ -21,27 +21,28 @@ interface CreateDocumentUseCase {
         makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources,
         obtainAccessToken: ObtainAccessToken
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+    ) :
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         CreateDocumentUseCase {
 
-        override suspend fun invoke(
-            idChecklist: String,
-            idPlace: String
-        ): Result<String> = withToken { token ->
-            val result = checklistService.createDoc(
-                token, DHCheckPerformedEntityCreate(
-                    idChecklist,
-                    "00000000-0000-0000-0000-000000000000",
-                    idPlace,
-                    Date(System.currentTimeMillis()).format(),
-                    "",
-                    ""
-                )
-            )
-            if (result.result?.status != StatusResult.SUCCESS) {
-                throw ToastedException(R.string.failure)
+        override suspend fun invoke(idChecklist: String, idPlace: String): Result<String> =
+            withToken { token ->
+                val result =
+                    checklistService.createDoc(
+                        token,
+                        DHCheckPerformedEntityCreate(
+                            idChecklist,
+                            "00000000-0000-0000-0000-000000000000",
+                            idPlace,
+                            Date(System.currentTimeMillis()).format(),
+                            "",
+                            ""
+                        )
+                    )
+                if (result.result?.status != StatusResult.SUCCESS) {
+                    throw ToastedException(R.string.failure)
+                }
+                result.data?.idUnique!!
             }
-            result.data?.idUnique!!
-        }
     }
 }

@@ -28,29 +28,37 @@ class UnconfirmedBankCardsSource(
         runCatching {
             val token = obtainAccessToken().getOrThrow()
             val mainCardId = fetchMainCardIdUseCase().getOrThrow()
-            val response = documentsRepository.docs(
-                accessToken = token,
-                filter = FilterAndSort(
-                    listFields = listOf(
-                        FieldForFilter(
-                            fieldName = "idrfCharacteristicType",
-                            listValue = listOf(IpbAndroidViewSettings.BANK_CARDS_TYPE_ID),
-                            comparison = TypeComparison.EQUALS_STRONG
-                        )
-                    ),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = skip,
-                    take = take
-                )
-            ).getOrThrow() ?: emptyList()
-            response.size to response.map {
-                it.toDocument(gson, createId).toBankCardState().copy(
-                    isMainCard = mainCardId == it.idUnique
-                )
-            }
+            val response =
+                documentsRepository
+                    .docs(
+                        accessToken = token,
+                        filter =
+                            FilterAndSort(
+                                listFields =
+                                    listOf(
+                                        FieldForFilter(
+                                            fieldName = "idrfCharacteristicType",
+                                            listValue =
+                                                listOf(IpbAndroidViewSettings.BANK_CARDS_TYPE_ID),
+                                            comparison = TypeComparison.EQUALS_STRONG
+                                        )
+                                    ),
+                                sort =
+                                    SortData(
+                                        fieldName = "dateAdded",
+                                        variantSort = TypeVariantSort.DESC
+                                    ),
+                                searchData = "",
+                                skip = skip,
+                                take = take
+                            )
+                    )
+                    .getOrThrow() ?: emptyList()
+            response.size to
+                response.map {
+                    it.toDocument(gson, createId)
+                        .toBankCardState()
+                        .copy(isMainCard = mainCardId == it.idUnique)
+                }
         }
 }

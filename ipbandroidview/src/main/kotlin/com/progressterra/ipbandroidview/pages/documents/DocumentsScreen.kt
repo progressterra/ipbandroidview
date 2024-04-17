@@ -15,36 +15,44 @@ import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitiz
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.documents.Documents
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsState
 
 @Composable
 fun DocumentsScreen(
-    modifier: Modifier = Modifier, state: DocumentsScreenState, useComponent: UseDocumentsScreen
+    modifier: Modifier = Modifier,
+    state: DocumentsScreenState,
+    useComponent: UseDocumentsScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.documents),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }) { _, _ ->
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.documents),
+                showBackButton = true,
+                useComponent = useComponent
+            )
+        }
+    ) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
+            state = state.screen,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             CurrentCitizenship(
                 modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp),
-                state = state.citizenship, useComponent = useComponent
+                state = state.citizenship,
+                useComponent = useComponent
             )
             Documents(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                state = state.documents, useComponent = useComponent
+                state = state.documents,
+                useComponent = useComponent
             )
         }
     }
@@ -53,36 +61,35 @@ fun DocumentsScreen(
 @Preview
 @Composable
 private fun DocumentsScreenPreview() {
-    val citizenshipState = CurrentCitizenshipState(
-        citizenship = Citizenship(name = "United States", id = "")
-    )
+    val citizenshipState =
+        CurrentCitizenshipState(citizenship = Citizenship(name = "United States", id = ""))
 
-    val documentsScreenState = DocumentsScreenState(
-        documents = DocumentsState(
-            listOf(
-                Document(
-                    name = "Passport",
-                    status = TypeStatusDoc.CONFIRMED,
-                    id = "",
-                    entries = emptyList(),
-                    photo = DocumentPhotoState()
-                ), Document(
-                    name = "Passport",
-                    status = TypeStatusDoc.NOT_FILL,
-                    id = "",
-                    entries = emptyList(),
-                    photo = DocumentPhotoState()
-                )
-            )
-        ),
-        citizenship = citizenshipState,
-        screen = StateColumnState(state = ScreenState.SUCCESS)
+    val documentsScreenState =
+        DocumentsScreenState(
+            documents =
+                DocumentsState(
+                    listOf(
+                        Document(
+                            name = "Passport",
+                            status = TypeStatusDoc.CONFIRMED,
+                            id = "",
+                            entries = emptyList(),
+                            photo = DocumentPhotoState()
+                        ),
+                        Document(
+                            name = "Passport",
+                            status = TypeStatusDoc.NOT_FILL,
+                            id = "",
+                            entries = emptyList(),
+                            photo = DocumentPhotoState()
+                        )
+                    )
+                ),
+            citizenship = citizenshipState,
+            screen = StateColumnState(state = ScreenState.SUCCESS)
         )
 
     IpbTheme {
         DocumentsScreen(state = documentsScreenState, useComponent = UseDocumentsScreen.Empty())
     }
 }
-
-
-

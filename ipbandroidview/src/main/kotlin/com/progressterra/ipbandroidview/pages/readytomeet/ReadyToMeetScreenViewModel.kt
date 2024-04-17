@@ -15,23 +15,26 @@ class ReadyToMeetScreenViewModel(
     private val fetchDatingUserUseCase: FetchDatingUserUseCase,
     private val readyToMeetUseCase: ReadyToMeetUseCase,
     private val deleteReadyToMeetUseCase: DeleteReadyToMeetUseCase
-) : UseReadyToMeetScreen,
+) :
+    UseReadyToMeetScreen,
     AbstractInputViewModel<DatingTarget, ReadyToMeetScreenState, ReadyToMeetScreenEffect>() {
 
     init {
         onBackground {
             fetchDatingUserUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { user ->
-                    emitState {
-                        it.copy(
-                            user = user,
-                            save = it.save.copy(enabled = !user.target.isEmpty()),
-                            screen = it.screen.copy(state = ScreenState.SUCCESS)
-                        )
+                result
+                    .onSuccess { user ->
+                        emitState {
+                            it.copy(
+                                user = user,
+                                save = it.save.copy(enabled = !user.target.isEmpty()),
+                                screen = it.screen.copy(state = ScreenState.SUCCESS)
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }

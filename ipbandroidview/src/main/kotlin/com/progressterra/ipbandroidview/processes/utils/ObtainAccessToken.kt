@@ -21,14 +21,16 @@ interface ObtainAccessToken {
                 return@runCatching IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER
             }
             val locationResult = provideLocationUseCase()
-            authService.accessToken(
-                IncomeDataCreateAccessToken(
-                    idDevice = UserData.deviceId,
-                    latitude = locationResult.getOrNull()?.latitude ?: 0.0,
-                    longitude = locationResult.getOrNull()?.longitude ?: 0.0,
-                    accessKey = IpbAndroidApiSettings.ACCESS_KEY
+            authService
+                .accessToken(
+                    IncomeDataCreateAccessToken(
+                        idDevice = UserData.deviceId,
+                        latitude = locationResult.getOrNull()?.latitude ?: 0.0,
+                        longitude = locationResult.getOrNull()?.longitude ?: 0.0,
+                        accessKey = IpbAndroidApiSettings.ACCESS_KEY
+                    )
                 )
-            ).data!!
+                .data!!
         }
     }
 }

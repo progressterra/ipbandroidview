@@ -14,9 +14,7 @@ class DocumentDetailsScreenNode(
     buildContext: BuildContext,
     private val navigation: DocumentDetailsScreenNavigation,
     private val input: Document
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -28,10 +26,7 @@ class DocumentDetailsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
+        LaunchedEffect(input) { viewModel.setup(input) }
         DocumentDetailsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }
-

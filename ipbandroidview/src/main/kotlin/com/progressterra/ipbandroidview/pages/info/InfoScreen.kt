@@ -18,11 +18,7 @@ import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
-fun InfoScreen(
-    modifier: Modifier = Modifier,
-    state: InfoScreenState,
-    useComponent: UseInfoScreen
-) {
+fun InfoScreen(modifier: Modifier = Modifier, state: InfoScreenState, useComponent: UseInfoScreen) {
     Layout(
         modifier = modifier,
         topBar = {
@@ -31,7 +27,8 @@ fun InfoScreen(
                 showBackButton = true,
                 useComponent = useComponent
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             Column(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -43,7 +40,8 @@ fun InfoScreen(
                     title = stringResource(R.string.save)
                 )
             }
-        }) { _, _ ->
+        }
+    ) { _, _ ->
         Column(modifier = Modifier.fillMaxSize()) {
             Info(
                 modifier = Modifier.padding(top = 36.dp, start = 16.dp, end = 16.dp),
@@ -57,10 +55,5 @@ fun InfoScreen(
 @Preview
 @Composable
 private fun InfoScreenPreview() {
-    IpbTheme {
-        InfoScreen(
-            state = InfoScreenState(),
-            useComponent = UseInfoScreen.Empty()
-        )
-    }
+    IpbTheme { InfoScreen(state = InfoScreenState(), useComponent = UseInfoScreen.Empty()) }
 }

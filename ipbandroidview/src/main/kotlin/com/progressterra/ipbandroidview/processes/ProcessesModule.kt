@@ -143,7 +143,6 @@ import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val processesModule = module {
-
     single<FileExplorer> { FileExplorer.Base(androidContext()) }
 
     single<CopyTextUseCase> { CopyTextUseCase.Base(get()) }
@@ -188,97 +187,64 @@ val processesModule = module {
 
     single<ChangeInterestsUseCase> { ChangeInterestsUseCase.Base(get(), get(), get(), get()) }
 
-    single<GoodsUseCase> {
-        GoodsUseCase.Base(get(), get())
-    }
+    single<GoodsUseCase> { GoodsUseCase.Base(get(), get()) }
 
-    single<FetchProductsUseCase> {
-        FetchProductsUseCase.Base(get(), get(), get(), get())
-    }
+    single<FetchProductsUseCase> { FetchProductsUseCase.Base(get(), get(), get(), get()) }
 
-    single<AddToCartUseCase> {
-        AddToCartUseCase.Base(get(), get(), get(), get(), get(), get())
-    }
+    single<AddToCartUseCase> { AddToCartUseCase.Base(get(), get(), get(), get(), get(), get()) }
 
-    single<RemoveFromCartUseCase> {
-        RemoveFromCartUseCase.Base(get(), get(), get(), get(), get())
-    }
+    single<RemoveFromCartUseCase> { RemoveFromCartUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<StartVerificationChannelUseCase> {
         StartVerificationChannelUseCase.Base(get(), get(), get())
     }
 
-    single<SaveDataUseCase> {
-        SaveDataUseCase.Base(get(), get(), get(), get())
-    }
+    single<SaveDataUseCase> { SaveDataUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchUserUseCase> {
-        FetchUserUseCase.Base(get(), get())
-    }
+    single<FetchUserUseCase> { FetchUserUseCase.Base(get(), get()) }
 
-    single<FetchUserProfileUseCase> {
-        FetchUserProfileUseCase.Base()
-    }
+    single<FetchUserProfileUseCase> { FetchUserProfileUseCase.Base() }
 
-    single<CitizenshipRepository> {
-        CitizenshipRepository.Base()
-    }
+    single<CitizenshipRepository> { CitizenshipRepository.Base() }
 
-    single<LogoutUseCase> {
-        LogoutUseCase.Base()
-    }
+    single<LogoutUseCase> { LogoutUseCase.Base() }
 
     single<DocumentValidationUseCase> { DocumentValidationUseCase.Base() }
 
-    single<SaveCitizenshipUseCase> {
-        SaveCitizenshipUseCase.Base()
-    }
+    single<SaveCitizenshipUseCase> { SaveCitizenshipUseCase.Base() }
 
     single<AddToCartInstallmentUseCase> {
         AddToCartInstallmentUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
-    single {
-        StartActivityContract.Base()
-    }.binds(arrayOf(StartActivityContract.Client::class, StartActivityContract.Activity::class))
+    single { StartActivityContract.Base() }
+        .binds(arrayOf(StartActivityContract.Client::class, StartActivityContract.Activity::class))
 
-    single {
-        StartActivityForResultContract.Base()
-    }.binds(arrayOf(StartActivityForResultContract.Client::class, StartActivityForResultContract.Activity::class))
+    single { StartActivityForResultContract.Base() }
+        .binds(
+            arrayOf(
+                StartActivityForResultContract.Client::class,
+                StartActivityForResultContract.Activity::class
+            )
+        )
 
-    single {
-        MakePhotoContract.Base()
-    }.binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
+    single { MakePhotoContract.Base() }
+        .binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
 
-    single {
-        PickPhotoContract.Base()
-    }.binds(arrayOf(PickPhotoContract.Activity::class, PickPhotoContract.Client::class))
+    single { PickPhotoContract.Base() }
+        .binds(arrayOf(PickPhotoContract.Activity::class, PickPhotoContract.Client::class))
 
-    single {
-        MakeDialogContract.Base()
-    }.binds(arrayOf(MakeDialogContract.Activity::class, MakeDialogContract.Client::class))
+    single { MakeDialogContract.Base() }
+        .binds(arrayOf(MakeDialogContract.Activity::class, MakeDialogContract.Client::class))
 
     single<MakeDialogUseCase> { MakeDialogUseCase.Base(get(), get()) }
 
     single<FetchDocTemplateUseCase> {
-        FetchDocTemplateUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        FetchDocTemplateUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<CreateAndSaveDocUseCase> {
-        CreateAndSaveDocUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(), get(), get()
-        )
+        CreateAndSaveDocUseCase.Base(get(), get(), get(), get(), get(), get(), get())
     }
 
     single<FetchWithdrawalUseCase> { FetchWithdrawalUseCase.Base(get(), get(), get(), get()) }
@@ -306,34 +272,13 @@ val processesModule = module {
     single<SuccessOutConnectionsUseCase> { SuccessOutConnectionsUseCase.Base(get(), get()) }
 
     single<UserConnectionStatusUseCase> {
-        UserConnectionStatusUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        UserConnectionStatusUseCase.Base(get(), get(), get(), get())
     }
 
-    single<UsersAroundUseCase> {
-        UsersAroundUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
+    single<UsersAroundUseCase> { UsersAroundUseCase.Base(get(), get(), get(), get(), get(), get()) }
 
     single<UpdateDatingLocationUseCase> {
-        UpdateDatingLocationUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        UpdateDatingLocationUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<AvailableTargetsUseCase> { AvailableTargetsUseCase.Base(get(), get(), get(), get()) }
@@ -343,27 +288,13 @@ val processesModule = module {
     single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchDatingUserUseCase> {
-        FetchDatingUserUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        FetchDatingUserUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<BitmapImageUseCase> { BitmapImageUseCase.Base(androidContext()) }
 
     single<ConnectionsUseCase> {
-        ConnectionsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        ConnectionsUseCase.Base(get(), get(), get(), get(), get(), get(), get())
     }
 
     single<IncomingConnectionsUseCase> { IncomingConnectionsUseCase.Base(get(), get()) }
@@ -385,72 +316,54 @@ val processesModule = module {
     single<CreateChatCustomUseCase> { CreateChatCustomUseCase.Base(get(), get(), get(), get()) }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
-        UpdateFirebaseCloudMessagingTokenUseCase.Base(
-            get(),
-            get(), get(), get()
-        )
+        UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get(), get(), get())
     }
 
-    single<FetchGalleriesUseCase> {
-        FetchGalleriesUseCase.Base(get(), get(), get(), get(), get())
-    }
+    single<FetchGalleriesUseCase> { FetchGalleriesUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<FetchBonusesTransactionsUseCase> {
-        FetchBonusesTransactionsUseCase.Base(
-            get(), get(), get()
-        )
+        FetchBonusesTransactionsUseCase.Base(get(), get(), get())
     }
 
     single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get(), get(), get()) }
 
-    single {
-        ManagePermissionContract.Base()
-    }.binds(
-        arrayOf(
-            ManagePermissionContract.Client::class,
-            ManagePermissionContract.Activity::class
+    single { ManagePermissionContract.Base() }
+        .binds(
+            arrayOf(
+                ManagePermissionContract.Client::class,
+                ManagePermissionContract.Activity::class
+            )
         )
-    )
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 
-    single<OrderDetailsUseCase> {
-        OrderDetailsUseCase.Base(get(), get(), get(), get(), get())
-    }
+    single<OrderDetailsUseCase> { OrderDetailsUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<EndVerificationChannelUseCase> {
         EndVerificationChannelUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<CatalogUseCase> {
-        CatalogUseCase.Base(get(), get(), get(), get())
-    }
+    single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get(), get()) }
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchCartUseCase> {
-        FetchCartUseCase.Base(get(), get(), get(), get(), get())
-    }
+    single<FetchCartUseCase> { FetchCartUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<GoodsDetailsUseCase> {
         GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<WantThisRequestsUseCase> {
-        WantThisRequestsUseCase.Base(
-            get(), get(), get(), get(), get()
-        )
+        WantThisRequestsUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<YouKassaPaymentUseCase> {
         YouKassaPaymentUseCase.Base(androidContext(), get(), get(), get(), get(), get(), get())
     }
 
-    single<SuggestionsUseCase> {
-        SuggestionsUseCase.Base(get())
-    }
+    single<SuggestionsUseCase> { SuggestionsUseCase.Base(get()) }
 
     single<FetchShippingAddressUseCase> {
         FetchShippingAddressUseCase.Base(get(), get(), get(), get())
@@ -461,37 +374,19 @@ val processesModule = module {
     }
 
     single<FetchConfirmedBankCardsUseCase> {
-        FetchConfirmedBankCardsUseCase.Base(
-            get(),
-            get(),
-            get()
-        )
+        FetchConfirmedBankCardsUseCase.Base(get(), get(), get())
     }
 
     single<FetchUnconfirmedBankCardsUseCase> {
-        FetchUnconfirmedBankCardsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        FetchUnconfirmedBankCardsUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<CreateNewWithdrawalUseCase> {
-        CreateNewWithdrawalUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        CreateNewWithdrawalUseCase.Base(get(), get(), get(), get())
     }
 
     single<FetchWithdrawalTransactionsUseCase> {
-        FetchWithdrawalTransactionsUseCase.Base(
-            get(),
-            get()
-        )
+        FetchWithdrawalTransactionsUseCase.Base(get(), get())
     }
 
     single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get(), get(), get()) }
@@ -500,9 +395,7 @@ val processesModule = module {
 
     single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get(), get()) }
 
-    single<ChatsUseCase> {
-        ChatsUseCase.Base(get(), get())
-    }
+    single<ChatsUseCase> { ChatsUseCase.Base(get(), get()) }
 
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get()) }
 
@@ -513,71 +406,38 @@ val processesModule = module {
     single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchWantThisDetailsChatUseCase> {
-        FetchWantThisDetailsChatUseCase.Base(
-            get(),
-            get(),
-            get(), get()
-        )
+        FetchWantThisDetailsChatUseCase.Base(get(), get(), get(), get())
     }
 
-    single<FetchBonusSwitchUseCase> {
-        FetchBonusSwitchUseCase.Base(get(), get())
-    }
+    single<FetchBonusSwitchUseCase> { FetchBonusSwitchUseCase.Base(get(), get()) }
 
-    single<FetchReceiptUseCase> {
-        FetchReceiptUseCase.Base(get(), get(), get(), get())
-    }
+    single<FetchReceiptUseCase> { FetchReceiptUseCase.Base(get(), get(), get(), get()) }
 
     single<DocumentsNotificationUseCase> {
-        DocumentsNotificationUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        DocumentsNotificationUseCase.Base(get(), get(), get(), get())
     }
 
-    single<CommentUseCase> {
-        CommentUseCase.Base(get(), get(), get(), get())
-    }
+    single<CommentUseCase> { CommentUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchWantThisTemplateUseCase> { FetchWantThisTemplateUseCase.Base(get(), get(), get()) }
 
-    single<FavoriteGoodsUseCase> {
-        FavoriteGoodsUseCase.Base()
-    }
+    single<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base() }
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base() }
 
-    single<ConfirmOrderUseCase> {
-        ConfirmOrderUseCase.Base(get(), get(), get(), get(), get())
-    }
+    single<ConfirmOrderUseCase> { ConfirmOrderUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<SaveDocumentsUseCase> {
-        SaveDocumentsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        SaveDocumentsUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
-    single<CreateId> {
-        CreateId.Base()
-    }
+    single<CreateId> { CreateId.Base() }
 
     single<ManageResources> { ManageResources.Base(androidContext()) }
 
+    single<FetchBonusesUseCase> { FetchBonusesUseCase.Base(get(), get(), get(), get(), get()) }
 
-    single<FetchBonusesUseCase> {
-        FetchBonusesUseCase.Base(get(), get(), get(), get(), get())
-    }
-
-    single<FetchPaymentMethods> {
-        FetchPaymentMethods.Base()
-    }
+    single<FetchPaymentMethods> { FetchPaymentMethods.Base() }
 
     single<CurrentLocationSuggestionsUseCase> {
         CurrentLocationSuggestionsUseCase.Base(get(), get())
@@ -623,25 +483,17 @@ val processesModule = module {
         CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<DocumentChecklistUseCase> {
-        DocumentChecklistUseCase.Base(get(), get(), get(), get())
-    }
+    single<DocumentChecklistUseCase> { DocumentChecklistUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchExistingAuditUseCase> {
-        FetchExistingAuditUseCase.Base(get(), get(), get(), get())
-    }
+    single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get(), get()) }
 
-    single<SendResultOnEmailUseCase> {
-        SendResultOnEmailUseCase.Base(get(), get(), get(), get())
-    }
+    single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get(), get()) }
 
     single<UpdateAnswerUseCase> {
         UpdateAnswerUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
-    single<FinishDocumentUseCase> {
-        FinishDocumentUseCase.Base(get(), get(), get(), get())
-    }
+    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get(), get()) }
 
     single<VoiceManager> { VoiceManager.Base(get()) }
 

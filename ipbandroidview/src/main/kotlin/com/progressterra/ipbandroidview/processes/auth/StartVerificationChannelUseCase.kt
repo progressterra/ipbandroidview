@@ -8,27 +8,30 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SignInData
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
 
 interface StartVerificationChannelUseCase {
 
     suspend operator fun invoke(phoneNumber: String): Result<SignInData>
 
     class Base(
-        private val authService: AuthService, makeToastUseCase: MakeToastUseCase,
+        private val authService: AuthService,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
     ) : StartVerificationChannelUseCase, AbstractLoggingUseCase(makeToastUseCase, manageResources) {
 
         override suspend fun invoke(phoneNumber: String): Result<SignInData> = handle {
             val formattedPhoneNumber = phoneNumber.trim()
-            val result = authService.loginStart(
-                IncomeDataStartChannelVerification(
-                    phone = formattedPhoneNumber,
-                    accessKeyEnterprise = IpbAndroidApiSettings.ACCESS_KEY
+            val result =
+                authService.loginStart(
+                    IncomeDataStartChannelVerification(
+                        phone = formattedPhoneNumber,
+                        accessKeyEnterprise = IpbAndroidApiSettings.ACCESS_KEY
+                    )
                 )
-            )
-            if (result.result?.status != StatusResult.SUCCESS) throw ToastedException(R.string.wrong_phone)
+            if (result.result?.status != StatusResult.SUCCESS)
+                throw ToastedException(R.string.wrong_phone)
             SignInData(
                 token = result.data?.tempToken ?: "",
                 phone = formattedPhoneNumber,

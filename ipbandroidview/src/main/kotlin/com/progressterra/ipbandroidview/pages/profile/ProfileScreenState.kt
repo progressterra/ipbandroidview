@@ -1,12 +1,11 @@
 package com.progressterra.ipbandroidview.pages.profile
 
+import com.progressterra.ipbandroidview.entities.IsEmpty
 import com.progressterra.ipbandroidview.entities.IsFull
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
-import com.progressterra.ipbandroidview.entities.IsEmpty
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
-
 
 data class ProfileScreenState(
     val isAuthorized: Boolean = false,
@@ -23,11 +22,7 @@ data class ProfileScreenState(
     val docNotification: CounterNotification = CounterNotification()
 ) {
 
-
-    data class CounterNotification(
-        val count: Int = 0,
-        val max: Int = 0
-    ) : IsEmpty, IsFull {
+    data class CounterNotification(val count: Int = 0, val max: Int = 0) : IsEmpty, IsFull {
 
         override fun isFull(): Boolean = count == max
 

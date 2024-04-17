@@ -32,7 +32,8 @@ fun PfpPickerScreen(
                 showBackButton = true,
                 useComponent = useComponent
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -44,7 +45,8 @@ fun PfpPickerScreen(
                     title = stringResource(R.string.choose)
                 )
             }
-        }) { _, _ ->
+        }
+    ) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {
             PfpPicker(
                 modifier = Modifier.padding(top = 36.dp, start = 56.dp, end = 56.dp),
@@ -59,10 +61,7 @@ fun PfpPickerScreen(
 @Composable
 private fun PfpPickerScreenPreviewEmpty() {
     IpbTheme {
-        PfpPickerScreen(
-            state = PfpPickerScreenState(),
-            useComponent = UsePfpPickerScreen.Empty()
-        )
+        PfpPickerScreen(state = PfpPickerScreenState(), useComponent = UsePfpPickerScreen.Empty())
     }
 }
 
@@ -71,9 +70,7 @@ private fun PfpPickerScreenPreviewEmpty() {
 private fun PfpPickerScreenPreview() {
     IpbTheme {
         PfpPickerScreen(
-            state = PfpPickerScreenState(
-                pfpPicker = PfpPickerState(url = "")
-            ),
+            state = PfpPickerScreenState(pfpPicker = PfpPickerState(url = "")),
             useComponent = UsePfpPickerScreen.Empty()
         )
     }

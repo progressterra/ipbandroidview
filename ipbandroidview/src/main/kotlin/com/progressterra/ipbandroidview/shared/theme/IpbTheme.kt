@@ -9,9 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 
-/**
- * Theme values for the library
- */
+/** Theme values for the library */
 object IpbTheme {
 
     val colors
@@ -25,20 +23,16 @@ val LocalTypography = staticCompositionLocalOf { IpbTypography() }
 
 val LocalColors = staticCompositionLocalOf { IpbColors() }
 
-/**
- * Theme for the library
- */
+/** Theme for the library */
 @Composable
-fun IpbTheme(
-    typography: IpbTypography = IpbTheme.typography,
-    content: @Composable () -> Unit
-) {
+fun IpbTheme(typography: IpbTypography = IpbTheme.typography, content: @Composable () -> Unit) {
     val colors =
         if (isSystemInDarkTheme()) IpbAndroidViewSettings.COLORS else IpbAndroidViewSettings.COLORS
-    val selectionColors = TextSelectionColors(
-        handleColor = IpbTheme.colors.primary.asColor(),
-        backgroundColor = IpbTheme.colors.primary.asColor()
-    )
+    val selectionColors =
+        TextSelectionColors(
+            handleColor = IpbTheme.colors.primary.asColor(),
+            backgroundColor = IpbTheme.colors.primary.asColor()
+        )
     CompositionLocalProvider(
         LocalTypography provides typography,
         LocalColors provides colors,

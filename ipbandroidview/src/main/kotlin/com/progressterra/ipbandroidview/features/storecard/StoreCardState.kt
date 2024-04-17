@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.features.storecard
 
 import com.progressterra.ipbandroidview.entities.Installment
-import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.entities.IsEmpty
+import com.progressterra.ipbandroidview.entities.Price
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
-
 
 data class StoreCardState(
     val id: String = "",

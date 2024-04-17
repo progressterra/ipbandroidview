@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.entities.IsEmpty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-
 data class SupportChatState(
     override val id: String = "",
     val title: String = "",

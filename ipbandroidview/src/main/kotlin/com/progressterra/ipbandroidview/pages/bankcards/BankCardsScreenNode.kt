@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class BankCardsScreenNode(
     buildContext: BuildContext,
     private val navigation: BankCardsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,9 +24,7 @@ class BankCardsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         BankCardsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

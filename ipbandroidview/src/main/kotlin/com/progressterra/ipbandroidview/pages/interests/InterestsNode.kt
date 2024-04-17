@@ -9,10 +9,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class InterestsNode(
-    buildContext: BuildContext,
-    private val navigation: InterestsScreenNavigation
-) : Node(buildContext = buildContext) {
+class InterestsNode(buildContext: BuildContext, private val navigation: InterestsScreenNavigation) :
+    Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -25,9 +23,7 @@ class InterestsNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         InterestsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

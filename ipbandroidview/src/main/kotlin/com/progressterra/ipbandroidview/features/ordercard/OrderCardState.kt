@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.Price
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class OrderCardState(
     val id: String = "",

@@ -13,34 +13,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Sex
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.RadioButton
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 
 @Composable
-fun EditUser(
-    modifier: Modifier = Modifier,
-    state: EditUserState,
-    useComponent: UseEditUser
-) {
+fun EditUser(modifier: Modifier = Modifier, state: EditUserState, useComponent: UseEditUser) {
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(12.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            state = TextFieldState(text = UserData.phone, type = TextInputType.PHONE_NUMBER, enabled = false),
+            state =
+                TextFieldState(
+                    text = UserData.phone,
+                    type = TextInputType.PHONE_NUMBER,
+                    enabled = false
+                ),
             hint = stringResource(R.string.phone_number),
             useComponent = useComponent,
             backgroundColor = IpbTheme.colors.background.asColor()
@@ -93,26 +95,24 @@ fun EditUser(
                             style = IpbTheme.typography.headline,
                             tint = IpbTheme.colors.textPrimary.asBrush()
                         )
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             RadioButton(
                                 checked = state.sex == Sex.MALE,
                                 onClick = { useComponent.handle(EditUserEvent(Sex.MALE)) },
-                                enabled = state.sexEnabled)
+                                enabled = state.sexEnabled
+                            )
                             Text(
                                 text = stringResource(id = R.string.male),
                                 style = IpbTheme.typography.body,
                                 tint = IpbTheme.colors.textPrimary.asBrush()
                             )
                         }
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             RadioButton(
                                 checked = state.sex == Sex.FEMALE,
                                 onClick = { useComponent.handle(EditUserEvent(Sex.FEMALE)) },
-                                enabled = state.sexEnabled)
+                                enabled = state.sexEnabled
+                            )
                             Text(
                                 text = stringResource(id = R.string.female),
                                 style = IpbTheme.typography.body,

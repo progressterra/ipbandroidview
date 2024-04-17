@@ -61,7 +61,8 @@ data class ChecklistScreenState(
     fun updateStatus(status: ChecklistStatus) =
         copy(currentCheckState = currentCheckState.updateStatus(status), status = status)
 
-    fun updateScreenState(screenState: ScreenState) = copy(screen = screen.copy(state = screenState))
+    fun updateScreenState(screenState: ScreenState) =
+        copy(screen = screen.copy(state = screenState))
 
     fun updateCheck(check: Check) = copy(checks = checks.replaceById(check))
 

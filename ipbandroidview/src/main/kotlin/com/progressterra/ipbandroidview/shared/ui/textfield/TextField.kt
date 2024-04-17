@@ -47,29 +47,29 @@ fun TextField(
     backgroundColor: Color = IpbTheme.colors.surface.asColor(),
     focusOnAppear: Boolean = false
 ) {
-    val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
-        {
-            Text(
-                text = state.label ?: hint,
-                style = IpbTheme.typography.caption,
-                tint = IpbTheme.colors.textTertiary.asBrush()
-            )
-        }
-    } else null
-    val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
-        {
-            Text(
-                text = state.placeholder ?: hint,
-                style = IpbTheme.typography.body,
-                tint = IpbTheme.colors.textSecondary.asBrush()
-            )
-        }
-    } else null
+    val label: (@Composable () -> Unit)? =
+        if (state.text.isNotEmpty()) {
+            {
+                Text(
+                    text = state.label ?: hint,
+                    style = IpbTheme.typography.caption,
+                    tint = IpbTheme.colors.textTertiary.asBrush()
+                )
+            }
+        } else null
+    val placeholder: (@Composable () -> Unit)? =
+        if (state.text.isEmpty()) {
+            {
+                Text(
+                    text = state.placeholder ?: hint,
+                    style = IpbTheme.typography.body,
+                    tint = IpbTheme.colors.textSecondary.asBrush()
+                )
+            }
+        } else null
     val focusRequester = remember { FocusRequester() }
     if (focusOnAppear) {
-        LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
-        }
+        LaunchedEffect(Unit) { focusRequester.requestFocus() }
     }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
@@ -81,42 +81,44 @@ fun TextField(
             innerValue = innerValue.copy(selection = TextRange(innerValue.text.length))
         }
     }
-    LaunchedEffect(state.text) {
-        innerValue = innerValue.copy(text = state.text)
-    }
+    LaunchedEffect(state.text) { innerValue = innerValue.copy(text = state.text) }
     CalendarDialog(
         state = calendarState,
-        config = CalendarConfig(
-            yearSelection = true,
-            monthSelection = true,
-            style = CalendarStyle.MONTH
-        ),
-        selection = CalendarSelection.Date { date ->
-            useComponent.handle(
-                TextFieldEvent.TextChanged(
-                    state.id,
-                    "${date.dayOfMonth.let { if (it < 10) "0$it" else it.toString() }}${date.monthValue.let { if (it < 10) "0$it" else it.toString() }}${date.year}"
+        config =
+            CalendarConfig(
+                yearSelection = true,
+                monthSelection = true,
+                style = CalendarStyle.MONTH
+            ),
+        selection =
+            CalendarSelection.Date { date ->
+                useComponent.handle(
+                    TextFieldEvent.TextChanged(
+                        state.id,
+                        "${date.dayOfMonth.let { if (it < 10) "0$it" else it.toString() }}${date.monthValue.let { if (it < 10) "0$it" else it.toString() }}${date.year}"
+                    )
                 )
-            )
-        }
+            }
     )
     TextField(
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                brush = if (focused) {
-                    if (state.valid()) {
-                        IpbTheme.colors.primary.asBrush()
-                    } else {
-                        IpbTheme.colors.error.asBrush()
-                    }
-                } else {
-                    Color.Transparent.toBrush()
-                },
-                shape = RoundedCornerShape(8.dp)
-            )
-            .focusRequester(focusRequester)
-            .clearFocusOnKeyboardDismiss(),
+        modifier =
+            modifier
+                .border(
+                    width = 1.dp,
+                    brush =
+                        if (focused) {
+                            if (state.valid()) {
+                                IpbTheme.colors.primary.asBrush()
+                            } else {
+                                IpbTheme.colors.error.asBrush()
+                            }
+                        } else {
+                            Color.Transparent.toBrush()
+                        },
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .focusRequester(focusRequester)
+                .clearFocusOnKeyboardDismiss(),
         value = innerValue,
         visualTransformation = state.type.toVisualTransformation(),
         interactionSource = mutableInteractionSource,
@@ -126,10 +128,11 @@ fun TextField(
                 innerValue = value
             }
         },
-        keyboardActions = KeyboardActions {
-            focusManager.clearFocus()
-            useComponent.handle(TextFieldEvent.Action(state.id))
-        },
+        keyboardActions =
+            KeyboardActions {
+                focusManager.clearFocus()
+                useComponent.handle(TextFieldEvent.Action(state.id))
+            },
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = state.type.toKeyboardOptions(),
         placeholder = placeholder,
@@ -140,55 +143,66 @@ fun TextField(
         singleLine = singleLine,
         trailingIcon = {
             val iconColor =
-                if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
-            IconButton(enabled = state.enabled, onClick = {
-                when (state.type) {
-                    TextInputType.DATE -> calendarState.show()
-                    TextInputType.CHAT -> useComponent.handle(TextFieldEvent.AdditionalAction(state.id))
-                    else -> useComponent.handle(TextFieldEvent.TextChanged(state.id, ""))
+                if (focused) IpbTheme.colors.primary.asBrush()
+                else IpbTheme.colors.iconTertiary.asBrush()
+            IconButton(
+                enabled = state.enabled,
+                onClick = {
+                    when (state.type) {
+                        TextInputType.DATE -> calendarState.show()
+                        TextInputType.CHAT ->
+                            useComponent.handle(TextFieldEvent.AdditionalAction(state.id))
+                        else -> useComponent.handle(TextFieldEvent.TextChanged(state.id, ""))
+                    }
                 }
-            }) {
+            ) {
                 Icon(
                     resId =
-                    when (state.type) {
-                        TextInputType.DATE -> R.drawable.ic_cal
-                        TextInputType.CHAT -> R.drawable.ic_send
-                        else -> R.drawable.ic_cancel
-                    }, tint = iconColor
+                        when (state.type) {
+                            TextInputType.DATE -> R.drawable.ic_cal
+                            TextInputType.CHAT -> R.drawable.ic_send
+                            else -> R.drawable.ic_cancel
+                        },
+                    tint = iconColor
                 )
             }
         },
-        colors = TextFieldDefaults.textFieldColors(
-            //Background
-            backgroundColor = backgroundColor,
-            //Placeholder
-            placeholderColor = IpbTheme.colors.textSecondary.asColor(),
-            disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor(),
-            //Label always same color
-            focusedLabelColor = IpbTheme.colors.textTertiary.asColor(),
-            unfocusedLabelColor = IpbTheme.colors.textTertiary.asColor(),
-            disabledLabelColor = IpbTheme.colors.textTertiary.asColor(),
-            errorLabelColor = IpbTheme.colors.error.asColor(),
-            //Text color depend on enable state
-            textColor = IpbTheme.colors.textPrimary.asColor(),
-            disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
-            //Here is no indicator actually
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            errorIndicatorColor = Color.Transparent,
-            //Cursor
-            cursorColor = IpbTheme.colors.primary.asColor(),
-            errorCursorColor = IpbTheme.colors.error.asColor(),
-            //Leading icon
-            leadingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary.asColor(),
-            disabledLeadingIconColor = IpbTheme.colors.iconDisabled.asColor(),
-            errorLeadingIconColor = IpbTheme.colors.error.asColor(),
-            //Leading icon
-            trailingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary.asColor(),
-            disabledTrailingIconColor = IpbTheme.colors.iconDisabled.asColor(),
-            errorTrailingIconColor = IpbTheme.colors.error.asColor()
-        )
+        colors =
+            TextFieldDefaults.textFieldColors(
+                // Background
+                backgroundColor = backgroundColor,
+                // Placeholder
+                placeholderColor = IpbTheme.colors.textSecondary.asColor(),
+                disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor(),
+                // Label always same color
+                focusedLabelColor = IpbTheme.colors.textTertiary.asColor(),
+                unfocusedLabelColor = IpbTheme.colors.textTertiary.asColor(),
+                disabledLabelColor = IpbTheme.colors.textTertiary.asColor(),
+                errorLabelColor = IpbTheme.colors.error.asColor(),
+                // Text color depend on enable state
+                textColor = IpbTheme.colors.textPrimary.asColor(),
+                disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
+                // Here is no indicator actually
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent,
+                // Cursor
+                cursorColor = IpbTheme.colors.primary.asColor(),
+                errorCursorColor = IpbTheme.colors.error.asColor(),
+                // Leading icon
+                leadingIconColor =
+                    if (focused) IpbTheme.colors.primary.asColor()
+                    else IpbTheme.colors.iconTertiary.asColor(),
+                disabledLeadingIconColor = IpbTheme.colors.iconDisabled.asColor(),
+                errorLeadingIconColor = IpbTheme.colors.error.asColor(),
+                // Leading icon
+                trailingIconColor =
+                    if (focused) IpbTheme.colors.primary.asColor()
+                    else IpbTheme.colors.iconTertiary.asColor(),
+                disabledTrailingIconColor = IpbTheme.colors.iconDisabled.asColor(),
+                errorTrailingIconColor = IpbTheme.colors.error.asColor()
+            )
     )
 }
 
@@ -198,9 +212,7 @@ private fun TextFieldPreview() {
     IpbTheme {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             TextField(
-                state = TextFieldState(
-                    text = "123-450-30"
-                ),
+                state = TextFieldState(text = "123-450-30"),
                 useComponent = UseTextField.Empty(),
                 hint = "Passport"
             )
@@ -210,10 +222,7 @@ private fun TextFieldPreview() {
                 hint = "Passport"
             )
             TextField(
-                state = TextFieldState(
-                    type = TextInputType.PHONE_NUMBER,
-                    text = "71231234500"
-                ),
+                state = TextFieldState(type = TextInputType.PHONE_NUMBER, text = "71231234500"),
                 useComponent = UseTextField.Empty(),
                 hint = "Phone"
             )

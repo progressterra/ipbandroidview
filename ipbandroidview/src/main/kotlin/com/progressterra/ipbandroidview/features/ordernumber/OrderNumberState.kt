@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-
 data class OrderNumberState(
     val number: String = "",
     val quantity: Int = 0,

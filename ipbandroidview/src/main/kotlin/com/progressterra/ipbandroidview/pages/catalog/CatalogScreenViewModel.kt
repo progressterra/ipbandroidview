@@ -26,18 +26,20 @@ class CatalogScreenViewModel(
     init {
         onBackground {
             catalogUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { catalog ->
-                    emitState {
-                        it.copy(
-                            screen = it.screen.copy(state = ScreenState.SUCCESS),
-                            current = catalog,
-                            trace = it.trace.copy(current = catalog),
-                            fetched = true
-                        )
+                result
+                    .onSuccess { catalog ->
+                        emitState {
+                            it.copy(
+                                screen = it.screen.copy(state = ScreenState.SUCCESS),
+                                current = catalog,
+                                trace = it.trace.copy(current = catalog),
+                                fetched = true
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
@@ -63,10 +65,7 @@ class CatalogScreenViewModel(
     override fun handle(event: TraceEvent) {
         emitState {
             val last = it.trace.trace.last()
-            it.copy(
-                current = last,
-                trace = it.trace.copy(current = last)
-            )
+            it.copy(current = last, trace = it.trace.copy(current = last))
         }
         emitState { it.copy(trace = it.trace.copy(trace = it.trace.trace.dropLast(1))) }
         uCategory()
@@ -75,10 +74,9 @@ class CatalogScreenViewModel(
     private fun uCategory() {
         onBackground {
             if (currentState.current.children.isEmpty()) {
-                goodsUseCase(GoodsFilter(categoryId = currentState.current.id)).onSuccess { nonCached ->
-                    emitState {
-                        it.copy(goods = it.goods.copy(items = cachePaging(nonCached)))
-                    }
+                goodsUseCase(GoodsFilter(categoryId = currentState.current.id)).onSuccess {
+                    nonCached ->
+                    emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
                 }
             } else {
                 emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
@@ -89,12 +87,12 @@ class CatalogScreenViewModel(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(
-                    goodsId = event.id,
-                    onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
-                    refresh()
-                }
-
+                is StoreCardEvent.AddToCart ->
+                    addToCartUseCase(
+                            goodsId = event.id,
+                            onAuth = { postEffect(CatalogScreenEffect.OnAuth) }
+                        )
+                        .onSuccess { refresh() }
                 is StoreCardEvent.Open -> postEffect(CatalogScreenEffect.OnItem(event.id))
             }
         }
@@ -103,23 +101,19 @@ class CatalogScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(
-                    goodsId = event.id,
-                    onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
-                    refresh()
-                }
-
-                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                    refresh()
-                }
+                is CounterEvent.Add ->
+                    addToCartUseCase(
+                            goodsId = event.id,
+                            onAuth = { postEffect(CatalogScreenEffect.OnAuth) }
+                        )
+                        .onSuccess { refresh() }
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess { refresh() }
             }
         }
     }
 
     override fun handle(event: SearchEvent) {
-        emitState {
-            it.copy(search = it.search.copy(text = event.text))
-        }
+        emitState { it.copy(search = it.search.copy(text = event.text)) }
         onBackground {
             var filter = GoodsFilter(search = currentState.search.text)
             if (currentState.current.id.isNotEmpty()) {

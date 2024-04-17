@@ -20,17 +20,18 @@ fun OrderDetailsScreen(
     state: OrderDetailsScreenState,
     useComponent: UseOrderDetailsScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.order),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }) { _, _ ->
-        val scrollState = rememberScrollState()
-        LaunchedEffect(state.chat.isVisible) {
-            scrollState.animateScrollTo(scrollState.maxValue)
+    Layout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.order),
+                showBackButton = true,
+                useComponent = useComponent
+            )
         }
+    ) { _, _ ->
+        val scrollState = rememberScrollState()
+        LaunchedEffect(state.chat.isVisible) { scrollState.animateScrollTo(scrollState.maxValue) }
         StateColumn(
             state = state.screen,
             useComponent = useComponent,

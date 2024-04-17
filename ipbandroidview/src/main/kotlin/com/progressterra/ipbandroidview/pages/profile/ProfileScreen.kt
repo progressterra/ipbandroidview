@@ -23,18 +23,9 @@ fun ProfileScreen(
 ) {
     Layout(
         modifier = modifier,
-        topBar = {
-            TopBar(
-                title = stringResource(R.string.profile),
-                useComponent = useComponent
-            )
-        }
+        topBar = { TopBar(title = stringResource(R.string.profile), useComponent = useComponent) }
     ) { _, _ ->
-        StateColumn(
-            state = state.screen,
-            useComponent = useComponent,
-            scrollable = true
-        ) {
+        StateColumn(state = state.screen, useComponent = useComponent, scrollable = true) {
             if (state.isAuthorized) {
                 AuthProfile(
                     modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),

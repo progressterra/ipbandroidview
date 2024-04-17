@@ -21,24 +21,31 @@ class ConfirmedBankCardsSource(
         runCatching {
             val token = obtainAccessToken().getOrThrow()
             val mainCardId = fetchMainCardIdUseCase().getOrThrow()
-            val response = paymentDataRepository.clientAreaList(
-                accessToken = token,
-                body = FilterAndSort(
-                    listFields = emptyList(),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = skip,
-                    take = take
-                )
-            ).getOrThrow() ?: emptyList()
-            response.size to response.map {
-                it.toBankCardState().copy(
-                    isMainCard = mainCardId == it.idUnique,
-                    isSelected = mainCardId == it.idUnique
-                )
-            }
+            val response =
+                paymentDataRepository
+                    .clientAreaList(
+                        accessToken = token,
+                        body =
+                            FilterAndSort(
+                                listFields = emptyList(),
+                                sort =
+                                    SortData(
+                                        fieldName = "dateAdded",
+                                        variantSort = TypeVariantSort.DESC
+                                    ),
+                                searchData = "",
+                                skip = skip,
+                                take = take
+                            )
+                    )
+                    .getOrThrow() ?: emptyList()
+            response.size to
+                response.map {
+                    it.toBankCardState()
+                        .copy(
+                            isMainCard = mainCardId == it.idUnique,
+                            isSelected = mainCardId == it.idUnique
+                        )
+                }
         }
 }

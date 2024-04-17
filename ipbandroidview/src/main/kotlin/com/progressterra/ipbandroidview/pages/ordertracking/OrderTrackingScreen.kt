@@ -32,9 +32,7 @@ fun OrderTrackingScreen(
             )
         }
     ) { _, _ ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(20.dp)
-        ) {
+        Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
             OrderTracking(state = state.tracking)
         }
     }
@@ -45,12 +43,14 @@ fun OrderTrackingScreen(
 private fun OrderTrackingScreenPreview() {
     IpbTheme {
         OrderTrackingScreen(
-            state = OrderTrackingScreenState(
-                tracking = OrderTrackingState(
-                    status = TypeStatusOrder.SENT_TO_WAREHOUSE,
-                    number = "123456"
-                )
-            ),
+            state =
+                OrderTrackingScreenState(
+                    tracking =
+                        OrderTrackingState(
+                            status = TypeStatusOrder.SENT_TO_WAREHOUSE,
+                            number = "123456"
+                        )
+                ),
             useComponent = UseOrderTrackingScreen.Empty()
         )
     }

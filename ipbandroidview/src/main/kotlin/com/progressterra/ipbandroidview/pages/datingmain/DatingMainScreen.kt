@@ -66,45 +66,46 @@ import com.progressterra.ipbandroidview.databinding.LayoutMapUserBinding
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Sex
-import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
-import com.progressterra.ipbandroidview.shared.ui.utils.ComposableLifecycle
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Layout
-import com.progressterra.ipbandroidview.shared.ui.switch.Switch
-import com.progressterra.ipbandroidview.shared.ui.switch.SwitchState
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.switch.Switch
+import com.progressterra.ipbandroidview.shared.ui.switch.SwitchState
+import com.progressterra.ipbandroidview.shared.ui.utils.ComposableLifecycle
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.ui_view.ViewProvider
-import kotlinx.coroutines.launch
 import java.lang.Integer.min
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
+import kotlinx.coroutines.launch
 
 data class Position(
-    val tier: Int, val animatable: Animatable<Float, AnimationVector1D>, val initial: Float
+    val tier: Int,
+    val animatable: Animatable<Float, AnimationVector1D>,
+    val initial: Float
 )
 
 @Composable
 fun DatingMainScreen(
-    modifier: Modifier = Modifier, state: DatingMainScreenState, useComponent: UseDatingMainScreen
+    modifier: Modifier = Modifier,
+    state: DatingMainScreenState,
+    useComponent: UseDatingMainScreen
 ) {
 
     @Composable
-    fun User(
-        user: DatingUser
-    ) {
+    fun User(user: DatingUser) {
         Box(
-            modifier = Modifier
-                .size(50.dp)
-                .clip(CircleShape), contentAlignment = Alignment.Center
+            modifier = Modifier.size(50.dp).clip(CircleShape),
+            contentAlignment = Alignment.Center
         ) {
             Icon(
                 modifier = Modifier.size(50.dp),
@@ -112,18 +113,21 @@ fun DatingMainScreen(
                 contentDescription = null
             )
             Image(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .niceClickable { useComponent.handle(DatingMainScreenEvent.OnProfile(user)) },
-                image = user.avatar.ifEmpty {
-                    rememberResourceUri(
-                        resourceId = when (user.sex) {
-                            Sex.MALE -> R.drawable.avatar_male
-                            Sex.FEMALE -> R.drawable.avatar_female
-                        }
-                    ).toString()
-                }
+                modifier =
+                    Modifier.size(40.dp).clip(CircleShape).niceClickable {
+                        useComponent.handle(DatingMainScreenEvent.OnProfile(user))
+                    },
+                image =
+                    user.avatar.ifEmpty {
+                        rememberResourceUri(
+                                resourceId =
+                                    when (user.sex) {
+                                        Sex.MALE -> R.drawable.avatar_male
+                                        Sex.FEMALE -> R.drawable.avatar_female
+                                    }
+                            )
+                            .toString()
+                    }
             )
         }
     }
@@ -131,9 +135,8 @@ fun DatingMainScreen(
     @Composable
     fun CurrentUser() {
         Box(
-            modifier = Modifier
-                .size(78.dp)
-                .clip(CircleShape), contentAlignment = Alignment.Center
+            modifier = Modifier.size(78.dp).clip(CircleShape),
+            contentAlignment = Alignment.Center
         ) {
             Icon(
                 modifier = Modifier.size(78.dp),
@@ -141,18 +144,21 @@ fun DatingMainScreen(
                 tint = IpbTheme.colors.primary.asBrush()
             )
             Image(
-                modifier = Modifier
-                    .size(66.dp)
-                    .clip(CircleShape)
-                    .niceClickable { useComponent.handle(DatingMainScreenEvent.OnOwnProfile) },
-                image = state.currentUser.avatar.ifEmpty {
-                    rememberResourceUri(
-                        resourceId = when (state.currentUser.sex) {
-                            Sex.MALE -> R.drawable.avatar_male
-                            Sex.FEMALE -> R.drawable.avatar_female
-                        }
-                    ).toString()
-                }
+                modifier =
+                    Modifier.size(66.dp).clip(CircleShape).niceClickable {
+                        useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
+                    },
+                image =
+                    state.currentUser.avatar.ifEmpty {
+                        rememberResourceUri(
+                                resourceId =
+                                    when (state.currentUser.sex) {
+                                        Sex.MALE -> R.drawable.avatar_male
+                                        Sex.FEMALE -> R.drawable.avatar_female
+                                    }
+                            )
+                            .toString()
+                    }
             )
         }
     }
@@ -167,14 +173,14 @@ fun DatingMainScreen(
             } else {
                 binding.image.setImageDrawable(
                     AppCompatResources.getDrawable(
-                        context, when (user.sex) {
+                        context,
+                        when (user.sex) {
                             Sex.MALE -> R.drawable.avatar_male
                             Sex.FEMALE -> R.drawable.avatar_female
                         }
                     )
                 )
             }
-
         }
     }
 
@@ -189,7 +195,8 @@ fun DatingMainScreen(
             } else {
                 binding.image.setImageDrawable(
                     AppCompatResources.getDrawable(
-                        context, when (state.currentUser.sex) {
+                        context,
+                        when (state.currentUser.sex) {
                             Sex.MALE -> R.drawable.avatar_male
                             Sex.FEMALE -> R.drawable.avatar_female
                         }
@@ -200,9 +207,7 @@ fun DatingMainScreen(
     }
 
     @Composable
-    fun Orbits(
-        modifier: Modifier
-    ) {
+    fun Orbits(modifier: Modifier) {
         val rotationTime = 1000 * 30
         val scheme = remember {
             listOf(
@@ -224,19 +229,19 @@ fun DatingMainScreen(
             scheme.forEach {
                 launch {
                     it.animatable.animateTo(
-                        targetValue = it.initial + 360f, animationSpec = infiniteRepeatable(
-                            animation = tween(
-                                durationMillis = rotationTime, easing = LinearEasing
+                        targetValue = it.initial + 360f,
+                        animationSpec =
+                            infiniteRepeatable(
+                                animation =
+                                    tween(durationMillis = rotationTime, easing = LinearEasing)
                             )
-                        )
                     )
                 }
             }
         }
         BoxWithConstraints(
-            modifier = modifier
-                .fillMaxWidth()
-                .aspectRatio(1f), contentAlignment = Alignment.Center
+            modifier = modifier.fillMaxWidth().aspectRatio(1f),
+            contentAlignment = Alignment.Center
         ) {
             val density = LocalDensity.current
             val r3 = constraints.maxWidth / 2f - with(density) { 25.dp.toPx() }
@@ -244,24 +249,27 @@ fun DatingMainScreen(
             val r2 = with(density) { ((diff * 2 / 3) + 39.dp).toPx() }
             val r1 = with(density) { ((diff / 3) + 39.dp).toPx() }
             for (i in 0 until min(state.users.size, scheme.size)) {
-                val currentR = when (scheme[i].tier) {
-                    0 -> r1
-                    1 -> r2
-                    else -> r3
-                }
+                val currentR =
+                    when (scheme[i].tier) {
+                        0 -> r1
+                        1 -> r2
+                        else -> r3
+                    }
                 val x =
-                    (currentR + cos(Math.toRadians(scheme[i].animatable.value.toDouble())) * currentR).toFloat()
+                    (currentR +
+                            cos(Math.toRadians(scheme[i].animatable.value.toDouble())) * currentR)
+                        .toFloat()
                 val y =
-                    (currentR + sin(Math.toRadians(scheme[i].animatable.value.toDouble())) * currentR).toFloat()
-                val intOffset = IntOffset(
-                    x.roundToInt(), y.roundToInt()
-                )
+                    (currentR +
+                            sin(Math.toRadians(scheme[i].animatable.value.toDouble())) * currentR)
+                        .toFloat()
+                val intOffset = IntOffset(x.roundToInt(), y.roundToInt())
                 val correctionOffset =
                     IntOffset((r3 - currentR).roundToInt(), (r3 - currentR).roundToInt())
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .offset { intOffset + correctionOffset }
-                    .zIndex(1f)) {
+                Box(
+                    modifier =
+                        Modifier.fillMaxSize().offset { intOffset + correctionOffset }.zIndex(1f)
+                ) {
                     User(user = state.users[i])
                 }
             }
@@ -269,17 +277,26 @@ fun DatingMainScreen(
             listOf(8, 10, 12).forEach {
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     drawCircle(
-                        color = color, style = Stroke(
-                            width = with(density) { 2.dp.toPx() },
-                            pathEffect = PathEffect.dashPathEffect(
-                                floatArrayOf(with(density) { it.dp.toPx() },
-                                    with(density) { it.dp.toPx() }), 0f
-                            )
-                        ), radius = when (it) {
-                            8 -> r1
-                            10 -> r2
-                            else -> r3
-                        }, center = center
+                        color = color,
+                        style =
+                            Stroke(
+                                width = with(density) { 2.dp.toPx() },
+                                pathEffect =
+                                    PathEffect.dashPathEffect(
+                                        floatArrayOf(
+                                            with(density) { it.dp.toPx() },
+                                            with(density) { it.dp.toPx() }
+                                        ),
+                                        0f
+                                    )
+                            ),
+                        radius =
+                            when (it) {
+                                8 -> r1
+                                10 -> r2
+                                else -> r3
+                            },
+                        center = center
                     )
                 }
             }
@@ -288,25 +305,24 @@ fun DatingMainScreen(
     }
 
     @Composable
-    fun Tabs(
-        selected: Int, onSelect: (Int) -> Unit
-    ) {
-        val tabList = listOf(
-            stringResource(id = R.string.remoteness), stringResource(id = R.string.map)
-        )
-        TabRow(modifier = Modifier
-            .padding(top = 28.dp)
-            .width(240.dp)
-            .height(40.dp)
-            .clip(CircleShape),
+    fun Tabs(selected: Int, onSelect: (Int) -> Unit) {
+        val tabList =
+            listOf(stringResource(id = R.string.remoteness), stringResource(id = R.string.map))
+        TabRow(
+            modifier = Modifier.padding(top = 28.dp).width(240.dp).height(40.dp).clip(CircleShape),
             selectedTabIndex = selected,
             backgroundColor = IpbTheme.colors.surface.asColor(),
-            divider = { },
-            indicator = { }) {
+            divider = {},
+            indicator = {}
+        ) {
             tabList.forEachIndexed { index, text ->
-                Tab(modifier = Modifier
-                    .clip(CircleShape)
-                    .background(if (selected == index) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.surface.asBrush()),
+                Tab(
+                    modifier =
+                        Modifier.clip(CircleShape)
+                            .background(
+                                if (selected == index) IpbTheme.colors.secondary.asBrush()
+                                else IpbTheme.colors.surface.asBrush()
+                            ),
                     selected = selected == index,
                     onClick = { onSelect(index) },
                     text = {
@@ -315,35 +331,42 @@ fun DatingMainScreen(
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.footnoteRegular
                         )
-                    })
+                    }
+                )
             }
         }
     }
 
-    Layout(modifier = modifier, topBar = {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(44.dp)
-                .background(IpbTheme.colors.background.asBrush())
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(horizontal = 40.dp),
-                text = stringResource(id = if (state.currentUser.sex == Sex.MALE) R.string.ready_to_meet_male else R.string.ready_to_meet_female),
-                maxLines = 1,
-                style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            Switch(
-                modifier = Modifier.align(Alignment.CenterEnd),
-                state = state.readyToMeet,
-                useComponent = useComponent
-            )
+    Layout(
+        modifier = modifier,
+        topBar = {
+            Box(
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .height(44.dp)
+                        .background(IpbTheme.colors.background.asBrush())
+                        .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    modifier = Modifier.align(Alignment.Center).padding(horizontal = 40.dp),
+                    text =
+                        stringResource(
+                            id =
+                                if (state.currentUser.sex == Sex.MALE) R.string.ready_to_meet_male
+                                else R.string.ready_to_meet_female
+                        ),
+                    maxLines = 1,
+                    style = IpbTheme.typography.title,
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                )
+                Switch(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    state = state.readyToMeet,
+                    useComponent = useComponent
+                )
+            }
         }
-    }) { _, _ ->
+    ) { _, _ ->
         StateColumn(
             modifier = Modifier,
             state = state.screen,
@@ -352,17 +375,12 @@ fun DatingMainScreen(
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
             Tabs(selected = selectedIndex, onSelect = { selectedIndex = it })
-            ConstraintLayout(
-                modifier = Modifier
-                    .padding(top = 20.dp)
-                    .fillMaxWidth()
-            ) {
+            ConstraintLayout(modifier = Modifier.padding(top = 20.dp).fillMaxWidth()) {
                 if (selectedIndex == 0) {
                     val (call, picker, exposedPicker, filter, circle) = createRefs()
                     Text(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .constrainAs(call) {
+                        modifier =
+                            Modifier.padding(horizontal = 16.dp).constrainAs(call) {
                                 start.linkTo(parent.start, 16.dp)
                                 end.linkTo(parent.end, 16.dp)
                                 top.linkTo(parent.top)
@@ -377,31 +395,36 @@ fun DatingMainScreen(
                     val rotation = remember { Animatable(currentRotation) }
                     LaunchedEffect(exposed) {
                         rotation.animateTo(
-                            targetValue = if (exposed) {
-                                currentRotation - 180f
-                            } else {
-                                currentRotation + 180f
-                            }
+                            targetValue =
+                                if (exposed) {
+                                    currentRotation - 180f
+                                } else {
+                                    currentRotation + 180f
+                                }
                         ) {
                             currentRotation = value
                         }
                     }
-                    Row(modifier = Modifier
-                        .constrainAs(picker) {
-                            width = Dimension.value(240.dp)
-                            top.linkTo(call.bottom, 28.dp)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                        }
-                        .clip(CircleShape)
-                        .background(IpbTheme.colors.primary.asBrush())
-                        .niceClickable { exposed = !exposed }
-                        .padding(horizontal = 16.dp, vertical = 10.dp),
+                    Row(
+                        modifier =
+                            Modifier.constrainAs(picker) {
+                                    width = Dimension.value(240.dp)
+                                    top.linkTo(call.bottom, 28.dp)
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                }
+                                .clip(CircleShape)
+                                .background(IpbTheme.colors.primary.asBrush())
+                                .niceClickable { exposed = !exposed }
+                                .padding(horizontal = 16.dp, vertical = 10.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically) {
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
-                            text = if (state.currentUser.target.isEmpty())
-                                stringResource(id = R.string.choose_dating_target) else state.currentUser.target.name,
+                            text =
+                                if (state.currentUser.target.isEmpty())
+                                    stringResource(id = R.string.choose_dating_target)
+                                else state.currentUser.target.name,
                             tint = IpbTheme.colors.textButton.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
@@ -411,39 +434,43 @@ fun DatingMainScreen(
                             tint = IpbTheme.colors.iconSecondary2.asBrush()
                         )
                     }
-                    Column(modifier = Modifier
-                        .constrainAs(exposedPicker) {
-                            width = Dimension.value(240.dp)
-                            top.linkTo(picker.bottom, 8.dp)
-                            start.linkTo(picker.start)
-                            end.linkTo(picker.end)
-                        }
-                        .zIndex(1f)) {
+                    Column(
+                        modifier =
+                            Modifier.constrainAs(exposedPicker) {
+                                    width = Dimension.value(240.dp)
+                                    top.linkTo(picker.bottom, 8.dp)
+                                    start.linkTo(picker.start)
+                                    end.linkTo(picker.end)
+                                }
+                                .zIndex(1f)
+                    ) {
                         AnimatedVisibility(visible = exposed) {
                             Column(
-                                modifier = Modifier
-                                    .heightIn(max = 200.dp)
-                                    .verticalScroll(rememberScrollState()),
+                                modifier =
+                                    Modifier.heightIn(max = 200.dp)
+                                        .verticalScroll(rememberScrollState()),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 state.datingTargets.forEach {
-                                    Row(modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clip(CircleShape)
-                                        .background(IpbTheme.colors.background.asBrush())
-                                        .border(
-                                            width = 1.dp,
-                                            brush = IpbTheme.colors.primary.asBrush(),
-                                            shape = CircleShape
-                                        )
-                                        .niceClickable {
-                                            useComponent.handle(
-                                                DatingMainScreenEvent.SelectTarget(it)
-                                            )
-                                            exposed = false
-                                        }
-                                        .padding(vertical = 10.dp),
-                                        horizontalArrangement = Arrangement.Center) {
+                                    Row(
+                                        modifier =
+                                            Modifier.fillMaxWidth()
+                                                .clip(CircleShape)
+                                                .background(IpbTheme.colors.background.asBrush())
+                                                .border(
+                                                    width = 1.dp,
+                                                    brush = IpbTheme.colors.primary.asBrush(),
+                                                    shape = CircleShape
+                                                )
+                                                .niceClickable {
+                                                    useComponent.handle(
+                                                        DatingMainScreenEvent.SelectTarget(it)
+                                                    )
+                                                    exposed = false
+                                                }
+                                                .padding(vertical = 10.dp),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
                                         Text(
                                             text = it.name,
                                             tint = IpbTheme.colors.primary.asBrush(),
@@ -454,100 +481,114 @@ fun DatingMainScreen(
                             }
                         }
                     }
-                    IconButton(modifier = Modifier.constrainAs(filter) {
-                        width = Dimension.value(24.dp)
-                        height = Dimension.value(24.dp)
-                        end.linkTo(parent.end, 16.dp)
-                        top.linkTo(picker.top)
-                        bottom.linkTo(picker.bottom)
-                    }, onClick = { }) {
+                    IconButton(
+                        modifier =
+                            Modifier.constrainAs(filter) {
+                                width = Dimension.value(24.dp)
+                                height = Dimension.value(24.dp)
+                                end.linkTo(parent.end, 16.dp)
+                                top.linkTo(picker.top)
+                                bottom.linkTo(picker.bottom)
+                            },
+                        onClick = {}
+                    ) {
                         Icon(
                             modifier = Modifier.size(24.dp),
                             resId = R.drawable.ic_filter_empty,
                             tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }
-                    Orbits(modifier = Modifier.constrainAs(circle) {
-                        width = Dimension.fillToConstraints
-                        top.linkTo(picker.bottom, 28.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    })
+                    Orbits(
+                        modifier =
+                            Modifier.constrainAs(circle) {
+                                width = Dimension.fillToConstraints
+                                top.linkTo(picker.bottom, 28.dp)
+                                start.linkTo(parent.start, 16.dp)
+                                end.linkTo(parent.end, 16.dp)
+                            }
+                    )
                 } else if (selectedIndex == 1) {
                     var view: MapView? = null
                     LaunchedEffect(state.currentUser) {
-                        view?.map?.move(
-                            CameraPosition(
-                                Point(
-                                    state.currentUser.locationPoint.latitude,
-                                    state.currentUser.locationPoint.longitude
-                                ), 15f, 150f, 30f
+                        view
+                            ?.map
+                            ?.move(
+                                CameraPosition(
+                                    Point(
+                                        state.currentUser.locationPoint.latitude,
+                                        state.currentUser.locationPoint.longitude
+                                    ),
+                                    15f,
+                                    150f,
+                                    30f
+                                )
                             )
-                        )
                     }
-                    ComposableLifecycle(onEvent = { _, event ->
-                        when (event) {
-                            Lifecycle.Event.ON_START -> {
-                                MapKitFactory.getInstance().onStart()
-                                view?.onStart()
+                    ComposableLifecycle(
+                        onEvent = { _, event ->
+                            when (event) {
+                                Lifecycle.Event.ON_START -> {
+                                    MapKitFactory.getInstance().onStart()
+                                    view?.onStart()
+                                }
+                                Lifecycle.Event.ON_STOP -> {
+                                    MapKitFactory.getInstance().onStop()
+                                    view?.onStop()
+                                }
+                                else -> Unit
                             }
-
-                            Lifecycle.Event.ON_STOP -> {
-                                MapKitFactory.getInstance().onStop()
-                                view?.onStop()
-                            }
-
-                            else -> Unit
                         }
-                    })
+                    )
                     AndroidView(
                         factory = { context ->
                             view = MapView(context)
                             view!!.map.mapObjects.addPlacemark().apply {
-                                setView(ViewProvider(MapCurrentUserView(context).apply { loadImage() }))
+                                setView(
+                                    ViewProvider(MapCurrentUserView(context).apply { loadImage() })
+                                )
                                 addTapListener { _, _ ->
                                     useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
                                     true
                                 }
-                                geometry = Point(
-                                    state.currentUser.locationPoint.latitude,
-                                    state.currentUser.locationPoint.longitude
-                                )
+                                geometry =
+                                    Point(
+                                        state.currentUser.locationPoint.latitude,
+                                        state.currentUser.locationPoint.longitude
+                                    )
                             }
                             state.users.forEach {
                                 view!!.map.mapObjects.addPlacemark().apply {
-                                    setView(ViewProvider(MapUserView(context).apply { loadImage(it) }))
+                                    setView(
+                                        ViewProvider(MapUserView(context).apply { loadImage(it) })
+                                    )
                                     addTapListener { _, _ ->
                                         useComponent.handle(DatingMainScreenEvent.OnProfile(it))
                                         true
                                     }
-                                    geometry = Point(
-                                        it.locationPoint.latitude,
-                                        it.locationPoint.longitude
-                                    )
+                                    geometry =
+                                        Point(it.locationPoint.latitude, it.locationPoint.longitude)
                                 }
                             }
                             view!!
-                        })
+                        }
+                    )
                 }
             }
         }
     }
 }
 
-
 @Preview
 @Composable
 private fun DatingMainScreenPreview() {
     DatingMainScreen(
-        state = DatingMainScreenState(
-            readyToMeet = SwitchState(
-                id = "magnis", enabled = false, turned = false
-            ), users = listOf(
-                DatingUser(), DatingUser(), DatingUser(), DatingUser(), DatingUser()
-            ), datingTargets = listOf(
-                DatingTarget(name = "Sport"), DatingTarget(name = "Cars")
-            )
-        ), useComponent = UseDatingMainScreen.Empty()
+        state =
+            DatingMainScreenState(
+                readyToMeet = SwitchState(id = "magnis", enabled = false, turned = false),
+                users =
+                    listOf(DatingUser(), DatingUser(), DatingUser(), DatingUser(), DatingUser()),
+                datingTargets = listOf(DatingTarget(name = "Sport"), DatingTarget(name = "Cars"))
+            ),
+        useComponent = UseDatingMainScreen.Empty()
     )
 }

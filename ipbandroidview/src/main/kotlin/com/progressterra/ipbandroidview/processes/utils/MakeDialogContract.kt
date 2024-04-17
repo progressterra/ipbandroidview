@@ -14,7 +14,6 @@ interface MakeDialogContract {
 
     interface Activity {
 
-
         fun setListener(listener: Listener)
     }
 
@@ -26,7 +25,7 @@ interface MakeDialogContract {
             this.listener = listener
         }
 
-        override fun start(text: String, action: String, onAction: () -> Unit) = listener.start(text, action, onAction)
-
+        override fun start(text: String, action: String, onAction: () -> Unit) =
+            listener.start(text, action, onAction)
     }
 }

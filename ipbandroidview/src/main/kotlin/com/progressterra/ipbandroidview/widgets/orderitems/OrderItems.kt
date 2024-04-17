@@ -8,17 +8,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.ordercard.OrderCard
 
 @Composable
-fun OrderItems(
-    modifier: Modifier = Modifier, state: OrderItemsState, useComponent: UseOrderItems
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        state.items.forEach { item ->
-            OrderCard(
-                state = item, useComponent = useComponent
-            )
-        }
+fun OrderItems(modifier: Modifier = Modifier, state: OrderItemsState, useComponent: UseOrderItems) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        state.items.forEach { item -> OrderCard(state = item, useComponent = useComponent) }
     }
 }

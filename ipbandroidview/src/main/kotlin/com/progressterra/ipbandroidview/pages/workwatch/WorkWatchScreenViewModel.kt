@@ -25,17 +25,22 @@ class WorkWatchScreenViewModel(
         onBackground {
             if (event.id == "ask") {
                 var isSuccess = true
-                checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        checkPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION).onFailure {
-                            askPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-                            isSuccess = false
+                checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                    .onSuccess {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                            checkPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                .onFailure {
+                                    askPermissionUseCase(
+                                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                                    )
+                                    isSuccess = false
+                                }
                         }
                     }
-                }.onFailure {
-                    askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
-                    isSuccess = false
-                }
+                    .onFailure {
+                        askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                        isSuccess = false
+                    }
                 emitState { it.copy(enable = it.enable.copy(enabled = isSuccess)) }
             } else if (event.id == "enable") {
                 setupGeofencesUseCase(
@@ -62,11 +67,13 @@ class WorkWatchScreenViewModel(
                 )
                 val interval = 20 * 60 * 1000L
                 workManager.cancelAllWork()
-                val request = PeriodicWorkRequest.Builder(
-                    WorkWatchWorker::class.java,
-                    interval,
-                    TimeUnit.MILLISECONDS
-                ).build()
+                val request =
+                    PeriodicWorkRequest.Builder(
+                            WorkWatchWorker::class.java,
+                            interval,
+                            TimeUnit.MILLISECONDS
+                        )
+                        .build()
                 workManager.enqueue(request)
             }
         }

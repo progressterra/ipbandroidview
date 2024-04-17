@@ -24,10 +24,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
-
 
 @Composable
 fun AttachedPhotos(
@@ -42,24 +41,24 @@ fun AttachedPhotos(
     @Composable
     fun Item(picture: MultisizedImage) {
         Box(
-            modifier = Modifier
-                .size(width = 48.dp, height = if (enabled) 64.dp else 48.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(IpbTheme.colors.onSurface.asBrush())
+            modifier =
+                Modifier.size(width = 48.dp, height = if (enabled) 64.dp else 48.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(IpbTheme.colors.onSurface.asBrush())
         ) {
             Image(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .niceClickable { onPhotoSelect(picture) },
+                modifier =
+                    Modifier.align(Alignment.TopCenter)
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .niceClickable { onPhotoSelect(picture) },
                 image = picture.url
             )
             if (enabled) {
                 IconButton(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .size(width = 48.dp, height = 16.dp), onClick = { onDelete(picture) }
+                    modifier =
+                        Modifier.align(Alignment.BottomCenter).size(width = 48.dp, height = 16.dp),
+                    onClick = { onDelete(picture) }
                 ) {
                     Icon(
                         modifier = Modifier.size(16.dp),
@@ -72,24 +71,31 @@ fun AttachedPhotos(
     }
 
     if (pictures.isEmpty()) {
-        Row(modifier = modifier
-            .fillMaxWidth()
-            .height(TextFieldDefaults.MinHeight)
-            .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.onSurface.asBrush())
-            .niceClickable(enabled) { onCamera() }
-            .padding(horizontal = 12.dp, vertical = 14.dp),
+        Row(
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .height(TextFieldDefaults.MinHeight)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(IpbTheme.colors.onSurface.asBrush())
+                    .niceClickable(enabled) { onCamera() }
+                    .padding(horizontal = 12.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically) {
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(
                 text = stringResource(id = R.string.add_photo),
                 style = IpbTheme.typography.body,
-                tint = if (enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textTertiary.asBrush()
+                tint =
+                    if (enabled) IpbTheme.colors.textPrimary.asBrush()
+                    else IpbTheme.colors.textTertiary.asBrush()
             )
             Icon(
                 modifier = Modifier,
                 resId = R.drawable.ic_camera,
-                tint = if (enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
+                tint =
+                    if (enabled) IpbTheme.colors.primary.asBrush()
+                    else IpbTheme.colors.iconTertiary.asBrush()
             )
         }
     } else {
@@ -97,11 +103,12 @@ fun AttachedPhotos(
             if (enabled) {
                 item {
                     Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(IpbTheme.colors.onSurface.asBrush())
-                            .niceClickable { onCamera() }, contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier.size(48.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(IpbTheme.colors.onSurface.asBrush())
+                                .niceClickable { onCamera() },
+                        contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             modifier = Modifier,
@@ -111,9 +118,7 @@ fun AttachedPhotos(
                     }
                 }
             }
-            items(pictures) { item ->
-                Item(picture = item)
-            }
+            items(pictures) { item -> Item(picture = item) }
         }
     }
 }
@@ -122,15 +127,17 @@ fun AttachedPhotos(
 @Composable
 private fun AttachedPhotosPreviewEnabled() {
     IpbTheme {
-        AttachedPhotos(pictures = listOf(
-            MultisizedImage(
-                id = "", local = false, toRemove = false, url = ""
-            ), MultisizedImage(
-                id = "", local = false, toRemove = false, url = ""
-            ), MultisizedImage(
-                id = "", local = false, toRemove = false, url = ""
-            )
-        ), onPhotoSelect = {}, onCamera = {}, onDelete = {}, enabled = true
+        AttachedPhotos(
+            pictures =
+                listOf(
+                    MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                    MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                    MultisizedImage(id = "", local = false, toRemove = false, url = "")
+                ),
+            onPhotoSelect = {},
+            onCamera = {},
+            onDelete = {},
+            enabled = true
         )
     }
 }
@@ -139,15 +146,17 @@ private fun AttachedPhotosPreviewEnabled() {
 @Composable
 private fun AttachedPhotosPreviewDisabled() {
     IpbTheme {
-        AttachedPhotos(pictures = listOf(
-            MultisizedImage(
-                id = "", local = false, toRemove = false, url = ""
-            ), MultisizedImage(
-                id = "", local = false, toRemove = false, url = ""
-            ), MultisizedImage(
-                id = "", local = false, toRemove = false, url = ""
-            )
-        ), onPhotoSelect = {}, onCamera = {}, onDelete = {}, enabled = false
+        AttachedPhotos(
+            pictures =
+                listOf(
+                    MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                    MultisizedImage(id = "", local = false, toRemove = false, url = ""),
+                    MultisizedImage(id = "", local = false, toRemove = false, url = "")
+                ),
+            onPhotoSelect = {},
+            onCamera = {},
+            onDelete = {},
+            enabled = false
         )
     }
 }

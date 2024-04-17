@@ -9,12 +9,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class CartScreenNode(
-    buildContext: BuildContext,
-    private val navigation: CartScreenNavigation
-) : Node(
-    buildContext
-) {
+class CartScreenNode(buildContext: BuildContext, private val navigation: CartScreenNavigation) :
+    Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,13 +22,7 @@ class CartScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        CartScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        CartScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

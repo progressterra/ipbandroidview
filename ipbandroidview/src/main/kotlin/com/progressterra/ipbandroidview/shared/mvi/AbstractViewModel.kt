@@ -22,7 +22,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * Abstract class for ViewModels. Made on MVI pattern. There are state flow and effects flow (implemented used channels). Has a method to collect effects in composable functions.
+ * Abstract class for ViewModels. Made on MVI pattern. There are state flow and effects flow
+ * (implemented used channels). Has a method to collect effects in composable functions.
  */
 abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
 
@@ -47,15 +48,16 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     ) {
         LaunchedEffect(Unit) {
             lifecycleOwner.lifecycleScope.launch {
-                _effects.receiveAsFlow().flowWithLifecycle(lifecycleOwner.lifecycle, minActiveState)
+                _effects
+                    .receiveAsFlow()
+                    .flowWithLifecycle(lifecycleOwner.lifecycle, minActiveState)
                     .collect(action)
             }
         }
     }
 
-    override fun onBackground(
-        block: suspend () -> Unit
-    ) : Job = viewModelScope.launch(Dispatchers.Default) { block() }
+    override fun onBackground(block: suspend () -> Unit): Job =
+        viewModelScope.launch(Dispatchers.Default) { block() }
 
     protected fun emitState(reducer: (S) -> S) {
         _state.update { reducer(it) }

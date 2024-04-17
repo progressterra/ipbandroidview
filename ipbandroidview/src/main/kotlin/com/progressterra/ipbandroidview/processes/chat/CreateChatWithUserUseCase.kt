@@ -5,10 +5,10 @@ import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateD
 import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
 import com.progressterra.ipbandroidview.entities.DatingUser
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 interface CreateChatWithUserUseCase {
 
@@ -19,26 +19,31 @@ interface CreateChatWithUserUseCase {
         private val messengerService: MessengerService,
         manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase
-    ) : CreateChatWithUserUseCase,
+    ) :
+        CreateChatWithUserUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(user: DatingUser): Result<String> =
-            withToken { token ->
-                messengerService.clientAreaDialog(
+        override suspend fun invoke(user: DatingUser): Result<String> = withToken { token ->
+            messengerService
+                .clientAreaDialog(
                     accessToken = token,
-                    body = IncomeDataForCreateDialog(
-                        listClients = listOf(
-                            MetaDataClientWithID(
-                                dataSourceType = TypeDataSource.CLIENT,
-                                dataSourceName = "",
-                                idClient = user.id,
-                                description = ""
-                            )
-                        ),
-                        description = "",
-                        additionalDataJSON = ""
-                    )
-                ).data?.idUnique!!
-            }
+                    body =
+                        IncomeDataForCreateDialog(
+                            listClients =
+                                listOf(
+                                    MetaDataClientWithID(
+                                        dataSourceType = TypeDataSource.CLIENT,
+                                        dataSourceName = "",
+                                        idClient = user.id,
+                                        description = ""
+                                    )
+                                ),
+                            description = "",
+                            additionalDataJSON = ""
+                        )
+                )
+                .data
+                ?.idUnique!!
+        }
     }
 }

@@ -24,27 +24,32 @@ fun Tabs(
     onTabClicked: (Int) -> Unit
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(6.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(6.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         tabs.forEachIndexed { index, text ->
             val selected = currentIndex == index
             val backgroundColor =
                 if (selected) IpbTheme.colors.background else IpbTheme.colors.surface
-            Box(modifier = Modifier
-                .weight(1f)
-                .clip(RoundedCornerShape(8.dp))
-                .background(backgroundColor.asBrush())
-                .niceClickable { onTabClicked(index) }
-                .padding(vertical = 12.dp), contentAlignment = Alignment.Center) {
+            Box(
+                modifier =
+                    Modifier.weight(1f)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(backgroundColor.asBrush())
+                        .niceClickable { onTabClicked(index) }
+                        .padding(vertical = 12.dp),
+                contentAlignment = Alignment.Center
+            ) {
                 val textColor =
                     if (selected) IpbTheme.colors.textPressed else IpbTheme.colors.textSecondary
                 val style =
-                    if (selected) IpbTheme.typography.subHeadlineBold else IpbTheme.typography.subHeadlineRegular
+                    if (selected) IpbTheme.typography.subHeadlineBold
+                    else IpbTheme.typography.subHeadlineRegular
                 Text(
                     text = text,
                     tint = textColor.asBrush(),

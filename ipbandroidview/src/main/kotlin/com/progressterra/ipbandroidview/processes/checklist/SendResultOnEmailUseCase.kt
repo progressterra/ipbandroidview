@@ -10,7 +10,6 @@ import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
-
 interface SendResultOnEmailUseCase {
 
     suspend operator fun invoke(docId: String): Result<Unit>
@@ -20,7 +19,8 @@ interface SendResultOnEmailUseCase {
         manageResources: ManageResources,
         private val makeToastUseCase: MakeToastUseCase,
         private val checklistService: ChecklistService
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+    ) :
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
         SendResultOnEmailUseCase {
 
         override suspend fun invoke(

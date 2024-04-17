@@ -28,15 +28,18 @@ fun TextButton(
     useComponent: UseButton,
     isTiny: Boolean = false
 ) {
-    Row(modifier = modifier
-        .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
-        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
-        .padding(
-            horizontal = if (isTiny) 0.dp else 32.dp,
-            vertical = if (isTiny) 0.dp else 15.dp
-        ),
+    Row(
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
+                .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
+                .padding(
+                    horizontal = if (isTiny) 0.dp else 32.dp,
+                    vertical = if (isTiny) 0.dp else 15.dp
+                ),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically) {
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(
             text = title,
             textAlign = TextAlign.Center,
@@ -53,7 +56,9 @@ private fun TextButtonPreview() {
         Column {
             TextButton(
                 modifier = Modifier.fillMaxWidth(),
-                state = ButtonState(), title = "Button", useComponent = UseButton.Empty()
+                state = ButtonState(),
+                title = "Button",
+                useComponent = UseButton.Empty()
             )
             Spacer(Modifier.height(10.dp))
             TextButton(

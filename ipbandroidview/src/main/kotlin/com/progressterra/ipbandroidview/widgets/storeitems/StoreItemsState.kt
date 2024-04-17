@@ -5,6 +5,4 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-data class StoreItemsState(
-    val items: Flow<PagingData<StoreCardState>> = emptyFlow()
-)
+data class StoreItemsState(val items: Flow<PagingData<StoreCardState>> = emptyFlow())

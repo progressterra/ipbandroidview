@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class Document(
     override val id: String = "",
@@ -23,22 +22,16 @@ data class Document(
 
     override fun isEmpty(): Boolean = this == Document()
 
-    fun toWantThisCardState() = WantThisCardState(
-        id = id,
-        image = photo.items.firstOrNull()?.url ?: "",
-        status = status,
-        name = entries.firstOrNull { it.label == "Наименование" }?.text ?: "",
-        document = this
-    )
+    fun toWantThisCardState() =
+        WantThisCardState(
+            id = id,
+            image = photo.items.firstOrNull()?.url ?: "",
+            status = status,
+            name = entries.firstOrNull { it.label == "Наименование" }?.text ?: "",
+            document = this
+        )
 
+    fun fromTemplateToReal(real: Document) = real.copy(entries = entries, photo = photo)
 
-    fun fromTemplateToReal(real: Document) = real.copy(
-        entries = entries,
-        photo = photo
-    )
-
-    fun toBankCardState() = BankCardState(
-        id = id,
-        document = this
-    )
+    fun toBankCardState() = BankCardState(id = id, document = this)
 }

@@ -47,7 +47,12 @@ class ChecklistScreenViewModel(
     private val askPermissionUseCase: AskPermissionUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val sendResultOnEmailUseCase: SendResultOnEmailUseCase
-) : AbstractInputViewModel<Pair<AuditDocument, ChecklistStatus>, ChecklistScreenState, ChecklistScreenEffect>(),
+) :
+    AbstractInputViewModel<
+        Pair<AuditDocument, ChecklistStatus>,
+        ChecklistScreenState,
+        ChecklistScreenEffect
+    >(),
     UseChecklistScreen {
 
     override fun createInitialState() = ChecklistScreenState()
@@ -68,20 +73,20 @@ class ChecklistScreenViewModel(
     private fun refreshCheck() {
         onBackground {
             emitState { it.updateCheckScreenState(ScreenState.LOADING) }
-            checkMediaDetailsUseCase(currentState.currentCheckState.check).onSuccess { media ->
-                emitState {
-                    it.updateMedia(media)
-                        .updateComment(it.currentCheckState.check.comment)
-                        .updateCheckScreenState(ScreenState.SUCCESS)
-                }
-                if (media.voices.isNotEmpty()) {
+            checkMediaDetailsUseCase(currentState.currentCheckState.check)
+                .onSuccess { media ->
                     emitState {
-                        it.updateVoiceState(VoiceState.Player(false, 0f))
+                        it.updateMedia(media)
+                            .updateComment(it.currentCheckState.check.comment)
+                            .updateCheckScreenState(ScreenState.SUCCESS)
                     }
-                } else {
-                    emitState { it.updateVoiceState(VoiceState.Recorder(false)) }
+                    if (media.voices.isNotEmpty()) {
+                        emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
+                    } else {
+                        emitState { it.updateVoiceState(VoiceState.Recorder(false)) }
+                    }
                 }
-            }.onFailure { emitState { it.updateCheckScreenState(ScreenState.ERROR) } }
+                .onFailure { emitState { it.updateCheckScreenState(ScreenState.ERROR) } }
         }
     }
 
@@ -90,13 +95,13 @@ class ChecklistScreenViewModel(
             var newChecks: List<Check> = emptyList()
             var isSuccess = true
             if (!currentState.status.isCanBeStarted()) {
-                documentChecklistUseCase(
-                    currentState.auditDocument.documentId!!
-                ).onSuccess { newChecks = it }.onFailure { isSuccess = false }
+                documentChecklistUseCase(currentState.auditDocument.documentId!!)
+                    .onSuccess { newChecks = it }
+                    .onFailure { isSuccess = false }
             } else {
-                checklistUseCase(currentState.auditDocument.checklistId).onSuccess { list ->
-                    newChecks = list
-                }.onFailure { isSuccess = false }
+                checklistUseCase(currentState.auditDocument.checklistId)
+                    .onSuccess { list -> newChecks = list }
+                    .onFailure { isSuccess = false }
             }
             emitState { it.updateChecks(newChecks).updateScreenState(isSuccess.toScreenState()) }
         }
@@ -118,66 +123,58 @@ class ChecklistScreenViewModel(
                     refreshCheck()
                     onYesNoUpdate()
                 }
-
-                is ChecklistScreenEvent.OnImage -> postEffect(ChecklistScreenEffect.OnImage(event.image.url))
-
-                is ChecklistScreenEvent.OpenCamera -> makePhotoUseCase().onSuccess { image ->
-                    emitState { it.addImage(image) }
-                }
-
+                is ChecklistScreenEvent.OnImage ->
+                    postEffect(ChecklistScreenEffect.OnImage(event.image.url))
+                is ChecklistScreenEvent.OpenCamera ->
+                    makePhotoUseCase().onSuccess { image -> emitState { it.addImage(image) } }
                 is ChecklistScreenEvent.RemoveVoice -> {
                     emitState { it.removeRecord() }
                 }
-
                 is ChecklistScreenEvent.RemoveImage -> {
                     emitState { it.removeImage(event.image) }
                 }
-
-                is ChecklistScreenEvent.StartPausePlay -> if (currentState.currentCheckState.voiceState.ongoing) {
-                    pauseAudioUseCase()
-                    emitState {
-                        it.updateVoiceState(
-                            VoiceState.Player(
-                                false,
-                                (it.currentCheckState.voiceState as VoiceState.Player).progress
+                is ChecklistScreenEvent.StartPausePlay ->
+                    if (currentState.currentCheckState.voiceState.ongoing) {
+                        pauseAudioUseCase()
+                        emitState {
+                            it.updateVoiceState(
+                                VoiceState.Player(
+                                    false,
+                                    (it.currentCheckState.voiceState as VoiceState.Player).progress
+                                )
                             )
-                        )
-                    }
-                } else {
-                    startAudioUseCase(currentState.currentCheckState.media.voices.last().id)
-                    delay(500)
-                    val lastProgress = audioProgressUseCase()
-                    emitState {
-                        it.updateVoiceState(VoiceState.Player(true, lastProgress))
-                    }
-                    while (currentState.currentCheckState.voiceState.ongoing) {
-                        val progress = audioProgressUseCase()
-                        if (progress >= 1f) {
-                            emitState {
-                                it.updateVoiceState(VoiceState.Player(false, 0f))
-                            }
-                        } else {
-                            emitState {
-                                it.updateVoiceState(VoiceState.Player(true, progress))
-                            }
                         }
-                        delay(100)
-                    }
-                }
-
-                is ChecklistScreenEvent.StartStopRecording -> if (currentState.currentCheckState.voiceState.ongoing) {
-                    stopRecordingUseCase()
-                    emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
-                } else {
-                    checkPermissionUseCase(micPermission).onSuccess {
-                        startRecordingUseCase().onSuccess { voice ->
-                            emitState {
-                                it.addVoice(voice).updateVoiceState(VoiceState.Recorder(true))
+                    } else {
+                        startAudioUseCase(currentState.currentCheckState.media.voices.last().id)
+                        delay(500)
+                        val lastProgress = audioProgressUseCase()
+                        emitState { it.updateVoiceState(VoiceState.Player(true, lastProgress)) }
+                        while (currentState.currentCheckState.voiceState.ongoing) {
+                            val progress = audioProgressUseCase()
+                            if (progress >= 1f) {
+                                emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
+                            } else {
+                                emitState { it.updateVoiceState(VoiceState.Player(true, progress)) }
                             }
+                            delay(100)
                         }
-                    }.onFailure { askPermissionUseCase(micPermission) }
-                }
-
+                    }
+                is ChecklistScreenEvent.StartStopRecording ->
+                    if (currentState.currentCheckState.voiceState.ongoing) {
+                        stopRecordingUseCase()
+                        emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
+                    } else {
+                        checkPermissionUseCase(micPermission)
+                            .onSuccess {
+                                startRecordingUseCase().onSuccess { voice ->
+                                    emitState {
+                                        it.addVoice(voice)
+                                            .updateVoiceState(VoiceState.Recorder(true))
+                                    }
+                                }
+                            }
+                            .onFailure { askPermissionUseCase(micPermission) }
+                    }
                 is ChecklistScreenEvent.YesNo -> {
                     emitState { it.updateYesNo(event.yesNo) }
                     onYesNoUpdate()
@@ -196,38 +193,36 @@ class ChecklistScreenViewModel(
                     }
                     emitState { it.availabilityFinishButton(true) }
                 }
-
                 "start" -> {
                     emitState { it.availabilityStartButton(false) }
                     fetchExistingAuditUseCase(
-                        currentState.auditDocument.placeId, currentState.auditDocument.checklistId
-                    ).onSuccess { id ->
-                        emitState { it.updateDocumentId(id) }
-                        updateStatus(ChecklistStatus.ONGOING)
-                    }.onFailure {
-                        createDocumentUseCase(
-                            currentState.auditDocument.checklistId,
-                            currentState.auditDocument.placeId
-                        ).onSuccess { id ->
+                            currentState.auditDocument.placeId,
+                            currentState.auditDocument.checklistId
+                        )
+                        .onSuccess { id ->
                             emitState { it.updateDocumentId(id) }
                             updateStatus(ChecklistStatus.ONGOING)
                         }
-                    }
-                    emitState {
-                        it.availabilityStartButton(true)
-                    }
+                        .onFailure {
+                            createDocumentUseCase(
+                                    currentState.auditDocument.checklistId,
+                                    currentState.auditDocument.placeId
+                                )
+                                .onSuccess { id ->
+                                    emitState { it.updateDocumentId(id) }
+                                    updateStatus(ChecklistStatus.ONGOING)
+                                }
+                        }
+                    emitState { it.availabilityStartButton(true) }
                     refreshChecklist()
                 }
-
-                "ready" -> updateAnswerUseCase(
-                    check = currentState.currentCheckState.check,
-                    checkDetails = currentState.currentCheckState.media.createPatched(),
-                ).onSuccess { id ->
-                    emitState { it.updateCheck(id) }
-                }
-
+                "ready" ->
+                    updateAnswerUseCase(
+                            check = currentState.currentCheckState.check,
+                            checkDetails = currentState.currentCheckState.media.createPatched(),
+                        )
+                        .onSuccess { id -> emitState { it.updateCheck(id) } }
                 "send" -> sendResultOnEmailUseCase(currentState.auditDocument.documentId!!)
-
             }
         }
     }
@@ -240,11 +235,9 @@ class ChecklistScreenViewModel(
         }
     }
 
-
     private fun updateStatus(status: ChecklistStatus) {
         emitState { it.updateStatus(status).updateCommentAvailability(status.isOngoing()) }
     }
-
 
     private fun onYesNoUpdate() {
         emitState { it.updateReadyAvailable(it.currentCheckState.check.yesNo != null) }

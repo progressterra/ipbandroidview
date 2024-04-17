@@ -13,9 +13,7 @@ class OrderDetailsScreenNode(
     buildContext: BuildContext,
     private val navigation: OrderDetailsScreenNavigation,
     private val input: String
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -28,11 +26,7 @@ class OrderDetailsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
-        OrderDetailsScreen(
-            modifier = modifier, state = state, useComponent = viewModel
-        )
+        LaunchedEffect(input) { viewModel.setup(input) }
+        OrderDetailsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

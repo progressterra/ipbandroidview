@@ -10,17 +10,11 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.cartcard.CartCard
 
 @Composable
-fun CartItems(
-    modifier: Modifier = Modifier, state: CartItemsState, useComponent: UseCartItems
-) {
+fun CartItems(modifier: Modifier = Modifier, state: CartItemsState, useComponent: UseCartItems) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        items(state.items) { item ->
-            CartCard(
-                state = item, useComponent = useComponent
-            )
-        }
+        items(state.items) { item -> CartCard(state = item, useComponent = useComponent) }
     }
 }

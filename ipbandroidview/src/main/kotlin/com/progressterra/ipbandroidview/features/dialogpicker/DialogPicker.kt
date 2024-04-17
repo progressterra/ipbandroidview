@@ -18,8 +18,8 @@ import androidx.compose.ui.window.Dialog
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Citizenship
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.RadioButton
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
@@ -49,22 +49,18 @@ fun DialogPicker(
             }
         }
         if (state.open) {
-            Dialog(
-                onDismissRequest = { useComponent.handle(DialogPickerEvent.Close) })
-            {
+            Dialog(onDismissRequest = { useComponent.handle(DialogPickerEvent.Close) }) {
                 Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(8.dp),
+                    modifier =
+                        modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     state.variants.forEach { item ->
-                        RadioListItem(
-                            item = item,
-                            selected = item == state.selected
-                        )
+                        RadioListItem(item = item, selected = item == state.selected)
                     }
                     Button(
                         modifier = Modifier.fillMaxWidth(),
@@ -83,9 +79,7 @@ fun DialogPicker(
 private fun DialogPickerPreview() {
     DialogPicker(
         modifier = Modifier,
-        state = DialogPickerState(
-            listOf()
-        ),
+        state = DialogPickerState(listOf()),
         useComponent = UseDialogPicker.Empty()
     )
 }

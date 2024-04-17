@@ -16,23 +16,14 @@ import com.skydoves.landscapist.glide.GlideImage
 import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 
 @Composable
-fun Image(
-    modifier: Modifier = Modifier,
-    image: String,
-    options: ImageOptions = ImageOptions()
-) {
+fun Image(modifier: Modifier = Modifier, image: String, options: ImageOptions = ImageOptions()) {
     GlideImage(
         modifier = modifier,
         imageModel = { image },
         imageOptions = options,
-        component = rememberImageComponent {
-            +ShimmerPlugin()
-        },
+        component = rememberImageComponent { +ShimmerPlugin() },
         failure = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
                     text = stringResource(id = R.string.image_missing),
                     tint = IpbTheme.colors.textPrimary.asBrush(),

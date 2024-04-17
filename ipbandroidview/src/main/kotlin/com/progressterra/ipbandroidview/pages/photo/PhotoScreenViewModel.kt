@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.pages.photo
 import com.progressterra.ipbandroidview.features.phototopbar.PhotoTopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 
-class PhotoScreenViewModel : AbstractInputViewModel<String, PhotoScreenState, PhotoScreenEffect>(),
-    UsePhotoScreen {
+class PhotoScreenViewModel :
+    AbstractInputViewModel<String, PhotoScreenState, PhotoScreenEffect>(), UsePhotoScreen {
 
     override fun createInitialState() = PhotoScreenState()
 

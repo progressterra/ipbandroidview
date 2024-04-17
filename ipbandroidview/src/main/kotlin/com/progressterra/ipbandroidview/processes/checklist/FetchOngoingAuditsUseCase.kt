@@ -12,10 +12,10 @@ interface FetchOngoingAuditsUseCase : PagingUseCase<Nothing, ChecklistDocument> 
         private val checklistService: ChecklistService
     ) : FetchOngoingAuditsUseCase, PagingUseCase.Abstract<Nothing, ChecklistDocument>() {
 
-        override fun createSource() = OngoingAuditsSource(
-            obtainAccessToken = obtainAccessToken,
-            checklistService = checklistService
-        )
+        override fun createSource() =
+            OngoingAuditsSource(
+                obtainAccessToken = obtainAccessToken,
+                checklistService = checklistService
+            )
     }
 }
-

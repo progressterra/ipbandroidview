@@ -14,7 +14,6 @@ class PeopleNearbyNode(
     private val navigation: PeopleNearbyScreenNavigation
 ) : Node(buildContext = buildContext) {
 
-
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = koinViewModel<PeopleNearbyScreenViewModel>()
@@ -24,9 +23,7 @@ class PeopleNearbyNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         PeopleNearbyScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

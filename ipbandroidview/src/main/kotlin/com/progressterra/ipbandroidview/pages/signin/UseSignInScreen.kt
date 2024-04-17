@@ -20,6 +20,5 @@ interface UseSignInScreen : UseButton, UseTextField, UseTopBar, UseLinkText {
         override fun handle(event: LinkTextEvent) = Unit
 
         override fun handle(event: TextFieldEvent) = Unit
-
     }
 }

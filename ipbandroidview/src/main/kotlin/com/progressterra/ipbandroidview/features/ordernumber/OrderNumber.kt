@@ -19,20 +19,25 @@ import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 
 @Composable
 fun OrderNumber(
-    modifier: Modifier = Modifier, state: OrderNumberState, useComponent: UseOrderNumber
+    modifier: Modifier = Modifier,
+    state: OrderNumberState,
+    useComponent: UseOrderNumber
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(12.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
     ) {
         Text(
             modifier = Modifier,
-            text = if (state.success) stringResource(R.string.success_payment) else stringResource(R.string.payment_error),
+            text =
+                if (state.success) stringResource(R.string.success_payment)
+                else stringResource(R.string.payment_error),
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.onBackground.asBrush()
         )

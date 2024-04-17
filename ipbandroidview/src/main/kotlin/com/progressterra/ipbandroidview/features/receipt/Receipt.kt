@@ -22,22 +22,19 @@ import com.progressterra.ipbandroidview.shared.ui.linktext.LinkText
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextData
 
 @Composable
-fun Receipt(
-    modifier: Modifier = Modifier, state: ReceiptState, useComponent: UseReceipt
-) {
+fun Receipt(modifier: Modifier = Modifier, state: ReceiptState, useComponent: UseReceipt) {
 
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(bottom = 36.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(bottom = 36.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -51,14 +48,10 @@ fun Receipt(
                 style = IpbTheme.typography.title
             )
         }
-        Divider(
-            tint = IpbTheme.colors.background.asColor(), thickness = 1.dp
-        )
+        Divider(tint = IpbTheme.colors.background.asColor(), thickness = 1.dp)
         state.items.forEach {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -68,7 +61,9 @@ fun Receipt(
                 )
                 Text(
                     text = it.price.toString(),
-                    tint = if (it.price.isNegative()) IpbTheme.colors.error.asBrush() else IpbTheme.colors.textSecondary.asBrush(),
+                    tint =
+                        if (it.price.isNegative()) IpbTheme.colors.error.asBrush()
+                        else IpbTheme.colors.textSecondary.asBrush(),
                     style = IpbTheme.typography.caption
                 )
             }
@@ -86,26 +81,32 @@ fun Receipt(
         )
         LinkText(
             modifier = Modifier.padding(horizontal = 12.dp),
-            linkTextData = listOf(
-                LinkTextData(text = stringResource(id = R.string.payment_0)), LinkTextData(
-                    text = stringResource(id = R.string.user_agreement),
-                    url = stringResource(id = R.string.user_agreement_url),
-                ), LinkTextData(text = stringResource(id = R.string.and)), LinkTextData(
-                    text = stringResource(id = R.string.payment_agreement),
-                    url = stringResource(id = R.string.payment_agreement_url),
-                ), LinkTextData(text = stringResource(id = R.string.payment_1)), LinkTextData(
-                    text = stringResource(id = R.string.service_name),
-                    url = stringResource(id = R.string.service_url),
-                )
-            ), useComponent = useComponent,
+            linkTextData =
+                listOf(
+                    LinkTextData(text = stringResource(id = R.string.payment_0)),
+                    LinkTextData(
+                        text = stringResource(id = R.string.user_agreement),
+                        url = stringResource(id = R.string.user_agreement_url),
+                    ),
+                    LinkTextData(text = stringResource(id = R.string.and)),
+                    LinkTextData(
+                        text = stringResource(id = R.string.payment_agreement),
+                        url = stringResource(id = R.string.payment_agreement_url),
+                    ),
+                    LinkTextData(text = stringResource(id = R.string.payment_1)),
+                    LinkTextData(
+                        text = stringResource(id = R.string.service_name),
+                        url = stringResource(id = R.string.service_url),
+                    )
+                ),
+            useComponent = useComponent,
             style = IpbTheme.typography.footnoteRegular,
             brush = IpbTheme.colors.textSecondary.asBrush()
         )
         LinkText(
             modifier = Modifier.padding(horizontal = 12.dp),
-            linkTextData = listOf(
-                LinkTextData(text = stringResource(id = R.string.merchant_info))
-            ), useComponent = useComponent,
+            linkTextData = listOf(LinkTextData(text = stringResource(id = R.string.merchant_info))),
+            useComponent = useComponent,
             style = IpbTheme.typography.footnoteRegular,
             brush = IpbTheme.colors.textSecondary.asBrush()
         )

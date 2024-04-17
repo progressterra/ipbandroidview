@@ -15,9 +15,7 @@ class CatalogScreenNode(
     buildContext: BuildContext,
     private val navigation: CatalogScreenNavigation,
     private val customStoreCard: (@Composable (StoreCardState, UseStoreCard) -> Unit)? = null
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -29,9 +27,7 @@ class CatalogScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
+        LaunchedEffect(Unit) { viewModel.refresh() }
         CatalogScreen(
             modifier = modifier,
             state = state,

@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class SupportScreenNode(
     buildContext: BuildContext,
     private val navigation: SupportScreenNavigation
-) : Node(
-    buildContext = buildContext
-) {
+) : Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -26,13 +24,7 @@ class SupportScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        SupportScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        SupportScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

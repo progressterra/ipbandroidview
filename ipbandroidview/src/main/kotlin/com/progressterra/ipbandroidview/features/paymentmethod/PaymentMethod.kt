@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.PaymentType
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.RadioButton
+import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
 fun PaymentMethod(
@@ -27,10 +27,7 @@ fun PaymentMethod(
 ) {
 
     @Composable
-    fun Item(
-        modifier: Modifier = Modifier,
-        type: PaymentType
-    ) {
+    fun Item(modifier: Modifier = Modifier, type: PaymentType) {
         Row(
             modifier = modifier.padding(vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -49,12 +46,13 @@ fun PaymentMethod(
     }
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface.asBrush())
-            .padding(12.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
@@ -63,9 +61,7 @@ fun PaymentMethod(
             style = IpbTheme.typography.title
         )
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            state.paymentMethods.forEach {
-                Item(type = it)
-            }
+            state.paymentMethods.forEach { Item(type = it) }
         }
     }
 }

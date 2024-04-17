@@ -32,8 +32,8 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -48,21 +48,19 @@ fun WantThisDetailsScreen(
     useComponent: UseWantThisDetailsScreen
 ) {
     Layout(
-        modifier = modifier, topBar = {
-        TopBar(
-            title = state.document.name,
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    },
+        modifier = modifier,
+        topBar = {
+            TopBar(title = state.document.name, showBackButton = true, useComponent = useComponent)
+        },
         bottomBar = {
             if (state.document.status.toCanBeEditted()) {
                 Column(
-                    modifier = modifier
-                        .padding(horizontal = 8.dp)
-                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                        .background(IpbTheme.colors.surface.asBrush())
-                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
+                    modifier =
+                        modifier
+                            .padding(horizontal = 8.dp)
+                            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
@@ -72,11 +70,10 @@ fun WantThisDetailsScreen(
                     )
                 }
             }
-        }) { _, _ ->
-        val scrollState = rememberScrollState()
-        LaunchedEffect(state.chat.isVisible) {
-            scrollState.animateScrollTo(scrollState.maxValue)
         }
+    ) { _, _ ->
+        val scrollState = rememberScrollState()
+        LaunchedEffect(state.chat.isVisible) { scrollState.animateScrollTo(scrollState.maxValue) }
         StateColumn(
             state = state.screen,
             scrollable = true,
@@ -85,9 +82,7 @@ fun WantThisDetailsScreen(
             horizontalAlignment = Alignment.Start
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp, start = 20.dp, end = 20.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 20.dp, start = 20.dp, end = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -165,18 +160,18 @@ fun WantThisDetailsScreen(
 private fun WantThisDetailsScreenPreview() {
     IpbTheme {
         WantThisDetailsScreen(
-            state = WantThisDetailsScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                storeCard = StoreCardState(
-                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                    price = Price(1000),
-                    counter = CounterState("1", 5),
-                    installment = Installment(
-                        months = 4,
-                        perMonth = Price(500)
-                    )
-                )
-            ), useComponent = UseWantThisDetailsScreen.Empty()
+            state =
+                WantThisDetailsScreenState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    storeCard =
+                        StoreCardState(
+                            name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                            price = Price(1000),
+                            counter = CounterState("1", 5),
+                            installment = Installment(months = 4, perMonth = Price(500))
+                        )
+                ),
+            useComponent = UseWantThisDetailsScreen.Empty()
         )
     }
 }

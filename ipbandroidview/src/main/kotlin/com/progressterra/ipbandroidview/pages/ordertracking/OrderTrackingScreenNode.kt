@@ -14,24 +14,14 @@ class OrderTrackingScreenNode(
     buildContext: BuildContext,
     private val navigation: OrderTrackingScreenNavigation,
     private val input: OrderTrackingState
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = koinViewModel<OrderTrackingScreenViewModel>()
-        viewModel.collectEffects {
-            navigation.onBack()
-        }
+        viewModel.collectEffects { navigation.onBack() }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(input) {
-            viewModel.setup(input)
-        }
-        OrderTrackingScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(input) { viewModel.setup(input) }
+        OrderTrackingScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

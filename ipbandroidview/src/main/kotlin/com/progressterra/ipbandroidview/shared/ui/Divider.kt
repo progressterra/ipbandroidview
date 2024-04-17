@@ -8,14 +8,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Divider(
-    modifier: Modifier = Modifier,
-    tint: Color,
-    thickness: Dp = 3.dp
-) {
-    Divider(
-        modifier = modifier,
-        color = tint,
-        thickness = thickness
-    )
+fun Divider(modifier: Modifier = Modifier, tint: Color, thickness: Dp = 3.dp) {
+    Divider(modifier = modifier, color = tint, thickness = thickness)
 }

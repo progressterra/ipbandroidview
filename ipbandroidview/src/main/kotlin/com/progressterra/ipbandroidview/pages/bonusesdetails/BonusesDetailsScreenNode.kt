@@ -12,9 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 class BonusesDetailsScreenNode(
     buildContext: BuildContext,
     private val navigation: BonusesDetailsScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -25,13 +23,7 @@ class BonusesDetailsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        BonusesScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        BonusesScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

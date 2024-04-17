@@ -18,7 +18,9 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun OrdersScreen(
-    modifier: Modifier = Modifier, state: OrdersScreenState, useComponent: UseOrdersScreen
+    modifier: Modifier = Modifier,
+    state: OrdersScreenState,
+    useComponent: UseOrdersScreen
 ) {
     Layout(
         modifier = modifier,
@@ -28,20 +30,16 @@ fun OrdersScreen(
                 showBackButton = true,
                 useComponent = useComponent
             )
-        }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+        }
+    ) { _, _ ->
+        StateColumn(state = state.screen, useComponent = useComponent) {
             val lazyItems = state.orders.collectAsLazyPagingItems()
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp)
             ) {
-                items(
-                    count = lazyItems.itemCount,
-                    key = lazyItems.itemKey { it.id }
-                ) { index ->
+                items(count = lazyItems.itemCount, key = lazyItems.itemKey { it.id }) { index ->
                     lazyItems[index]?.let { OrderCompact(state = it, useComponent = useComponent) }
                 }
             }

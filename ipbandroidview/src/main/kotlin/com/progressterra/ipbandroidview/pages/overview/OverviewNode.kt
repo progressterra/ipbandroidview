@@ -13,9 +13,7 @@ class OverviewNode(
     buildContext: BuildContext,
     private val navigation: OverviewScreenNavigation,
     private val updateOngoingCounter: (Int) -> Unit
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -27,11 +25,7 @@ class OverviewNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        OverviewScreen(
-            state = state, useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        OverviewScreen(state = state, useComponent = viewModel)
     }
 }

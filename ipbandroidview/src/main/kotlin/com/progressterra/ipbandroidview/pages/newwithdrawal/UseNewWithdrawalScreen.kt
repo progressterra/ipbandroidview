@@ -17,10 +17,15 @@ interface UseNewWithdrawalScreen : UseTopBar, UseStateColumn, UseButton, UseText
 
     class Empty : UseNewWithdrawalScreen {
         override fun handle(event: NewWithdrawalScreenEvent) = Unit
+
         override fun handle(event: TopBarEvent) = Unit
+
         override fun handle(event: StateColumnEvent) = Unit
+
         override fun handle(event: ButtonEvent) = Unit
+
         override fun handle(event: TextFieldEvent) = Unit
+
         override fun handleEvent(event: BankCardEvent) = Unit
     }
 }

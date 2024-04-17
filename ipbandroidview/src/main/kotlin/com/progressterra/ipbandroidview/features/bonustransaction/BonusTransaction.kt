@@ -16,42 +16,33 @@ import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Text
 
 @Composable
-fun BonusTransaction(
-    modifier: Modifier = Modifier,
-    state: BonusTransactionState
-) {
+fun BonusTransaction(modifier: Modifier = Modifier, state: BonusTransactionState) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp),
+        modifier = modifier.fillMaxWidth().padding(vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                val icon = when (state.type) {
-                    BonusTransactionType.BUYING -> R.drawable.ic_buying_bonuses
-                    BonusTransactionType.BURNING -> R.drawable.ic_burning_bonuses
-                    BonusTransactionType.RECEIVING -> R.drawable.ic_receiving_bonuses
-                }
-                val iconColor = when (state.type) {
-                    BonusTransactionType.BUYING -> IpbTheme.colors.iconTertiary3.asBrush()
-                    BonusTransactionType.BURNING -> IpbTheme.colors.iconTertiary4.asBrush()
-                    BonusTransactionType.RECEIVING -> IpbTheme.colors.iconTertiary2.asBrush()
-                }
-                val text = when (state.type) {
-                    BonusTransactionType.BUYING -> R.string.bonus_transaction_buying
-                    BonusTransactionType.BURNING -> R.string.bonus_transaction_burning
-                    BonusTransactionType.RECEIVING -> R.string.bonus_transaction_receiving
-                }
-                Icon(
-                    resId = icon,
-                    tint = iconColor
-                )
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                val icon =
+                    when (state.type) {
+                        BonusTransactionType.BUYING -> R.drawable.ic_buying_bonuses
+                        BonusTransactionType.BURNING -> R.drawable.ic_burning_bonuses
+                        BonusTransactionType.RECEIVING -> R.drawable.ic_receiving_bonuses
+                    }
+                val iconColor =
+                    when (state.type) {
+                        BonusTransactionType.BUYING -> IpbTheme.colors.iconTertiary3.asBrush()
+                        BonusTransactionType.BURNING -> IpbTheme.colors.iconTertiary4.asBrush()
+                        BonusTransactionType.RECEIVING -> IpbTheme.colors.iconTertiary2.asBrush()
+                    }
+                val text =
+                    when (state.type) {
+                        BonusTransactionType.BUYING -> R.string.bonus_transaction_buying
+                        BonusTransactionType.BURNING -> R.string.bonus_transaction_burning
+                        BonusTransactionType.RECEIVING -> R.string.bonus_transaction_receiving
+                    }
+                Icon(resId = icon, tint = iconColor)
                 Text(
                     text = stringResource(text),
                     tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -64,15 +55,12 @@ fun BonusTransaction(
                 style = IpbTheme.typography.subHeadlineRegular
             )
         }
-        val color = when (state.type) {
-            BonusTransactionType.BUYING -> IpbTheme.colors.textTertiary3.asBrush()
-            BonusTransactionType.BURNING -> IpbTheme.colors.textTertiary4.asBrush()
-            BonusTransactionType.RECEIVING -> IpbTheme.colors.textTertiary2.asBrush()
-        }
-        Text(
-            text = state.amount,
-            tint = color,
-            style = IpbTheme.typography.title
-        )
+        val color =
+            when (state.type) {
+                BonusTransactionType.BUYING -> IpbTheme.colors.textTertiary3.asBrush()
+                BonusTransactionType.BURNING -> IpbTheme.colors.textTertiary4.asBrush()
+                BonusTransactionType.RECEIVING -> IpbTheme.colors.textTertiary2.asBrush()
+            }
+        Text(text = state.amount, tint = color, style = IpbTheme.typography.title)
     }
 }

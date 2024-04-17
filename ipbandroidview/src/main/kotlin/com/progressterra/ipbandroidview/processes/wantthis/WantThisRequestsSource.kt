@@ -30,37 +30,47 @@ class WantThisRequestsSource(
     override suspend fun loadPage(
         skip: Int,
         take: Int
-    ): Result<Pair<Int, List<WantThisCardState>>> =
-        runCatching {
-            val token = obtainAccessToken().getOrThrow()
-            val response = documentsRepository.docs(
-                accessToken = token,
-                filter = FilterAndSort(
-                    listFields = listOf(
-                        FieldForFilter(
-                            fieldName = "idrfCharacteristicType",
-                            listValue = listOf(IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID),
-                            comparison = TypeComparison.EQUALS_STRONG
+    ): Result<Pair<Int, List<WantThisCardState>>> = runCatching {
+        val token = obtainAccessToken().getOrThrow()
+        val response =
+            documentsRepository
+                .docs(
+                    accessToken = token,
+                    filter =
+                        FilterAndSort(
+                            listFields =
+                                listOf(
+                                    FieldForFilter(
+                                        fieldName = "idrfCharacteristicType",
+                                        listValue =
+                                            listOf(IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID),
+                                        comparison = TypeComparison.EQUALS_STRONG
+                                    )
+                                ),
+                            sort =
+                                SortData(
+                                    fieldName = "dateAdded",
+                                    variantSort = TypeVariantSort.DESC
+                                ),
+                            searchData = "",
+                            skip = skip,
+                            take = take
                         )
-                    ),
-                    sort = SortData(
-                        fieldName = "dateAdded",
-                        variantSort = TypeVariantSort.DESC
-                    ),
-                    searchData = "",
-                    skip = skip,
-                    take = take
                 )
-            ).getOrThrow() ?: emptyList()
-            response.size to response.mapNotNull {
+                .getOrThrow() ?: emptyList()
+        response.size to
+            response.mapNotNull {
                 val doc = it.toDocument(gson, createId)
                 if (it.statusDoc != TypeStatusDoc.CONFIRMED || doc.additionalValue.isBlank()) {
                     doc.toWantThisCardState()
                 } else {
-                    productRepository.productByNomenclatureId(token, doc.additionalValue)
-                        .getOrThrow()?.toGoodsItem()
-                        ?.toWantThisCardState()?.copy(document = it.toDocument(gson, createId))
+                    productRepository
+                        .productByNomenclatureId(token, doc.additionalValue)
+                        .getOrThrow()
+                        ?.toGoodsItem()
+                        ?.toWantThisCardState()
+                        ?.copy(document = it.toDocument(gson, createId))
                 }
             }
-        }
+    }
 }

@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-
 data class ConnectionsScreenState(
     val incoming: Flow<PagingData<DatingUser>> = emptyFlow(),
     val successIn: Flow<PagingData<DatingUser>> = emptyFlow(),

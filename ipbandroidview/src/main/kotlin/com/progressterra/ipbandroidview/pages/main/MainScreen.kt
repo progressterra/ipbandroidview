@@ -13,9 +13,7 @@ import com.progressterra.ipbandroidview.shared.ui.Layout
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable
-fun MainScreen(
-    modifier: Modifier = Modifier, state: MainScreenState, useComponent: UseMainScreen
-) {
+fun MainScreen(modifier: Modifier = Modifier, state: MainScreenState, useComponent: UseMainScreen) {
     Layout(
         modifier = modifier,
     ) { _, _ ->
@@ -26,14 +24,11 @@ fun MainScreen(
             item {
                 Bonuses(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    state = state.bonuses, useComponent = useComponent
+                    state = state.bonuses,
+                    useComponent = useComponent
                 )
             }
-            items(state.recommended) {
-                Galleries(
-                    state = it, useComponent = useComponent
-                )
-            }
+            items(state.recommended) { Galleries(state = it, useComponent = useComponent) }
         }
     }
 }

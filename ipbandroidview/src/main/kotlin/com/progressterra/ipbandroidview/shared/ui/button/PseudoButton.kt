@@ -28,26 +28,28 @@ fun PseudoButton(
     icId: Int,
     useComponent: UseButton
 ) {
-    Row(modifier = modifier
-        .clip(RoundedCornerShape(8.dp))
-        .border(
-            width = 1.dp,
-            brush = IpbTheme.colors.primary.asBrush(),
-            shape = RoundedCornerShape(8.dp)
-        )
-        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
-        .padding(horizontal = 8.dp, vertical = 13.dp),
+    Row(
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(8.dp))
+                .border(
+                    width = 1.dp,
+                    brush = IpbTheme.colors.primary.asBrush(),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
+                .padding(horizontal = 8.dp, vertical = 13.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically) {
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(
             text = title,
             style = IpbTheme.typography.body,
-            tint = if (state.enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textDisabled.asBrush()
+            tint =
+                if (state.enabled) IpbTheme.colors.textPrimary.asBrush()
+                else IpbTheme.colors.textDisabled.asBrush()
         )
-        Icon(
-            resId = icId,
-            tint = IpbTheme.colors.iconPrimary.asBrush()
-        )
+        Icon(resId = icId, tint = IpbTheme.colors.iconPrimary.asBrush())
     }
 }
 

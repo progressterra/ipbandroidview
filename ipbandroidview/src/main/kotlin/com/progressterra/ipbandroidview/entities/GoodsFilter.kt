@@ -9,26 +9,30 @@ data class GoodsFilter(
     val params: Map<String, List<String>>? = null,
 ) {
 
-    fun toFilterAndSort() = FilterAndSort(
-        listFields = buildList {
-            categoryId?.let {
-                add(
-                    FieldForFilter(
-                        fieldName = "nomenclature.listCatalogCategory",
-                        listValue = listOf(categoryId),
-                        comparison = "equalsStrong"
-                    )
-                )
-            }
-            params?.forEach {
-                add(
-                    FieldForFilter(
-                        fieldName = it.key,
-                        listValue = it.value,
-                        comparison = "containsIgnoreCase"
-                    )
-                )
-            }
-        }, searchData = search, sort = null
-    )
+    fun toFilterAndSort() =
+        FilterAndSort(
+            listFields =
+                buildList {
+                    categoryId?.let {
+                        add(
+                            FieldForFilter(
+                                fieldName = "nomenclature.listCatalogCategory",
+                                listValue = listOf(categoryId),
+                                comparison = "equalsStrong"
+                            )
+                        )
+                    }
+                    params?.forEach {
+                        add(
+                            FieldForFilter(
+                                fieldName = it.key,
+                                listValue = it.value,
+                                comparison = "containsIgnoreCase"
+                            )
+                        )
+                    }
+                },
+            searchData = search,
+            sort = null
+        )
 }

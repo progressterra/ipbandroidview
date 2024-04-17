@@ -18,7 +18,8 @@ interface OrganizationAuditsUseCase {
         manageResources: ManageResources,
         obtainAccessToken: ObtainAccessToken,
         makeToastUseCase: MakeToastUseCase
-    ) : OrganizationAuditsUseCase,
+    ) :
+        OrganizationAuditsUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(id: String): Result<List<OrganizationAudit>> =

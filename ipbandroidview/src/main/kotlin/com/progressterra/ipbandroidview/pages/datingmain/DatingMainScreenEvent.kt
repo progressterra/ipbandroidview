@@ -9,5 +9,5 @@ sealed class DatingMainScreenEvent {
 
     data object OnOwnProfile : DatingMainScreenEvent()
 
-    data class OnProfile(val user: DatingUser): DatingMainScreenEvent()
+    data class OnProfile(val user: DatingUser) : DatingMainScreenEvent()
 }

@@ -6,7 +6,8 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Interface and abstract class for paging use cases. They may have or not have a filter. You must to create a source based on [AbstractSource] class
+ * Interface and abstract class for paging use cases. They may have or not have a filter. You must
+ * to create a source based on [AbstractSource] class
  */
 interface PagingUseCase<I, O : Any> {
 
@@ -21,16 +22,12 @@ interface PagingUseCase<I, O : Any> {
         override suspend operator fun invoke(filter: I): Result<Flow<PagingData<O>>> = runCatching {
             val source = createSource()
             source.filter = filter
-            Pager(PagingConfig(source.pageSize)) {
-                source
-            }.flow
+            Pager(PagingConfig(source.pageSize)) { source }.flow
         }
 
         override suspend fun invoke(): Result<Flow<PagingData<O>>> = runCatching {
             val source = createSource()
-            Pager(PagingConfig(source.pageSize)) {
-                source
-            }.flow
+            Pager(PagingConfig(source.pageSize)) { source }.flow
         }
     }
 }

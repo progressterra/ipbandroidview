@@ -10,20 +10,20 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 interface FetchProductsUseCase {
 
-    suspend operator fun invoke(
-        filterAndSort: FilterAndSort
-    ): Result<List<ProductView>>
+    suspend operator fun invoke(filterAndSort: FilterAndSort): Result<List<ProductView>>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val productRepo: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        private val productRepo: ProductRepository,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources,
-    ) : FetchProductsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
+    ) :
+        FetchProductsUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(
-            filterAndSort: FilterAndSort
-        ): Result<List<ProductView>> = withToken { token ->
-            productRepo.productList(token, filterAndSort).getOrThrow() ?: emptyList()
-        }
+        override suspend fun invoke(filterAndSort: FilterAndSort): Result<List<ProductView>> =
+            withToken { token ->
+                productRepo.productList(token, filterAndSort).getOrThrow() ?: emptyList()
+            }
     }
 }

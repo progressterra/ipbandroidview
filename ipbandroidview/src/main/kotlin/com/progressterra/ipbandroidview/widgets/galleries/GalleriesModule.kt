@@ -21,20 +21,22 @@ class GalleriesModule(
     init {
         onBackground {
             fetchGalleriesUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { gallery ->
-                    val cachedGallery = gallery.copy(items = cachePaging(gallery.items))
-                    emitModuleState { cachedGallery }
-                }.onFailure {
-                    emitModuleState { it.copy(state = it.state.copy(state = ScreenState.ERROR)) }
-                }
+                result
+                    .onSuccess { gallery ->
+                        val cachedGallery = gallery.copy(items = cachePaging(gallery.items))
+                        emitModuleState { cachedGallery }
+                    }
+                    .onFailure {
+                        emitModuleState {
+                            it.copy(state = it.state.copy(state = ScreenState.ERROR))
+                        }
+                    }
             }
         }
     }
 
     fun refresh() {
-        onBackground {
-            fetchGalleriesUseCase(moduleState.id)
-        }
+        onBackground { fetchGalleriesUseCase(moduleState.id) }
     }
 
     override fun handle(event: StateColumnEvent) {
@@ -44,10 +46,8 @@ class GalleriesModule(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(
-                    goodsId = event.id,
-                    onAuth = { onAuth() })
-
+                is StoreCardEvent.AddToCart ->
+                    addToCartUseCase(goodsId = event.id, onAuth = { onAuth() })
                 is StoreCardEvent.Open -> onGoods(event.id)
             }
         }

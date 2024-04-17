@@ -29,14 +29,13 @@ fun TextDialog(
     onDismiss: () -> Unit
 ) {
     if (visible) {
-        Dialog(
-            onDismissRequest = onDismiss
-        ) {
+        Dialog(onDismissRequest = onDismiss) {
             Column(
-                modifier = modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(20.dp),
+                modifier =
+                    modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
@@ -50,12 +49,13 @@ fun TextDialog(
                     modifier = Modifier.fillMaxWidth(),
                     state = ButtonState(id = "dialog"),
                     title = action,
-                    useComponent = object : UseButton {
-                        override fun handle(event: ButtonEvent) {
-                            onAction()
-                            onDismiss()
+                    useComponent =
+                        object : UseButton {
+                            override fun handle(event: ButtonEvent) {
+                                onAction()
+                                onDismiss()
+                            }
                         }
-                    }
                 )
             }
         }

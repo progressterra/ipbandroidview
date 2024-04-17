@@ -7,26 +7,27 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.flow.collectLatest
 
-class ConnectionsScreenViewModel(
-    private val connectionsUseCase: ConnectionsUseCase
-) : AbstractNonInputViewModel<ConnectionsScreenState, ConnectionsScreenEffect>(),
+class ConnectionsScreenViewModel(private val connectionsUseCase: ConnectionsUseCase) :
+    AbstractNonInputViewModel<ConnectionsScreenState, ConnectionsScreenEffect>(),
     UseConnectionsScreen {
 
     init {
         onBackground {
             connectionsUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { newState ->
-                    emitState {
-                        newState.copy(
-                            incoming = cachePaging(newState.incoming),
-                            successIn = cachePaging(newState.successIn),
-                            successOut = cachePaging(newState.successOut),
-                            pending = cachePaging(newState.pending)
-                        )
+                result
+                    .onSuccess { newState ->
+                        emitState {
+                            newState.copy(
+                                incoming = cachePaging(newState.incoming),
+                                successIn = cachePaging(newState.successIn),
+                                successOut = cachePaging(newState.successOut),
+                                pending = cachePaging(newState.pending)
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
@@ -34,9 +35,7 @@ class ConnectionsScreenViewModel(
     override fun createInitialState() = ConnectionsScreenState()
 
     override fun refresh() {
-        onBackground {
-            connectionsUseCase()
-        }
+        onBackground { connectionsUseCase() }
     }
 
     override fun handle(event: ConnectionsScreenEvent) {

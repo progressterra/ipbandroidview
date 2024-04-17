@@ -20,9 +20,7 @@ fun Text(
     Text(
         modifier = modifier,
         text = text,
-        style = style.copy(
-            brush = tint, textAlign = textAlign
-        ),
+        style = style.copy(brush = tint, textAlign = textAlign),
         maxLines = maxLines,
         overflow = TextOverflow.Ellipsis
     )

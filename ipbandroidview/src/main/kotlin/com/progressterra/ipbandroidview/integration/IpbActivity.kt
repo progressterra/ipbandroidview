@@ -29,11 +29,15 @@ import com.progressterra.ipbandroidview.shared.ui.TextDialog
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.Listener,
-    StartActivityContract.Listener, MakePhotoContract.Listener, PickPhotoContract.Listener, StartActivityForResultContract.Listener {
+abstract class IpbActivity :
+    NodeComponentActivity(),
+    ManagePermissionContract.Listener,
+    StartActivityContract.Listener,
+    MakePhotoContract.Listener,
+    PickPhotoContract.Listener,
+    StartActivityForResultContract.Listener {
 
-    @Composable
-    abstract fun Content()
+    @Composable abstract fun Content()
 
     abstract val messagingService: Class<*>?
 
@@ -56,15 +60,16 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
         }
 
     override fun pickPhoto() {
-        pickPhotoLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        pickPhotoLauncher.launch(
+            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        )
     }
 
     override fun startForResult(intent: Intent, code: Int) {
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            startActivityForResult.onActivityResult(code, it.resultCode, it.data)
-        }.launch(intent)
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                startActivityForResult.onActivityResult(code, it.resultCode, it.data)
+            }
+            .launch(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,15 +84,17 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
                 var dialogAction by remember { mutableStateOf("") }
                 var dialogOnAction by remember { mutableStateOf({}) }
                 LaunchedEffect(Unit) {
-                    makeDialog.setListener(object : MakeDialogContract.Listener {
+                    makeDialog.setListener(
+                        object : MakeDialogContract.Listener {
 
-                        override fun start(text: String, action: String, onAction: () -> Unit) {
-                            showDialog = true
-                            dialogText = text
-                            dialogAction = action
-                            dialogOnAction = onAction
+                            override fun start(text: String, action: String, onAction: () -> Unit) {
+                                showDialog = true
+                                dialogText = text
+                                dialogAction = action
+                                dialogOnAction = onAction
+                            }
                         }
-                    })
+                    )
                 }
                 TextDialog(
                     text = dialogText,

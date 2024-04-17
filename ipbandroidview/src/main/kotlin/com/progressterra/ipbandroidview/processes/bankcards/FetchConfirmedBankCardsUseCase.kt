@@ -21,4 +21,3 @@ interface FetchConfirmedBankCardsUseCase : PagingUseCase<Nothing, BankCardState>
             )
     }
 }
-

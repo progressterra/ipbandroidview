@@ -4,10 +4,10 @@ import android.content.Intent
 import android.provider.MediaStore
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.MultisizedImage
-import com.progressterra.ipbandroidview.processes.utils.CreateId
-import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.ToastedException
+import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
 
 interface MakePhotoUseCase {
@@ -27,12 +27,13 @@ interface MakePhotoUseCase {
             val newPhotoId = id ?: createId()
             val uri = fileExplorer.uriForFile(fileExplorer.file("$newPhotoId.jpg"))
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            if (makePhotoContract.makePhoto(intent)) MultisizedImage(
-                id = newPhotoId,
-                local = true,
-                toRemove = false,
-                url = uri.toString()
-            )
+            if (makePhotoContract.makePhoto(intent))
+                MultisizedImage(
+                    id = newPhotoId,
+                    local = true,
+                    toRemove = false,
+                    url = uri.toString()
+                )
             else throw ToastedException(R.string.photo_was_not_taken)
         }
     }

@@ -53,7 +53,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val pagesModule = module {
-
     viewModel { GoodsDetailsScreenViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { WelcomeScreenViewModel() }
@@ -87,17 +86,7 @@ val pagesModule = module {
     viewModel { VideoPieScreenViewModel(get()) }
 
     viewModel {
-        DatingMainScreenViewModel(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+        DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
     }
 
     viewModel {
@@ -177,17 +166,11 @@ val pagesModule = module {
         )
     }
 
-    viewModel {
-        LocationPermissionScreenViewModel(get(), get(), get())
-    }
+    viewModel { LocationPermissionScreenViewModel(get(), get(), get()) }
 
-    viewModel {
-        TargetPickerScreenViewModel(get(), get())
-    }
+    viewModel { TargetPickerScreenViewModel(get(), get()) }
 
-    viewModel {
-        ReadyToMeetScreenViewModel(get(), get(), get())
-    }
+    viewModel { ReadyToMeetScreenViewModel(get(), get(), get()) }
 
     viewModel { OrganizationsViewModel(get()) }
 

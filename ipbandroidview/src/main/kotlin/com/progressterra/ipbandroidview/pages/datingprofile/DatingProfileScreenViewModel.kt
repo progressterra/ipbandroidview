@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidview.entities.canDoAnything
 import com.progressterra.ipbandroidview.entities.canWrite
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.chat.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectUseCase
-import com.progressterra.ipbandroidview.processes.chat.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
@@ -35,7 +35,8 @@ class DatingProfileScreenViewModel(
     private val pickPhotoUseCase: PickPhotoUseCase,
     private val makeToastUseCase: MakeToastUseCase,
     private val saveAvatarUseCase: SaveAvatarUseCase
-) : UseDatingProfileScreen,
+) :
+    UseDatingProfileScreen,
     AbstractInputViewModel<DatingUser, DatingProfileScreenState, DatingProfileScreenEffect>() {
 
     override fun createInitialState() = DatingProfileScreenState()
@@ -43,16 +44,18 @@ class DatingProfileScreenViewModel(
     init {
         onBackground {
             fetchDatingUserUseCase.resultFlow.collectLatest { result ->
-                result.onSuccess { newUser ->
-                    emitState {
-                        it.copy(
-                            user = newUser,
-                            about = it.about.copy(text = newUser.description)
-                        )
+                result
+                    .onSuccess { newUser ->
+                        emitState {
+                            it.copy(
+                                user = newUser,
+                                about = it.about.copy(text = newUser.description)
+                            )
+                        }
                     }
-                }.onFailure {
-                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-                }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
     }
@@ -64,16 +67,15 @@ class DatingProfileScreenViewModel(
     fun refresh() {
         onBackground {
             emitState {
-                it.copy(
-                    screen = it.screen.copy(state = ScreenState.LOADING),
-                    editMode = false
-                )
+                it.copy(screen = it.screen.copy(state = ScreenState.LOADING), editMode = false)
             }
             var isSuccess = true
             if (currentState.user.own) {
-                fetchInterestsUseCase().onSuccess { allInterests ->
-                    emitState { it.copy(allInterests = allInterests) }
-                }.onFailure { isSuccess = false }
+                fetchInterestsUseCase()
+                    .onSuccess { allInterests ->
+                        emitState { it.copy(allInterests = allInterests) }
+                    }
+                    .onFailure { isSuccess = false }
                 fetchDatingUserUseCase()
             }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
@@ -86,23 +88,25 @@ class DatingProfileScreenViewModel(
                 is DatingProfileScreenEvent.Edit -> {
                     emitState { it.copy(editMode = true) }
                 }
-
-                is DatingProfileScreenEvent.OnSettings -> postEffect(DatingProfileScreenEffect.OnSettings)
-                is DatingProfileScreenEvent.OnBack -> if (currentState.editMode) {
-                    emitState { it.copy(editMode = false) }
-                    refresh()
-                } else {
-                    postEffect(DatingProfileScreenEffect.OnBack)
-                }
-
-                is DatingProfileScreenEvent.PickInterest -> if (currentState.changedInterests.contains(
-                        event.interest
-                    )
-                ) {
-                    emitState { it.copy(changedInterests = it.changedInterests - event.interest) }
-                } else {
-                    emitState { it.copy(changedInterests = it.changedInterests + event.interest) }
-                }
+                is DatingProfileScreenEvent.OnSettings ->
+                    postEffect(DatingProfileScreenEffect.OnSettings)
+                is DatingProfileScreenEvent.OnBack ->
+                    if (currentState.editMode) {
+                        emitState { it.copy(editMode = false) }
+                        refresh()
+                    } else {
+                        postEffect(DatingProfileScreenEffect.OnBack)
+                    }
+                is DatingProfileScreenEvent.PickInterest ->
+                    if (currentState.changedInterests.contains(event.interest)) {
+                        emitState {
+                            it.copy(changedInterests = it.changedInterests - event.interest)
+                        }
+                    } else {
+                        emitState {
+                            it.copy(changedInterests = it.changedInterests + event.interest)
+                        }
+                    }
             }
         }
     }
@@ -112,12 +116,12 @@ class DatingProfileScreenViewModel(
             if (event.id == "choosePhoto") {
                 onBackground {
                     pickPhotoUseCase().onSuccess { uri ->
-                        saveAvatarUseCase(uri).onSuccess {
-                            emitState { it.copy(user = it.user.copy(avatar = uri.toString())) }
-                            makeToastUseCase(R.string.success)
-                        }.onFailure {
-                            makeToastUseCase(R.string.failure)
-                        }
+                        saveAvatarUseCase(uri)
+                            .onSuccess {
+                                emitState { it.copy(user = it.user.copy(avatar = uri.toString())) }
+                                makeToastUseCase(R.string.success)
+                            }
+                            .onFailure { makeToastUseCase(R.string.failure) }
                     }
                 }
             }
@@ -130,7 +134,10 @@ class DatingProfileScreenViewModel(
             if (event.id == "connect") {
                 if (currentState.user.connection.isEmpty()) {
                     connectUseCase(currentState.user)
-                } else if (currentState.user.connection.type == EnumTypeStatusConnect.WAIT && !currentState.user.connection.own) {
+                } else if (
+                    currentState.user.connection.type == EnumTypeStatusConnect.WAIT &&
+                        !currentState.user.connection.own
+                ) {
                     acceptConnectUseCase(currentState.user)
                 }
             }

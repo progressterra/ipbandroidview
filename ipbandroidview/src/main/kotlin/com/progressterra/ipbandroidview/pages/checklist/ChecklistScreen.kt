@@ -41,8 +41,8 @@ import com.progressterra.ipbandroidview.features.stats.Stats
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
-import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.Layout
+import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -52,9 +52,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ChecklistScreen(
-    state: ChecklistScreenState, useComponent: UseChecklistScreen
-) {
+fun ChecklistScreen(state: ChecklistScreenState, useComponent: UseChecklistScreen) {
     val internalSheetState =
         rememberModalBottomSheetState(ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
     val scope = rememberCoroutineScope()
@@ -63,71 +61,72 @@ fun ChecklistScreen(
         useComponent = useComponent,
         sheetState = internalSheetState
     ) {
-        Layout(topBar = {
-            TopBar(
-                title = stringResource(id = R.string.audit),
-                showBackButton = true,
-                useComponent = useComponent
-            )
-        }, bottomBar = {
-            Column(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                when (state.status) {
-                    ChecklistStatus.READ_ONLY -> Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        title = stringResource(id = R.string.send_on_email),
-                        state = state.sendButton,
-                        useComponent = useComponent
-                    )
-
-                    ChecklistStatus.CAN_BE_STARTED -> Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        title = stringResource(id = R.string.start_audit),
-                        state = state.startButton,
-                        useComponent = useComponent
-                    )
-
-                    ChecklistStatus.ONGOING -> Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        val stats by remember(state.checks) {
-                            mutableStateOf(state.checks.createStats())
-                        }
-                        var buttonHeight by remember {
-                            mutableStateOf(0.dp)
-                        }
-                        val density = LocalDensity.current
-                        Button(
-                            modifier = Modifier
-                                .weight(1f)
-                                .onGloballyPositioned {
-                                    buttonHeight = with(density) {
-                                        it.size.height.toDp()
+        Layout(
+            topBar = {
+                TopBar(
+                    title = stringResource(id = R.string.audit),
+                    showBackButton = true,
+                    useComponent = useComponent
+                )
+            },
+            bottomBar = {
+                Column(
+                    modifier =
+                        Modifier.clip(RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    when (state.status) {
+                        ChecklistStatus.READ_ONLY ->
+                            Button(
+                                modifier = Modifier.fillMaxWidth(),
+                                title = stringResource(id = R.string.send_on_email),
+                                state = state.sendButton,
+                                useComponent = useComponent
+                            )
+                        ChecklistStatus.CAN_BE_STARTED ->
+                            Button(
+                                modifier = Modifier.fillMaxWidth(),
+                                title = stringResource(id = R.string.start_audit),
+                                state = state.startButton,
+                                useComponent = useComponent
+                            )
+                        ChecklistStatus.ONGOING ->
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                val stats by
+                                    remember(state.checks) {
+                                        mutableStateOf(state.checks.createStats())
                                     }
-                                },
-                            title = stringResource(id = R.string.end_audit),
-                            state = state.finishButton,
-                            useComponent = useComponent
-                        )
-                        Stats(modifier = Modifier
-                            .weight(1f)
-                            .height(buttonHeight), stats = stats)
+                                var buttonHeight by remember { mutableStateOf(0.dp) }
+                                val density = LocalDensity.current
+                                Button(
+                                    modifier =
+                                        Modifier.weight(1f).onGloballyPositioned {
+                                            buttonHeight = with(density) { it.size.height.toDp() }
+                                        },
+                                    title = stringResource(id = R.string.end_audit),
+                                    state = state.finishButton,
+                                    useComponent = useComponent
+                                )
+                                Stats(
+                                    modifier = Modifier.weight(1f).height(buttonHeight),
+                                    stats = stats
+                                )
+                            }
                     }
                 }
-            }
-        }, bottomOverlap = true) { _, bottomPadding ->
+            },
+            bottomOverlap = true
+        ) { _, bottomPadding ->
             StateColumn(
                 modifier = Modifier.fillMaxSize(),
                 state = state.screen,
                 useComponent = useComponent
             ) {
-                val groupedChecks by remember(state.checks) {
-                    mutableStateOf(state.checks.groupBy { it.categoryNumber })
-                }
+                val groupedChecks by
+                    remember(state.checks) {
+                        mutableStateOf(state.checks.groupBy { it.categoryNumber })
+                    }
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -135,11 +134,11 @@ fun ChecklistScreen(
                 ) {
                     item {
                         Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(IpbTheme.colors.surface.asBrush())
-                                .padding(12.dp),
+                            modifier =
+                                Modifier.fillMaxWidth()
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(IpbTheme.colors.surface.asBrush())
+                                    .padding(12.dp),
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text(
@@ -148,7 +147,8 @@ fun ChecklistScreen(
                                 style = IpbTheme.typography.title2
                             )
                             Text(
-                                text = "${stringResource(id = R.string.questions)}: ${state.checks.size}",
+                                text =
+                                    "${stringResource(id = R.string.questions)}: ${state.checks.size}",
                                 tint = IpbTheme.colors.textTertiary.asBrush(),
                                 style = IpbTheme.typography.footnoteRegular
                             )
@@ -158,21 +158,27 @@ fun ChecklistScreen(
                         item {
                             Divider(
                                 modifier = Modifier.fillMaxWidth(),
-                                title = checks.firstOrNull()?.printCategory()
-                                    ?: stringResource(R.string.no_data)
+                                title =
+                                    checks.firstOrNull()?.printCategory()
+                                        ?: stringResource(R.string.no_data)
                             )
                         }
                         items(checks) {
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(if (it.yesNo == true) IpbTheme.colors.success.asBrush() else if (it.yesNo == false) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.surface.asBrush())
-                                    .niceClickable {
-                                        useComponent.handle(ChecklistScreenEvent.OnCheck(it))
-                                        scope.launch { internalSheetState.show() }
-                                    }
-                                    .padding(12.dp),
+                                modifier =
+                                    Modifier.fillMaxWidth()
+                                        .clip(RoundedCornerShape(12.dp))
+                                        .background(
+                                            if (it.yesNo == true) IpbTheme.colors.success.asBrush()
+                                            else if (it.yesNo == false)
+                                                IpbTheme.colors.secondary.asBrush()
+                                            else IpbTheme.colors.surface.asBrush()
+                                        )
+                                        .niceClickable {
+                                            useComponent.handle(ChecklistScreenEvent.OnCheck(it))
+                                            scope.launch { internalSheetState.show() }
+                                        }
+                                        .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
@@ -190,7 +196,6 @@ fun ChecklistScreen(
                                 )
                             }
                         }
-
                     }
                     item { Spacer(modifier = Modifier.size(bottomPadding)) }
                 }
@@ -204,41 +209,26 @@ fun ChecklistScreen(
 private fun ChecklistScreenPreview() {
     IpbTheme {
         ChecklistScreen(
-            state = ChecklistScreenState(
-                auditDocument = AuditDocument(),
-                checks = listOf(
-                    Check(
-                        name = "Check 1",
-                        categoryNumber = 1,
-                        yesNo = true
-                    ),
-                    Check(
-                        name = "Very long check named Check hahaha 2 I wanna kms",
-                        categoryNumber = 1,
-                        yesNo = false
-                    ),
-                    Check(
-                        name = "Check 3",
-                        categoryNumber = 2,
-                        yesNo = null
-                    ),
-                    Check(
-                        name = "Check 4",
-                        categoryNumber = 2,
-                        yesNo = null
-                    ),
-                    Check(
-                        name = "Check 5",
-                        categoryNumber = 4,
-                        yesNo = null
-                    ),
+            state =
+                ChecklistScreenState(
+                    auditDocument = AuditDocument(),
+                    checks =
+                        listOf(
+                            Check(name = "Check 1", categoryNumber = 1, yesNo = true),
+                            Check(
+                                name = "Very long check named Check hahaha 2 I wanna kms",
+                                categoryNumber = 1,
+                                yesNo = false
+                            ),
+                            Check(name = "Check 3", categoryNumber = 2, yesNo = null),
+                            Check(name = "Check 4", categoryNumber = 2, yesNo = null),
+                            Check(name = "Check 5", categoryNumber = 4, yesNo = null),
+                        ),
+                    screen = StateColumnState(state = ScreenState.SUCCESS),
+                    currentCheckState =
+                        CurrentCheckState(screen = StateColumnState(state = ScreenState.SUCCESS)),
+                    status = ChecklistStatus.READ_ONLY,
                 ),
-                screen = StateColumnState(state = ScreenState.SUCCESS),
-                currentCheckState = CurrentCheckState(
-                    screen = StateColumnState(state = ScreenState.SUCCESS)
-                ),
-                status = ChecklistStatus.READ_ONLY,
-            ),
             useComponent = UseChecklistScreen.Empty()
         )
     }

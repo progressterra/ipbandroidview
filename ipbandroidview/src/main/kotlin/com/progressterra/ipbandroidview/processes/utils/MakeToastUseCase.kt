@@ -12,9 +12,7 @@ interface MakeToastUseCase {
 
     suspend operator fun invoke(text: String)
 
-    class Base(
-        private val context: Context
-    ) : MakeToastUseCase {
+    class Base(private val context: Context) : MakeToastUseCase {
 
         override suspend fun invoke(text: String) {
             withContext(Dispatchers.Main) {

@@ -8,8 +8,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UseBonusesDetailsScreen : UseTopBar,
-    UseBonuses, UseStateColumn {
+interface UseBonusesDetailsScreen : UseTopBar, UseBonuses, UseStateColumn {
 
     class Empty : UseBonusesDetailsScreen {
 

@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactionsState
 
-
 data class BonusesDetailsScreenState(
     val bonuses: BonusesState = BonusesState(),
     val transactions: BonusesTransactionsState = BonusesTransactionsState(),

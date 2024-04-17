@@ -27,23 +27,17 @@ import com.progressterra.ipbandroidview.shared.ui.Text
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
-fun Documents(
-    modifier: Modifier = Modifier,
-    state: DocumentsState,
-    useComponent: UseDocuments
-) {
+fun Documents(modifier: Modifier = Modifier, state: DocumentsState, useComponent: UseDocuments) {
 
     @Composable
-    fun Item(
-        itemState: Document
-    ) {
+    fun Item(itemState: Document) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable { useComponent.handle(DocumentsEvent(itemState)) }
-                .padding(16.dp),
+            modifier =
+                Modifier.fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .niceClickable { useComponent.handle(DocumentsEvent(itemState)) }
+                    .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -59,20 +53,12 @@ fun Documents(
                     tint = itemState.status.toColor()
                 )
             }
-            Icon(
-                resId = R.drawable.ic_forw,
-                tint = IpbTheme.colors.iconPrimary.asBrush()
-            )
+            Icon(resId = R.drawable.ic_forw, tint = IpbTheme.colors.iconPrimary.asBrush())
         }
     }
 
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(state.items) {
-            Item(it)
-        }
+    LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(state.items) { Item(it) }
     }
 }
 
@@ -81,35 +67,25 @@ fun Documents(
 private fun DocumentsPreview() {
     IpbTheme {
         Documents(
-            state = DocumentsState(
-                items = listOf(
-                    Document(
-                        id = "",
-                        name = "Passport 1",
-                        status = TypeStatusDoc.REJECTED
-                    ),
-                    Document(
-                        id = "",
-                        name = "Passport 2",
-                        status = TypeStatusDoc.NOT_FILL
-                    ),
-                    Document(
-                        id = "",
-                        name = "Passport 3",
-                        status = TypeStatusDoc.WAIT_REVIEW
-                    ),
-                    Document(
-                        id = "",
-                        name = "Passport 4",
-                        status = TypeStatusDoc.WAIT_IMAGE
-                    ),
-                    Document(
-                        id = "",
-                        name = "Passport 5",
-                        status = TypeStatusDoc.CONFIRMED
-                    )
-                )
-            ),
+            state =
+                DocumentsState(
+                    items =
+                        listOf(
+                            Document(id = "", name = "Passport 1", status = TypeStatusDoc.REJECTED),
+                            Document(id = "", name = "Passport 2", status = TypeStatusDoc.NOT_FILL),
+                            Document(
+                                id = "",
+                                name = "Passport 3",
+                                status = TypeStatusDoc.WAIT_REVIEW
+                            ),
+                            Document(
+                                id = "",
+                                name = "Passport 4",
+                                status = TypeStatusDoc.WAIT_IMAGE
+                            ),
+                            Document(id = "", name = "Passport 5", status = TypeStatusDoc.CONFIRMED)
+                        )
+                ),
             useComponent = UseDocuments.Empty()
         )
     }

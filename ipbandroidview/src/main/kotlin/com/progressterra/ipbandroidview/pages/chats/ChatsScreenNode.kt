@@ -9,12 +9,8 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class ChatsScreenNode(
-    buildContext: BuildContext,
-    private val navigation: ChatsScreenNavigation
-) : Node(
-    buildContext
-) {
+class ChatsScreenNode(buildContext: BuildContext, private val navigation: ChatsScreenNavigation) :
+    Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -25,13 +21,7 @@ class ChatsScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        ChatsScreen(
-            modifier = modifier,
-            state = state,
-            useComponent = viewModel
-        )
+        LaunchedEffect(Unit) { viewModel.refresh() }
+        ChatsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

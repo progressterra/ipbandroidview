@@ -17,9 +17,7 @@ class ConfirmationCodeScreenNode(
     buildContext: BuildContext,
     private val input: SignInData,
     private val navigation: ConfirmationCodeScreenNavigation
-) : Node(
-    buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -30,7 +28,6 @@ class ConfirmationCodeScreenNode(
                 is ConfirmationCodeScreenEffect.Toast -> {
                     Toast.makeText(context, effect.data, Toast.LENGTH_SHORT).show()
                 }
-
                 is ConfirmationCodeScreenEffect.Back -> navigation.onBack()
                 is ConfirmationCodeScreenEffect.Next -> navigation.onNext()
                 is ConfirmationCodeScreenEffect.Skip -> navigation.onSkip()

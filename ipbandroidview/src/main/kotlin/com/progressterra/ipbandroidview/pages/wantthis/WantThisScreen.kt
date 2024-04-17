@@ -23,16 +23,18 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun WantThisScreen(
-    modifier: Modifier = Modifier, state: WantThisScreenState, useComponent: UseWantThisScreen
+    modifier: Modifier = Modifier,
+    state: WantThisScreenState,
+    useComponent: UseWantThisScreen
 ) {
-    Layout(modifier = modifier, topBar = {
-        TopBar(
-            title = stringResource(R.string.want_this),
-            useComponent = useComponent
-        )
-    }) { _, _ ->
+    Layout(
+        modifier = modifier,
+        topBar = { TopBar(title = stringResource(R.string.want_this), useComponent = useComponent) }
+    ) { _, _ ->
         StateColumn(
-            state = state.screen, scrollable = true, useComponent = useComponent,
+            state = state.screen,
+            scrollable = true,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {

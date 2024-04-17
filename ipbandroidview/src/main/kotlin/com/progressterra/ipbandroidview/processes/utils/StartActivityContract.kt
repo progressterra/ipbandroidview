@@ -16,7 +16,6 @@ interface StartActivityContract {
 
     interface Activity {
 
-
         fun setListener(listener: Listener)
     }
 
@@ -29,6 +28,5 @@ interface StartActivityContract {
         }
 
         override fun start(intent: Intent) = listener.start(intent)
-
     }
 }

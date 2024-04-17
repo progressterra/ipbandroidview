@@ -10,14 +10,11 @@ interface FetchWithdrawalTransactionsUseCase : PagingUseCase<Nothing, Withdrawal
     class Base(
         private val paymentRepository: PaymentRepository,
         private val obtainAccessToken: ObtainAccessToken
-    ) : PagingUseCase.Abstract<Nothing, WithdrawalTransactionState>(),
+    ) :
+        PagingUseCase.Abstract<Nothing, WithdrawalTransactionState>(),
         FetchWithdrawalTransactionsUseCase {
 
         override fun createSource() =
-            WithdrawalTransactionsCardsSource(
-                paymentRepository,
-                obtainAccessToken
-            )
+            WithdrawalTransactionsCardsSource(paymentRepository, obtainAccessToken)
     }
 }
-

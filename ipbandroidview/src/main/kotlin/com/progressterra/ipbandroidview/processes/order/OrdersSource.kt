@@ -21,19 +21,29 @@ class OrdersSource(
     override suspend fun loadPage(
         skip: Int,
         take: Int
-    ): Result<Pair<Int, List<OrderCompactState>>> =
-        runCatching {
-            val response = cartRepository.orders(
-                accessToken = obtainAccessToken().getOrThrow(), income = FilterAndSort(
-                    listFields = emptyList(), sort = SortData(
-                        fieldName = "dateAdded", variantSort = TypeVariantSort.DESC
-                    ), searchData = "", skip = skip, take = take
+    ): Result<Pair<Int, List<OrderCompactState>>> = runCatching {
+        val response =
+            cartRepository
+                .orders(
+                    accessToken = obtainAccessToken().getOrThrow(),
+                    income =
+                        FilterAndSort(
+                            listFields = emptyList(),
+                            sort =
+                                SortData(
+                                    fieldName = "dateAdded",
+                                    variantSort = TypeVariantSort.DESC
+                                ),
+                            searchData = "",
+                            skip = skip,
+                            take = take
+                        )
                 )
-            ).also {
-                if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
-                    it.result?.message ?: ""
-                )
-            }.dataList ?: emptyList()
-            response.size to response.map { it.toOrder().toOrderCompactState() }
-        }
+                .also {
+                    if (it.result?.status != StatusResult.SUCCESS)
+                        throw ToastedException(it.result?.message ?: "")
+                }
+                .dataList ?: emptyList()
+        response.size to response.map { it.toOrder().toOrderCompactState() }
+    }
 }
