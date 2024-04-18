@@ -126,7 +126,7 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.8.0"))
+    api(platform("com.google.firebase:firebase-bom:32.8.1"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
