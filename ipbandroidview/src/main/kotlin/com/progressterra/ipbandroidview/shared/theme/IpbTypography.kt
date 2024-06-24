@@ -26,7 +26,7 @@ data class IpbTypography(
             textDecoration = TextDecoration.LineThrough
         ),
     val subHeadlineRegular: TextStyle =
-        TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal, lineHeight = 18.sp),
+        TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Normal, lineHeight = 18.sp),
     val subHeadlineItalic: TextStyle =
         subHeadlineRegular.copy(fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold),
     val subHeadlineBold: TextStyle = subHeadlineRegular.copy(fontWeight = FontWeight.Bold),

@@ -73,13 +73,15 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components.findByName("release"))
-                artifactId = "ipbandroidviewuiconfig"
+                artifactId = "ipbandroidviewuiconfig_ps"
             }
         }
     }
 }
 
 dependencies {
+
+    implementation("network.chaintech:qr-kit:1.0.4")
     // Core
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
@@ -136,7 +138,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.17")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.20")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")

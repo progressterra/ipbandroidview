@@ -29,6 +29,12 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+
+
+
+
 @Composable
 fun Bonuses(
     modifier: Modifier = Modifier,
@@ -36,18 +42,21 @@ fun Bonuses(
     style: BonusesStyle = BonusesStyle.MAIN,
     useComponent: UseBonuses
 ) {
+    val colorLeft = Color(0xFF53B8EB)
+    val colorRight = Color(0xFF27D1AE)
+
     StateColumn(
         modifier = modifier.fillMaxWidth().height(if (UserData.clientExist) 162.dp else 198.dp),
         state = state.state,
         useComponent = useComponent
     ) {
         Column(
-            modifier =
-                Modifier.fillMaxWidth()
-                    .height(if (UserData.clientExist) 162.dp else 198.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.secondaryPressed.asBrush())
-                    .padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(if (UserData.clientExist) 162.dp else 198.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(Brush.horizontalGradient(listOf(colorLeft, colorRight)))
+                .padding(16.dp)
         ) {
             if (UserData.clientExist) {
                 Row(
@@ -56,12 +65,7 @@ fun Bonuses(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text =
-                            "${stringResource(R.string.you_have)} ${state.roubles} ${
-                            stringResource(
-                                R.string.roubles
-                            )
-                        }",
+                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${stringResource(R.string.roubles)}",
                         style = IpbTheme.typography.title,
                         tint = IpbTheme.colors.textButton.asBrush()
                     )
@@ -80,8 +84,7 @@ fun Bonuses(
                 }
                 if (style == BonusesStyle.MAIN && !state.hasCards) {
                     Text(
-                        modifier =
-                            Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+                        modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
                         text = stringResource(R.string.add_card),
                         style = IpbTheme.typography.subHeadlineBold,
                         tint = IpbTheme.colors.primary.asBrush()
@@ -95,12 +98,7 @@ fun Bonuses(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text =
-                            "${stringResource(R.string.can_be_out)} ${state.roubles} ${
-                            stringResource(
-                                R.string.roubles
-                            )
-                        }",
+                        text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${stringResource(R.string.roubles)}",
                         style = IpbTheme.typography.subHeadlineItalic,
                         tint = IpbTheme.colors.textTertiary.asBrush()
                     )
@@ -131,8 +129,7 @@ fun Bonuses(
                 }
             } else {
                 Text(
-                    text =
-                        "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
+                    text = "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textButton.asBrush()
                 )
@@ -146,7 +143,7 @@ fun Bonuses(
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.auth,
-                    title = stringResource(id = R.string.auth_button),
+                    title = stringResource(id = R.string.auth_button) + "!!!",
                     useComponent = useComponent
                 )
             }
@@ -154,50 +151,207 @@ fun Bonuses(
     }
 }
 
-@Composable
-@Preview
-private fun BonusesPreview0() {
-    IpbTheme {
-        Bonuses(
-            state =
-                BonusesState(
-                    roubles = "100",
-                    state = StateColumnState(state = ScreenState.SUCCESS)
-                ),
-            useComponent = UseBonuses.Empty()
-        )
-    }
-}
 
-@Composable
-@Preview
-private fun BonusesPreview1() {
-    IpbTheme {
-        Bonuses(
-            state =
-                BonusesState(
-                    roubles = "100",
-                    hasCards = true,
-                    state = StateColumnState(state = ScreenState.SUCCESS)
-                ),
-            useComponent = UseBonuses.Empty(),
-            style = BonusesStyle.TRANSACTIONS
-        )
-    }
-}
-
-@Composable
-@Preview
-private fun BonusesPreview2() {
-    IpbTheme {
-        Bonuses(
-            state =
-                BonusesState(
-                    roubles = "100",
-                    hasCards = true,
-                    state = StateColumnState(state = ScreenState.SUCCESS)
-                ),
-            useComponent = UseBonuses.Empty()
-        )
-    }
-}
+//package com.progressterra.ipbandroidview.features.bonuses
+//
+//import androidx.compose.foundation.background
+//import androidx.compose.foundation.layout.Arrangement
+//import androidx.compose.foundation.layout.Column
+//import androidx.compose.foundation.layout.Row
+//import androidx.compose.foundation.layout.Spacer
+//import androidx.compose.foundation.layout.fillMaxWidth
+//import androidx.compose.foundation.layout.height
+//import androidx.compose.foundation.layout.padding
+//import androidx.compose.foundation.layout.size
+//import androidx.compose.foundation.shape.RoundedCornerShape
+//import androidx.compose.material.IconButton
+//import androidx.compose.runtime.Composable
+//import androidx.compose.ui.Alignment
+//import androidx.compose.ui.Modifier
+//import androidx.compose.ui.draw.clip
+//import androidx.compose.ui.res.stringResource
+//import androidx.compose.ui.tooling.preview.Preview
+//import androidx.compose.ui.unit.dp
+//import com.progressterra.ipbandroidview.R
+//import com.progressterra.ipbandroidview.shared.UserData
+//import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+//import com.progressterra.ipbandroidview.shared.ui.Icon
+//import com.progressterra.ipbandroidview.shared.ui.Text
+//import com.progressterra.ipbandroidview.shared.ui.button.Button
+//import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
+//import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+//import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+//import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
+//
+//@Composable
+//fun Bonuses(
+//    modifier: Modifier = Modifier,
+//    state: BonusesState,
+//    style: BonusesStyle = BonusesStyle.MAIN,
+//    useComponent: UseBonuses
+//) {
+//    StateColumn(
+//        modifier = modifier.fillMaxWidth().height(if (UserData.clientExist) 162.dp else 198.dp),
+//        state = state.state,
+//        useComponent = useComponent
+//    ) {
+//        Column(
+//            modifier =
+//                Modifier.fillMaxWidth()
+//                    .height(if (UserData.clientExist) 162.dp else 198.dp)
+//                    .clip(RoundedCornerShape(12.dp))
+//                    .background(IpbTheme.colors.secondaryPressed.asBrush())
+//                    .padding(16.dp)
+//        ) {
+//            if (UserData.clientExist) {
+//                Row(
+//                    modifier = Modifier.fillMaxWidth().height(45.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text =
+//                            "${stringResource(R.string.you_have)} ${state.roubles} ${
+//                            stringResource(
+//                                R.string.roubles
+//                            )
+//                        }",
+//                        style = IpbTheme.typography.title,
+//                        tint = IpbTheme.colors.textButton.asBrush()
+//                    )
+//                    if (style == BonusesStyle.MAIN) {
+//                        IconButton(
+//                            modifier = Modifier.size(45.dp),
+//                            onClick = { useComponent.handle(BonusesEvent.Transactions) }
+//                        ) {
+//                            Icon(
+//                                modifier = Modifier.size(45.dp),
+//                                resId = R.drawable.ic_arrow,
+//                                tint = IpbTheme.colors.primary.asBrush(),
+//                            )
+//                        }
+//                    }
+//                }
+//                if (style == BonusesStyle.MAIN && !state.hasCards) {
+//                    Text(
+//                        modifier =
+//                            Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+//                        text = stringResource(R.string.add_card),
+//                        style = IpbTheme.typography.subHeadlineBold,
+//                        tint = IpbTheme.colors.primary.asBrush()
+//                    )
+//                } else {
+//                    Spacer(modifier = Modifier.weight(1f))
+//                }
+//                Row(
+//                    modifier = Modifier.fillMaxWidth().height(45.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text =
+//                            "${stringResource(R.string.can_be_out)} ${state.roubles} ${
+//                            stringResource(
+//                                R.string.roubles
+//                            )
+//                        }",
+//                        style = IpbTheme.typography.subHeadlineItalic,
+//                        tint = IpbTheme.colors.textTertiary.asBrush()
+//                    )
+//                    if (style == BonusesStyle.MAIN) {
+//                        IconButton(
+//                            modifier = Modifier.size(45.dp),
+//                            onClick = { useComponent.handle(BonusesEvent.Withdrawal) }
+//                        ) {
+//                            Icon(
+//                                modifier = Modifier.size(45.dp),
+//                                resId = R.drawable.ic_withdrawal,
+//                                tint = IpbTheme.colors.primary.asBrush(),
+//                            )
+//                        }
+//                    }
+//                }
+//                Row(verticalAlignment = Alignment.CenterVertically) {
+//                    Text(
+//                        text = stringResource(R.string.available_installment),
+//                        style = IpbTheme.typography.subHeadlineRegular,
+//                        tint = IpbTheme.colors.textSecondary.asBrush()
+//                    )
+//                    Text(
+//                        text = stringResource(R.string.available_installment_2),
+//                        style = IpbTheme.typography.subHeadlineBold,
+//                        tint = IpbTheme.colors.textButton.asBrush()
+//                    )
+//                }
+//            } else {
+//                Text(
+//                    text =
+//                        "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
+//                    style = IpbTheme.typography.title,
+//                    tint = IpbTheme.colors.textButton.asBrush()
+//                )
+//                Spacer(modifier = Modifier.height(20.dp))
+//                Text(
+//                    text = stringResource(R.string.please_auth),
+//                    style = IpbTheme.typography.subHeadlineBold,
+//                    tint = IpbTheme.colors.textButton.asBrush()
+//                )
+//                Spacer(modifier = Modifier.height(20.dp))
+//                Button(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    state = state.auth,
+//                    title = stringResource(id = R.string.auth_button) + "!!!",
+//                    useComponent = useComponent
+//                )
+//            }
+//        }
+//    }
+//}
+//
+//@Composable
+//@Preview
+//private fun BonusesPreview0() {
+//    IpbTheme {
+//        Bonuses(
+//            state =
+//                BonusesState(
+//                    roubles = "100",
+//                    state = StateColumnState(state = ScreenState.SUCCESS)
+//                ),
+//            useComponent = UseBonuses.Empty()
+//        )
+//    }
+//}
+//
+//@Composable
+//@Preview
+//private fun BonusesPreview1() {
+//    IpbTheme {
+//        Bonuses(
+//            state =
+//                BonusesState(
+//                    roubles = "100",
+//                    hasCards = true,
+//                    state = StateColumnState(state = ScreenState.SUCCESS)
+//                ),
+//            useComponent = UseBonuses.Empty(),
+//            style = BonusesStyle.TRANSACTIONS
+//        )
+//    }
+//}
+//
+//@Composable
+//@Preview
+//private fun BonusesPreview2() {
+//    IpbTheme {
+//        Bonuses(
+//            state =
+//                BonusesState(
+//                    roubles = "100",
+//                    hasCards = true,
+//                    state = StateColumnState(state = ScreenState.SUCCESS)
+//                ),
+//            useComponent = UseBonuses.Empty()
+//        )
+//    }
+//}

@@ -39,6 +39,7 @@ private constructor(
         IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES = config["mainCategories"]!!
         IpbAndroidViewSettings.SHOW_PROFILE_DETAILS_BACK_BUTTON =
             config["showProfileDetailsBackButton"]!!.first().toBoolean()
+
         IpbAndroidViewSettings.COLORS =
             IpbColors(
                 // Main
@@ -96,6 +97,17 @@ private constructor(
         IpbAndroidViewSettings.PROFILE_BUTTONS = config["profileButtons"]!!
         IpbAndroidViewSettings.PROFILE_BUTTONS_BORDER =
             config["profileButtonsBorder"]!!.first().toBoolean()
+
+
+//        IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID = config["wantThisDocTypeId"]!!.first()
+//        IpbAndroidViewSettings.DEFAULT_ID = config["defaultId"]!!.first()
+//        IpbAndroidViewSettings.DOCS_CHAT_ID = config["docsChatId"]!!.first()
+//        IpbAndroidViewSettings.WANT_THIS_CHAT_ID = config["wantThisChatId"]!!.first()
+//        IpbAndroidViewSettings.ORDERS_CHAT_ID = config["ordersChatId"]!!.first()
+//        IpbAndroidViewSettings.MAIN_CHAT_ID = config["mainChatId"]!!.first()
+//        IpbAndroidViewSettings.BANK_CARDS_TYPE_ID = config["bankCardsTypeId"]!!.first()
+
+
         IpbAndroidApiSettings.CHECKLIST_URL = config["checklistUrl"]!!
         IpbAndroidApiSettings.SUGGESTION_URL = config["suggestionUrl"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!

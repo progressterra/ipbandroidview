@@ -49,7 +49,7 @@ fun GoodsDescription(
                 listOf(
                     stringResource(id = R.string.description),
                     stringResource(id = R.string.parameters),
-                    stringResource(id = R.string.delivery)
+//                    stringResource(id = R.string.delivery)
                 ),
             currentIndex = pagerState.currentPage,
             onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } }
@@ -111,33 +111,33 @@ fun GoodsDescription(
                             }
                         }
                     }
-                    2 -> {
-                        Text(
-                            text = stringResource(R.string.delivery),
-                            tint = IpbTheme.colors.textPrimary.asBrush(),
-                            style = IpbTheme.typography.title
-                        )
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            IconButton(
-                                modifier = Modifier.size(45.dp),
-                                onClick = { useComponent.handle(GoodsDescriptionEvent) }
-                            ) {
-                                Icon(
-                                    modifier = Modifier.size(45.dp),
-                                    resId = R.drawable.ic_courier,
-                                    tint = IpbTheme.colors.iconPrimary.asBrush()
-                                )
-                            }
-                            Text(
-                                text = stringResource(R.string.courier_delivery),
-                                tint = IpbTheme.colors.textPrimary.asBrush(),
-                                style = IpbTheme.typography.body
-                            )
-                        }
-                    }
+//                    2 -> {
+//                        Text(
+//                            text = stringResource(R.string.delivery),
+//                            tint = IpbTheme.colors.textPrimary.asBrush(),
+//                            style = IpbTheme.typography.title
+//                        )
+//                        Column(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ) {
+//                            IconButton(
+//                                modifier = Modifier.size(45.dp),
+//                                onClick = { useComponent.handle(GoodsDescriptionEvent) }
+//                            ) {
+//                                Icon(
+//                                    modifier = Modifier.size(45.dp),
+//                                    resId = R.drawable.ic_courier,
+//                                    tint = IpbTheme.colors.iconPrimary.asBrush()
+//                                )
+//                            }
+//                            Text(
+//                                text = stringResource(R.string.courier_delivery),
+//                                tint = IpbTheme.colors.textPrimary.asBrush(),
+//                                style = IpbTheme.typography.body
+//                            )
+//                        }
+//                    }
                 }
             }
         }

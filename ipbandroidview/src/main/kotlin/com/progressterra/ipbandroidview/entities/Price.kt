@@ -11,7 +11,8 @@ data class Price(private val price: Int = 0) : IsEmpty, Parcelable {
     override fun toString(): String {
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("ru", "RU"))
         numberFormat.maximumFractionDigits = 0
-        return numberFormat.format(price)
+        return price.toString()
+        //return numberFormat.format(price)
     }
 
     fun toStringRaw() = price.toString()

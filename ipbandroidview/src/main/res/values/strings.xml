@@ -111,7 +111,7 @@
     <string name="order_from">Заказ от</string>
     <string name="sum_of_goods">товара на сумму</string>
     <string name="track">Отследить</string>
-    <string name="want_this">Хочу это</string>
+    <string name="want_this">Сканировать код</string>
     <string name="past_requests">Предыдущие запросы</string>
     <string name="send_request">Отправить запрос</string>
     <string name="payment_inner">Внутренний баланс</string>

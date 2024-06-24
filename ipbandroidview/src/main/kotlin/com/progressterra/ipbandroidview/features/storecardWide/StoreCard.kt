@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.storecard
+package com.progressterra.ipbandroidview.features.storecardwide
 
 import androidx.compose.foundation.background
 
@@ -36,60 +36,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.*
 
 
-//@Composable
-//fun GradientText(
-//    text: String,
-//    modifier: Modifier = Modifier
-//) {
-//    Box(
-//        modifier = modifier
-//            .background(
-//                brush = Brush.horizontalGradient(
-//                    colors = listOf(colorLeft, colorRight)
-//                ),
-//                shape = RoundedCornerShape(4.dp)
-//            )
-//            .padding(horizontal = 16.dp, vertical = 8.dp)
-//    ) {
-//        Text(
-//            text = text,
-//            style = textStyle,
-//            color = textColor
-//        )
-//    }
-//}
 
 @Composable
-fun StoreCard(modifier: Modifier = Modifier, state: StoreCardState, useComponent: UseStoreCard) {
+fun StoreCardWide(modifier: Modifier = Modifier, state: StoreCardWideState, useComponent: UseStoreCardWide) {
     val colorLeft = Color(0xFF53B8EB)
     val colorRight = Color(0xFF27D1AE)
     Column(
         modifier =
-            modifier.width(157.dp).clip(RoundedCornerShape(8.dp)).niceClickable {
-                useComponent.handle(StoreCardEvent.Open(state.id))
+            modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).niceClickable {
+                useComponent.handle(StoreCardWideEvent.Open(state.id))
             },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Image(
             modifier =
-                Modifier.size(width = 157.dp, height = 157.dp),//.clip(RoundedCornerShape(8.dp)),
+                Modifier.fillMaxWidth(),//.clip(RoundedCornerShape(8.dp)),
             image = state.image
         )
-        Text(
-            modifier = Modifier
-                .background(Brush.horizontalGradient(listOf(colorLeft, colorRight)))
-                .fillMaxWidth()
-                .padding(7.dp),
-            text = "Кэшбэк " + state.price.toString() + " баллов",
-            style = IpbTheme.typography.subHeadlineRegular,
-            tint = IpbTheme.colors.textPrimary2.asBrush(),
-        )
-        Text(
-            text = state.name,
-            style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.textPrimary.asBrush(),
-        )
-
     }
 }
 
@@ -97,19 +60,19 @@ fun StoreCard(modifier: Modifier = Modifier, state: StoreCardState, useComponent
 @Composable
 private fun StoreCardPreview() {
     Preview {
-        StoreCard(
-            state = StoreCardState(name = "Ноутбук Lenovo IdeaPad 3 15ADA05", price = Price(10)),
-            useComponent = UseStoreCard.Empty()
+        StoreCardWide(
+            state = StoreCardWideState(name = "Ноутбук Lenovo IdeaPad 3 15ADA05", price = Price(10)),
+            useComponent = UseStoreCardWide.Empty()
         )
-        StoreCard(
+        StoreCardWide(
             state =
-                StoreCardState(
+                StoreCardWideState(
                     name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
                     price = Price(100),
                     counter = CounterState("1", 5),
                     installment = Installment(months = 4, perMonth = Price(500))
                 ),
-            useComponent = UseStoreCard.Empty()
+            useComponent = UseStoreCardWide.Empty()
         )
     }
 }
