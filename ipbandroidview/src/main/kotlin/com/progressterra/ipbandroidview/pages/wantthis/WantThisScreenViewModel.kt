@@ -20,6 +20,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.updateById
 
 class WantThisScreenViewModel(
     private val fetchWantThisTemplateUseCase: FetchWantThisTemplateUseCase,
@@ -27,8 +28,9 @@ class WantThisScreenViewModel(
     docsValidationUseCase: DocumentValidationUseCase,
     checkPermissionUseCase: CheckPermissionUseCase,
     askPermissionUseCase: AskPermissionUseCase,
-    makePhotoUseCase: MakePhotoUseCase,
+    makePhotoUseCase: MakePhotoUseCase
 ) : AbstractNonInputViewModel<WantThisScreenState, WantThisScreenEffect>(), UseWantThisScreen {
+
 
     override fun createInitialState() = WantThisScreenState()
 
@@ -57,6 +59,21 @@ class WantThisScreenViewModel(
                     get() = currentState.document
             }
         )
+
+    fun updateDoc(scannedValue: String) {
+
+        val updatedEntries = currentState.document.entries.mapIndexed { index, textFieldState ->
+            if (index == 0) {
+                textFieldState.copy(text = scannedValue)
+            } else {
+                textFieldState
+            }
+        }
+        val newDocument = currentState.document.copy(entries = updatedEntries)
+
+        docsModule.setup(newDocument)
+    }
+
 
     override fun refresh() {
         onBackground {

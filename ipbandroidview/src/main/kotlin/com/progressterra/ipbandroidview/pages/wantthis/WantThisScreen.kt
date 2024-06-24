@@ -44,7 +44,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 
 import androidx.compose.ui.unit.sp
+import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.updateById
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import qrscanner.QrScanner
 
 
@@ -56,6 +60,8 @@ fun QrScannerCompose(onQrCodeScanned: (String) -> Unit) {
     var launchGallery by remember { mutableStateOf(false) }
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 
     Box(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
         Column(
@@ -91,6 +97,7 @@ fun QrScannerCompose(onQrCodeScanned: (String) -> Unit) {
                             onCompletion = {
                                 qrCodeURL = it
                                 startBarCodeScan = false
+
                                 onQrCodeScanned(it)
                             },
                             onGalleryCallBackHandler = {
@@ -181,19 +188,13 @@ fun QrScannerCompose(onQrCodeScanned: (String) -> Unit) {
 fun WantThisScreen(
     modifier: Modifier = Modifier,
     state: WantThisScreenState,
-    useComponent: UseWantThisScreen
+    useComponent: UseWantThisScreen,
+    viewModel: WantThisScreenViewModel
 ) {
 
 
     val updateFirstEntry: (String) -> Unit = { scannedValue ->
-        val updatedEntries = state.document.entries.mapIndexed { index, textFieldState ->
-            if (index == 0) {
-                textFieldState.copy(text = scannedValue)
-            } else {
-                textFieldState
-            }
-        }
-
+        viewModel.updateDoc(scannedValue)
     }
 
     Layout(
@@ -237,7 +238,7 @@ private fun WantThisScreenPreview() {
     IpbTheme {
         WantThisScreen(
             state = WantThisScreenState(screen = StateColumnState(state = ScreenState.SUCCESS)),
-            useComponent = UseWantThisScreen.Empty()
+            useComponent = UseWantThisScreen.Empty(), viewModel = koinViewModel<WantThisScreenViewModel>()
         )
     }
 }

@@ -30,6 +30,6 @@ class WantThisScreenNode(
         }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) { viewModel.refresh() }
-        WantThisScreen(modifier = modifier, state = state, useComponent = viewModel)
+        WantThisScreen(modifier = modifier, state = state, useComponent = viewModel, viewModel = viewModel)
     }
 }
