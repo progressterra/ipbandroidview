@@ -11,5 +11,6 @@ data class GalleriesState(
     override val id: String = "",
     val items: Flow<PagingData<StoreCardState>> = emptyFlow(),
     val title: String = "",
-    val state: StateColumnState = StateColumnState()
+    val state: StateColumnState = StateColumnState(),
+    val format: com.progressterra.ipbandroidapi.api.catalog.models.TypeFormatViewProduct? = com.progressterra.ipbandroidapi.api.catalog.models.TypeFormatViewProduct.TOW_IN_LINE
 ) : Id

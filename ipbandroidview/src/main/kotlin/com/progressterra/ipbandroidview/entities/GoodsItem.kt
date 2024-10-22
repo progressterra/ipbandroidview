@@ -4,23 +4,27 @@ import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.features.storecardwide.StoreCardWideState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
 data class GoodsItem(
     override val id: String = "",
+    val idrfSpecification: String = "",
     val categoryId: String = "",
     val name: String = "",
     val oldPrice: Price = Price(),
     val price: Price = Price(),
     val image: String = "",
     val images: List<String> = emptyList(),
+    val imageBanner: String = "",
     val properties: List<Pair<String, String>> = emptyList(),
     val count: Int = 0,
     val description: String = "",
     val installment: Installment = Installment(),
     val rating: Double = 0.0,
     val quantity: Int = 0
+
 ) : Id {
 
     fun toWantThisCardState() =
@@ -53,6 +57,7 @@ data class GoodsItem(
             oldPrice = oldPrice,
             price = price,
             image = image,
+            imageBanner = imageBanner,
             installment = installment,
             counter = CounterState(id = id, count = count),
             properties = properties

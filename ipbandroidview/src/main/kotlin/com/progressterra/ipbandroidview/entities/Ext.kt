@@ -95,11 +95,13 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
 fun ProductView.toGoodsItem() =
     GoodsItem(
         id = nomenclature?.idUnique!!,
+        idrfSpecification =  nomenclature?.idrfSpecification ?: "",
         categoryId = nomenclature?.listCatalogCategory?.firstOrNull() ?: "",
         name = nomenclature?.name ?: "",
         description = nomenclature?.commerseDescription ?: "",
         images = nomenclature?.listImages?.map { it.urlData!! } ?: emptyList(),
         image = nomenclature?.listImages?.firstOrNull()?.urlData ?: "",
+        imageBanner = nomenclature?.listImages?.firstOrNull { it.alias == "banner" }?.urlData ?: "",
         oldPrice = inventoryData?.beginPrice?.toPrice() ?: Price(),
         price = inventoryData?.currentPrice?.toPrice() ?: Price(),
         installment =

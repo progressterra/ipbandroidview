@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -16,7 +17,7 @@ import com.skydoves.landscapist.glide.GlideImage
 import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 
 @Composable
-fun Image(modifier: Modifier = Modifier, image: String, options: ImageOptions = ImageOptions()) {
+fun Image(modifier: Modifier = Modifier, image: String, options: ImageOptions = ImageOptions(), previewPlaceholder: Painter? = null) {
     GlideImage(
         modifier = modifier,
         imageModel = { image },
@@ -32,6 +33,7 @@ fun Image(modifier: Modifier = Modifier, image: String, options: ImageOptions = 
                 )
             }
         },
-        previewPlaceholder = painterResource(id = R.drawable.dummy_200x400)
+
+        previewPlaceholder = previewPlaceholder ?: painterResource(id = R.drawable.dummy_200x400)//painterResource(id = R.drawable.dummy_200x400)
     )
 }

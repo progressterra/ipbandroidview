@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.shared
 
+import androidx.compose.ui.graphics.Color
 import com.progressterra.ipbandroidview.shared.theme.IpbColors
 
 /** Storage for configuration settings from config.properties file */
@@ -54,4 +55,14 @@ internal object IpbAndroidViewSettings {
     var MAIN_CHAT_ID = "7f7e8460-5608-48d2-b2b4-1e5769e8d9e7"
 
     var BANK_CARDS_TYPE_ID = "08db9c4b-e7c1-4b65-836b-7512ea92b180"
+
+    var IDRFSPECIFICATION_FOR_BUY = ""//Идентификатор специкации именно товара, который можно купить.
+
+    var IDRFSPECIFICATION_FOR_TEACH = ""//Идентификатор специкации товара как учебного материала
+
+    var NAME_TYPECHARECTERISTIC_MANUFACTURE = "Производитель"//Идентификатор типа характеристики производителеля_
+
+
+    var GRADIENT_COLOR_LEFT = Color(0xFF53B8EB)
+    val GRADIENT_COLOR_RIGHT = Color(0xFF27D1AE)
 }

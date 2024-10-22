@@ -1,7 +1,8 @@
-package com.progressterra.ipbandroidview.features.storecard
+package com.progressterra.ipbandroidview.pages.debug
+
+
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,22 +39,28 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.layout.ContentScale
-
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import com.skydoves.landscapist.ImageOptions
 
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.layout.onSizeChanged
 
+import androidx.compose.ui.unit.dp
+
+import androidx.compose.ui.unit.Constraints
+
+
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
-
-import androidx.compose.ui.platform.LocalConfiguration
-
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-
-
-import androidx.compose.foundation.layout.padding
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 
 //@Composable
@@ -124,36 +131,19 @@ fun FullWidthImage(image: String) {
     }
 }
 
-@Composable
-fun getScreenWidth(): Int {
-    val configuration = LocalConfiguration.current
-    return configuration.screenWidthDp
-}
 
 @Composable
-fun StoreCard(modifier: Modifier = Modifier, state: StoreCardState, useComponent: UseStoreCard, isBanner: Boolean = false) {
-//    val colorLeft = Color(0xFF53B8EB)
-//    val colorRight = Color(0xFF27D1AE)
-
-    val configuration = LocalConfiguration.current
-    val screenWidthDp = configuration.screenWidthDp.dp * 0.9f
+fun ImageWidth(image: String) {
 
 
 
-    if (isBanner && state.imageBanner != "")
-    {
         Column(
             modifier =
-            Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).niceClickable {
-                useComponent.handle(StoreCardEvent.Open(state.id))},
-
+            Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Image(
-                modifier = Modifier
-                    .width(screenWidthDp)
-                    .align(Alignment.CenterHorizontally),
-                image = state.imageBanner,
+                image = image,
                 options = ImageOptions(contentScale = ContentScale.Fit),
                 previewPlaceholder = painterResource(id = R.drawable.big_banner)
             )
@@ -168,88 +158,18 @@ fun StoreCard(modifier: Modifier = Modifier, state: StoreCardState, useComponent
 //        )
 
         //FullWidthImage(state.imageBanner)
-    }
-
-    else{
-
-        Column(
-            modifier =
-            modifier.width(207.dp).clip(RoundedCornerShape(8.dp))
-                .border(
-                    width = 1.dp, // задайте необходимую толщину
-                    color = IpbTheme.colors.tertiary.asColor(), // задайте необходимый цвет
-                    shape = RoundedCornerShape(8.dp) // форма границы совпадает с формой клипа
-                )
-                .niceClickable {
-                useComponent.handle(StoreCardEvent.Open(state.id))
-            },
-            verticalArrangement = Arrangement.spacedBy(0.dp)
-        ) {
-            Image(
-                modifier =
-                Modifier
-                    .size(width = 157.dp, height = 157.dp)
-                    .align(Alignment.CenterHorizontally),//.clip(RoundedCornerShape(8.dp)),
-                image = state.image
-            )
-            Text(
-                modifier = Modifier
-                    .background(Brush.horizontalGradient(listOf(IpbAndroidViewSettings.GRADIENT_COLOR_LEFT, IpbAndroidViewSettings.GRADIENT_COLOR_RIGHT)))
-                    .fillMaxWidth()
-                    .padding(7.dp),
-                text = "Кэшбэк " + state.price.toString() + " баллов",
-                style = IpbTheme.typography.subHeadlineRegular,
-                tint = IpbTheme.colors.textPrimary2.asBrush(),
-            )
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(7.dp),
-
-                text = state.name,
-                style = IpbTheme.typography.caption,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-                maxLines = 1
-            )
-
-
-
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 7.dp),
-                text = state.properties.firstOrNull { it.first ==  IpbAndroidViewSettings.NAME_TYPECHARECTERISTIC_MANUFACTURE}?.second ?: "йцукен",
-                style = IpbTheme.typography.caption3,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-                maxLines = 1
-            )
-
-            Spacer(modifier = Modifier.height(7.dp))
-
-        }
-    }
-
-
 }
+
+
+
+
 
 @Preview
 @Composable
 private fun StoreCardPreview() {
     Preview {
-        StoreCard(
-            state = StoreCardState(image = "https://ipb.website.yandexcloud.net/mediadata/08dc90ff-4ff9-4a44-8f91-4ffbf77bb8da_20240625220907524", name = "Ноутбук Lenovo IdeaPad 3 15ADA05", price = Price(10)),
-            useComponent = UseStoreCard.Empty()
-        )
-        StoreCard(
-            state =
-                StoreCardState(
-                    image = "https://ipb.website.yandexcloud.net/mediadata/08dc90ff-4ff9-4a44-8f91-4ffbf77bb8da_20240625220907524",
-                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                    price = Price(100),
-                    counter = CounterState("1", 5),
-                    installment = Installment(months = 4, perMonth = Price(500))
-                ),
-            useComponent = UseStoreCard.Empty()
+        ImageWidth(
+            image = "https://ipb.website.yandexcloud.net/mediadata/08dc90ff-4ff9-4a44-8f91-4ffbf77bb8da_20240625220907524",
         )
     }
 }

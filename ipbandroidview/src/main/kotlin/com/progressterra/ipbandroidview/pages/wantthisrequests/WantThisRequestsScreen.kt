@@ -37,7 +37,7 @@ fun WantThisRequestsScreen(
         StateColumn(state = state.screen, useComponent = useComponent) {
             val lazyItems = state.items.collectAsLazyPagingItems()
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(1),
                 contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
                 verticalArrangement = Arrangement.spacedBy(30.dp)

@@ -4,15 +4,22 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumble.appyx.core.integrationpoint.NodeComponentActivity
 import com.progressterra.ipbandroidview.BuildConfig
@@ -74,6 +81,21 @@ abstract class IpbActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        enableEdgeToEdge(
+//            statusBarStyle = SystemBarStyle.light(
+//                android.graphics.Color.TRANSPARENT,
+//                android.graphics.Color.TRANSPARENT
+//            )
+//        )
+
+
+
+//        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+//        insetsController.apply {
+//            hide(WindowInsetsCompat.Type.statusBars())
+//            hide(WindowInsetsCompat.Type.navigationBars())
+//            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//        }
         messagingService?.let { startService(Intent(this, it)) }
         actionBar?.hide()
         setContent {

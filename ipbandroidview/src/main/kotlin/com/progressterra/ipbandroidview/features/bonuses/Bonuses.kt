@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.features.bonuses
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,10 +32,11 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 
-
-
-
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
 @Composable
 fun Bonuses(
     modifier: Modifier = Modifier,
@@ -46,88 +48,179 @@ fun Bonuses(
     val colorRight = Color(0xFF27D1AE)
 
     StateColumn(
-        modifier = modifier.fillMaxWidth().height(if (UserData.clientExist) 162.dp else 198.dp),
+        modifier = modifier.fillMaxWidth().height(if (UserData.clientExist) 102.dp else 198.dp),
         state = state.state,
         useComponent = useComponent
     ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
+                .background(Color.Green)
+        )
+        {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(if (UserData.clientExist) 162.dp else 198.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .fillMaxSize()
+                //.fillMaxWidth()
+                //.systemBarsPadding()
+                .height(if (UserData.clientExist) 102.dp else 198.dp)
+                //.clip(RoundedCornerShape(12.dp))
                 .background(Brush.horizontalGradient(listOf(colorLeft, colorRight)))
-                .padding(16.dp)
+                .padding(10.dp)
         ) {
-            if (UserData.clientExist) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(25.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(0.3f),
+                    resId = R.drawable.logo_p,
+                    tint = IpbTheme.colors.textButton.asBrush(),
+                )
+            }
+            
+//            if (UserData.clientExist) {
+//
+//
+//                Row(
+//                    modifier = Modifier.fillMaxWidth().height(45.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text = "Ваш баланс",
+//                        style = IpbTheme.typography.title,
+//                        tint = IpbTheme.colors.textTertiary.asBrush()
+//                    )
+//                }
+//
+//                Row(
+//                    modifier = Modifier.fillMaxWidth().height(45.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text = "${state.roubles} баллов",
+//                        style = IpbTheme.typography.title,
+//                        tint = IpbTheme.colors.textButton.asBrush()
+//                    )
+//                }
+//
+//                Row(
+//                    modifier = Modifier.fillMaxWidth().height(45.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${stringResource(R.string.roubles)}",
+//                        style = IpbTheme.typography.title,
+//                        tint = IpbTheme.colors.textButton.asBrush()
+//                    )
+//                    if (style == BonusesStyle.MAIN) {
+//                        IconButton(
+//                            modifier = Modifier.size(45.dp),
+//                            onClick = { useComponent.handle(BonusesEvent.Transactions) }
+//                        ) {
+//                            Icon(
+//                                modifier = Modifier.size(45.dp),
+//                                resId = R.drawable.ic_arrow,
+//                                tint = IpbTheme.colors.primary.asBrush(),
+//                            )
+//                        }
+//                    }
+//                }
+//                if (style == BonusesStyle.MAIN && !state.hasCards) {
+//                    Text(
+//                        modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+//                        text = stringResource(R.string.add_card),
+//                        style = IpbTheme.typography.subHeadlineBold,
+//                        tint = IpbTheme.colors.primary.asBrush()
+//                    )
+//                } else {
+//                    Spacer(modifier = Modifier.weight(1f))
+//                }
+//                Row(
+//                    modifier = Modifier.fillMaxWidth().height(45.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${stringResource(R.string.roubles)}",
+//                        style = IpbTheme.typography.subHeadlineItalic,
+//                        tint = IpbTheme.colors.textTertiary.asBrush()
+//                    )
+//                    if (style == BonusesStyle.MAIN) {
+//                        IconButton(
+//                            modifier = Modifier.size(45.dp),
+//                            onClick = { useComponent.handle(BonusesEvent.Withdrawal) }
+//                        ) {
+//                            Icon(
+//                                modifier = Modifier.size(45.dp),
+//                                resId = R.drawable.ic_withdrawal,
+//                                tint = IpbTheme.colors.primary.asBrush(),
+//                            )
+//                        }
+//                    }
+//                }
+//                Row(verticalAlignment = Alignment.CenterVertically) {
+//                    Text(
+//                        text = stringResource(R.string.available_installment),
+//                        style = IpbTheme.typography.subHeadlineRegular,
+//                        tint = IpbTheme.colors.textSecondary.asBrush()
+//                    )
+//                    Text(
+//                        text = stringResource(R.string.available_installment_2),
+//                        style = IpbTheme.typography.subHeadlineBold,
+//                        tint = IpbTheme.colors.textButton.asBrush()
+//                    )
+//                }
+//            }
+//
+
+            if (UserData.clientExist)
+            {
                 Row(
-                    modifier = Modifier.fillMaxWidth().height(45.dp),
+                    modifier = modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${stringResource(R.string.roubles)}",
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Text(
+                            text = "Ваш баланс",
+                            style = IpbTheme.typography.title,
+                          tint = IpbTheme.colors.textTertiary.asBrush()
+                        )
+                        Text(
+                        text = "${state.roubles} баллов",
                         style = IpbTheme.typography.title,
                         tint = IpbTheme.colors.textButton.asBrush()
                     )
-                    if (style == BonusesStyle.MAIN) {
-                        IconButton(
-                            modifier = Modifier.size(45.dp),
-                            onClick = { useComponent.handle(BonusesEvent.Transactions) }
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(45.dp),
-                                resId = R.drawable.ic_arrow,
+                    }
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(100.dp),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        Icon(
+                                modifier = Modifier.size(65.dp),
+                                resId = R.drawable.client,
                                 tint = IpbTheme.colors.primary.asBrush(),
                             )
-                        }
                     }
                 }
-                if (style == BonusesStyle.MAIN && !state.hasCards) {
-                    Text(
-                        modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
-                        text = stringResource(R.string.add_card),
-                        style = IpbTheme.typography.subHeadlineBold,
-                        tint = IpbTheme.colors.primary.asBrush()
-                    )
-                } else {
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth().height(45.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${stringResource(R.string.roubles)}",
-                        style = IpbTheme.typography.subHeadlineItalic,
-                        tint = IpbTheme.colors.textTertiary.asBrush()
-                    )
-                    if (style == BonusesStyle.MAIN) {
-                        IconButton(
-                            modifier = Modifier.size(45.dp),
-                            onClick = { useComponent.handle(BonusesEvent.Withdrawal) }
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(45.dp),
-                                resId = R.drawable.ic_withdrawal,
-                                tint = IpbTheme.colors.primary.asBrush(),
-                            )
-                        }
-                    }
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = stringResource(R.string.available_installment),
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textSecondary.asBrush()
-                    )
-                    Text(
-                        text = stringResource(R.string.available_installment_2),
-                        style = IpbTheme.typography.subHeadlineBold,
-                        tint = IpbTheme.colors.textButton.asBrush()
-                    )
-                }
-            } else {
+            }
+            else {
                 Text(
                     text = "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
                     style = IpbTheme.typography.title,
@@ -148,6 +241,23 @@ fun Bonuses(
                 )
             }
         }
+    }
+}
+}
+
+@Composable
+@Preview
+private fun BonusesPreview2() {
+    IpbTheme {
+        Bonuses(
+            state =
+                BonusesState(
+                    roubles = "100",
+                    hasCards = true,
+                    state = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+            useComponent = UseBonuses.Empty()
+        )
     }
 }
 

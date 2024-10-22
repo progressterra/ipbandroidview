@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.progressterra.ipbandroidapi.api.catalog.models.TypeFormatViewProduct
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Text
@@ -29,12 +30,14 @@ fun Galleries(modifier: Modifier = Modifier, state: GalleriesState, useComponent
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        Text(
-            modifier = Modifier.padding(start = 20.dp),
-            text = state.title,
-            style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary.asBrush(),
-        )
+        if (state.format != TypeFormatViewProduct.WIDE_FORMAT && state.title != "") {
+            Text(
+                modifier = Modifier.padding(start = 20.dp),
+                text = state.title,
+                style = IpbTheme.typography.title,
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+            )
+        }
         LazyRow(
             modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(20.dp),
@@ -43,7 +46,13 @@ fun Galleries(modifier: Modifier = Modifier, state: GalleriesState, useComponent
             items(count = items.itemCount, key = items.itemKey { it.id }) {
                 items[it]?.let { item ->
                     Box(contentAlignment = Alignment.Center) {
-                        StoreCard(state = item, useComponent = useComponent)
+                        if (state.format != TypeFormatViewProduct.WIDE_FORMAT) {
+                            StoreCard(state = item, useComponent = useComponent, isBanner = false)
+                        }
+                            else
+                            {
+                            StoreCard(state = item, useComponent = useComponent, isBanner = true)
+                        }
                     }
                 }
             }

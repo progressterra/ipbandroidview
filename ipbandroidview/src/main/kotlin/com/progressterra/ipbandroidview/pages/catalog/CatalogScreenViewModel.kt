@@ -36,6 +36,7 @@ class CatalogScreenViewModel(
                                 fetched = true
                             )
                         }
+                        uCategory()
                     }
                     .onFailure {
                         emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
@@ -73,14 +74,14 @@ class CatalogScreenViewModel(
 
     private fun uCategory() {
         onBackground {
-            if (currentState.current.children.isEmpty()) {
+            //if (currentState.current.children.isEmpty()) {
                 goodsUseCase(GoodsFilter(categoryId = currentState.current.id)).onSuccess {
                     nonCached ->
                     emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
                 }
-            } else {
-                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
-            }
+//            } else {
+//                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
+//            }
         }
     }
 
@@ -127,5 +128,6 @@ class CatalogScreenViewModel(
 
     override fun handle(event: StateColumnEvent) {
         refresh()
+        uCategory()
     }
 }

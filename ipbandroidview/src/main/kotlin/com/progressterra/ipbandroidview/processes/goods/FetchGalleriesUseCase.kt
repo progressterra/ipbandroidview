@@ -37,6 +37,7 @@ interface FetchGalleriesUseCase : CacheUseCase<GalleriesState> {
                     GalleriesState(
                         items = goods,
                         title = category?.name ?: "",
+                        format = category?.formatViewProductType,
                         id = id,
                         state = StateColumnState(id = id, state = ScreenState.SUCCESS)
                     )

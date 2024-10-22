@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Icon
 import com.progressterra.ipbandroidview.shared.ui.Tabs
@@ -39,18 +40,35 @@ fun GoodsDescription(
     modifier: Modifier = Modifier,
     state: GoodsDescriptionState,
     useComponent: UseGoodsDescription
+
+
 ) {
+
+    val tabs = mutableListOf(
+        stringResource(id = R.string.description)
+    )
+
+    if (state.idrfSpecification != IpbAndroidViewSettings.IDRFSPECIFICATION_FOR_TEACH) {
+
+    }
+
+    if (state.idrfSpecification == IpbAndroidViewSettings.IDRFSPECIFICATION_FOR_BUY) {
+        tabs.add(stringResource(id = R.string.parameters))
+        tabs.add(stringResource(id = R.string.delivery))
+    }
+
+
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         val pagerState = rememberPagerState { 3 }
         val scope = rememberCoroutineScope()
         Tabs(
             modifier = Modifier.padding(horizontal = 20.dp),
-            tabs =
-                listOf(
-                    stringResource(id = R.string.description),
-                    stringResource(id = R.string.parameters),
-//                    stringResource(id = R.string.delivery)
-                ),
+            tabs = tabs,
+//                listOf(
+//                    stringResource(id = R.string.description),
+//                    stringResource(id = R.string.parameters),
+////                    stringResource(id = R.string.delivery)
+//                ),
             currentIndex = pagerState.currentPage,
             onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } }
         )

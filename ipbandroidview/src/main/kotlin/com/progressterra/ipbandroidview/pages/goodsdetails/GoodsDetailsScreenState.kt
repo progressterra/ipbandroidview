@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
+import android.graphics.MeshSpecification
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
@@ -9,6 +10,7 @@ import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 data class GoodsDetailsScreenState(
     override val id: String = "",
+    val idrfSpecification: String = "",
     val description: GoodsDescriptionState = GoodsDescriptionState(),
     val gallery: ItemGalleryState = ItemGalleryState(),
     val similarGoods: GalleriesState = GalleriesState(),

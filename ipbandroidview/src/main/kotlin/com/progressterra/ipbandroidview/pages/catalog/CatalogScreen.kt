@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.catalog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -55,24 +56,30 @@ fun CatalogScreen(
         }
     ) { _, _ ->
         StateColumn(state = state.screen, useComponent = useComponent) {
-            Box {
-                StoreItems(
-                    modifier = Modifier.zIndex(1f),
-                    state = state.goods,
-                    useComponent = useComponent,
-                    customStoreCard = customStoreCard
-                )
-                LazyVerticalGrid(
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    columns = GridCells.Fixed(IpbAndroidViewSettings.CATALOG_COLUMNS),
-                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 20.dp)
-                ) {
-                    items(state.current.children) {
-                        Box(contentAlignment = Alignment.Center) {
-                            CatalogCard(state = it, useComponent = useComponent)
+            Column {
+
+                Box {
+                    LazyVerticalGrid(
+                        horizontalArrangement = Arrangement.spacedBy(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        columns = GridCells.Fixed(IpbAndroidViewSettings.CATALOG_COLUMNS),
+                        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 20.dp)
+                    ) {
+                        items(state.current.children) {
+                            Box(contentAlignment = Alignment.Center) {
+                                CatalogCard(state = it, useComponent = useComponent)
+                            }
                         }
                     }
+                }
+
+                Box {
+                    StoreItems(
+                        modifier = Modifier.zIndex(1f),
+                        state = state.goods,
+                        useComponent = useComponent,
+                        customStoreCard = customStoreCard
+                    )
                 }
             }
         }
@@ -107,18 +114,33 @@ private fun CatalogScreenPreview() {
                                                 name = "Weston",
                                                 price = Price(1000),
                                                 image = "https://placekitten.com/200/300",
+                                                properties = listOf(
+                                                    "ПРОИЗВОДИТЕЛЬ" to "value1",
+                                                    "property2" to "value2",
+                                                    "property3" to "value3"
+                                                )
                                             ),
                                             StoreCardState(
                                                 id = "Kotek 2",
                                                 name = "Weston",
                                                 price = Price(2000),
                                                 image = "https://placekitten.com/200/300",
+                                                properties = listOf(
+                                                    "ПРОИЗВОДИТЕЛЬ" to "Производитель 2",
+                                                    "property2" to "value2",
+                                                    "property3" to "value3"
+                                                )
                                             ),
                                             StoreCardState(
                                                 id = "Kotek 3",
                                                 name = "Nombre",
                                                 price = Price(5000),
                                                 image = "https://placekitten.com/200/300",
+                                                properties = listOf(
+                                                    "ПРОИЗВОДИТЕЛЬ" to "Производитель 2",
+                                                    "property2" to "value2",
+                                                    "property3" to "value3"
+                                                )
                                             )
                                         )
                                     )

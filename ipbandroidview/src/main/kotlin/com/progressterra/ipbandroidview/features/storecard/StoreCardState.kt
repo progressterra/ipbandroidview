@@ -11,6 +11,7 @@ data class StoreCardState(
     val oldPrice: Price = Price(),
     val price: Price = Price(),
     val image: String = "",
+    val imageBanner: String = "",
     val installment: Installment = Installment(),
     val counter: CounterState = CounterState(),
     val properties: List<Pair<String, String>> = emptyList()

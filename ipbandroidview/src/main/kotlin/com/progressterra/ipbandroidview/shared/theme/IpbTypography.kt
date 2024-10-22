@@ -46,5 +46,12 @@ data class IpbTypography(
             fontWeight = FontWeight.Medium,
             lineHeight = 12.sp,
             letterSpacing = (-0.2).sp
+        ),
+    val caption3: TextStyle =
+        TextStyle(
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Normal,
+            lineHeight = 12.sp,
+            letterSpacing = (-0.2).sp
         )
 )

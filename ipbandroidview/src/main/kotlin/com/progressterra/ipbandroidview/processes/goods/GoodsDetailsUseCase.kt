@@ -47,10 +47,12 @@ interface GoodsDetailsUseCase {
                     else emptyFlow()
                 GoodsDetailsScreenState(
                     id = goods.id,
+                    idrfSpecification = goods.idrfSpecification,
                     description =
                         GoodsDescriptionState(
                             name = goods.name,
                             description = goods.description,
+                            idrfSpecification = goods.idrfSpecification,
                             favoriteButton =
                                 FavoriteButtonState(id = goods.id, favorite = isFavorite),
                             properties = goods.properties
