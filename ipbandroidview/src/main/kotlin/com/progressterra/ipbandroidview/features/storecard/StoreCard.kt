@@ -218,7 +218,7 @@ fun StoreCard(modifier: Modifier = Modifier, state: StoreCardState, useComponent
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 7.dp),
-                text = state.properties.firstOrNull { it.first ==  IpbAndroidViewSettings.NAME_TYPECHARECTERISTIC_MANUFACTURE}?.second ?: "йцукен",
+                text = state.properties.firstOrNull { it.first ==  IpbAndroidViewSettings.NAME_TYPECHARECTERISTIC_MANUFACTURE}?.second ?: "",
                 style = IpbTheme.typography.caption3,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 maxLines = 1

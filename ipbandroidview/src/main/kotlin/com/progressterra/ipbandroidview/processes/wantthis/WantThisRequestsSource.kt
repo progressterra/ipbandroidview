@@ -61,16 +61,17 @@ class WantThisRequestsSource(
         response.size to
             response.mapNotNull {
                 val doc = it.toDocument(gson, createId)
-                if (it.statusDoc != TypeStatusDoc.CONFIRMED || doc.additionalValue.isBlank()) {
-                    doc.toWantThisCardState()
-                } else {
-                    productRepository
-                        .productByNomenclatureId(token, doc.additionalValue)
-                        .getOrThrow()
-                        ?.toGoodsItem()
-                        ?.toWantThisCardState()
-                        ?.copy(document = it.toDocument(gson, createId))
-                }
+                doc.toWantThisCardState()
+//                if (it.statusDoc != TypeStatusDoc.CONFIRMED || doc.additionalValue.isBlank()) {
+//                    doc.toWantThisCardState()
+//                } else {
+//                    productRepository
+//                        .productByNomenclatureId(token, doc.additionalValue)
+//                        .getOrThrow()
+//                        ?.toGoodsItem()
+//                        ?.toWantThisCardState()
+//                        ?.copy(document = it.toDocument(gson, createId))
+//                }
             }
     }
 }

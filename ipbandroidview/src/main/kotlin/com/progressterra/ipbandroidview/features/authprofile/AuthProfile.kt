@@ -56,43 +56,43 @@ fun AuthProfile(
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Icon(
-                    modifier = Modifier.size(20.dp),
-                    resId = R.drawable.ic_bonuses,
-                    tint = IpbTheme.colors.secondary.asBrush()
-                )
-                Text(
-                    text =
-                        "${state.bonuses} ${
-                        pluralStringResource(
-                            id = R.plurals.bonuses,
-                            state.bonuses
-                        )
-                    }",
-                    style = IpbTheme.typography.caption,
-                    tint = IpbTheme.colors.textPrimary2.asBrush()
-                )
-            }
-            Text(
-                text =
-                    "${state.expiringBonuses} ${
-                    pluralStringResource(
-                        id = R.plurals.bonuses,
-                        state.expiringBonuses
-                    )
-                } ${
-                    pluralStringResource(
-                        id = R.plurals.will_burn,
-                        state.expiringBonuses
-                    )
-                } ${state.expiringDate}",
-                style = IpbTheme.typography.caption,
-                tint = IpbTheme.colors.textSecondary.asBrush()
-            )
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.spacedBy(4.dp)
+//            ) {
+//                Icon(
+//                    modifier = Modifier.size(20.dp),
+//                    resId = R.drawable.ic_bonuses,
+//                    tint = IpbTheme.colors.secondary.asBrush()
+//                )
+//                Text(
+//                    text =
+//                        "${state.bonuses} ${
+//                        pluralStringResource(
+//                            id = R.plurals.bonuses,
+//                            state.bonuses
+//                        )
+//                    }",
+//                    style = IpbTheme.typography.caption,
+//                    tint = IpbTheme.colors.textPrimary2.asBrush()
+//                )
+//            }
+//            Text(
+//                text =
+//                    "${state.expiringBonuses} ${
+//                    pluralStringResource(
+//                        id = R.plurals.bonuses,
+//                        state.expiringBonuses
+//                    )
+//                } ${
+//                    pluralStringResource(
+//                        id = R.plurals.will_burn,
+//                        state.expiringBonuses
+//                    )
+//                } ${state.expiringDate}",
+//                style = IpbTheme.typography.caption,
+//                tint = IpbTheme.colors.textSecondary.asBrush()
+//            )
         }
         Spacer(modifier = Modifier.weight(1f))
         Icon(resId = R.drawable.ic_forw, tint = IpbTheme.colors.iconPrimary.asBrush())

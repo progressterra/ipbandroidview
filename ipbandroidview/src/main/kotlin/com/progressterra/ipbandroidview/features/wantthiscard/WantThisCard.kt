@@ -29,21 +29,34 @@ fun WantThisCard(
     state: WantThisCardState,
     useComponent: UseWantThisCard
 ) {
-    Column(
+    Row(
         modifier =
-            modifier.width(157.dp).clip(RoundedCornerShape(8.dp)).niceClickable {
+        modifier
+            .width(157.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .niceClickable {
                 useComponent.handle(WantThisCardEvent.Open(state.document))
             },
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        //verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Image(modifier = Modifier.size(157.dp).clip(RoundedCornerShape(8.dp)), image = state.image)
-        Text(
-            text = state.name,
-            style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.textPrimary.asBrush(),
+        //Image(modifier = Modifier.size(157.dp).clip(RoundedCornerShape(8.dp)), image = state.image)
+        Icon(
+            modifier =
+            Modifier.size(width = 97.dp, height = 97.dp).clip(RoundedCornerShape(8.dp)),
+            resId = R.drawable.ic_docs,
+            tint = IpbTheme.colors.iconPrimary.asBrush()
         )
-        Text(
-            text =
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+
+
+            Text(
+                text = state.name,
+                style = IpbTheme.typography.footnoteRegular,
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+            )
+            Text(
+                text =
                 when (state.status) {
                     TypeStatusDoc.NOT_FILL -> stringResource(R.string.request_not_fill)
                     TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.request_wait_image)
@@ -51,8 +64,8 @@ fun WantThisCard(
                     TypeStatusDoc.REJECTED -> stringResource(R.string.request_rejected)
                     TypeStatusDoc.CONFIRMED -> stringResource(R.string.request_confirmed)
                 },
-            style = IpbTheme.typography.footnoteBold,
-            tint =
+                style = IpbTheme.typography.footnoteBold,
+                tint =
                 when (state.status) {
                     TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
                     TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
@@ -60,58 +73,8 @@ fun WantThisCard(
                     TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
                     TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
                 }
-        )
-        if (state.status == TypeStatusDoc.CONFIRMED) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier.width(if (state.counter.isEmpty()) 130.dp else 80.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(
-                            text = state.oldPrice.toString(),
-                            style = IpbTheme.typography.body2,
-                            tint = IpbTheme.colors.textTertiary.asBrush(),
-                        )
-                        Text(
-                            text = stringResource(id = R.string.price_for_you),
-                            style = IpbTheme.typography.footnoteRegular,
-                            tint = IpbTheme.colors.textPrimary.asBrush(),
-                        )
-                        Text(
-                            text = state.price.toString(),
-                            style = IpbTheme.typography.subHeadlineRegular,
-                            tint = IpbTheme.colors.textPrimary2.asBrush(),
-                        )
-                    }
-                    if (!state.installment.isEmpty()) {
-                        Text(
-                            text =
-                                "(${stringResource(R.string.installment)}: ${
-                                state.installment.months
-                            } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
-                            style = IpbTheme.typography.footnoteRegular,
-                            tint = IpbTheme.colors.textPrimary.asBrush(),
-                        )
-                    }
-                }
-                if (state.counter.isEmpty()) {
-                    IconButton(
-                        modifier = Modifier.size(26.dp),
-                        onClick = { useComponent.handle(WantThisCardEvent.Buy(state.id)) }
-                    ) {
-                        Icon(
-                            resId = R.drawable.ic_cart,
-                            tint = IpbTheme.colors.iconPrimary.asBrush()
-                        )
-                    }
-                } else {
-                    Counter(state = state.counter, useComponent = useComponent)
-                }
+            )
+            if (state.status == TypeStatusDoc.CONFIRMED) {
             }
         }
     }

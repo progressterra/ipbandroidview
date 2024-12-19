@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,9 @@ import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -35,10 +39,19 @@ fun MainScreen(modifier: Modifier = Modifier, state: MainScreenState, useCompone
     val window = (view.context as Activity).window
     val useDarkIcons = MaterialTheme.colors.isLight
 
-    LaunchedEffect(Unit) {
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
-        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = useDarkIcons
-    }
+//    LaunchedEffect(Unit) {
+//        window.statusBarColor = android.graphics.Color.TRANSPARENT
+//        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = useDarkIcons
+//    }
+
+//    LaunchedEffect(Unit) {
+//        // Сделать статус-бар прозрачным
+//        window.statusBarColor = android.graphics.Color.TRANSPARENT
+//        // Позволить контенту отображаться под системными окнами
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        // Настроить цвет иконок в статус-баре
+//        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = useDarkIcons
+//    }
 
 
     Layout(
@@ -47,14 +60,26 @@ fun MainScreen(modifier: Modifier = Modifier, state: MainScreenState, useCompone
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()),
+                .padding(
+                    paddingValues = WindowInsets.navigationBars
+                        .only(WindowInsetsSides.Bottom)
+                        .asPaddingValues()
+                    )
+//                .padding(
+//                    paddingValues = WindowInsets.navigationBars
+//                        .only(WindowInsetsSides.Bottom)
+//                        .asPaddingValues()
+//                )
+                //.padding(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
+
+                //.padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()),
             //contentPadding = PaddingValues(top = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(40.dp)
+            ,verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
             item {
                 Bonuses(
-                    modifier = Modifier.fillMaxSize().padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()),
-
+                    modifier = Modifier.fillMaxSize(),
+                            //.padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()),
 //                        .systemBarsPadding(),//padding(horizontal = 20.dp),
                     state = state.bonuses,
                     useComponent = useComponent

@@ -1,11 +1,16 @@
 package com.progressterra.ipbandroidview.features.catalogcard
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -25,24 +30,41 @@ fun CatalogCard(
     state: CatalogCardState,
     useComponent: UseCatalogCard
 ) {
-    Column(
+    Row(
         modifier =
-            modifier.clip(RoundedCornerShape(8.dp)).width(98.dp).niceClickable {
+        modifier
+            .fillMaxWidth() // Растягиваем компонент на всю ширину
+            .clip(RoundedCornerShape(8.dp))
+            .niceClickable {
                 useComponent.handle(CatalogCardEvent(state))
-            },
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+            }
+            .padding(8.dp), // Добавляем отступы
+        horizontalArrangement = Arrangement.spacedBy(8.dp), // Пробел между изображением и текстом
+        verticalAlignment = Alignment.CenterVertically // Центровка по вертикали
     ) {
         Image(
-            modifier = Modifier.size(98.dp).clip(RoundedCornerShape(8.dp)),
+            modifier = Modifier
+                .size(108.dp) // Размер изображения
+                .clip(RoundedCornerShape(8.dp)),
             image = state.image,
             options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
-        Text(
-            text = state.name,
-            style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.surface2.asBrush(),
-            textAlign = TextAlign.Center
-        )
+        Box(
+            modifier = Modifier
+                .weight(1f) // Текст занимает оставшееся пространство
+                .clip(RoundedCornerShape(8.dp)) // Закругленные края
+
+        ) {
+            Text(
+                text = state.name,
+                style = IpbTheme.typography.title,
+                tint = IpbTheme.colors.surface2.asBrush(),
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .padding(8.dp) // Внутренние отступы текста
+                    .align(Alignment.CenterStart) // Выравнивание текста внутри Box
+            )
+        }
     }
 }
 

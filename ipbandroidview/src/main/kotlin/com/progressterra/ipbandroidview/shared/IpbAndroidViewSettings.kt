@@ -56,7 +56,7 @@ internal object IpbAndroidViewSettings {
 
     var BANK_CARDS_TYPE_ID = "08db9c4b-e7c1-4b65-836b-7512ea92b180"
 
-    var IDRFSPECIFICATION_FOR_BUY = ""//Идентификатор специкации именно товара, который можно купить.
+    var IDRFSPECIFICATION_FOR_BUY = "08dca16f-9e0c-41da-8d6e-615cf940160c"//Идентификатор специкации именно товара, который можно купить.
 
     var IDRFSPECIFICATION_FOR_TEACH = ""//Идентификатор специкации товара как учебного материала
 

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features.itemgallery
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Image
+import com.progressterra.ipbandroidview.shared.ui.Video
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -36,13 +38,28 @@ fun ItemGallery(
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp
         ) {
-            Image(
-                modifier =
-                    Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)).niceClickable {
-                        useComponent.handle(ItemGalleryEvent(state.images[it]))
-                    },
-                image = state.images[it]
-            )
+            val imageUrl = state.images[it]
+            if (imageUrl.endsWith(".mp4")) {
+                Video(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(8.dp))
+                        .niceClickable { useComponent.handle(ItemGalleryEvent(imageUrl)) },
+                    url = imageUrl
+                )
+
+                Log.d("ItemGallery", "imageUrl: $imageUrl")
+            }
+            else
+                {
+                    Image(
+                        modifier =
+                        Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)).niceClickable {
+                            useComponent.handle(ItemGalleryEvent(state.images[it]))
+                        },
+                        image = state.images[it]
+                    )
+                }
         }
         HorizontalPagerIndicator(
             modifier = Modifier.align(Alignment.BottomCenter).padding(10.dp),

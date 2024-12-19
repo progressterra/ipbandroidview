@@ -55,7 +55,6 @@ fun Bonuses(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .systemBarsPadding()
                 .background(Color.Green)
         )
         {

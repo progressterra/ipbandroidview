@@ -96,10 +96,10 @@ fun GoodsDescription(
                                 style = IpbTheme.typography.title
                             )
                             Spacer(Modifier.weight(1f))
-                            FavoriteButton(
-                                state = state.favoriteButton,
-                                useComponent = useComponent
-                            )
+//                            FavoriteButton(
+//                                state = state.favoriteButton,
+//                                useComponent = useComponent
+//                            )
                         }
                         Text(
                             text = state.description,

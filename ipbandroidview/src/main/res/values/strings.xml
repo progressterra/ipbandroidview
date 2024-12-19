@@ -115,7 +115,7 @@
     <string name="past_requests">Предыдущие запросы</string>
     <string name="send_request">Отправить запрос</string>
     <string name="payment_inner">Внутренний баланс</string>
-    <string name="want_this_requests">Запросы Хочу это</string>
+    <string name="want_this_requests">Чеки</string>
     <string name="want_this_chat">Чат по запросу</string>
     <string name="roubles">рублей</string>
     <string name="request_confirmed">Запрос подтверждён менеджером</string>
@@ -211,7 +211,7 @@
     <string name="not_ready_male">Не готов</string>
     <string name="not_ready_female">Не готова</string>
     <string name="ready_calm">Вы можете изменить этот статус в любой момент</string>
-    <string name="auth_dialog_text"><![CDATA[Авторизуйтесь, чтобы добавить товар в корзину, оформить заказ, копить бонусы и пользоваться рассрочкой]]></string>
+    <string name="auth_dialog_text"><![CDATA[Авторизуйтесь, чтобы сканировать чеки и копить баллы.]]></string>
     <string name="video_gallery">Видеогаллерея</string>
     <string name="organizations">Заведения</string>
     <string name="organization">Заведение</string>
