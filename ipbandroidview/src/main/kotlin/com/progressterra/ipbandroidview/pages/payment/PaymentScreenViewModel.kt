@@ -36,9 +36,9 @@ class PaymentScreenViewModel(
                     emitState { it.copy(paymentMethod = paymentMethods) }
                 }
                 .onFailure { isSuccess = false }
-            fetchBonusSwitchUseCase()
-                .onSuccess { bonusSwitch -> emitState { it.copy(bonusSwitch = bonusSwitch) } }
-                .onFailure { isSuccess = false }
+//            fetchBonusSwitchUseCase()
+//                .onSuccess { bonusSwitch -> emitState { it.copy(bonusSwitch = bonusSwitch) } }
+//                .onFailure { isSuccess = false }
             fetchReceiptUseCase()
                 .onSuccess { receipt -> emitState { it.copy(receipt = receipt) } }
                 .onFailure { isSuccess = false }
@@ -62,7 +62,7 @@ class PaymentScreenViewModel(
                     val result =
                         when (currentState.paymentMethod.selectedPaymentMethod) {
                             PaymentType.InnerBalance -> confirmOrderUseCase()
-                            PaymentType.YouKassa -> youKassaPaymentUseCase()
+                            //PaymentType.YouKassa -> youKassaPaymentUseCase()
                         }
                     result.onSuccess { postEffect(PaymentScreenEffect.Next(it)) }
                     emitState {
@@ -76,20 +76,20 @@ class PaymentScreenViewModel(
     }
 
     override fun handle(event: SwitchEvent) {
-        when (event.id) {
-            "useBonuses" ->
-                emitState {
-                    it.copy(
-                        bonusSwitch =
-                            it.bonusSwitch.copy(
-                                useBonuses =
-                                    it.bonusSwitch.useBonuses.copy(
-                                        enabled = !it.bonusSwitch.useBonuses.enabled
-                                    )
-                            )
-                    )
-                }
-        }
+//        when (event.id) {
+//            "useBonuses" ->
+//                emitState {
+//                    it.copy(
+//                        bonusSwitch =
+//                            it.bonusSwitch.copy(
+//                                useBonuses =
+//                                    it.bonusSwitch.useBonuses.copy(
+//                                        enabled = !it.bonusSwitch.useBonuses.enabled
+//                                    )
+//                            )
+//                    )
+//                }
+//        }
     }
 
     override fun handle(event: StateColumnEvent) {

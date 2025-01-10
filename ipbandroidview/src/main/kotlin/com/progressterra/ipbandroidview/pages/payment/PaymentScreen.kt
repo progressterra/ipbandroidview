@@ -52,7 +52,7 @@ fun PaymentScreen(
             Spacer(Modifier.height(8.dp))
             PaymentMethod(state = state.paymentMethod, useComponent = useComponent)
             Spacer(Modifier.height(8.dp))
-            BonusSwitch(state = state.bonusSwitch, useComponent = useComponent)
+            //BonusSwitch(state = state.bonusSwitch, useComponent = useComponent)
             Spacer(Modifier.height(40.dp))
         }
     }

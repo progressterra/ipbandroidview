@@ -29,23 +29,24 @@ fun BuyGoods(modifier: Modifier = Modifier, state: BuyGoodsState, useComponent: 
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(
-                    text = state.oldPrice.toString(),
-                    style =
-                        IpbTheme.typography.title2.copy(
-                            textDecoration = TextDecoration.LineThrough
-                        ),
-                    tint = IpbTheme.colors.textTertiary.asBrush(),
-                )
-                Text(
-                    text = stringResource(id = R.string.price_for_you),
-                    style = IpbTheme.typography.footnoteRegular,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
+//                Text(
+//                    text = state.oldPrice.toString(),
+//                    style = IpbTheme.typography.title,
+////                    style =
+////                        IpbTheme.typography.title2.copy(
+////                            textDecoration = TextDecoration.LineThrough
+////                        ),
+//                    tint = IpbTheme.colors.textPrimary.asBrush(),
+//                )
+//                Text(
+//                    text = stringResource(id = R.string.price_for_you),
+//                    style = IpbTheme.typography.footnoteRegular,
+//                    tint = IpbTheme.colors.textPrimary.asBrush(),
+//                )
                 Text(
                     text = state.price.toString(),
                     style = IpbTheme.typography.title,
-                    tint = IpbTheme.colors.textPrimary2.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
             }
             Button(

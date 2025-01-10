@@ -68,6 +68,7 @@
     <string name="details">Детали</string>
     <string name="order_id">Номер заказа:</string>
     <string name="delivery_address">Адрес доставки:</string>
+    <string name="delivery_address_to_email">Доставка будет осуществлена на Email</string>
     <string name="to_main">На главную</string>
     <string name="order_processing">Оформление заказа</string>
     <string name="citizenship">Гражданство</string>

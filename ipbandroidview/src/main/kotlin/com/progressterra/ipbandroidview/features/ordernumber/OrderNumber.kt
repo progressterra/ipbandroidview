@@ -60,12 +60,12 @@ fun OrderNumber(
                 style = IpbTheme.typography.footnoteBold,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
-            Text(
-                modifier = Modifier,
-                text = state.address,
-                style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textTertiary.asBrush()
-            )
+//            Text(
+//                modifier = Modifier,
+//                text = state.address,
+//                style = IpbTheme.typography.footnoteRegular,
+//                tint = IpbTheme.colors.textTertiary.asBrush()
+//            )
         }
         OutlineButton(
             modifier = Modifier.fillMaxWidth(),

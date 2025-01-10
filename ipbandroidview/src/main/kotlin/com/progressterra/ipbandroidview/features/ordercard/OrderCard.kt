@@ -44,20 +44,20 @@ fun OrderCard(modifier: Modifier = Modifier, state: OrderCardState, useComponent
             }
             if (state.installment.isEmpty()) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(
-                        text = state.oldPrice.toString(),
-                        style = IpbTheme.typography.body2,
-                        tint = IpbTheme.colors.textTertiary.asBrush(),
-                    )
-                    Text(
-                        text = stringResource(id = R.string.price_for_you),
-                        style = IpbTheme.typography.footnoteRegular,
-                        tint = IpbTheme.colors.textPrimary.asBrush(),
-                    )
+//                    Text(
+//                        text = state.oldPrice.toString(),
+//                        style = IpbTheme.typography.body2,
+//                        tint = IpbTheme.colors.textTertiary.asBrush(),
+//                    )
+//                    Text(
+//                        text = stringResource(id = R.string.price_for_you),
+//                        style = IpbTheme.typography.footnoteRegular,
+//                        tint = IpbTheme.colors.textPrimary.asBrush(),
+//                    )
                     Text(
                         text = state.price.toString(),
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textPrimary2.asBrush(),
+                        style = IpbTheme.typography.title,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
                 }
             } else {
