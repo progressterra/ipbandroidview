@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -21,6 +22,17 @@ class GoodsDetailsScreenNode(
     override fun View(modifier: Modifier) {
         val viewModel = koinViewModel<GoodsDetailsScreenViewModel>()
         val context = LocalContext.current
+
+        // Отслеживаем ориентацию экрана
+
+        val configuration = LocalConfiguration.current
+        val orientation = configuration.orientation
+
+        // Обновляем состояние при изменении input
+        LaunchedEffect(input, orientation) {
+            viewModel.setup(input)
+        }
+
         viewModel.collectEffects { effect ->
             when (effect) {
                 is GoodsDetailsScreenEffect.Back -> navigation.onBack()

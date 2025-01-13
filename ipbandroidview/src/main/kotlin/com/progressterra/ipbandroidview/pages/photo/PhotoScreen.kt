@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +21,9 @@ fun PhotoScreen(
     useComponent: UsePhotoScreen
 ) {
     Box(
-        modifier = modifier.fillMaxSize().background(IpbTheme.colors.background.asBrush()),
+        modifier = modifier
+            .fillMaxSize()
+            .background(IpbTheme.colors.background.asBrush()),
         contentAlignment = Alignment.Center
     ) {
         PhotoTopBar(modifier = Modifier.align(Alignment.TopCenter), useComponent = useComponent)
@@ -29,5 +32,6 @@ fun PhotoScreen(
             image = state.picture,
             options = ImageOptions(contentScale = ContentScale.FillWidth)
         )
+
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,36 +34,44 @@ fun ItemGallery(
     val pagerState = rememberPagerState { state.images.size }
     Box(modifier = modifier) {
         HorizontalPager(
-            modifier = Modifier.fillMaxWidth().aspectRatio(1f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp
         ) {
+
             val imageUrl = state.images[it]
             if (imageUrl.endsWith(".mp4")) {
                 Video(
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(8.dp))
-                        .niceClickable { useComponent.handle(ItemGalleryEvent(imageUrl)) },
+                        .clip(RoundedCornerShape(8.dp)),
+                        //.niceClickable { useComponent.handle(ItemGalleryEvent(imageUrl)) },
                     url = imageUrl
                 )
 
-                Log.d("ItemGallery", "imageUrl: $imageUrl")
+
             }
             else
                 {
                     Image(
                         modifier =
-                        Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)).niceClickable {
-                            useComponent.handle(ItemGalleryEvent(state.images[it]))
-                        },
+                        Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(8.dp))
+                            .niceClickable {
+                                useComponent.handle(ItemGalleryEvent(state.images[it]))
+                            },
                         image = state.images[it]
                     )
                 }
         }
         HorizontalPagerIndicator(
-            modifier = Modifier.align(Alignment.BottomCenter).padding(10.dp),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(10.dp),
             pagerState = pagerState,
             pageCount = state.images.size,
             activeColor = IpbTheme.colors.onSurface.asColor(),

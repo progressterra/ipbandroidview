@@ -114,7 +114,6 @@ fun FullWidthImage(image: String) {
         modifier = Modifier.fillMaxWidth()
     ) {
         val screenWidth = maxWidth
-
         Image(
             modifier = Modifier
                 .fillMaxWidth(),

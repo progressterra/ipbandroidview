@@ -1,10 +1,15 @@
 package com.progressterra.ipbandroidview.shared.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,12 +27,45 @@ fun Video(modifier: Modifier = Modifier, url: String) {
             ExoPlayer.Builder(context).build().apply {
                 setMediaItem(MediaItem.fromUri(url))
                 prepare()
+
             }
         }
+
+        var isPlaying by remember { mutableStateOf(false) }
+
+        // Управляем воспроизведением
+        LaunchedEffect(isPlaying) {
+            if (isPlaying) {
+                exoPlayer.play()
+            } else {
+                exoPlayer.pause()
+            }
+        }
+
+        // Видео
         AndroidView(
-            factory = { PlayerView(it).apply { player = exoPlayer } },
+            factory = { context ->
+                PlayerView(context).apply {
+                    player = exoPlayer
+                    useController = false // Отключить стандартные контролы
+                }
+            },
             modifier = Modifier.fillMaxSize()
         )
+
+        // Кнопка старт/стоп
+        IconButton(
+            onClick = { isPlaying = !isPlaying },
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(48.dp)
+        ) {
+            Icon(
+                imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                contentDescription = if (isPlaying) "Pause" else "Play",
+                tint = MaterialTheme.colors.onSurface
+            )
+        }
     }
 }
 

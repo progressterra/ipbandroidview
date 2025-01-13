@@ -103,6 +103,7 @@ dependencies {
     api("androidx.compose.ui:ui-tooling-preview:1.6.5")
     api("androidx.compose.foundation:foundation:1.6.5")
     api("androidx.compose.material:material:1.6.5")
+    api("androidx.compose.material:material-icons-extended:1.6.5")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
