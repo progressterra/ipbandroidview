@@ -40,33 +40,29 @@ fun ItemGallery(
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp
-        ) {
+        ) { pageIndex ->
 
-            val imageUrl = state.images[it]
+            val imageUrl = state.images[pageIndex]
             if (imageUrl.endsWith(".mp4")) {
                 Video(
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(RoundedCornerShape(8.dp)),
-                        //.niceClickable { useComponent.handle(ItemGalleryEvent(imageUrl)) },
-                    url = imageUrl
+                    url = imageUrl,
+                    isPlayingExt = pagerState.currentPage == pageIndex // Проверка на текущую страницу
                 )
+            } else {
+                Image(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(8.dp))
+                        .niceClickable {
+                            useComponent.handle(ItemGalleryEvent(state.images[pageIndex]))
+                        },
+                    image = state.images[pageIndex],
 
-
+                )
             }
-            else
-                {
-                    Image(
-                        modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(8.dp))
-                            .niceClickable {
-                                useComponent.handle(ItemGalleryEvent(state.images[it]))
-                            },
-                        image = state.images[it]
-                    )
-                }
         }
         HorizontalPagerIndicator(
             modifier = Modifier
@@ -80,6 +76,63 @@ fun ItemGallery(
         )
     }
 }
+
+//@OptIn(ExperimentalFoundationApi::class)
+//@Composable
+//fun ItemGallery(
+//    modifier: Modifier = Modifier,
+//    state: ItemGalleryState,
+//    useComponent: UseItemGallery
+//) {
+//    val pagerState = rememberPagerState { state.images.size }
+//    Box(modifier = modifier) {
+//        HorizontalPager(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .aspectRatio(1f),
+//            state = pagerState,
+//            contentPadding = PaddingValues(horizontal = 20.dp),
+//            pageSpacing = 20.dp
+//        ) {
+//
+//            val imageUrl = state.images[it]
+//            if (imageUrl.endsWith(".mp4")) {
+//                Video(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .clip(RoundedCornerShape(8.dp)),
+//                        //.niceClickable { useComponent.handle(ItemGalleryEvent(imageUrl)) },
+//                    url = imageUrl
+//                )
+//
+//
+//            }
+//            else
+//                {
+//                    Image(
+//                        modifier =
+//                        Modifier
+//                            .fillMaxSize()
+//                            .clip(RoundedCornerShape(8.dp))
+//                            .niceClickable {
+//                                useComponent.handle(ItemGalleryEvent(state.images[it]))
+//                            },
+//                        image = state.images[it]
+//                    )
+//                }
+//        }
+//        HorizontalPagerIndicator(
+//            modifier = Modifier
+//                .align(Alignment.BottomCenter)
+//                .padding(10.dp),
+//            pagerState = pagerState,
+//            pageCount = state.images.size,
+//            activeColor = IpbTheme.colors.onSurface.asColor(),
+//            inactiveColor = IpbTheme.colors.onSurface.asColor().copy(alpha = 0.4f),
+//            indicatorWidth = 10.dp
+//        )
+//    }
+//}
 
 @Preview
 @Composable

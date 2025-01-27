@@ -30,7 +30,8 @@ fun Image(modifier: Modifier = Modifier, image: String, options: ImageOptions = 
                 .fillMaxSize()
                 .clip(RoundedCornerShape(8.dp))
                 ,
-            url = image
+            url = image,
+            isPlayingExt = true
         )
 
 

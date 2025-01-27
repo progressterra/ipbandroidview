@@ -39,7 +39,7 @@ fun VideoGalleryScreen(modifier: Modifier = Modifier, state: VideoGalleryState) 
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(state.videos) { video ->
-                Video(modifier = Modifier.size(384.dp, 216.dp), url = video)
+                Video(modifier = Modifier.size(384.dp, 216.dp), url = video, isPlayingExt = true)
             }
         }
     }
