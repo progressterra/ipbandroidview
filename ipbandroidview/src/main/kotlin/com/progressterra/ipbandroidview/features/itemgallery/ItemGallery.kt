@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -23,6 +24,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Image
 import com.progressterra.ipbandroidview.shared.ui.Video
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
+import com.skydoves.landscapist.ImageOptions
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -59,6 +61,7 @@ fun ItemGallery(
                         .niceClickable {
                             useComponent.handle(ItemGalleryEvent(state.images[pageIndex]))
                         },
+                    options = ImageOptions(contentScale = ContentScale.Fit),
                     image = state.images[pageIndex],
 
                 )
